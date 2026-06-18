@@ -165,11 +165,19 @@ export interface GrammarComparisonItem {
   examples: { polish: string; english: string }[];
 }
 
+export interface FrequencyItem {
+  polish: string;
+  english: string;
+  pronunciation?: string;
+  percent: number; // 0 (never) – 100 (always); drives the visual bar
+}
+
 export type GrammarSectionType =
   | 'text'
   | 'table'
   | 'examples'
   | 'comparison'
+  | 'frequency'
   | 'note';
 
 export interface GrammarSection {
@@ -179,6 +187,7 @@ export interface GrammarSection {
   table?: GrammarTable;
   examples?: { polish: string; english: string; note?: string }[];
   comparison?: GrammarComparisonItem[];
+  frequency?: FrequencyItem[];
   note?: string;
   noteType?: 'tip' | 'warning' | 'info';
 }

@@ -1,11 +1,13 @@
 'use client';
 
-import { BookOpen, Brain, Flame, Trophy, CheckCircle2, Circle } from 'lucide-react';
+import Link from 'next/link';
+import { BookOpen, Brain, Flame, Trophy, CheckCircle2, Circle, Lightbulb } from 'lucide-react';
 import { useProgress } from '@/hooks/useProgress';
 import { lessons } from '@/data/lessons';
 import { quizzes } from '@/data/quizzes';
 import ProgressBar from '@/components/shared/ProgressBar';
 import Badge from '@/components/shared/Badge';
+import PageSidebar, { SidebarCard } from '@/components/layout/PageSidebar';
 
 export default function ProgressPage() {
   const { progress, mounted, getOverallCompletion, getQuizBestScore } = useProgress();
@@ -36,7 +38,9 @@ export default function ProgressPage() {
     .slice(0, 10);
 
   return (
-    <div className="p-6 md:p-10 max-w-5xl">
+    <div className="p-6 md:p-10">
+      <div className="flex gap-8">
+        <div className="flex-1 min-w-0">
       <div className="mb-8">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Your Progress</h1>
         <p className="text-gray-500 mt-1">Track your Polish learning journey.</p>
@@ -146,6 +150,55 @@ export default function ProgressPage() {
             </div>
           )}
         </div>
+      </div>
+        </div>
+
+        <PageSidebar>
+          <SidebarCard title="Study Tips" accent="amber">
+            <div className="space-y-3 text-xs text-gray-600">
+              <div className="flex gap-2">
+                <Lightbulb className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <p>Complete one lesson per day and take the quiz right after.</p>
+              </div>
+              <div className="flex gap-2">
+                <Lightbulb className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <p>Re-read grammar reference tables before retaking quizzes you scored low on.</p>
+              </div>
+              <div className="flex gap-2">
+                <Lightbulb className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <p>Focus on cases (Biernik, Narzędnik, Dopełniacz) — they appear in every exam.</p>
+              </div>
+            </div>
+          </SidebarCard>
+
+          <SidebarCard title="Weak Areas" accent="purple">
+            {(() => {
+              const lowScoreQuizzes = quizzes
+                .map((q) => {
+                  const best = getQuizBestScore(q.id);
+                  return { quiz: q, best };
+                })
+                .filter((x) => x.best !== null && x.best < 80)
+                .sort((a, b) => (a.best ?? 0) - (b.best ?? 0))
+                .slice(0, 4);
+
+              if (lowScoreQuizzes.length === 0) {
+                return <p className="text-xs text-gray-400">Take some quizzes to identify areas to improve.</p>;
+              }
+
+              return (
+                <div className="space-y-2">
+                  {lowScoreQuizzes.map(({ quiz, best }) => (
+                    <Link key={quiz.id} href={`/quizzes/${quiz.id}`} className="flex items-center justify-between text-sm hover:text-purple-600 transition-colors">
+                      <span className="text-gray-600 truncate">{quiz.title.replace(' Quiz', '')}</span>
+                      <span className="text-red-500 font-semibold text-xs shrink-0 ml-2">{best}%</span>
+                    </Link>
+                  ))}
+                </div>
+              );
+            })()}
+          </SidebarCard>
+        </PageSidebar>
       </div>
     </div>
   );

@@ -863,4 +863,78 @@ export const grammarTopics: GrammarTopic[] = [
       },
     ],
   },
+
+  // ─────────────────────────────────────────────────────────
+  // 14. FREQUENCY ADVERBS
+  // ─────────────────────────────────────────────────────────
+  {
+    id: 'frequency-adverbs',
+    title: 'Frequency Adverbs',
+    polishTitle: 'Przysłówki częstotliwości',
+    description: 'How often do you do something? See zawsze, zwykle, często, rzadko, nigdy on a visual scale from always to never.',
+    category: 'practical',
+    icon: 'gauge',
+    order: 14,
+    sections: [
+      {
+        type: 'text',
+        text: 'Frequency adverbs answer the question "Jak często?" (How often?). They run on a scale from zawsze (always, 100%) down to nigdy (never, 0%). Picture them on a meter:',
+      },
+      {
+        type: 'frequency',
+        title: 'The Frequency Scale',
+        frequency: [
+          { polish: 'zawsze', english: 'always', pronunciation: 'ZAHF-sheh', percent: 100 },
+          { polish: 'zwykle / zazwyczaj', english: 'usually', pronunciation: 'ZVIK-leh', percent: 85 },
+          { polish: 'często', english: 'often', pronunciation: 'CHEN-stoh', percent: 70 },
+          { polish: 'czasami / czasem', english: 'sometimes', pronunciation: 'chah-SAH-mee', percent: 45 },
+          { polish: 'rzadko', english: 'rarely', pronunciation: 'ZHAHT-koh', percent: 20 },
+          { polish: 'nigdy', english: 'never', pronunciation: 'NEEG-dih', percent: 0 },
+        ],
+      },
+      {
+        type: 'note',
+        noteType: 'tip',
+        note: 'Word order: the frequency adverb usually goes BEFORE the verb.\n"Zwykle jem śniadanie o ósmej." (I usually eat breakfast at eight.)\n"Często słucham muzyki." (I often listen to music.)',
+      },
+      {
+        type: 'note',
+        noteType: 'warning',
+        note: 'nigdy needs a DOUBLE negative — it always pairs with "nie" on the verb:\n"Nigdy nie gram na gitarze." (I never play the guitar.)\nNOT "Nigdy gram…" ✗',
+      },
+      {
+        type: 'examples',
+        title: 'In full sentences',
+        examples: [
+          { polish: 'Zawsze w weekendy śpię długo.', english: 'I always sleep in on weekends.', note: '100%' },
+          { polish: 'Zwykle wstaję o siódmej.', english: 'I usually get up at seven.', note: '~85%' },
+          { polish: 'Często czytam książki.', english: 'I often read books.', note: '~70%' },
+          { polish: 'Czasami chodzę do restauracji.', english: 'I sometimes go to a restaurant.', note: '~45%' },
+          { polish: 'Rzadko jeżdżę taksówką.', english: 'I rarely take a taxi.', note: '~20%' },
+          { polish: 'Nigdy nie chodzę do kina.', english: 'I never go to the cinema.', note: '0%' },
+        ],
+      },
+      {
+        type: 'table',
+        title: 'Saying exactly how often',
+        table: {
+          caption: 'For precise frequency, use these expressions:',
+          headers: ['Polish', 'English'],
+          rows: [
+            ['codziennie', 'every day'],
+            ['raz w tygodniu', 'once a week'],
+            ['dwa razy w tygodniu', 'twice a week'],
+            ['raz na miesiąc', 'once a month'],
+            ['raz w roku', 'once a year'],
+            ['od czasu do czasu', 'from time to time'],
+          ],
+        },
+      },
+      {
+        type: 'note',
+        noteType: 'info',
+        note: 'Ask a friend: "Jak często…?" — "Jak często grasz w gry?" (How often do you play games?) Answer with any adverb above: "Codziennie!" or "Rzadko."',
+      },
+    ],
+  },
 ];

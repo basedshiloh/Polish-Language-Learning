@@ -1,6 +1,7 @@
 import { Lightbulb, AlertTriangle, Info } from 'lucide-react';
 import { GrammarSection, TableColor } from '@/lib/types';
 import GrammarTableView from './GrammarTableView';
+import FrequencyScale from './FrequencyScale';
 
 const compColors: Record<TableColor, { bg: string; border: string; title: string; chip: string }> = {
   blue: { bg: 'bg-blue-50', border: 'border-blue-200', title: 'text-blue-800', chip: 'bg-blue-100 text-blue-700' },
@@ -42,6 +43,10 @@ export default function GrammarSectionView({ section }: { section: GrammarSectio
             </div>
           ))}
         </div>
+      )}
+
+      {section.type === 'frequency' && section.frequency && (
+        <FrequencyScale items={section.frequency} />
       )}
 
       {section.type === 'comparison' && section.comparison && (

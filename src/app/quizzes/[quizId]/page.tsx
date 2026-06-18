@@ -69,7 +69,7 @@ export default function QuizPage({ params }: { params: Promise<{ quizId: string 
 
   if (phase === 'intro') {
     return (
-      <div className="p-6 md:p-10 max-w-3xl">
+      <div className="p-6 md:p-10 max-w-4xl">
         <Link
           href="/quizzes"
           className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-blue-600 mb-6 transition-colors"
@@ -101,7 +101,7 @@ export default function QuizPage({ params }: { params: Promise<{ quizId: string 
     const score = Math.round((correctCount / totalQuestions) * 100);
 
     return (
-      <div className="p-6 md:p-10 max-w-3xl">
+      <div className="p-6 md:p-10 max-w-4xl">
         <QuizResults
           score={score}
           correct={correctCount}
@@ -115,7 +115,7 @@ export default function QuizPage({ params }: { params: Promise<{ quizId: string 
   }
 
   return (
-    <div className="p-6 md:p-10 max-w-3xl">
+    <div className="p-6 md:p-10 max-w-4xl">
       <Link
         href="/quizzes"
         className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-blue-600 mb-6 transition-colors"

@@ -19,6 +19,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   'map-pin': icons.MapPin,
   'users': icons.Users,
   'shopping-bag': icons.ShoppingBag,
+  'gauge': icons.Gauge,
 };
 
 export const categoryStyles: Record<GrammarCategory, { label: string; bg: string; text: string }> = {
