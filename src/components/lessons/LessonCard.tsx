@@ -19,6 +19,16 @@ function getLessonIcon(iconName: string) {
     'zap': icons.Zap,
     'coffee': icons.Coffee,
     'calendar': icons.Calendar,
+    'book-open': icons.BookOpen,
+    'languages': icons.Languages,
+    'briefcase': icons.Briefcase,
+    'heart': icons.Heart,
+    'music': icons.Music,
+    'utensils': icons.Utensils,
+    'clock': icons.Clock,
+    'shopping-bag': icons.ShoppingBag,
+    'shirt': icons.Shirt,
+    'mic': icons.Mic,
   };
   return iconMap[iconName] || icons.BookOpen;
 }

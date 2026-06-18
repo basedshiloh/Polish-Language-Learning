@@ -1,10 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { BookOpen, Brain, Flame, ArrowRight, Trophy } from 'lucide-react';
+import { BookOpen, Brain, Flame, ArrowRight, Trophy, Table2 } from 'lucide-react';
 import { useProgress } from '@/hooks/useProgress';
 import { lessons } from '@/data/lessons';
 import { quizzes } from '@/data/quizzes';
+import { grammarTopics } from '@/data/grammar';
 import ProgressBar from '@/components/shared/ProgressBar';
 
 export default function Dashboard() {
@@ -144,11 +145,24 @@ export default function Dashboard() {
               <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
             </Link>
             <Link
+              href="/grammar"
+              className="flex items-center gap-4 bg-white rounded-lg p-4 border border-gray-100 hover:border-purple-200 hover:shadow-sm transition-all"
+            >
+              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                <Table2 className="w-5 h-5 text-purple-600" />
+              </div>
+              <div>
+                <p className="font-medium text-gray-900">Grammar Reference</p>
+                <p className="text-xs text-gray-500">{grammarTopics.length} topics with tables</p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
+            </Link>
+            <Link
               href="/quizzes"
               className="flex items-center gap-4 bg-white rounded-lg p-4 border border-gray-100 hover:border-blue-200 hover:shadow-sm transition-all"
             >
-              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                <Brain className="w-5 h-5 text-purple-600" />
+              <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                <Brain className="w-5 h-5 text-green-600" />
               </div>
               <div>
                 <p className="font-medium text-gray-900">Take a Quiz</p>

@@ -132,3 +132,64 @@ export interface UserProgress {
     lastActiveDate: string;
   };
 }
+
+// ─── Grammar Reference Types ──────────────────────────────
+
+export type GrammarCategory =
+  | 'pronunciation'
+  | 'nouns'
+  | 'cases'
+  | 'verbs'
+  | 'numbers'
+  | 'practical';
+
+export type TableColor = 'blue' | 'pink' | 'green' | 'amber' | 'purple' | 'gray';
+
+export interface GrammarTable {
+  caption?: string;
+  headers: string[];
+  rows: string[][];
+  // Tint entire columns (e.g., gender colors). Index matches headers; null = no tint.
+  columnColors?: (TableColor | null)[];
+  // Render the first column as bold row-headers.
+  highlightFirstCol?: boolean;
+  footnote?: string;
+}
+
+export interface GrammarComparisonItem {
+  title: string;        // e.g. "ZNAĆ"
+  subtitle: string;     // e.g. "to know / be familiar with"
+  color: TableColor;
+  usage: string;        // when to use it
+  structure: string;    // e.g. "znać + Biernik (Accusative)"
+  examples: { polish: string; english: string }[];
+}
+
+export type GrammarSectionType =
+  | 'text'
+  | 'table'
+  | 'examples'
+  | 'comparison'
+  | 'note';
+
+export interface GrammarSection {
+  type: GrammarSectionType;
+  title?: string;
+  text?: string;
+  table?: GrammarTable;
+  examples?: { polish: string; english: string; note?: string }[];
+  comparison?: GrammarComparisonItem[];
+  note?: string;
+  noteType?: 'tip' | 'warning' | 'info';
+}
+
+export interface GrammarTopic {
+  id: string;
+  title: string;
+  polishTitle?: string;
+  description: string;
+  category: GrammarCategory;
+  icon: string;
+  order: number;
+  sections: GrammarSection[];
+}
