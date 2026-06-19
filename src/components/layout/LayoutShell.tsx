@@ -3,6 +3,7 @@
 import { SidebarContext, useSidebarState } from '@/hooks/useSidebar';
 import Sidebar from './Sidebar';
 import MobileNav from './MobileNav';
+import SearchBox from './SearchBox';
 
 export default function LayoutShell({ children }: { children: React.ReactNode }) {
   const sidebarState = useSidebarState();
@@ -16,6 +17,9 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
           sidebarState.collapsed ? 'md:ml-16' : 'md:ml-64'
         }`}
       >
+        <div className="sticky top-0 z-30 bg-slate-50/80 backdrop-blur-sm border-b border-gray-100 px-6 py-3">
+          <SearchBox />
+        </div>
         {children}
       </main>
     </SidebarContext.Provider>
