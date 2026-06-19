@@ -4,6 +4,7 @@ import { SidebarContext, useSidebarState } from '@/hooks/useSidebar';
 import Sidebar from './Sidebar';
 import MobileNav from './MobileNav';
 import SearchBox from './SearchBox';
+import Footer from './Footer';
 
 export default function LayoutShell({ children }: { children: React.ReactNode }) {
   const sidebarState = useSidebarState();
@@ -21,6 +22,7 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
           <SearchBox />
         </div>
         {children}
+        <Footer />
       </main>
     </SidebarContext.Provider>
   );
