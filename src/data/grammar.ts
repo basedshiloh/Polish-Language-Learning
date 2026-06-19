@@ -937,4 +937,215 @@ export const grammarTopics: GrammarTopic[] = [
       },
     ],
   },
+
+  // ─────────────────────────────────────────────────────────
+  // 15. COMMON QUESTIONS & HOW TO ANSWER THEM
+  // ─────────────────────────────────────────────────────────
+  {
+    id: 'questions-answers',
+    title: 'Common Questions & How to Answer',
+    polishTitle: 'Pytania i odpowiedzi',
+    description: 'The questions you will hear every day — and exactly how to answer them with the correct case and form.',
+    category: 'practical',
+    icon: 'message-circle',
+    order: 15,
+    sections: [
+      {
+        type: 'text',
+        text: 'Polish questions tell you which case to use in the answer. Each question word (Kim? Jaki? Skąd? Czym?) points at a specific case. Here are all the common ones from class, with full example answers.',
+      },
+
+      // KIM JESTEŚ?
+      {
+        type: 'table',
+        title: 'Kim jesteś? — Who are you? / What do you do?',
+        table: {
+          caption: 'Asks about identity, profession, or nationality. Answer uses być + INSTRUMENTAL case.',
+          headers: ['Question', 'Answer', 'What changed?'],
+          columnColors: ['purple', null, null],
+          rows: [
+            ['Kim jesteś?', 'Jestem studentem. (m)\nJestem studentką. (f)', 'student → studentem\nstudentka → studentką'],
+            ['Kim jesteś z zawodu?', 'Jestem nauczycielem. (m)\nJestem nauczycielką. (f)', 'nauczyciel → nauczycielem\nnauczycielka → nauczycielką'],
+            ['Kim Pan jest?', 'Jestem lekarzem.\nJestem informatykiem.', 'lekarz → lekarzem\ninformatyk → informatykiem'],
+            ['Kim Pani jest?', 'Jestem lekarką.\nJestem emerytką.', 'lekarka → lekarką\nemerytka → emerytką'],
+            ['Kim on jest?', 'On jest biznesmenem.\nOn jest politykiem.', 'biznesmen → biznesmenem\npolityk → politykiem'],
+            ['Kim ona jest?', 'Ona jest aktorką.\nOna jest dziennikarką.', 'aktorka → aktorką\ndziennikarka → dziennikarką'],
+          ],
+          footnote: 'Rule: masculine/neuter → -em (after k,g → -iem), feminine → -ą.',
+        },
+      },
+      {
+        type: 'note',
+        noteType: 'tip',
+        note: 'Nationality works the same way:\n"Kim jesteś?" — "Jestem Polakiem / Polką." (I am Polish m/f)\n"Jestem Amerykaninem / Amerykanką."\n"Jestem Indonezyjczykiem / Indonezyjką."',
+      },
+
+      // JAKI ON JEST? JAKA ONA JEST?
+      {
+        type: 'table',
+        title: 'Jaki on jest? / Jaka ona jest? — What is he/she like?',
+        table: {
+          caption: 'Asks about appearance or personality. Answer uses adjectives that agree in gender (Nominative case).',
+          headers: ['Question', 'Example answers'],
+          columnColors: ['purple', null],
+          rows: [
+            ['Jaki on jest?\n(What is he like?)', 'On jest wysoki i przystojny.\nOn jest młody, inteligentny i wesoły.\nOn jest niski i szczupły.'],
+            ['Jaka ona jest?\n(What is she like?)', 'Ona jest wysoka i piękna.\nOna jest młoda, inteligentna i wesoła.\nOna jest niska i szczupła.'],
+            ['Jakie ono jest?\n(What is it like?)', 'Ono jest małe i wesołe.\nDziecko jest młode i zdrowe.'],
+            ['Jaki Pan jest?\n(What are you like? — formal m)', 'Jestem wysoki i uprzejmy.\nJestem ambitny i pracowity.'],
+            ['Jaka Pani jest?\n(What are you like? — formal f)', 'Jestem wysoka i uprzejma.\nJestem ambitna i pracowita.'],
+          ],
+        },
+      },
+      {
+        type: 'table',
+        title: 'Adjective endings for gender',
+        table: {
+          headers: ['Masculine (-y/-i)', 'Feminine (-a)', 'Neuter (-e)'],
+          columnColors: ['blue', 'pink', 'green'],
+          rows: [
+            ['wysoki', 'wysoka', 'wysokie'],
+            ['młody', 'młoda', 'młode'],
+            ['wesoły', 'wesoła', 'wesołe'],
+            ['przystojny', 'przystojna', 'przystojne'],
+            ['inteligentny', 'inteligentna', 'inteligentne'],
+            ['szczupły', 'szczupła', 'szczupłe'],
+            ['gruby', 'gruba', 'grube'],
+            ['stary', 'stara', 'stare'],
+            ['smutny', 'smutna', 'smutne'],
+            ['brudny', 'brudna', 'brudne'],
+          ],
+          footnote: 'Pattern: masculine -y → feminine -a → neuter -e. After k, g: masculine -i (wysoki, drogi).',
+        },
+      },
+
+      // SKĄD JESTEŚ?
+      {
+        type: 'table',
+        title: 'Skąd jesteś? — Where are you from?',
+        table: {
+          caption: 'Answer uses "Jestem z" + GENITIVE case of the country/city.',
+          headers: ['Question', 'Example answers'],
+          columnColors: ['purple', null],
+          rows: [
+            ['Skąd jesteś?', 'Jestem z Polski. / z Indonezji. / z Ameryki.\nJestem ze Stanów Zjednoczonych.'],
+            ['Skąd Pan/Pani jest?', 'Jestem z Chin. / z Wietnamu. / z Kolumbii.\nJestem z Krakowa. / z Poznania.'],
+          ],
+        },
+      },
+
+      // GDZIE MIESZKASZ?
+      {
+        type: 'table',
+        title: 'Gdzie mieszkasz? — Where do you live?',
+        table: {
+          caption: 'Answer uses "Mieszkam w" + LOCATIVE case of the city.',
+          headers: ['Question', 'Example answers'],
+          columnColors: ['purple', null],
+          rows: [
+            ['Gdzie mieszkasz?', 'Mieszkam w Warszawie. / w Poznaniu.\nMieszkam we Wrocławiu. / w Gdańsku.'],
+            ['Gdzie Pan/Pani mieszka?', 'Mieszkam w Krakowie. / w Polsce.\nMieszkam w Łodzi. / w Toruniu.'],
+          ],
+        },
+      },
+
+      // CZYM SIĘ INTERESUJESZ?
+      {
+        type: 'table',
+        title: 'Czym się interesujesz? — What are you interested in?',
+        table: {
+          caption: 'Answer uses "Interesuję się" + INSTRUMENTAL case.',
+          headers: ['Question', 'Example answers'],
+          columnColors: ['purple', null],
+          rows: [
+            ['Czym się interesujesz?', 'Interesuję się sportem. (sport → sportem)\nInteresuję się muzyką klasyczną. (muzyka → muzyką)\nInteresuję się fotografią. (fotografia → fotografią)'],
+            ['Czym się Pan/Pani\ninteresuje?', 'Interesuję się polityką europejską.\nInteresuję się malarstwem. (malarstwo → malarstwem)\nInteresuję się produkcją muzyczną.'],
+          ],
+        },
+      },
+
+      // CO LUBISZ ROBIĆ?
+      {
+        type: 'table',
+        title: 'Co lubisz robić? — What do you like to do?',
+        table: {
+          caption: 'Answer uses "Lubię" + INFINITIVE verb.',
+          headers: ['Question', 'Example answers'],
+          columnColors: ['purple', null],
+          rows: [
+            ['Co lubisz robić?', 'Lubię czytać książki.\nLubię słuchać muzyki.\nLubię podróżować i gotować.'],
+            ['Co lubisz robić\nw wolnym czasie?', 'Lubię grać w gry komputerowe.\nLubię chodzić na spacery.\nLubię spotykać się z przyjaciółmi.'],
+          ],
+        },
+      },
+
+      // ILE MASZ LAT?
+      {
+        type: 'table',
+        title: 'Ile masz lat? — How old are you?',
+        table: {
+          caption: 'Answer uses "Mam" + number + rok/lata/lat.',
+          headers: ['Question', 'Example answers', 'Which form?'],
+          columnColors: ['purple', null, null],
+          rows: [
+            ['Ile masz lat?', 'Mam dwadzieścia lat.', '5–21 → lat'],
+            ['Ile ma Pan/Pani lat?', 'Mam trzydzieści dwa lata.', '2, 3, 4 (22, 23, 24…) → lata'],
+            ['Ile on/ona ma lat?', 'On ma jeden rok.\nOna ma sześćdziesiąt pięć lat.', '1 → rok\n5+ → lat'],
+          ],
+        },
+      },
+
+      // KTÓRA GODZINA?
+      {
+        type: 'table',
+        title: 'Która godzina? — What time is it?',
+        table: {
+          caption: 'Answer uses "Jest" + feminine ordinal number. See the Telling Time grammar page for full details.',
+          headers: ['Question', 'Example answers'],
+          columnColors: ['purple', null],
+          rows: [
+            ['Która godzina?', 'Jest trzecia. (3:00)\nJest wpół do piątej. (4:30)\nJest piętnaście po ósmej. (8:15)'],
+            ['O której godzinie?', 'O siódmej. (at 7:00)\nO wpół do dziesiątej. (at 9:30)\nO dwudziestej. (at 20:00)'],
+          ],
+        },
+      },
+
+      // CO MASZ NA SOBIE?
+      {
+        type: 'table',
+        title: 'Co masz na sobie? — What are you wearing?',
+        table: {
+          caption: 'Answer uses "Mam na sobie" + ACCUSATIVE case.',
+          headers: ['Question', 'Example answers'],
+          columnColors: ['purple', null],
+          rows: [
+            ['Co masz na sobie?', 'Mam na sobie białą koszulę i czarne spodnie.\nMam na sobie niebieską kurtkę i szare buty.\nMam na sobie czerwony sweter i dżinsy.'],
+            ['Co on/ona ma na sobie?', 'On ma na sobie czarny garnitur.\nOna ma na sobie żółtą sukienkę i brązowe kozaki.'],
+          ],
+        },
+      },
+
+      // CO JESZ / PIJESZ?
+      {
+        type: 'table',
+        title: 'Co jesz? Co pijesz? — What do you eat/drink?',
+        table: {
+          caption: 'Answer uses jeść/pić + ACCUSATIVE case.',
+          headers: ['Question', 'Example answers'],
+          columnColors: ['purple', null],
+          rows: [
+            ['Co zwykle jesz\nna śniadanie?', 'Na śniadanie zwykle jem bułkę z masłem i serem.\nZwykle jem jajka i chleb.'],
+            ['Co zwykle jesz na obiad?', 'Na obiad zwykle jem zupę pomidorową i kurczaka z ryżem.'],
+            ['Co pijesz?', 'Piję kawę z mlekiem.\nPiję wodę mineralną.\nPiję sok pomarańczowy.'],
+          ],
+        },
+      },
+
+      {
+        type: 'note',
+        noteType: 'info',
+        note: 'Summary of which case each question triggers:\n• Kim? → Instrumental (jestem studentem)\n• Jaki/Jaka? → Nominative (on jest wysoki)\n• Skąd? → Genitive (z Polski)\n• Gdzie? → Locative (w Warszawie)\n• Czym? → Instrumental (sportem)\n• Co? Kogo? → Accusative (lubię muzykę)\n• Ile? → Genitive (dwadzieścia lat)',
+      },
+    ],
+  },
 ];
