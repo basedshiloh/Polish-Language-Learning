@@ -80,6 +80,18 @@ export function useProgress() {
     });
   }, [updateStreak]);
 
+  const unmarkLessonComplete = useCallback((lessonId: string) => {
+    setProgress((prev) => {
+      const { [lessonId]: _, ...rest } = prev.lessonProgress;
+      const updated = {
+        ...prev,
+        lessonProgress: rest,
+      };
+      saveProgress(updated);
+      return updated;
+    });
+  }, []);
+
   const saveQuizAttempt = useCallback((attempt: QuizAttempt) => {
     setProgress((prev) => {
       const existing = prev.quizAttempts[attempt.quizId] || [];
@@ -120,6 +132,7 @@ export function useProgress() {
     progress,
     mounted,
     markLessonComplete,
+    unmarkLessonComplete,
     saveQuizAttempt,
     getQuizBestScore,
     getLessonStatus,

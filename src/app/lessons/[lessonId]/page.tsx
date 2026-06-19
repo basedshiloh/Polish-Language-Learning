@@ -3,7 +3,7 @@
 import { use } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle2, Clock, Brain, BookOpen, Info } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Clock, Brain, BookOpen, Info, RotateCcw } from 'lucide-react';
 import { lessons } from '@/data/lessons';
 import { useProgress } from '@/hooks/useProgress';
 import Badge from '@/components/shared/Badge';
@@ -16,7 +16,7 @@ import TableOfContents from '@/components/layout/TableOfContents';
 export default function LessonPage({ params }: { params: Promise<{ lessonId: string }> }) {
   const { lessonId } = use(params);
   const lesson = lessons.find((l) => l.id === lessonId);
-  const { mounted, getLessonStatus, markLessonComplete } = useProgress();
+  const { mounted, getLessonStatus, markLessonComplete, unmarkLessonComplete } = useProgress();
 
   if (!lesson) notFound();
 
@@ -91,13 +91,21 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
           </div>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
-            {!completed && (
+            {!completed ? (
               <button
                 onClick={() => markLessonComplete(lesson.id)}
                 className="flex items-center justify-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
               >
                 <CheckCircle2 className="w-5 h-5" />
                 Mark as Complete
+              </button>
+            ) : (
+              <button
+                onClick={() => unmarkLessonComplete(lesson.id)}
+                className="flex items-center justify-center gap-2 bg-white text-gray-500 border border-gray-200 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 hover:text-gray-700 transition-colors"
+              >
+                <RotateCcw className="w-5 h-5" />
+                Mark as Not Complete
               </button>
             )}
             {lesson.relatedQuizId && (
