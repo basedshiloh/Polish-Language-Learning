@@ -9,6 +9,11 @@ interface MatchingProps {
   onAnswer: (correct: boolean, answer: string) => void;
 }
 
+interface IndexedItem {
+  index: number;
+  text: string;
+}
+
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -19,45 +24,48 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 export default function Matching({ question, onAnswer }: MatchingProps) {
-  const [leftItems] = useState(() => shuffle(question.pairs.map((p) => p.left)));
-  const [rightItems] = useState(() => shuffle(question.pairs.map((p) => p.right)));
-  const [selectedLeft, setSelectedLeft] = useState<string | null>(null);
-  const [matched, setMatched] = useState<Record<string, string>>({});
-  const [wrongPair, setWrongPair] = useState<{ left: string; right: string } | null>(null);
+  const [leftItems] = useState<IndexedItem[]>(() =>
+    shuffle(question.pairs.map((p, i) => ({ index: i, text: p.left })))
+  );
+  const [rightItems] = useState<IndexedItem[]>(() =>
+    shuffle(question.pairs.map((p, i) => ({ index: i, text: p.right })))
+  );
+  const [selectedLeft, setSelectedLeft] = useState<number | null>(null);
+  const [matchedLeft, setMatchedLeft] = useState<Set<number>>(new Set());
+  const [matchedRight, setMatchedRight] = useState<Set<number>>(new Set());
+  const [wrongPair, setWrongPair] = useState<{ left: number; right: number } | null>(null);
   const [done, setDone] = useState(false);
   const [mistakes, setMistakes] = useState(0);
 
   const totalPairs = question.pairs.length;
 
-  const finishQuiz = useCallback((finalMatched: Record<string, string>, finalMistakes: number) => {
+  const finishQuiz = useCallback((matchCount: number, finalMistakes: number) => {
     setDone(true);
-    const correct = Object.keys(finalMatched).length;
-    const isAllCorrect = finalMistakes === 0;
-    onAnswer(isAllCorrect, `${correct}/${totalPairs} matched, ${finalMistakes} mistakes`);
+    onAnswer(finalMistakes === 0, `${matchCount}/${totalPairs} matched, ${finalMistakes} mistakes`);
   }, [onAnswer, totalPairs]);
 
   useEffect(() => {
-    if (Object.keys(matched).length === totalPairs && !done) {
-      finishQuiz(matched, mistakes);
+    if (matchedLeft.size === totalPairs && !done) {
+      finishQuiz(matchedLeft.size, mistakes);
     }
-  }, [matched, totalPairs, done, finishQuiz, mistakes]);
+  }, [matchedLeft.size, totalPairs, done, finishQuiz, mistakes]);
 
-  function handleLeftClick(item: string) {
-    if (done || matched[item]) return;
-    setSelectedLeft(selectedLeft === item ? null : item);
+  function handleLeftClick(item: IndexedItem) {
+    if (done || matchedLeft.has(item.index)) return;
+    setSelectedLeft(selectedLeft === item.index ? null : item.index);
     setWrongPair(null);
   }
 
-  function handleRightClick(item: string) {
-    if (done || !selectedLeft || Object.values(matched).includes(item)) return;
+  function handleRightClick(item: IndexedItem) {
+    if (done || selectedLeft === null || matchedRight.has(item.index)) return;
 
-    const correctPair = question.pairs.find((p) => p.left === selectedLeft);
-    if (correctPair && correctPair.right === item) {
-      setMatched((prev) => ({ ...prev, [selectedLeft]: item }));
+    if (selectedLeft === item.index) {
+      setMatchedLeft((prev) => new Set(prev).add(selectedLeft));
+      setMatchedRight((prev) => new Set(prev).add(item.index));
       setSelectedLeft(null);
       setWrongPair(null);
     } else {
-      setWrongPair({ left: selectedLeft, right: item });
+      setWrongPair({ left: selectedLeft, right: item.index });
       setMistakes((m) => m + 1);
       setTimeout(() => {
         setWrongPair(null);
@@ -72,9 +80,9 @@ export default function Matching({ question, onAnswer }: MatchingProps) {
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           {leftItems.map((item) => {
-            const isMatched = !!matched[item];
-            const isSelected = selectedLeft === item;
-            const isWrong = wrongPair?.left === item;
+            const isMatched = matchedLeft.has(item.index);
+            const isSelected = selectedLeft === item.index;
+            const isWrong = wrongPair?.left === item.index;
 
             let style = 'border-gray-200 bg-white hover:border-blue-300';
             if (isMatched) style = 'border-green-300 bg-green-50 opacity-60';
@@ -83,13 +91,13 @@ export default function Matching({ question, onAnswer }: MatchingProps) {
 
             return (
               <button
-                key={item}
+                key={item.index}
                 onClick={() => handleLeftClick(item)}
                 disabled={isMatched}
                 className={`w-full p-3 rounded-lg border-2 text-sm font-semibold text-blue-800 text-left transition-all ${style}`}
               >
                 <div className="flex items-center justify-between">
-                  {item}
+                  {item.text}
                   {isMatched && <CheckCircle2 className="w-4 h-4 text-green-600" />}
                 </div>
               </button>
@@ -98,8 +106,8 @@ export default function Matching({ question, onAnswer }: MatchingProps) {
         </div>
         <div className="space-y-2">
           {rightItems.map((item) => {
-            const isMatched = Object.values(matched).includes(item);
-            const isWrong = wrongPair?.right === item;
+            const isMatched = matchedRight.has(item.index);
+            const isWrong = wrongPair?.right === item.index;
 
             let style = 'border-gray-200 bg-white hover:border-blue-300';
             if (isMatched) style = 'border-green-300 bg-green-50 opacity-60';
@@ -107,13 +115,13 @@ export default function Matching({ question, onAnswer }: MatchingProps) {
 
             return (
               <button
-                key={item}
+                key={item.index}
                 onClick={() => handleRightClick(item)}
                 disabled={isMatched}
                 className={`w-full p-3 rounded-lg border-2 text-sm text-gray-700 text-left transition-all ${style}`}
               >
                 <div className="flex items-center justify-between">
-                  {item}
+                  {item.text}
                   {isMatched && <CheckCircle2 className="w-4 h-4 text-green-600" />}
                 </div>
               </button>
