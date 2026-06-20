@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { VocabularyItem } from '@/lib/types';
+import SpeakButton from '@/components/shared/SpeakButton';
 
 interface VocabularyTableProps {
   items: VocabularyItem[];
@@ -37,7 +38,10 @@ export default function VocabularyTable({ items }: VocabularyTableProps) {
             {items.map((item, i) => (
               <tr key={i} className="border-b border-gray-50 hover:bg-blue-50/50 transition-colors">
                 <td className="py-3 px-3">
-                  <span className="font-semibold text-blue-800">{item.polish}</span>
+                  <div className="flex items-center gap-1">
+                    <span className="font-semibold text-blue-800">{item.polish}</span>
+                    <SpeakButton text={item.polish} />
+                  </div>
                   {item.pronunciation && (
                     <span className="block sm:hidden text-xs italic text-gray-400 mt-0.5">
                       /{item.pronunciation}/

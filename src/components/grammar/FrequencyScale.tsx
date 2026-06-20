@@ -1,4 +1,5 @@
 import { FrequencyItem } from '@/lib/types';
+import SpeakButton from '@/components/shared/SpeakButton';
 
 // Color-grade the bar from green (always) through amber to red (never).
 function barColor(percent: number): string {
@@ -20,8 +21,11 @@ export default function FrequencyScale({ items }: { items: FrequencyItem[] }) {
 
       {items.map((item, i) => (
         <div key={i} className="flex items-center gap-3">
-          <div className="w-28 sm:w-36 shrink-0">
-            <p className="font-semibold text-blue-800 text-sm leading-tight">{item.polish}</p>
+          <div className="w-32 sm:w-40 shrink-0">
+            <div className="flex items-center gap-1">
+              <p className="font-semibold text-blue-800 text-sm leading-tight">{item.polish}</p>
+              <SpeakButton text={item.polish} />
+            </div>
             <p className="text-xs text-gray-500">{item.english}</p>
             {item.pronunciation && (
               <p className="text-[11px] italic text-gray-400">/{item.pronunciation}/</p>

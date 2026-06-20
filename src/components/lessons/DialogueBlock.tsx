@@ -1,4 +1,5 @@
 import { DialogueLine } from '@/lib/types';
+import SpeakButton from '@/components/shared/SpeakButton';
 
 interface DialogueBlockProps {
   lines: DialogueLine[];
@@ -26,7 +27,10 @@ export default function DialogueBlock({ lines }: DialogueBlockProps) {
                   : 'bg-gray-100 rounded-tr-sm'
               }`}
             >
-              <p className="font-semibold text-blue-900 text-sm">{line.polish}</p>
+              <div className="flex items-start gap-1">
+                <p className="font-semibold text-blue-900 text-sm flex-1">{line.polish}</p>
+                <SpeakButton text={line.polish} />
+              </div>
               <p className="text-gray-500 text-xs mt-1">{line.english}</p>
             </div>
           </div>

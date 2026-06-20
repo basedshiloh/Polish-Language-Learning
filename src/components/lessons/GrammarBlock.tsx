@@ -1,5 +1,6 @@
 import { Lightbulb } from 'lucide-react';
 import { GrammarPoint } from '@/lib/types';
+import SpeakButton from '@/components/shared/SpeakButton';
 
 interface GrammarBlockProps {
   points: GrammarPoint[];
@@ -16,7 +17,10 @@ export default function GrammarBlock({ points }: GrammarBlockProps) {
           <div className="space-y-2 mb-4">
             {point.examples.map((ex, j) => (
               <div key={j} className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-sm">
-                <span className="font-semibold text-blue-800">{ex.polish}</span>
+                <div className="flex items-center gap-1">
+                  <span className="font-semibold text-blue-800">{ex.polish}</span>
+                  <SpeakButton text={ex.polish} />
+                </div>
                 <span className="text-gray-400 hidden sm:inline">→</span>
                 <span className="text-gray-600">{ex.english}</span>
               </div>

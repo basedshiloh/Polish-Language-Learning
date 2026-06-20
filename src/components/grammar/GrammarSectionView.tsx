@@ -2,6 +2,7 @@ import { Lightbulb, AlertTriangle, Info } from 'lucide-react';
 import { GrammarSection, TableColor } from '@/lib/types';
 import GrammarTableView from './GrammarTableView';
 import FrequencyScale from './FrequencyScale';
+import SpeakButton from '@/components/shared/SpeakButton';
 
 const compColors: Record<TableColor, { bg: string; border: string; title: string; chip: string }> = {
   blue: { bg: 'bg-blue-50', border: 'border-blue-200', title: 'text-blue-800', chip: 'bg-blue-100 text-blue-700' },
@@ -36,10 +37,13 @@ export default function GrammarSectionView({ section }: { section: GrammarSectio
       {section.type === 'examples' && section.examples && (
         <div className="space-y-2">
           {section.examples.map((ex, i) => (
-            <div key={i} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 bg-gray-50 rounded-lg px-4 py-2.5">
-              <span className="font-semibold text-blue-800 sm:min-w-[45%]">{ex.polish}</span>
+            <div key={i} className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 bg-gray-50 rounded-lg px-4 py-2.5">
+              <div className="flex items-center gap-1 sm:min-w-[45%]">
+                <span className="font-semibold text-blue-800">{ex.polish}</span>
+                <SpeakButton text={ex.polish} />
+              </div>
               <span className="text-gray-600 text-sm flex-1">{ex.english}</span>
-              {ex.note && <span className="text-xs text-gray-400 italic">{ex.note}</span>}
+              {ex.note && <span className="text-xs text-gray-400 italic shrink-0">{ex.note}</span>}
             </div>
           ))}
         </div>
@@ -64,7 +68,10 @@ export default function GrammarSectionView({ section }: { section: GrammarSectio
                 <div className="space-y-1.5">
                   {item.examples.map((ex, j) => (
                     <div key={j} className="text-sm">
-                      <span className="font-semibold text-gray-800">{ex.polish}</span>
+                      <div className="flex items-center gap-1">
+                        <span className="font-semibold text-gray-800">{ex.polish}</span>
+                        <SpeakButton text={ex.polish} />
+                      </div>
                       <span className="block text-xs text-gray-500">{ex.english}</span>
                     </div>
                   ))}
