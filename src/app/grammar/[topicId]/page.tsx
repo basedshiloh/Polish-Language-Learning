@@ -76,7 +76,7 @@ export default function GrammarTopicPage({ params }: { params: Promise<{ topicId
                 <ArrowLeft className="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0" />
                 <div className="min-w-0">
                   <p className="text-xs text-gray-400 dark:text-gray-500">Previous</p>
-                  <p className="text-sm font-medium text-gray-800 truncate">{prev.title}</p>
+                  <p className="text-sm font-medium text-gray-800 dark:text-gray-200 truncate">{prev.title}</p>
                 </div>
               </Link>
             ) : <div />}
@@ -87,7 +87,7 @@ export default function GrammarTopicPage({ params }: { params: Promise<{ topicId
               >
                 <div className="min-w-0">
                   <p className="text-xs text-gray-400 dark:text-gray-500">Next</p>
-                  <p className="text-sm font-medium text-gray-800 truncate">{next.title}</p>
+                  <p className="text-sm font-medium text-gray-800 dark:text-gray-200 truncate">{next.title}</p>
                 </div>
                 <ArrowRight className="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0" />
               </Link>
