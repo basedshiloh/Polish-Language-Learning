@@ -142,7 +142,7 @@ export default function SearchBox() {
           onFocus={() => { if (results.length > 0) setOpen(true); }}
           onKeyDown={handleKeyDown}
           placeholder="Search lessons, grammar, quizzes… (⌘K)"
-          className="w-full pl-10 pr-10 py-2.5 bg-white border border-gray-200 rounded-xl text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all placeholder:text-gray-400"
+          className="w-full pl-10 pr-10 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 transition-all placeholder:text-gray-400 dark:text-gray-100"
           autoComplete="off"
         />
         {query && (
@@ -156,7 +156,7 @@ export default function SearchBox() {
       </div>
 
       {open && results.length > 0 && (
-        <div className="absolute top-full mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg z-50 overflow-hidden max-h-[70vh] overflow-y-auto">
+        <div className="absolute top-full mt-1 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg z-50 overflow-hidden max-h-[70vh] overflow-y-auto">
           {visibleResults.map((result, i) => {
             const meta = categoryMeta[result.entry.category];
             const Icon = meta.icon;

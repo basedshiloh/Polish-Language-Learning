@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme inline {
   --color-primary-50: #eff6ff;
   --color-primary-100: #dbeafe;
@@ -25,9 +27,19 @@ body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
+.dark body,
+:where(.dark) body {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
 .polish-text {
   font-weight: 600;
   color: #1e40af;
+}
+
+:where(.dark) .polish-text {
+  color: #93c5fd;
 }
 
 .pronunciation-text {
