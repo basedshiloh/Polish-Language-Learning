@@ -93,9 +93,9 @@ export default function LessonsPage() {
                     {done ? (
                       <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0" />
                     ) : (
-                      <Circle className="w-4 h-4 text-gray-300 shrink-0" />
+                      <Circle className="w-4 h-4 text-gray-300 dark:text-gray-600 shrink-0" />
                     )}
-                    <span className={done ? 'text-gray-400 line-through' : 'text-gray-700'}>
+                    <span className={done ? 'text-gray-400 dark:text-gray-500 line-through' : 'text-gray-700 dark:text-gray-300'}>
                       {lesson.title}
                     </span>
                   </Link>
