@@ -59,7 +59,7 @@ export default function GrammarTopicPage({ params }: { params: Promise<{ topicId
                 <section
                   key={i}
                   id={sectionId}
-                  className="bg-white rounded-xl p-5 md:p-6 border border-gray-100 scroll-mt-8"
+                  className="bg-white dark:bg-gray-900 rounded-xl p-5 md:p-6 border border-gray-100 dark:border-gray-800 scroll-mt-8"
                 >
                   <GrammarSectionView section={section} />
                 </section>
@@ -71,7 +71,7 @@ export default function GrammarTopicPage({ params }: { params: Promise<{ topicId
             {prev ? (
               <Link
                 href={`/grammar/${prev.id}`}
-                className="flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-4 py-3 hover:border-purple-200 hover:shadow-sm transition-all"
+                className="flex items-center gap-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-4 py-3 hover:border-purple-200 dark:hover:border-purple-800 hover:shadow-sm transition-all"
               >
                 <ArrowLeft className="w-4 h-4 text-gray-400 shrink-0" />
                 <div className="min-w-0">
@@ -83,7 +83,7 @@ export default function GrammarTopicPage({ params }: { params: Promise<{ topicId
             {next ? (
               <Link
                 href={`/grammar/${next.id}`}
-                className="flex items-center justify-end gap-2 bg-white border border-gray-200 rounded-lg px-4 py-3 hover:border-purple-200 hover:shadow-sm transition-all text-right"
+                className="flex items-center justify-end gap-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-4 py-3 hover:border-purple-200 dark:hover:border-purple-800 hover:shadow-sm transition-all text-right"
               >
                 <div className="min-w-0">
                   <p className="text-xs text-gray-400">Next</p>

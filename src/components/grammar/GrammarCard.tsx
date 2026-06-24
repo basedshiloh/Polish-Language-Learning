@@ -39,7 +39,7 @@ export default function GrammarCard({ topic }: { topic: GrammarTopic }) {
   return (
     <Link
       href={`/grammar/${topic.id}`}
-      className="group bg-white rounded-xl p-5 border border-gray-100 hover:border-purple-200 hover:shadow-md transition-all flex flex-col"
+      className="group bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-800 hover:border-purple-200 dark:hover:border-purple-800 hover:shadow-md transition-all flex flex-col"
     >
       <div className="flex items-start justify-between mb-3">
         <div className="w-11 h-11 rounded-lg bg-purple-100 flex items-center justify-center">

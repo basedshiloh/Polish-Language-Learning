@@ -84,7 +84,7 @@ export default function Matching({ question, onAnswer }: MatchingProps) {
             const isSelected = selectedLeft === item.index;
             const isWrong = wrongPair?.left === item.index;
 
-            let style = 'border-gray-200 bg-white hover:border-blue-300';
+            let style = 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-blue-300';
             if (isMatched) style = 'border-green-300 bg-green-50 opacity-60';
             if (isSelected) style = 'border-blue-500 bg-blue-50 ring-2 ring-blue-200';
             if (isWrong) style = 'border-red-400 bg-red-50 animate-shake';
@@ -109,7 +109,7 @@ export default function Matching({ question, onAnswer }: MatchingProps) {
             const isMatched = matchedRight.has(item.index);
             const isWrong = wrongPair?.right === item.index;
 
-            let style = 'border-gray-200 bg-white hover:border-blue-300';
+            let style = 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-blue-300';
             if (isMatched) style = 'border-green-300 bg-green-50 opacity-60';
             if (isWrong) style = 'border-red-400 bg-red-50 animate-shake';
 

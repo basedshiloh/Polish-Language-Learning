@@ -58,7 +58,7 @@ function SearchResults() {
               <Link
                 key={i}
                 href={result.entry.href}
-                className="flex items-start gap-4 bg-white rounded-xl p-5 border border-gray-100 hover:border-blue-200 hover:shadow-sm transition-all"
+                className="flex items-start gap-4 bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-800 hover:border-blue-200 dark:hover:border-blue-800 hover:shadow-sm transition-all"
               >
                 <div className={`w-10 h-10 rounded-lg ${meta.bg} flex items-center justify-center shrink-0`}>
                   <Icon className={`w-5 h-5 ${meta.color}`} />
@@ -81,13 +81,13 @@ function SearchResults() {
           })}
         </div>
       ) : query.length >= 2 ? (
-        <div className="bg-white rounded-xl border border-gray-100 p-12 text-center">
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 p-12 text-center">
           <Search className="w-10 h-10 text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500">No results found for &quot;{query}&quot;</p>
           <p className="text-sm text-gray-400 mt-1">Try different keywords or check the spelling.</p>
         </div>
       ) : (
-        <div className="bg-white rounded-xl border border-gray-100 p-12 text-center">
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 p-12 text-center">
           <Search className="w-10 h-10 text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500">Type a search query to find lessons, grammar topics, and quizzes.</p>
         </div>

@@ -59,7 +59,7 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
 
           <div className="space-y-8">
             {lesson.content.map((block, i) => (
-              <section key={i} id={`section-${i}`} className="bg-white rounded-xl p-5 md:p-6 border border-gray-100 scroll-mt-8">
+              <section key={i} id={`section-${i}`} className="bg-white dark:bg-gray-900 rounded-xl p-5 md:p-6 border border-gray-100 dark:border-gray-800 scroll-mt-8">
                 <div className="flex items-center gap-2 mb-4">
                   {block.type === 'vocabulary' && <BookOpen className="w-5 h-5 text-blue-600" />}
                   {block.type === 'grammar' && <Brain className="w-5 h-5 text-blue-600" />}
@@ -102,7 +102,7 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
             ) : (
               <button
                 onClick={() => unmarkLessonComplete(lesson.id)}
-                className="flex items-center justify-center gap-2 bg-white text-gray-500 border border-gray-200 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 hover:text-gray-700 transition-colors"
+                className="flex items-center justify-center gap-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
               >
                 <RotateCcw className="w-5 h-5" />
                 Mark as Not Complete

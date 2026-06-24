@@ -78,7 +78,7 @@ export default function QuizPage({ params }: { params: Promise<{ quizId: string 
           Back to Quizzes
         </Link>
 
-        <div className="bg-white rounded-xl p-8 border border-gray-100 text-center">
+        <div className="bg-white dark:bg-gray-900 rounded-xl p-8 border border-gray-100 dark:border-gray-800 text-center">
           <div className="w-16 h-16 rounded-2xl bg-purple-100 flex items-center justify-center mx-auto mb-6">
             <Brain className="w-8 h-8 text-purple-600" />
           </div>
@@ -134,7 +134,7 @@ export default function QuizPage({ params }: { params: Promise<{ quizId: string 
         <ProgressBar value={currentIndex + 1} max={totalQuestions} size="sm" />
       </div>
 
-      <div className="bg-white rounded-xl p-6 border border-gray-100 mb-6">
+      <div className="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-100 dark:border-gray-800 mb-6">
         {currentQuestion.type === 'multiple-choice' && (
           <MultipleChoice
             key={currentQuestion.id}

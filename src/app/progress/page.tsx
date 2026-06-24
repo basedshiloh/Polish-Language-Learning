@@ -47,7 +47,7 @@ export default function ProgressPage() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
               <BookOpen className="w-5 h-5 text-blue-600" />
@@ -60,7 +60,7 @@ export default function ProgressPage() {
           <ProgressBar value={completed} max={total} size="sm" showLabel />
         </div>
 
-        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
               <Brain className="w-5 h-5 text-purple-600" />
@@ -75,7 +75,7 @@ export default function ProgressPage() {
           <p className="text-xs text-gray-400">{allAttempts.length} quiz attempt{allAttempts.length !== 1 ? 's' : ''} total</p>
         </div>
 
-        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
               <Flame className="w-5 h-5 text-amber-600" />
@@ -92,7 +92,7 @@ export default function ProgressPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>
           <h2 className="text-lg font-semibold text-gray-900 mb-4">Lessons Progress</h2>
-          <div className="bg-white rounded-xl border border-gray-100 divide-y divide-gray-50">
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 divide-y divide-gray-50 dark:divide-gray-800">
             {lessons.sort((a, b) => a.order - b.order).map((lesson) => {
               const isCompleted = progress.lessonProgress[lesson.id]?.completed;
               const bestScore = getQuizBestScore(lesson.relatedQuizId || '');
@@ -125,7 +125,7 @@ export default function ProgressPage() {
         <div>
           <h2 className="text-lg font-semibold text-gray-900 mb-4">Quiz History</h2>
           {recentAttempts.length > 0 ? (
-            <div className="bg-white rounded-xl border border-gray-100 divide-y divide-gray-50">
+            <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 divide-y divide-gray-50 dark:divide-gray-800">
               {recentAttempts.map((attempt, i) => {
                 const quiz = quizzes.find((q) => q.id === attempt.quizId);
                 const scoreColor = attempt.score >= 80 ? 'text-green-600' : attempt.score >= 60 ? 'text-amber-600' : 'text-red-500';
@@ -144,7 +144,7 @@ export default function ProgressPage() {
               })}
             </div>
           ) : (
-            <div className="bg-white rounded-xl border border-gray-100 p-8 text-center">
+            <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 p-8 text-center">
               <Brain className="w-8 h-8 text-gray-300 mx-auto mb-2" />
               <p className="text-sm text-gray-400">No quiz attempts yet. Take a quiz to see your history!</p>
             </div>

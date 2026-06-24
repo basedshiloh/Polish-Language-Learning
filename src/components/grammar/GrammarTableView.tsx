@@ -17,7 +17,7 @@ export default function GrammarTableView({ table }: { table: GrammarTable }) {
       {caption && (
         <p className="text-sm font-medium text-gray-600 mb-2">{caption}</p>
       )}
-      <div className="overflow-x-auto rounded-xl border border-gray-200">
+      <div className="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700">
         <table className="w-full text-sm border-collapse">
           <thead>
             <tr>

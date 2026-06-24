@@ -17,7 +17,7 @@ export default function PhraseList({ phrases }: PhraseListProps) {
       {phrases.map((phrase, i) => (
         <div
           key={i}
-          className="w-full text-left bg-white rounded-lg p-4 border border-gray-100 hover:border-blue-200 transition-all"
+          className="w-full text-left bg-white dark:bg-gray-900 rounded-lg p-4 border border-gray-100 dark:border-gray-800 hover:border-blue-200 dark:hover:border-blue-800 transition-all"
         >
           <div
             className="flex items-center justify-between gap-2 cursor-pointer"

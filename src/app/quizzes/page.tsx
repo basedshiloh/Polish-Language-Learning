@@ -40,7 +40,7 @@ export default function QuizzesPage() {
                 <Link
                   key={quiz.id}
                   href={`/quizzes/${quiz.id}`}
-                  className="group bg-white rounded-xl p-5 border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all"
+                  className="group bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-800 hover:border-blue-200 dark:hover:border-blue-800 hover:shadow-md transition-all"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div className="w-11 h-11 rounded-lg bg-purple-100 flex items-center justify-center">

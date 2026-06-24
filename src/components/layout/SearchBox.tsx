@@ -199,7 +199,7 @@ export default function SearchBox() {
       )}
 
       {open && query.length >= 2 && results.length === 0 && (
-        <div className="absolute top-full mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg z-50 p-4 text-center">
+        <div className="absolute top-full mt-1 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg z-50 p-4 text-center">
           <p className="text-sm text-gray-400">No results for &quot;{query}&quot;</p>
         </div>
       )}
