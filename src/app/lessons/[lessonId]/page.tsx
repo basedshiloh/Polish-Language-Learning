@@ -12,6 +12,7 @@ import GrammarBlock from '@/components/lessons/GrammarBlock';
 import DialogueBlock from '@/components/lessons/DialogueBlock';
 import PhraseList from '@/components/lessons/PhraseList';
 import TableOfContents from '@/components/layout/TableOfContents';
+import StarRating from '@/components/shared/StarRating';
 
 export default function LessonPage({ params }: { params: Promise<{ lessonId: string }> }) {
   const { lessonId } = use(params);
@@ -55,6 +56,9 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
             </div>
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">{lesson.title}</h1>
             <p className="text-gray-500 dark:text-gray-400 mt-1">{lesson.description}</p>
+            <div className="mt-3">
+              <StarRating itemId={lesson.id} itemType="lesson" />
+            </div>
           </div>
 
           <div className="space-y-8">

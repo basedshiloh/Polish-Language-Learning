@@ -8,6 +8,7 @@ import { grammarTopics } from '@/data/grammar';
 import GrammarSectionView from '@/components/grammar/GrammarSectionView';
 import { categoryStyles } from '@/components/grammar/GrammarCard';
 import TableOfContents from '@/components/layout/TableOfContents';
+import StarRating from '@/components/shared/StarRating';
 
 export default function GrammarTopicPage({ params }: { params: Promise<{ topicId: string }> }) {
   const { topicId } = use(params);
@@ -49,6 +50,9 @@ export default function GrammarTopicPage({ params }: { params: Promise<{ topicId
               <p className="text-lg text-purple-600 dark:text-purple-400 font-medium">{topic.polishTitle}</p>
             )}
             <p className="text-gray-500 dark:text-gray-400 mt-1">{topic.description}</p>
+            <div className="mt-3">
+              <StarRating itemId={topic.id} itemType="grammar" />
+            </div>
           </div>
 
           <div className="space-y-8">
