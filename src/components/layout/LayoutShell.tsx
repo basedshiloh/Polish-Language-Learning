@@ -6,6 +6,7 @@ import Sidebar from './Sidebar';
 import MobileNav from './MobileNav';
 import SearchBox from './SearchBox';
 import Footer from './Footer';
+import AccessibilityPanel from './AccessibilityPanel';
 
 export default function LayoutShell({ children }: { children: React.ReactNode }) {
   const sidebarState = useSidebarState();
@@ -27,6 +28,7 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
           {children}
           <Footer />
         </main>
+        <AccessibilityPanel />
       </SidebarContext.Provider>
     </ThemeContext.Provider>
   );

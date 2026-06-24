@@ -47,3 +47,63 @@ body {
   color: #6b7280;
   font-size: 0.875rem;
 }
+
+/* ── Accessibility overrides ── */
+
+.a11y-dyslexia * {
+  font-family: 'OpenDyslexic', 'Comic Sans MS', cursive, sans-serif !important;
+}
+
+.a11y-high-contrast {
+  filter: contrast(1.4);
+}
+.a11y-high-contrast img { filter: contrast(1); }
+
+.a11y-monochrome {
+  filter: grayscale(1);
+}
+
+.a11y-big-cursor,
+.a11y-big-cursor * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M5 2l18 14H13l6 12-4 2-6-12-4 6z' fill='black' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 4 2, auto !important;
+}
+
+.a11y-reading-line body {
+  position: relative;
+}
+
+.a11y-highlight-links a {
+  outline: 2px solid #f59e0b !important;
+  outline-offset: 2px;
+  text-decoration: underline !important;
+}
+
+.a11y-hide-images img,
+.a11y-hide-images svg:not([data-a11y-keep]) {
+  opacity: 0.1 !important;
+}
+
+.a11y-pause-animations *,
+.a11y-pause-animations *::before,
+.a11y-pause-animations *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+#a11y-reading-guide {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: rgba(59, 130, 246, 0.15);
+  border-top: 2px solid rgba(59, 130, 246, 0.5);
+  border-bottom: 2px solid rgba(59, 130, 246, 0.5);
+  pointer-events: none;
+  z-index: 99999;
+}
+.a11y-reading-line #a11y-reading-guide {
+  display: block;
+}
