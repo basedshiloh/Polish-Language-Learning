@@ -26,7 +26,7 @@ export default function VocabularyTable({ items }: VocabularyTableProps) {
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-gray-200">
+            <tr className="border-b border-gray-200 dark:border-gray-700">
               <th className="text-left py-2 px-3 font-semibold text-gray-700 dark:text-gray-300">Polish</th>
               {items.some((v) => v.pronunciation) && (
                 <th className="text-left py-2 px-3 font-semibold text-gray-700 dark:text-gray-300 hidden sm:table-cell">Pronunciation</th>
@@ -36,7 +36,7 @@ export default function VocabularyTable({ items }: VocabularyTableProps) {
           </thead>
           <tbody>
             {items.map((item, i) => (
-              <tr key={i} className="border-b border-gray-50 hover:bg-blue-50/50 transition-colors">
+              <tr key={i} className="border-b border-gray-50 dark:border-gray-800 hover:bg-blue-50/50 dark:hover:bg-blue-950/30 transition-colors">
                 <td className="py-3 px-3">
                   <div className="flex items-center gap-1">
                     <span className="font-semibold text-blue-800 dark:text-blue-300">{item.polish}</span>

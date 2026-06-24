@@ -5,18 +5,18 @@ import FrequencyScale from './FrequencyScale';
 import SpeakButton from '@/components/shared/SpeakButton';
 
 const compColors: Record<TableColor, { bg: string; border: string; title: string; chip: string }> = {
-  blue: { bg: 'bg-blue-50', border: 'border-blue-200', title: 'text-blue-800', chip: 'bg-blue-100 text-blue-700' },
-  pink: { bg: 'bg-pink-50', border: 'border-pink-200', title: 'text-pink-800', chip: 'bg-pink-100 text-pink-700' },
-  green: { bg: 'bg-green-50', border: 'border-green-200', title: 'text-green-800', chip: 'bg-green-100 text-green-700' },
-  amber: { bg: 'bg-amber-50', border: 'border-amber-200', title: 'text-amber-800', chip: 'bg-amber-100 text-amber-700' },
-  purple: { bg: 'bg-purple-50', border: 'border-purple-200', title: 'text-purple-800', chip: 'bg-purple-100 text-purple-700' },
-  gray: { bg: 'bg-gray-50', border: 'border-gray-200', title: 'text-gray-800', chip: 'bg-gray-100 text-gray-700' },
+  blue: { bg: 'bg-blue-50 dark:bg-blue-950/40', border: 'border-blue-200 dark:border-blue-800', title: 'text-blue-800 dark:text-blue-300', chip: 'bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300' },
+  pink: { bg: 'bg-pink-50 dark:bg-pink-950/40', border: 'border-pink-200 dark:border-pink-800', title: 'text-pink-800 dark:text-pink-300', chip: 'bg-pink-100 dark:bg-pink-900/60 text-pink-700 dark:text-pink-300' },
+  green: { bg: 'bg-green-50 dark:bg-green-950/40', border: 'border-green-200 dark:border-green-800', title: 'text-green-800 dark:text-green-300', chip: 'bg-green-100 dark:bg-green-900/60 text-green-700 dark:text-green-300' },
+  amber: { bg: 'bg-amber-50 dark:bg-amber-950/40', border: 'border-amber-200 dark:border-amber-800', title: 'text-amber-800 dark:text-amber-300', chip: 'bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300' },
+  purple: { bg: 'bg-purple-50 dark:bg-purple-950/40', border: 'border-purple-200 dark:border-purple-800', title: 'text-purple-800 dark:text-purple-300', chip: 'bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300' },
+  gray: { bg: 'bg-gray-50 dark:bg-gray-800', border: 'border-gray-200 dark:border-gray-700', title: 'text-gray-800 dark:text-gray-200', chip: 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300' },
 };
 
 const noteStyles = {
-  tip: { icon: Lightbulb, wrap: 'bg-amber-50 border-amber-200', text: 'text-amber-900', iconColor: 'text-amber-600' },
-  warning: { icon: AlertTriangle, wrap: 'bg-red-50 border-red-200', text: 'text-red-900', iconColor: 'text-red-500' },
-  info: { icon: Info, wrap: 'bg-blue-50 border-blue-200', text: 'text-blue-900', iconColor: 'text-blue-600' },
+  tip: { icon: Lightbulb, wrap: 'bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800', text: 'text-amber-900 dark:text-amber-200', iconColor: 'text-amber-600 dark:text-amber-400' },
+  warning: { icon: AlertTriangle, wrap: 'bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-800', text: 'text-red-900 dark:text-red-200', iconColor: 'text-red-500 dark:text-red-400' },
+  info: { icon: Info, wrap: 'bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800', text: 'text-blue-900 dark:text-blue-200', iconColor: 'text-blue-600 dark:text-blue-400' },
 };
 
 export default function GrammarSectionView({ section }: { section: GrammarSection }) {
@@ -69,7 +69,7 @@ export default function GrammarSectionView({ section }: { section: GrammarSectio
                   {item.examples.map((ex, j) => (
                     <div key={j} className="text-sm">
                       <div className="flex items-center gap-1">
-                        <span className="font-semibold text-gray-800">{ex.polish}</span>
+                        <span className="font-semibold text-gray-800 dark:text-gray-200">{ex.polish}</span>
                         <SpeakButton text={ex.polish} />
                       </div>
                       <span className="block text-xs text-gray-500 dark:text-gray-400">{ex.english}</span>
