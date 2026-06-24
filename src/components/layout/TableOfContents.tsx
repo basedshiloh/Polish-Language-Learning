@@ -43,7 +43,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
           <List className="w-3.5 h-3.5" />
           On this page
         </div>
-        <ul className="space-y-1 border-l-2 border-gray-100">
+        <ul className="space-y-1 border-l-2 border-gray-100 dark:border-gray-800">
           {items.map((item) => (
             <li key={item.id}>
               <a
@@ -54,8 +54,8 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
                 }}
                 className={`block pl-3 py-1 text-sm transition-colors border-l-2 -ml-0.5 ${
                   activeId === item.id
-                    ? 'border-blue-600 text-blue-700 font-medium'
-                    : 'border-transparent text-gray-400 hover:text-gray-600'
+                    ? 'border-blue-600 text-blue-700 dark:text-blue-400 font-medium'
+                    : 'border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
                 }`}
               >
                 {item.title}
