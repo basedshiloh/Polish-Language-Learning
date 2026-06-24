@@ -23,7 +23,7 @@ export default function Sidebar() {
         </div>
         {!collapsed && (
           <div>
-            <h1 className="text-lg font-bold text-gray-900 dark:text-gray-100">PolishPal</h1>
+            <h1 className="text-lg font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">PolishPal</h1>
             <p className="text-xs text-gray-500 dark:text-gray-400">A0 → A1</p>
           </div>
         )}

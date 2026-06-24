@@ -30,8 +30,8 @@ export default function LessonsPage() {
       <div className="flex gap-8">
         <div className="flex-1 min-w-0">
           <div className="mb-8">
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Lessons</h1>
-            <p className="text-gray-500 mt-1">Learn Polish step by step, from greetings to telling time.</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">Lessons</h1>
+            <p className="text-gray-500 dark:text-gray-400 mt-1">Learn Polish step by step, from greetings to telling time.</p>
           </div>
 
           <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
@@ -64,7 +64,7 @@ export default function LessonsPage() {
 
           {filtered.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-gray-400">No lessons found for this filter.</p>
+              <p className="text-gray-400 dark:text-gray-500">No lessons found for this filter.</p>
             </div>
           )}
         </div>
@@ -73,7 +73,7 @@ export default function LessonsPage() {
           <SidebarCard title="Your Progress" accent="blue">
             <div className="mb-3">
               <div className="flex justify-between text-sm mb-1">
-                <span className="text-gray-600">{completed} of {total}</span>
+                <span className="text-gray-600 dark:text-gray-400">{completed} of {total}</span>
                 <span className="font-semibold text-blue-600">{percentage}%</span>
               </div>
               <ProgressBar value={completed} max={total} size="md" />
@@ -106,11 +106,11 @@ export default function LessonsPage() {
 
           <SidebarCard title="Suggested" accent="amber">
             <div className="space-y-2">
-              <Link href="/grammar" className="flex items-center gap-2 text-sm text-gray-600 hover:text-purple-600 transition-colors">
+              <Link href="/grammar" className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-purple-600 transition-colors">
                 <BookOpen className="w-4 h-4 text-purple-400" />
                 <span>Grammar Reference</span>
               </Link>
-              <p className="text-xs text-gray-400">Review grammar tables alongside your lessons for deeper understanding.</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500">Review grammar tables alongside your lessons for deeper understanding.</p>
             </div>
           </SidebarCard>
         </PageSidebar>

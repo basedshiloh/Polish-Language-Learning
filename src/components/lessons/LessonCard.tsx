@@ -54,13 +54,13 @@ export default function LessonCard({ lesson, completed }: LessonCardProps) {
         <Badge variant={lesson.level === 'A0' ? 'blue' : 'green'}>{lesson.level}</Badge>
       </div>
 
-      <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-blue-700 transition-colors">
+      <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 group-hover:text-blue-700 transition-colors">
         {lesson.title}
       </h3>
-      <p className="text-sm text-gray-500 mb-3 line-clamp-2">{lesson.description}</p>
+      <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 line-clamp-2">{lesson.description}</p>
 
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1 text-xs text-gray-400">
+        <div className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500">
           <Clock className="w-3.5 h-3.5" />
           <span>~{lesson.estimatedMinutes} min</span>
         </div>

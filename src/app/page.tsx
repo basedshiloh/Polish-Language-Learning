@@ -70,10 +70,10 @@ export default function Dashboard() {
       <div className="flex gap-8">
         <div className="flex-1 min-w-0">
           <div className="mb-8">
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">
               Dzień dobry! 👋
             </h1>
-            <p className="text-gray-500 mt-1">Ready to practice your Polish today?</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-1">Ready to practice your Polish today?</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
@@ -83,8 +83,8 @@ export default function Dashboard() {
                   <BookOpen className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Lessons</p>
-                  <p className="text-xl font-bold text-gray-900">{completed}/{total}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Lessons</p>
+                  <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{completed}/{total}</p>
                 </div>
               </div>
               <ProgressBar value={completed} max={total} size="sm" />
@@ -96,11 +96,11 @@ export default function Dashboard() {
                   <Flame className="w-5 h-5 text-amber-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Streak</p>
-                  <p className="text-xl font-bold text-gray-900">{streak} {streak === 1 ? 'day' : 'days'}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Streak</p>
+                  <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{streak} {streak === 1 ? 'day' : 'days'}</p>
                 </div>
               </div>
-              <p className="text-xs text-gray-400">Keep learning daily!</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500">Keep learning daily!</p>
             </div>
 
             <div className="bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm">
@@ -109,11 +109,11 @@ export default function Dashboard() {
                   <Trophy className="w-5 h-5 text-green-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Progress</p>
-                  <p className="text-xl font-bold text-gray-900">{percentage}%</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Progress</p>
+                  <p className="text-xl font-bold text-gray-900 dark:text-gray-100">{percentage}%</p>
                 </div>
               </div>
-              <p className="text-xs text-gray-400">Overall completion</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500">Overall completion</p>
             </div>
           </div>
 
@@ -133,7 +133,7 @@ export default function Dashboard() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Quiz Scores</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Recent Quiz Scores</h3>
               {recentAttempts.length > 0 ? (
                 <div className="space-y-3">
                   {recentAttempts.map((attempt, i) => {
@@ -142,8 +142,8 @@ export default function Dashboard() {
                     return (
                       <div key={i} className="bg-white dark:bg-gray-900 rounded-lg p-4 border border-gray-100 dark:border-gray-800 flex items-center justify-between">
                         <div>
-                          <p className="font-medium text-gray-900 text-sm">{quiz?.title || 'Quiz'}</p>
-                          <p className="text-xs text-gray-400">
+                          <p className="font-medium text-gray-900 dark:text-gray-100 text-sm">{quiz?.title || 'Quiz'}</p>
+                          <p className="text-xs text-gray-400 dark:text-gray-500">
                             {new Date(attempt.completedAt).toLocaleDateString()}
                           </p>
                         </div>
@@ -155,13 +155,13 @@ export default function Dashboard() {
               ) : (
                 <div className="bg-white dark:bg-gray-900 rounded-lg p-6 border border-gray-100 dark:border-gray-800 text-center">
                   <Brain className="w-8 h-8 text-gray-300 mx-auto mb-2" />
-                  <p className="text-sm text-gray-400">No quizzes taken yet</p>
+                  <p className="text-sm text-gray-400 dark:text-gray-500">No quizzes taken yet</p>
                 </div>
               )}
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Quick Actions</h3>
               <div className="space-y-3">
                 <Link
                   href="/lessons"
@@ -171,10 +171,10 @@ export default function Dashboard() {
                     <BookOpen className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Browse Lessons</p>
-                    <p className="text-xs text-gray-500">{total} lessons available</p>
+                    <p className="font-medium text-gray-900 dark:text-gray-100">Browse Lessons</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{total} lessons available</p>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
+                  <ArrowRight className="w-4 h-4 text-gray-400 dark:text-gray-500 ml-auto" />
                 </Link>
                 <Link
                   href="/grammar"
@@ -184,10 +184,10 @@ export default function Dashboard() {
                     <Table2 className="w-5 h-5 text-purple-600" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Grammar Reference</p>
-                    <p className="text-xs text-gray-500">{grammarTopics.length} topics with tables</p>
+                    <p className="font-medium text-gray-900 dark:text-gray-100">Grammar Reference</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{grammarTopics.length} topics with tables</p>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
+                  <ArrowRight className="w-4 h-4 text-gray-400 dark:text-gray-500 ml-auto" />
                 </Link>
                 <Link
                   href="/quizzes"
@@ -197,10 +197,10 @@ export default function Dashboard() {
                     <Brain className="w-5 h-5 text-green-600" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Take a Quiz</p>
-                    <p className="text-xs text-gray-500">{quizzes.length} quizzes available</p>
+                    <p className="font-medium text-gray-900 dark:text-gray-100">Take a Quiz</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{quizzes.length} quizzes available</p>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-gray-400 ml-auto" />
+                  <ArrowRight className="w-4 h-4 text-gray-400 dark:text-gray-500 ml-auto" />
                 </Link>
               </div>
             </div>
@@ -212,8 +212,8 @@ export default function Dashboard() {
             <div className="space-y-3">
               {todayPhrases.map((p, i) => (
                 <div key={i}>
-                  <p className="font-semibold text-blue-800 text-sm">{p.polish}</p>
-                  <p className="text-xs text-gray-500">{p.english}</p>
+                  <p className="font-semibold text-blue-800 dark:text-blue-300 text-sm">{p.polish}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{p.english}</p>
                 </div>
               ))}
             </div>
@@ -221,19 +221,19 @@ export default function Dashboard() {
 
           <SidebarCard title="Quick Review" accent="green">
             <div className="space-y-2">
-              <Link href="/grammar/znac-wiedziec-umiec" className="block text-sm text-gray-600 hover:text-blue-600 transition-colors">
+              <Link href="/grammar/znac-wiedziec-umiec" className="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 transition-colors">
                 <Sparkles className="w-3.5 h-3.5 inline mr-1.5 text-amber-400" />
                 znać vs wiedzieć vs umieć
               </Link>
-              <Link href="/grammar/three-conjugations" className="block text-sm text-gray-600 hover:text-blue-600 transition-colors">
+              <Link href="/grammar/three-conjugations" className="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 transition-colors">
                 <Sparkles className="w-3.5 h-3.5 inline mr-1.5 text-amber-400" />
                 3 Conjugation patterns
               </Link>
-              <Link href="/grammar/cases-overview" className="block text-sm text-gray-600 hover:text-blue-600 transition-colors">
+              <Link href="/grammar/cases-overview" className="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 transition-colors">
                 <Sparkles className="w-3.5 h-3.5 inline mr-1.5 text-amber-400" />
                 The 4 Cases overview
               </Link>
-              <Link href="/grammar/telling-time" className="block text-sm text-gray-600 hover:text-blue-600 transition-colors">
+              <Link href="/grammar/telling-time" className="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 transition-colors">
                 <Sparkles className="w-3.5 h-3.5 inline mr-1.5 text-amber-400" />
                 Telling the time
               </Link>

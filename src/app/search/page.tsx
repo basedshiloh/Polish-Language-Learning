@@ -41,10 +41,10 @@ function SearchResults() {
   return (
     <div className="p-6 md:p-10 max-w-4xl">
       <div className="mb-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Search Results</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">Search Results</h1>
         {query && (
-          <p className="text-gray-500 mt-1">
-            {results.length} result{results.length !== 1 ? 's' : ''} for &quot;<span className="font-medium text-gray-700">{query}</span>&quot;
+          <p className="text-gray-500 dark:text-gray-400 mt-1">
+            {results.length} result{results.length !== 1 ? 's' : ''} for &quot;<span className="font-medium text-gray-700 dark:text-gray-300">{query}</span>&quot;
           </p>
         )}
       </div>
@@ -65,14 +65,14 @@ function SearchResults() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-base font-semibold text-gray-900">
+                    <span className="text-base font-semibold text-gray-900 dark:text-gray-100">
                       <HighlightMatch text={result.entry.title} query={query} />
                     </span>
                     <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${meta.bg} ${meta.color}`}>
                       {meta.label}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-500 line-clamp-3">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-3">
                     <HighlightMatch text={result.matchedText} query={query} />
                   </p>
                 </div>
@@ -83,13 +83,13 @@ function SearchResults() {
       ) : query.length >= 2 ? (
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 p-12 text-center">
           <Search className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-          <p className="text-gray-500">No results found for &quot;{query}&quot;</p>
-          <p className="text-sm text-gray-400 mt-1">Try different keywords or check the spelling.</p>
+          <p className="text-gray-500 dark:text-gray-400">No results found for &quot;{query}&quot;</p>
+          <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">Try different keywords or check the spelling.</p>
         </div>
       ) : (
         <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 p-12 text-center">
           <Search className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-          <p className="text-gray-500">Type a search query to find lessons, grammar topics, and quizzes.</p>
+          <p className="text-gray-500 dark:text-gray-400">Type a search query to find lessons, grammar topics, and quizzes.</p>
         </div>
       )}
     </div>

@@ -32,9 +32,9 @@ export default function FillInBlank({ question, onAnswer }: FillInBlankProps) {
 
   return (
     <div>
-      <p className="text-lg font-semibold text-gray-900 mb-2">{question.prompt}</p>
+      <p className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{question.prompt}</p>
       {question.hint && !submitted && (
-        <p className="text-sm text-gray-400 mb-4">Hint: {question.hint}</p>
+        <p className="text-sm text-gray-400 dark:text-gray-500 mb-4">Hint: {question.hint}</p>
       )}
 
       <form onSubmit={handleSubmit} className="mb-4">
@@ -80,7 +80,7 @@ export default function FillInBlank({ question, onAnswer }: FillInBlankProps) {
             {isCorrect ? (
               <p>Correct!</p>
             ) : (
-              <p>The correct answer is: <strong className="text-blue-800">{question.correctAnswer}</strong></p>
+              <p>The correct answer is: <strong className="text-blue-800 dark:text-blue-300">{question.correctAnswer}</strong></p>
             )}
             {question.explanation && <p className="mt-1 opacity-80">{question.explanation}</p>}
           </div>

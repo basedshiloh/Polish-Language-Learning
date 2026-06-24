@@ -40,8 +40,8 @@ export default function GrammarPage() {
       <div className="flex gap-8">
         <div className="flex-1 min-w-0">
           <div className="mb-8">
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Grammar Reference</h1>
-            <p className="text-gray-500 mt-1">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">Grammar Reference</h1>
+            <p className="text-gray-500 dark:text-gray-400 mt-1">
               In-depth explanations with tables for the tricky parts — gender, cases, conjugations, and more.
             </p>
           </div>
@@ -71,13 +71,13 @@ export default function GrammarPage() {
 
         <PageSidebar>
           <SidebarCard title="Exam Essentials" accent="purple">
-            <p className="text-xs text-gray-500 mb-3">Start with these for the best exam prep:</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">Start with these for the best exam prep:</p>
             <div className="space-y-2">
               {essentialTopics.map((t) => (
                 <Link
                   key={t.id}
                   href={`/grammar/${t.id}`}
-                  className="flex items-center gap-2 text-sm text-gray-600 hover:text-purple-600 transition-colors"
+                  className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-purple-600 transition-colors"
                 >
                   <Star className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                   <span>{t.label}</span>
@@ -95,12 +95,12 @@ export default function GrammarPage() {
                   <button
                     key={c}
                     onClick={() => setFilter(c)}
-                    className="flex items-center justify-between w-full text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                    className="flex items-center justify-between w-full text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100 transition-colors"
                   >
                     <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${style.bg} ${style.text}`}>
                       {style.label}
                     </span>
-                    <span className="text-xs text-gray-400">{count}</span>
+                    <span className="text-xs text-gray-400 dark:text-gray-500">{count}</span>
                   </button>
                 );
               })}

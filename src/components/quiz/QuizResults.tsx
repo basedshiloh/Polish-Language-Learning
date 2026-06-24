@@ -30,12 +30,12 @@ export default function QuizResults({ score, correct, total, quizTitle, lessonId
         </div>
       </div>
 
-      <h2 className="text-2xl font-bold text-gray-900 mb-2">Quiz Complete!</h2>
-      <p className="text-gray-500 mb-1">{quizTitle}</p>
-      <p className="text-sm text-gray-400 mb-2">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Quiz Complete!</h2>
+      <p className="text-gray-500 dark:text-gray-400 mb-1">{quizTitle}</p>
+      <p className="text-sm text-gray-400 dark:text-gray-500 mb-2">
         {correct} correct out of {total} questions
       </p>
-      <p className="text-lg font-medium text-gray-700 mb-8">{message}</p>
+      <p className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-8">{message}</p>
 
       <div className="flex flex-col sm:flex-row gap-3 justify-center">
         <button
@@ -47,14 +47,14 @@ export default function QuizResults({ score, correct, total, quizTitle, lessonId
         </button>
         <Link
           href={`/lessons/${lessonId}`}
-          className="flex items-center justify-center gap-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg font-semibold border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          className="flex items-center justify-center gap-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 dark:text-gray-300 px-6 py-3 rounded-lg font-semibold border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
           Review Lesson
         </Link>
         <Link
           href="/quizzes"
-          className="flex items-center justify-center gap-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg font-semibold border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          className="flex items-center justify-center gap-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 dark:text-gray-300 px-6 py-3 rounded-lg font-semibold border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
         >
           <Trophy className="w-5 h-5" />
           All Quizzes

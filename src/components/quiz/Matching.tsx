@@ -76,7 +76,7 @@ export default function Matching({ question, onAnswer }: MatchingProps) {
 
   return (
     <div>
-      <p className="text-lg font-semibold text-gray-900 mb-4">{question.prompt}</p>
+      <p className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">{question.prompt}</p>
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           {leftItems.map((item) => {

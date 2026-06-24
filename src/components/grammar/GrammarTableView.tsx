@@ -15,7 +15,7 @@ export default function GrammarTableView({ table }: { table: GrammarTable }) {
   return (
     <div className="my-2">
       {caption && (
-        <p className="text-sm font-medium text-gray-600 mb-2">{caption}</p>
+        <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">{caption}</p>
       )}
       <div className="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700">
         <table className="w-full text-sm border-collapse">
@@ -65,7 +65,7 @@ export default function GrammarTableView({ table }: { table: GrammarTable }) {
         </table>
       </div>
       {footnote && (
-        <p className="text-xs text-gray-400 mt-2 italic">{footnote}</p>
+        <p className="text-xs text-gray-400 dark:text-gray-500 mt-2 italic">{footnote}</p>
       )}
     </div>
   );

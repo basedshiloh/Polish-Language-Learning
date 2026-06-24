@@ -39,7 +39,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
   return (
     <nav className="hidden xl:block w-56 shrink-0">
       <div className="sticky top-8">
-        <div className="flex items-center gap-2 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+        <div className="flex items-center gap-2 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">
           <List className="w-3.5 h-3.5" />
           On this page
         </div>

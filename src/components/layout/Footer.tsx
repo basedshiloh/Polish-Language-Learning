@@ -2,14 +2,14 @@ export default function Footer() {
   return (
     <footer className="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 mt-12 py-8 px-6">
       <div className="max-w-4xl mx-auto text-center space-y-3">
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-gray-500 dark:text-gray-400">
           Education is free and should be accessible to everyone.
         </p>
         <a
           href="https://creativecommons.org/publicdomain/zero/1.0/deed.en"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-xs text-gray-400 hover:text-gray-600 transition-colors"
+          className="inline-flex items-center gap-2 text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:text-gray-400 transition-colors"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 64 64" fill="currentColor" aria-label="CC0 logo">
             <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" strokeWidth="3" />

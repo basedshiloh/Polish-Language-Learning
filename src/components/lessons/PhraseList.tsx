@@ -27,7 +27,7 @@ export default function PhraseList({ phrases }: PhraseListProps) {
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setExpandedIndex(expandedIndex === i ? null : i); } }}
           >
             <div className="flex items-center gap-1 flex-1 min-w-0">
-              <span className="font-semibold text-blue-800">{phrase.polish}</span>
+              <span className="font-semibold text-blue-800 dark:text-blue-300">{phrase.polish}</span>
               <span
                 onClick={(e) => e.stopPropagation()}
                 onKeyDown={(e) => e.stopPropagation()}
@@ -35,22 +35,22 @@ export default function PhraseList({ phrases }: PhraseListProps) {
                 <SpeakButton text={phrase.polish} />
               </span>
               {phrase.category && (
-                <span className="ml-1 text-xs text-gray-400 bg-gray-50 px-2 py-0.5 rounded-full shrink-0">
+                <span className="ml-1 text-xs text-gray-400 dark:text-gray-500 bg-gray-50 px-2 py-0.5 rounded-full shrink-0">
                   {phrase.category}
                 </span>
               )}
             </div>
             {expandedIndex === i ? (
-              <ChevronUp className="w-4 h-4 text-gray-400 shrink-0" />
+              <ChevronUp className="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0" />
             ) : (
-              <ChevronDown className="w-4 h-4 text-gray-400 shrink-0" />
+              <ChevronDown className="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0" />
             )}
           </div>
           {expandedIndex === i && (
             <div className="mt-2 pt-2 border-t border-gray-50">
-              <p className="text-gray-600 text-sm">{phrase.english}</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">{phrase.english}</p>
               {phrase.pronunciation && (
-                <p className="text-xs italic text-gray-400 mt-1">/{phrase.pronunciation}/</p>
+                <p className="text-xs italic text-gray-400 dark:text-gray-500 mt-1">/{phrase.pronunciation}/</p>
               )}
             </div>
           )}

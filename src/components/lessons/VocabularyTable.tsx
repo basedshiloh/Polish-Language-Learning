@@ -17,7 +17,7 @@ export default function VocabularyTable({ items }: VocabularyTableProps) {
       <div className="flex justify-end mb-3">
         <button
           onClick={() => setShowTranslations(!showTranslations)}
-          className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-blue-600 transition-colors"
+          className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 hover:text-blue-600 transition-colors"
         >
           {showTranslations ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
           {showTranslations ? 'Hide translations' : 'Show translations'}
@@ -27,11 +27,11 @@ export default function VocabularyTable({ items }: VocabularyTableProps) {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-200">
-              <th className="text-left py-2 px-3 font-semibold text-gray-700">Polish</th>
+              <th className="text-left py-2 px-3 font-semibold text-gray-700 dark:text-gray-300">Polish</th>
               {items.some((v) => v.pronunciation) && (
-                <th className="text-left py-2 px-3 font-semibold text-gray-700 hidden sm:table-cell">Pronunciation</th>
+                <th className="text-left py-2 px-3 font-semibold text-gray-700 dark:text-gray-300 hidden sm:table-cell">Pronunciation</th>
               )}
-              <th className="text-left py-2 px-3 font-semibold text-gray-700">English</th>
+              <th className="text-left py-2 px-3 font-semibold text-gray-700 dark:text-gray-300">English</th>
             </tr>
           </thead>
           <tbody>
@@ -39,26 +39,26 @@ export default function VocabularyTable({ items }: VocabularyTableProps) {
               <tr key={i} className="border-b border-gray-50 hover:bg-blue-50/50 transition-colors">
                 <td className="py-3 px-3">
                   <div className="flex items-center gap-1">
-                    <span className="font-semibold text-blue-800">{item.polish}</span>
+                    <span className="font-semibold text-blue-800 dark:text-blue-300">{item.polish}</span>
                     <SpeakButton text={item.polish} />
                   </div>
                   {item.pronunciation && (
-                    <span className="block sm:hidden text-xs italic text-gray-400 mt-0.5">
+                    <span className="block sm:hidden text-xs italic text-gray-400 dark:text-gray-500 mt-0.5">
                       /{item.pronunciation}/
                     </span>
                   )}
                 </td>
                 {items.some((v) => v.pronunciation) && (
-                  <td className="py-3 px-3 text-xs italic text-gray-400 hidden sm:table-cell">
+                  <td className="py-3 px-3 text-xs italic text-gray-400 dark:text-gray-500 hidden sm:table-cell">
                     /{item.pronunciation}/
                   </td>
                 )}
-                <td className="py-3 px-3 text-gray-600">
+                <td className="py-3 px-3 text-gray-600 dark:text-gray-400">
                   {showTranslations ? (
                     <>
                       {item.english}
                       {item.example && (
-                        <span className="block text-xs text-gray-400 mt-1">
+                        <span className="block text-xs text-gray-400 dark:text-gray-500 mt-1">
                           {item.example} — {item.exampleTranslation}
                         </span>
                       )}

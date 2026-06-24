@@ -23,11 +23,11 @@ export default function GrammarSectionView({ section }: { section: GrammarSectio
   return (
     <div>
       {section.title && (
-        <h3 className="text-base font-semibold text-gray-900 mb-3">{section.title}</h3>
+        <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-3">{section.title}</h3>
       )}
 
       {section.type === 'text' && section.text && (
-        <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{section.text}</p>
+        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">{section.text}</p>
       )}
 
       {section.type === 'table' && section.table && (
@@ -37,13 +37,13 @@ export default function GrammarSectionView({ section }: { section: GrammarSectio
       {section.type === 'examples' && section.examples && (
         <div className="space-y-2">
           {section.examples.map((ex, i) => (
-            <div key={i} className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 bg-gray-50 rounded-lg px-4 py-2.5">
+            <div key={i} className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 bg-gray-50 dark:bg-gray-800 rounded-lg px-4 py-2.5">
               <div className="flex items-center gap-1 sm:min-w-[45%]">
-                <span className="font-semibold text-blue-800">{ex.polish}</span>
+                <span className="font-semibold text-blue-800 dark:text-blue-300">{ex.polish}</span>
                 <SpeakButton text={ex.polish} />
               </div>
-              <span className="text-gray-600 text-sm flex-1">{ex.english}</span>
-              {ex.note && <span className="text-xs text-gray-400 italic shrink-0">{ex.note}</span>}
+              <span className="text-gray-600 dark:text-gray-400 text-sm flex-1">{ex.english}</span>
+              {ex.note && <span className="text-xs text-gray-400 dark:text-gray-500 italic shrink-0">{ex.note}</span>}
             </div>
           ))}
         </div>
@@ -60,11 +60,11 @@ export default function GrammarSectionView({ section }: { section: GrammarSectio
             return (
               <div key={i} className={`rounded-xl border ${c.border} ${c.bg} p-4`}>
                 <h4 className={`text-lg font-bold ${c.title}`}>{item.title}</h4>
-                <p className="text-xs text-gray-500 mb-3">{item.subtitle}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">{item.subtitle}</p>
                 <span className={`inline-block text-xs font-medium px-2 py-1 rounded-md ${c.chip} mb-3`}>
                   {item.structure}
                 </span>
-                <p className="text-sm text-gray-700 mb-3">{item.usage}</p>
+                <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">{item.usage}</p>
                 <div className="space-y-1.5">
                   {item.examples.map((ex, j) => (
                     <div key={j} className="text-sm">
@@ -72,7 +72,7 @@ export default function GrammarSectionView({ section }: { section: GrammarSectio
                         <span className="font-semibold text-gray-800">{ex.polish}</span>
                         <SpeakButton text={ex.polish} />
                       </div>
-                      <span className="block text-xs text-gray-500">{ex.english}</span>
+                      <span className="block text-xs text-gray-500 dark:text-gray-400">{ex.english}</span>
                     </div>
                   ))}
                 </div>

@@ -72,7 +72,7 @@ export default function QuizPage({ params }: { params: Promise<{ quizId: string 
       <div className="p-6 md:p-10 max-w-4xl">
         <Link
           href="/quizzes"
-          className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-blue-600 mb-6 transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 mb-6 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Quizzes
@@ -82,9 +82,9 @@ export default function QuizPage({ params }: { params: Promise<{ quizId: string 
           <div className="w-16 h-16 rounded-2xl bg-purple-100 flex items-center justify-center mx-auto mb-6">
             <Brain className="w-8 h-8 text-purple-600" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">{quiz.title}</h1>
-          <p className="text-gray-500 mb-2">{quiz.description}</p>
-          <p className="text-sm text-gray-400 mb-8">{totalQuestions} questions</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{quiz.title}</h1>
+          <p className="text-gray-500 dark:text-gray-400 mb-2">{quiz.description}</p>
+          <p className="text-sm text-gray-400 dark:text-gray-500 mb-8">{totalQuestions} questions</p>
           <button
             onClick={() => setPhase('active')}
             className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
@@ -118,7 +118,7 @@ export default function QuizPage({ params }: { params: Promise<{ quizId: string 
     <div className="p-6 md:p-10 max-w-4xl">
       <Link
         href="/quizzes"
-        className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-blue-600 mb-6 transition-colors"
+        className="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 mb-6 transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to Quizzes
@@ -126,8 +126,8 @@ export default function QuizPage({ params }: { params: Promise<{ quizId: string 
 
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
-          <h1 className="text-lg font-semibold text-gray-900">{quiz.title}</h1>
-          <span className="text-sm text-gray-400">
+          <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{quiz.title}</h1>
+          <span className="text-sm text-gray-400 dark:text-gray-500">
             {currentIndex + 1} / {totalQuestions}
           </span>
         </div>

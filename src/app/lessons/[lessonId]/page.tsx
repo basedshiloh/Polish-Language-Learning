@@ -33,7 +33,7 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
         <div className="flex-1 min-w-0 max-w-4xl">
           <Link
             href="/lessons"
-            className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-blue-600 mb-6 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Lessons
@@ -42,7 +42,7 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-2">
               <Badge variant={lesson.level === 'A0' ? 'blue' : 'green'}>{lesson.level}</Badge>
-              <div className="flex items-center gap-1 text-xs text-gray-400">
+              <div className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500">
                 <Clock className="w-3.5 h-3.5" />
                 ~{lesson.estimatedMinutes} min
               </div>
@@ -53,8 +53,8 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
                 </div>
               )}
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{lesson.title}</h1>
-            <p className="text-gray-500 mt-1">{lesson.description}</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">{lesson.title}</h1>
+            <p className="text-gray-500 dark:text-gray-400 mt-1">{lesson.description}</p>
           </div>
 
           <div className="space-y-8">
@@ -66,7 +66,7 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
                   {block.type === 'dialogue' && <BookOpen className="w-5 h-5 text-purple-600" />}
                   {block.type === 'phrases' && <BookOpen className="w-5 h-5 text-green-600" />}
                   {block.type === 'cultural-note' && <Info className="w-5 h-5 text-amber-600" />}
-                  <h2 className="text-lg font-semibold text-gray-900">{block.title}</h2>
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{block.title}</h2>
                 </div>
 
                 {block.type === 'vocabulary' && block.vocabulary && (
@@ -82,8 +82,8 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
                   <PhraseList phrases={block.phrases} />
                 )}
                 {block.type === 'cultural-note' && block.culturalNote && (
-                  <div className="bg-amber-50 rounded-lg p-4 border border-amber-100">
-                    <p className="text-sm text-amber-900 leading-relaxed">{block.culturalNote}</p>
+                  <div className="bg-amber-50 dark:bg-amber-950/30 rounded-lg p-4 border border-amber-100 dark:border-amber-900">
+                    <p className="text-sm text-amber-900 dark:text-amber-200 leading-relaxed">{block.culturalNote}</p>
                   </div>
                 )}
               </section>
@@ -102,7 +102,7 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
             ) : (
               <button
                 onClick={() => unmarkLessonComplete(lesson.id)}
-                className="flex items-center justify-center gap-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+                className="flex items-center justify-center gap-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-200 transition-colors"
               >
                 <RotateCcw className="w-5 h-5" />
                 Mark as Not Complete

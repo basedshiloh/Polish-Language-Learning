@@ -50,13 +50,13 @@ export default function GrammarCard({ topic }: { topic: GrammarTopic }) {
         </span>
       </div>
 
-      <h3 className="font-semibold text-gray-900 group-hover:text-purple-700 transition-colors">
+      <h3 className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-purple-700 transition-colors">
         {topic.title}
       </h3>
       {topic.polishTitle && (
-        <p className="text-sm text-purple-600 font-medium mb-1">{topic.polishTitle}</p>
+        <p className="text-sm text-purple-600 dark:text-purple-400 font-medium mb-1">{topic.polishTitle}</p>
       )}
-      <p className="text-sm text-gray-500 mb-3 line-clamp-2 flex-1">{topic.description}</p>
+      <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 line-clamp-2 flex-1">{topic.description}</p>
 
       <div className="flex items-center justify-end">
         <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-purple-500 transition-colors" />

@@ -34,7 +34,7 @@ export default function GrammarTopicPage({ params }: { params: Promise<{ topicId
         <div className="flex-1 min-w-0 max-w-4xl">
           <Link
             href="/grammar"
-            className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-purple-600 mb-6 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-purple-600 mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Grammar
@@ -44,11 +44,11 @@ export default function GrammarTopicPage({ params }: { params: Promise<{ topicId
             <span className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${cat.bg} ${cat.text}`}>
               {cat.label}
             </span>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mt-3">{topic.title}</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mt-3">{topic.title}</h1>
             {topic.polishTitle && (
-              <p className="text-lg text-purple-600 font-medium">{topic.polishTitle}</p>
+              <p className="text-lg text-purple-600 dark:text-purple-400 font-medium">{topic.polishTitle}</p>
             )}
-            <p className="text-gray-500 mt-1">{topic.description}</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-1">{topic.description}</p>
           </div>
 
           <div className="space-y-8">
@@ -73,9 +73,9 @@ export default function GrammarTopicPage({ params }: { params: Promise<{ topicId
                 href={`/grammar/${prev.id}`}
                 className="flex items-center gap-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-4 py-3 hover:border-purple-200 dark:hover:border-purple-800 hover:shadow-sm transition-all"
               >
-                <ArrowLeft className="w-4 h-4 text-gray-400 shrink-0" />
+                <ArrowLeft className="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs text-gray-400">Previous</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500">Previous</p>
                   <p className="text-sm font-medium text-gray-800 truncate">{prev.title}</p>
                 </div>
               </Link>
@@ -86,10 +86,10 @@ export default function GrammarTopicPage({ params }: { params: Promise<{ topicId
                 className="flex items-center justify-end gap-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-4 py-3 hover:border-purple-200 dark:hover:border-purple-800 hover:shadow-sm transition-all text-right"
               >
                 <div className="min-w-0">
-                  <p className="text-xs text-gray-400">Next</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500">Next</p>
                   <p className="text-sm font-medium text-gray-800 truncate">{next.title}</p>
                 </div>
-                <ArrowRight className="w-4 h-4 text-gray-400 shrink-0" />
+                <ArrowRight className="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0" />
               </Link>
             ) : <div />}
           </div>

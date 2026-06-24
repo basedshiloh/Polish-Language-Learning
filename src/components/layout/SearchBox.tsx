@@ -133,7 +133,7 @@ export default function SearchBox() {
   return (
     <div ref={wrapperRef} className="relative w-full max-w-2xl">
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
         <input
           ref={inputRef}
           type="text"
@@ -142,13 +142,13 @@ export default function SearchBox() {
           onFocus={() => { if (results.length > 0) setOpen(true); }}
           onKeyDown={handleKeyDown}
           placeholder="Search lessons, grammar, quizzes… (⌘K)"
-          className="w-full pl-10 pr-10 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 transition-all placeholder:text-gray-400 dark:text-gray-100"
+          className="w-full pl-10 pr-10 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 transition-all placeholder:text-gray-400 dark:text-gray-500 dark:text-gray-100"
           autoComplete="off"
         />
         {query && (
           <button
             onClick={() => { setQuery(''); setResults([]); setOpen(false); }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:text-gray-400"
           >
             <X className="w-4 h-4" />
           </button>
@@ -174,14 +174,14 @@ export default function SearchBox() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-semibold text-gray-900">
+                    <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
                       <HighlightMatch text={result.entry.title} query={query} />
                     </span>
                     <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${meta.bg} ${meta.color}`}>
                       {meta.label}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">
                     <HighlightMatch text={result.matchedText} query={query} />
                   </p>
                 </div>
@@ -200,7 +200,7 @@ export default function SearchBox() {
 
       {open && query.length >= 2 && results.length === 0 && (
         <div className="absolute top-full mt-1 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg z-50 p-4 text-center">
-          <p className="text-sm text-gray-400">No results for &quot;{query}&quot;</p>
+          <p className="text-sm text-gray-400 dark:text-gray-500">No results for &quot;{query}&quot;</p>
         </div>
       )}
     </div>

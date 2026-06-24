@@ -10,27 +10,27 @@ export default function GrammarBlock({ points }: GrammarBlockProps) {
   return (
     <div className="space-y-6">
       {points.map((point, i) => (
-        <div key={i} className="bg-blue-50/50 rounded-lg p-5 border border-blue-100">
-          <h4 className="font-semibold text-blue-900 mb-2">{point.title}</h4>
-          <p className="text-sm text-gray-700 mb-4 leading-relaxed">{point.explanation}</p>
+        <div key={i} className="bg-blue-50/50 dark:bg-blue-950/30 rounded-lg p-5 border border-blue-100 dark:border-blue-900">
+          <h4 className="font-semibold text-blue-900 dark:text-blue-200 mb-2">{point.title}</h4>
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">{point.explanation}</p>
 
           <div className="space-y-2 mb-4">
             {point.examples.map((ex, j) => (
               <div key={j} className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-sm">
                 <div className="flex items-center gap-1">
-                  <span className="font-semibold text-blue-800">{ex.polish}</span>
+                  <span className="font-semibold text-blue-800 dark:text-blue-300">{ex.polish}</span>
                   <SpeakButton text={ex.polish} />
                 </div>
-                <span className="text-gray-400 hidden sm:inline">→</span>
-                <span className="text-gray-600">{ex.english}</span>
+                <span className="text-gray-400 dark:text-gray-500 hidden sm:inline">→</span>
+                <span className="text-gray-600 dark:text-gray-400">{ex.english}</span>
               </div>
             ))}
           </div>
 
           {point.tip && (
-            <div className="flex items-start gap-2 bg-amber-50 rounded-lg p-3 border border-amber-100">
+            <div className="flex items-start gap-2 bg-amber-50 dark:bg-amber-950/30 rounded-lg p-3 border border-amber-100 dark:border-amber-900">
               <Lightbulb className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
-              <p className="text-sm text-amber-800">{point.tip}</p>
+              <p className="text-sm text-amber-800 dark:text-amber-200">{point.tip}</p>
             </div>
           )}
         </div>

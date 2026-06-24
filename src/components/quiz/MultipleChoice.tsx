@@ -26,7 +26,7 @@ export default function MultipleChoice({ question, onAnswer }: MultipleChoicePro
 
   return (
     <div>
-      <p className="text-lg font-semibold text-gray-900 mb-4">{question.prompt}</p>
+      <p className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">{question.prompt}</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
         {question.options.map((option, i) => {
           let style = 'border-gray-200 dark:border-gray-700 hover:border-blue-300 bg-white dark:bg-gray-800';

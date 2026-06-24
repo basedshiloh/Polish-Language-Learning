@@ -19,7 +19,7 @@ export default function ProgressBar({
   return (
     <div className="w-full">
       {showLabel && (
-        <div className="flex justify-between text-sm text-gray-600 mb-1">
+        <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
           <span>{value} / {max}</span>
           <span>{percentage}%</span>
         </div>

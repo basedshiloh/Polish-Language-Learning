@@ -14,7 +14,7 @@ export default function FrequencyScale({ items }: { items: FrequencyItem[] }) {
   return (
     <div className="space-y-3">
       {/* scale labels */}
-      <div className="flex justify-between text-xs text-gray-400 px-1">
+      <div className="flex justify-between text-xs text-gray-400 dark:text-gray-500 px-1">
         <span>0% — never</span>
         <span>always — 100%</span>
       </div>
@@ -23,12 +23,12 @@ export default function FrequencyScale({ items }: { items: FrequencyItem[] }) {
         <div key={i} className="flex items-center gap-3">
           <div className="w-32 sm:w-40 shrink-0">
             <div className="flex items-center gap-1">
-              <p className="font-semibold text-blue-800 text-sm leading-tight">{item.polish}</p>
+              <p className="font-semibold text-blue-800 dark:text-blue-300 text-sm leading-tight">{item.polish}</p>
               <SpeakButton text={item.polish} />
             </div>
-            <p className="text-xs text-gray-500">{item.english}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{item.english}</p>
             {item.pronunciation && (
-              <p className="text-[11px] italic text-gray-400">/{item.pronunciation}/</p>
+              <p className="text-[11px] italic text-gray-400 dark:text-gray-500">/{item.pronunciation}/</p>
             )}
           </div>
           <div className="flex-1 h-6 bg-gray-100 rounded-full overflow-hidden relative">
@@ -41,7 +41,7 @@ export default function FrequencyScale({ items }: { items: FrequencyItem[] }) {
               )}
             </div>
             {item.percent < 15 && (
-              <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-gray-400">
+              <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-gray-400 dark:text-gray-500">
                 {item.percent}%
               </span>
             )}
