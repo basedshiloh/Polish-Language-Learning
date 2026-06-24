@@ -134,7 +134,7 @@ export function useSearch() {
       results.push({ entry, matchedText: matched });
     }
 
-    return results.slice(0, 8);
+    return results;
   }
 
   return { search };

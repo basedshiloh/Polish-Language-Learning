@@ -2,8 +2,10 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, X, BookOpen, Table2, Brain } from 'lucide-react';
+import { Search, X, BookOpen, Table2, Brain, ArrowRight } from 'lucide-react';
 import { useSearch, type SearchResult } from '@/hooks/useSearch';
+
+const DROPDOWN_LIMIT = 10;
 
 const categoryMeta = {
   lesson: { icon: BookOpen, label: 'Lesson', color: 'text-blue-600', bg: 'bg-blue-50' },
@@ -97,12 +99,16 @@ export default function SearchBox() {
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       setSelectedIdx((i) => Math.max(i - 1, 0));
-    } else if (e.key === 'Enter' && selectedIdx >= 0 && results[selectedIdx]) {
+    } else if (e.key === 'Enter') {
       e.preventDefault();
-      router.push(results[selectedIdx].entry.href);
-      setOpen(false);
-      setQuery('');
-      inputRef.current?.blur();
+      if (selectedIdx >= 0 && visibleResults[selectedIdx]) {
+        router.push(visibleResults[selectedIdx].entry.href);
+        setOpen(false);
+        setQuery('');
+        inputRef.current?.blur();
+      } else if (query.length >= 2) {
+        goToFullSearch();
+      }
     } else if (e.key === 'Escape') {
       setOpen(false);
       inputRef.current?.blur();
@@ -114,6 +120,15 @@ export default function SearchBox() {
     setOpen(false);
     setQuery('');
   }
+
+  function goToFullSearch() {
+    router.push(`/search?q=${encodeURIComponent(query)}`);
+    setOpen(false);
+    inputRef.current?.blur();
+  }
+
+  const visibleResults = results.slice(0, DROPDOWN_LIMIT);
+  const hasMore = results.length > DROPDOWN_LIMIT;
 
   return (
     <div ref={wrapperRef} className="relative w-full max-w-2xl">
@@ -141,8 +156,8 @@ export default function SearchBox() {
       </div>
 
       {open && results.length > 0 && (
-        <div className="absolute top-full mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg z-50 overflow-hidden">
-          {results.map((result, i) => {
+        <div className="absolute top-full mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg z-50 overflow-hidden max-h-[70vh] overflow-y-auto">
+          {visibleResults.map((result, i) => {
             const meta = categoryMeta[result.entry.category];
             const Icon = meta.icon;
             return (
@@ -173,6 +188,13 @@ export default function SearchBox() {
               </button>
             );
           })}
+          <button
+            onClick={goToFullSearch}
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-blue-600 hover:bg-blue-50 border-t border-gray-100 transition-colors"
+          >
+            Search all results ({results.length})
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
       )}
 

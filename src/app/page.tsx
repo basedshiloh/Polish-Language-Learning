@@ -2,15 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { BookOpen, Brain, Flame, ArrowRight, Trophy, Table2, CalendarClock, Sparkles } from 'lucide-react';
+import { BookOpen, Brain, Flame, ArrowRight, Trophy, Table2, Sparkles } from 'lucide-react';
 import { useProgress } from '@/hooks/useProgress';
 import { lessons } from '@/data/lessons';
 import { quizzes } from '@/data/quizzes';
 import { grammarTopics } from '@/data/grammar';
 import ProgressBar from '@/components/shared/ProgressBar';
 import PageSidebar, { SidebarCard } from '@/components/layout/PageSidebar';
-
-const EXAM_DATE = new Date('2026-06-24');
 
 const dailyPhrases = [
   { polish: 'Dzień dobry!', english: 'Good day!' },
@@ -66,8 +64,6 @@ export default function Dashboard() {
     .slice(0, 3);
 
   const nextLesson = lessons.find((l) => !progress.lessonProgress[l.id]?.completed);
-
-  const daysUntilExam = Math.max(0, Math.ceil((EXAM_DATE.getTime() - Date.now()) / (1000 * 60 * 60 * 24)));
 
   return (
     <div className="p-6 md:p-10">
@@ -212,17 +208,6 @@ export default function Dashboard() {
         </div>
 
         <PageSidebar>
-          <SidebarCard title="Exam Countdown" accent="amber">
-            <div className="text-center">
-              <div className="flex items-center justify-center gap-2 mb-1">
-                <CalendarClock className="w-5 h-5 text-amber-500" />
-                <span className="text-3xl font-bold text-gray-900">{daysUntilExam}</span>
-              </div>
-              <p className="text-xs text-gray-500">days until exam</p>
-              <p className="text-[11px] text-gray-400 mt-1">June 24, 2026</p>
-            </div>
-          </SidebarCard>
-
           <SidebarCard title="Daily Phrases" accent="blue">
             <div className="space-y-3">
               {todayPhrases.map((p, i) => (
