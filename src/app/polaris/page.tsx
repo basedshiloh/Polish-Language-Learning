@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
-import { Shield, Eye, EyeOff, Trash2, MessageSquare, RefreshCw, ChevronLeft, ChevronRight, LogIn } from 'lucide-react';
+import { useState, useCallback, useEffect, useRef } from 'react';
+import { Shield, Eye, EyeOff, Trash2, MessageSquare, RefreshCw, ChevronLeft, ChevronRight, LogIn, CornerDownRight } from 'lucide-react';
 
 interface Comment {
   id: string;
@@ -11,6 +11,7 @@ interface Comment {
   content: string;
   created_at: string;
   hidden: boolean;
+  parent_id: string | null;
 }
 
 interface Stats {
@@ -50,72 +51,62 @@ export default function PolarisPage() {
   const [filter, setFilter] = useState<'all' | 'visible' | 'hidden'>('all');
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const tokenRef = useRef('');
 
   const api = useCallback(async (body: Record<string, unknown>) => {
     const res = await fetch('/api/polaris', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
+      headers: { 'Content-Type': 'application/json', 'x-admin-token': tokenRef.current },
       body: JSON.stringify(body),
     });
     return res.json();
-  }, [token]);
+  }, []);
 
-  const loadComments = useCallback(async () => {
+  const refresh = useCallback(async (currentFilter: string, currentPage: number) => {
     setLoading(true);
-    const body: Record<string, unknown> = {
-      action: 'list-all',
-      limit: PAGE_SIZE,
-      offset: page * PAGE_SIZE,
-    };
-    if (filter === 'visible') {
-      body.action = 'list';
-      body.showHidden = false;
-    } else if (filter === 'hidden') {
-      body.action = 'list';
-      body.showHidden = true;
-    }
 
-    const data = await api(body);
-    if (data.error) {
+    const [commentsData, statsData] = await Promise.all([
+      (async () => {
+        if (currentFilter === 'all') {
+          return api({ action: 'list-all', limit: PAGE_SIZE, offset: currentPage * PAGE_SIZE });
+        } else if (currentFilter === 'visible') {
+          return api({ action: 'list-filtered', hidden: false, limit: PAGE_SIZE, offset: currentPage * PAGE_SIZE });
+        } else {
+          return api({ action: 'list-filtered', hidden: true, limit: PAGE_SIZE, offset: currentPage * PAGE_SIZE });
+        }
+      })(),
+      api({ action: 'stats' }),
+    ]);
+
+    if (commentsData.error) {
       setAuthenticated(false);
       setLoading(false);
       return;
     }
 
-    let filtered = data.comments || [];
-    if (filter === 'hidden') {
-      filtered = filtered.filter((c: Comment) => c.hidden);
-    }
-
-    setComments(filtered);
-    setTotal(filter === 'hidden' ? (stats?.hidden || 0) : (data.total || 0));
+    setComments(commentsData.comments || []);
+    setTotal(commentsData.total || 0);
+    if (!statsData.error) setStats(statsData);
     setLoading(false);
-  }, [api, page, filter, stats]);
-
-  const loadStats = useCallback(async () => {
-    const data = await api({ action: 'stats' });
-    if (!data.error) setStats(data);
   }, [api]);
 
   useEffect(() => {
-    if (authenticated) {
-      loadComments();
-      loadStats();
-    }
-  }, [authenticated, page, filter, loadComments, loadStats]);
+    if (authenticated) refresh(filter, page);
+  }, [authenticated, page, filter, refresh]);
 
   const handleLogin = async () => {
-    const tempToken = inputToken;
-    setToken(tempToken);
+    tokenRef.current = inputToken;
+    setToken(inputToken);
 
     const res = await fetch('/api/polaris', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-admin-token': tempToken },
+      headers: { 'Content-Type': 'application/json', 'x-admin-token': inputToken },
       body: JSON.stringify({ action: 'stats' }),
     });
     const data = await res.json();
 
     if (data.error) {
+      tokenRef.current = '';
       setToken('');
       alert('Invalid password');
       return;
@@ -129,8 +120,7 @@ export default function PolarisPage() {
     setActionLoading(commentId);
     await api({ action, commentId });
     setDeleteConfirm(null);
-    await loadComments();
-    await loadStats();
+    await refresh(filter, page);
     setActionLoading(null);
   };
 
@@ -176,7 +166,7 @@ export default function PolarisPage() {
             <span className="text-xs text-gray-400 dark:text-gray-500">Comment Moderation</span>
           </div>
           <button
-            onClick={() => { loadComments(); loadStats(); }}
+            onClick={() => refresh(filter, page)}
             className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-purple-600 transition-colors"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -240,19 +230,27 @@ export default function PolarisPage() {
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
+                      {c.parent_id && (
+                        <CornerDownRight className="w-3.5 h-3.5 text-blue-400" />
+                      )}
                       <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">{c.author_name}</span>
                       <span className="text-xs text-gray-400 dark:text-gray-500">{timeAgo(c.created_at)}</span>
                       <span className="text-xs px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
                         {pageLabel(c.page_id)}
                       </span>
                       <span className="text-xs text-gray-400 dark:text-gray-600">{c.page_type}</span>
+                      {c.parent_id && (
+                        <span className="text-xs px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
+                          Reply
+                        </span>
+                      )}
                       {c.hidden && (
                         <span className="text-xs px-1.5 py-0.5 rounded bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 font-medium">
                           Hidden
                         </span>
                       )}
                     </div>
-                    <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line">{c.content}</p>
+                    <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line break-words">{c.content}</p>
                   </div>
 
                   <div className="flex items-center gap-1 shrink-0">

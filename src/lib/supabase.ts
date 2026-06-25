@@ -21,6 +21,13 @@ export interface Comment {
   content: string;
   created_at: string;
   hidden?: boolean;
+  parent_id?: string | null;
+}
+
+const URL_PATTERN = /(?:https?:\/\/|www\.)[^\s]+|[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\/[^\s]*)?/i;
+
+export function containsUrl(text: string): boolean {
+  return URL_PATTERN.test(text);
 }
 
 export async function getRating(itemKey: string): Promise<Rating | null> {
@@ -67,12 +74,22 @@ export async function getComments(pageId: string): Promise<Comment[]> {
     .from('comments')
     .select('*')
     .eq('page_id', pageId)
-    .order('created_at', { ascending: false })
-    .limit(50);
+    .order('created_at', { ascending: true })
+    .limit(100);
   return data || [];
 }
 
-export async function addComment(pageId: string, pageType: string, authorName: string, content: string): Promise<Comment | null> {
+export async function addComment(
+  pageId: string,
+  pageType: string,
+  authorName: string,
+  content: string,
+  parentId?: string
+): Promise<Comment | null> {
+  if (containsUrl(content) || containsUrl(authorName)) {
+    throw new Error('Links and URLs are not allowed in comments.');
+  }
+
   const { data } = await supabase
     .from('comments')
     .insert({
@@ -80,6 +97,7 @@ export async function addComment(pageId: string, pageType: string, authorName: s
       page_type: pageType,
       author_name: authorName.trim().slice(0, 50),
       content: content.trim().slice(0, 2000),
+      ...(parentId ? { parent_id: parentId } : {}),
     })
     .select()
     .single();

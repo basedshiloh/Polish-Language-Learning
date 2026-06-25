@@ -21,28 +21,26 @@ export async function POST(request: NextRequest) {
   }
 
   const body = await request.json();
-  const { action, commentId, page, limit = 50, offset = 0, showHidden } = body;
+  const { action, commentId, limit = 50, offset = 0 } = body;
   const supabase = getAdminClient();
-
-  if (action === 'list') {
-    let query = supabase
-      .from('comments')
-      .select('*', { count: 'exact' })
-      .order('created_at', { ascending: false })
-      .range(offset, offset + limit - 1);
-
-    if (page) query = query.eq('page_id', page);
-    if (!showHidden) query = query.eq('hidden', false);
-
-    const { data, count, error } = await query;
-    if (error) return Response.json({ error: error.message }, { status: 500 });
-    return Response.json({ comments: data, total: count });
-  }
 
   if (action === 'list-all') {
     const { data, count, error } = await supabase
       .from('comments')
       .select('*', { count: 'exact' })
+      .order('created_at', { ascending: false })
+      .range(offset, offset + limit - 1);
+
+    if (error) return Response.json({ error: error.message }, { status: 500 });
+    return Response.json({ comments: data, total: count });
+  }
+
+  if (action === 'list-filtered') {
+    const hidden = body.hidden === true;
+    const { data, count, error } = await supabase
+      .from('comments')
+      .select('*', { count: 'exact' })
+      .eq('hidden', hidden)
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
 
