@@ -20,6 +20,7 @@ export interface Comment {
   author_name: string;
   content: string;
   created_at: string;
+  hidden?: boolean;
 }
 
 export async function getRating(itemKey: string): Promise<Rating | null> {
