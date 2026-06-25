@@ -21,8 +21,8 @@ export default function QuizzesLayout({ children }: { children: React.ReactNode 
   return (
     <>
       <JsonLd data={breadcrumbSchema([
-        { name: 'Home', url: 'https://polishpal.app' },
-        { name: 'Quizzes', url: 'https://polishpal.app/quizzes' },
+        { name: 'Home', url: 'https://polishpal.pl' },
+        { name: 'Quizzes', url: 'https://polishpal.pl/quizzes' },
       ])} />
       {children}
     </>

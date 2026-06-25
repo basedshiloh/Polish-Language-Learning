@@ -4,7 +4,7 @@
 
 Built with real university lecture materials, interactive quizzes, grammar visualizations, and text-to-speech pronunciation — all in your browser.
 
-🌐 **Live:** [polish-language-learning.vercel.app](https://polish-language-learning.vercel.app)
+🌐 **Live:** [polishpal.pl](https://polishpal.pl)
 
 ---
 

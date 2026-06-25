@@ -37,14 +37,14 @@ export default async function GrammarTopicLayout({ params, children }: Props) {
   return (
     <>
       <JsonLd data={breadcrumbSchema([
-        { name: 'Home', url: 'https://polishpal.app' },
-        { name: 'Grammar', url: 'https://polishpal.app/grammar' },
-        { name: topic.title, url: `https://polishpal.app/grammar/${topic.id}` },
+        { name: 'Home', url: 'https://polishpal.pl' },
+        { name: 'Grammar', url: 'https://polishpal.pl/grammar' },
+        { name: topic.title, url: `https://polishpal.pl/grammar/${topic.id}` },
       ])} />
       <JsonLd data={articleSchema({
         title: topic.title,
         description: topic.description,
-        url: `https://polishpal.app/grammar/${topic.id}`,
+        url: `https://polishpal.pl/grammar/${topic.id}`,
       })} />
       {children}
     </>

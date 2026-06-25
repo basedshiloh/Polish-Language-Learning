@@ -9,7 +9,7 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const SITE_URL = "https://polishpal.app";
+const SITE_URL = "https://polishpal.pl";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

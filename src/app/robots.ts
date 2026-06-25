@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/polaris', '/api/', '/progress'],
     },
-    sitemap: 'https://polish-language-learning.vercel.app/sitemap.xml',
+    sitemap: 'https://polishpal.pl/sitemap.xml',
   };
 }

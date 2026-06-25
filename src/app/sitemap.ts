@@ -3,7 +3,7 @@ import { lessons } from '@/data/lessons';
 import { grammarTopics } from '@/data/grammar';
 import { quizzes } from '@/data/quizzes';
 
-const BASE = 'https://polish-language-learning.vercel.app';
+const BASE = 'https://polishpal.pl';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

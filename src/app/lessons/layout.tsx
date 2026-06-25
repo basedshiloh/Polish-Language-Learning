@@ -22,8 +22,8 @@ export default function LessonsLayout({ children }: { children: React.ReactNode 
   return (
     <>
       <JsonLd data={breadcrumbSchema([
-        { name: 'Home', url: 'https://polishpal.app' },
-        { name: 'Lessons', url: 'https://polishpal.app/lessons' },
+        { name: 'Home', url: 'https://polishpal.pl' },
+        { name: 'Lessons', url: 'https://polishpal.pl/lessons' },
       ])} />
       {children}
     </>

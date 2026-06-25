@@ -22,8 +22,8 @@ export default function GrammarLayout({ children }: { children: React.ReactNode 
   return (
     <>
       <JsonLd data={breadcrumbSchema([
-        { name: 'Home', url: 'https://polishpal.app' },
-        { name: 'Grammar', url: 'https://polishpal.app/grammar' },
+        { name: 'Home', url: 'https://polishpal.pl' },
+        { name: 'Grammar', url: 'https://polishpal.pl/grammar' },
       ])} />
       <JsonLd data={faqSchema([
         { question: 'What are the grammatical genders in Polish?', answer: 'Polish has three genders: masculine (rodzaj męski), feminine (rodzaj żeński), and neuter (rodzaj nijaki). Most nouns ending in a consonant are masculine, nouns ending in -a are feminine, and nouns ending in -o or -e are neuter.' },
