@@ -2,19 +2,10 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Sun, Moon, Monitor } from 'lucide-react';
 import { NAV_ITEMS } from '@/lib/constants';
-import { useTheme, type Theme } from '@/hooks/useTheme';
-
-const themeIcons: Record<Theme, typeof Sun> = { light: Sun, dark: Moon, system: Monitor };
-const themeOrder: Theme[] = ['light', 'dark', 'system'];
 
 export default function MobileNav() {
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
-
-  const ThemeIcon = themeIcons[theme];
-  const nextTheme = themeOrder[(themeOrder.indexOf(theme) + 1) % themeOrder.length];
 
   return (
     <nav className="md:hidden fixed bottom-0 inset-x-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 z-50">
@@ -40,14 +31,6 @@ export default function MobileNav() {
             </Link>
           );
         })}
-        <button
-          onClick={() => setTheme(nextTheme)}
-          title={`Theme: ${theme}`}
-          className="relative flex flex-col items-center gap-1 px-2 py-1.5 rounded-lg text-[11px] font-medium text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-        >
-          <ThemeIcon className="w-5 h-5" />
-          <span className="capitalize">{theme}</span>
-        </button>
       </div>
     </nav>
   );
