@@ -9,6 +9,7 @@ import GrammarSectionView from '@/components/grammar/GrammarSectionView';
 import { categoryStyles } from '@/components/grammar/GrammarCard';
 import TableOfContents from '@/components/layout/TableOfContents';
 import StarRating from '@/components/shared/StarRating';
+import CommentSection from '@/components/shared/CommentSection';
 
 export default function GrammarTopicPage({ params }: { params: Promise<{ topicId: string }> }) {
   const { topicId } = use(params);
@@ -97,6 +98,8 @@ export default function GrammarTopicPage({ params }: { params: Promise<{ topicId
               </Link>
             ) : <div />}
           </div>
+
+          <CommentSection pageId={`grammar-${topic.id}`} pageType="grammar" />
         </div>
 
         <TableOfContents items={tocItems} />

@@ -13,6 +13,7 @@ import DialogueBlock from '@/components/lessons/DialogueBlock';
 import PhraseList from '@/components/lessons/PhraseList';
 import TableOfContents from '@/components/layout/TableOfContents';
 import StarRating from '@/components/shared/StarRating';
+import CommentSection from '@/components/shared/CommentSection';
 
 export default function LessonPage({ params }: { params: Promise<{ lessonId: string }> }) {
   const { lessonId } = use(params);
@@ -122,6 +123,8 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
               </Link>
             )}
           </div>
+
+          <CommentSection pageId={`lesson-${lesson.id}`} pageType="lesson" />
         </div>
 
         <TableOfContents items={tocItems} />
