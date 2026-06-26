@@ -1,5 +1,3 @@
-## How to Learn Polish: 7 Proven Steps for Beginners
-
 So you've decided to learn Polish — *gratulacje!* (congratulations). Whether you're moving to Kraków, reconnecting with Polish roots, or just love a good linguistic challenge, you're in the right place. Polish has a reputation for being brutally hard, but the truth is gentler: anyone can learn Polish with the right plan, the right order, and a little patience.
 
 This guide gives you that plan. We'll walk through seven proven steps that take you from total beginner (A0) to a confident A1 speaker who can introduce themselves, order food, and survive a trip to Poland. No grammar overwhelm, no expensive courses — just a clear path you can start today.
@@ -220,8 +218,6 @@ Neither — start with fixed survival phrases so you can communicate immediately
 
 **Is Polish harder than Spanish or French?**
 For English speakers, yes, Polish takes more hours because of its case system and pronunciation. But it's far from impossible to learn Polish, and the early A1 wins come quickly.
-
-## Start Your Polish Journey Today
 
 Here's the honest summary: the decision to learn Polish is bigger than any single tip. Polish rewards consistency over genius. Get the alphabet and pronunciation right, learn phrases before grammar, drip-feed vocabulary daily, train your ears, and — above all — speak from day one.
 
