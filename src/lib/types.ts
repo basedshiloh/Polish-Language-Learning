@@ -202,3 +202,35 @@ export interface GrammarTopic {
   order: number;
   sections: GrammarSection[];
 }
+
+// ─── Blog ────────────────────────────────────────────────
+
+export type BlogCategory =
+  | 'learning-tips'
+  | 'grammar-deep-dive'
+  | 'culture'
+  | 'pronunciation'
+  | 'vocabulary'
+  | 'student-stories';
+
+export interface BlogAuthor {
+  name: string;
+  avatar?: string;
+  bio: string;
+}
+
+export interface BlogPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: BlogCategory;
+  author: BlogAuthor;
+  date: string;
+  updatedDate?: string;
+  featuredImage: string;
+  featuredImageAlt: string;
+  readingTime: number;
+  tags: string[];
+  summary: string[];
+  published: boolean;
+}

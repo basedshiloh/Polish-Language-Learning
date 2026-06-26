@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 import { lessons } from '@/data/lessons';
 import { grammarTopics } from '@/data/grammar';
 import { quizzes } from '@/data/quizzes';
+import { getPublishedPosts } from '@/data/blog';
 
 const BASE = 'https://polishpal.pl';
 
@@ -37,5 +38,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...lessonPages, ...grammarPages, ...quizPages];
+  const blogPages: MetadataRoute.Sitemap = [
+    { url: `${BASE}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
+    ...getPublishedPosts().map((p) => ({
+      url: `${BASE}/blog/${p.slug}`,
+      lastModified: p.updatedDate ? new Date(p.updatedDate) : new Date(p.date),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
+  ];
+
+  return [...staticPages, ...lessonPages, ...grammarPages, ...quizPages, ...blogPages];
 }

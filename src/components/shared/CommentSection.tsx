@@ -6,7 +6,7 @@ import { getComments, addComment, containsUrl, type Comment } from '@/lib/supaba
 
 interface CommentSectionProps {
   pageId: string;
-  pageType: 'lesson' | 'grammar';
+  pageType: 'lesson' | 'grammar' | 'blog';
 }
 
 function timeAgo(dateStr: string): string {
