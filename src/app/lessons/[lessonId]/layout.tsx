@@ -37,14 +37,14 @@ export default async function LessonLayout({ params, children }: Props) {
   return (
     <>
       <JsonLd data={breadcrumbSchema([
-        { name: 'Home', url: 'https://polishpal.pl' },
-        { name: 'Lessons', url: 'https://polishpal.pl/lessons' },
-        { name: lesson.title, url: `https://polishpal.pl/lessons/${lesson.id}` },
+        { name: 'Home', url: 'https://www.polishpal.pl' },
+        { name: 'Lessons', url: 'https://www.polishpal.pl/lessons' },
+        { name: lesson.title, url: `https://www.polishpal.pl/lessons/${lesson.id}` },
       ])} />
       <JsonLd data={articleSchema({
         title: lesson.title,
         description: lesson.description,
-        url: `https://polishpal.pl/lessons/${lesson.id}`,
+        url: `https://www.polishpal.pl/lessons/${lesson.id}`,
       })} />
       {children}
     </>

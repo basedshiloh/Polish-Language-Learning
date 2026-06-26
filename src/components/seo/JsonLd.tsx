@@ -16,12 +16,12 @@ export function websiteSchema() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'PolishPal',
-    url: 'https://polishpal.pl',
+    url: 'https://www.polishpal.pl',
     description: 'Free interactive Polish language learning app — lessons, grammar reference, and quizzes from A0 to A1.',
     inLanguage: ['en', 'pl'],
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://polishpal.pl/search?q={search_term_string}',
+      target: 'https://www.polishpal.pl/search?q={search_term_string}',
       'query-input': 'required name=search_term_string',
     },
   };
@@ -36,7 +36,7 @@ export function courseSchema() {
     provider: {
       '@type': 'Organization',
       name: 'PolishPal',
-      url: 'https://polishpal.pl',
+      url: 'https://www.polishpal.pl',
     },
     educationalLevel: 'Beginner',
     inLanguage: 'pl',

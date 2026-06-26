@@ -4,7 +4,7 @@ import { grammarTopics } from '@/data/grammar';
 import { quizzes } from '@/data/quizzes';
 import { getPublishedPosts } from '@/data/blog';
 
-const BASE = 'https://polishpal.pl';
+const BASE = 'https://www.polishpal.pl';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

@@ -21,8 +21,8 @@ export default function BlogLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <JsonLd data={breadcrumbSchema([
-        { name: 'Home', url: 'https://polishpal.pl' },
-        { name: 'Blog', url: 'https://polishpal.pl/blog' },
+        { name: 'Home', url: 'https://www.polishpal.pl' },
+        { name: 'Blog', url: 'https://www.polishpal.pl/blog' },
       ])} />
       {children}
     </>

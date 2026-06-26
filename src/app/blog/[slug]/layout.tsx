@@ -52,12 +52,12 @@ export default async function BlogPostLayout({ params, children }: Props) {
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.excerpt,
-    url: `https://polishpal.pl/blog/${post.slug}`,
+    url: `https://www.polishpal.pl/blog/${post.slug}`,
     datePublished: post.date,
     dateModified: post.updatedDate || post.date,
     author: { '@type': 'Organization', name: post.author.name },
     publisher: { '@type': 'Organization', name: 'PolishPal' },
-    image: `https://polishpal.pl${post.featuredImage}`,
+    image: `https://www.polishpal.pl${post.featuredImage}`,
     wordCount: post.readingTime * 200,
     inLanguage: 'en',
     isAccessibleForFree: true,
@@ -67,9 +67,9 @@ export default async function BlogPostLayout({ params, children }: Props) {
   return (
     <>
       <JsonLd data={breadcrumbSchema([
-        { name: 'Home', url: 'https://polishpal.pl' },
-        { name: 'Blog', url: 'https://polishpal.pl/blog' },
-        { name: post.title, url: `https://polishpal.pl/blog/${post.slug}` },
+        { name: 'Home', url: 'https://www.polishpal.pl' },
+        { name: 'Blog', url: 'https://www.polishpal.pl/blog' },
+        { name: post.title, url: `https://www.polishpal.pl/blog/${post.slug}` },
       ])} />
       <JsonLd data={articleData} />
       {children}

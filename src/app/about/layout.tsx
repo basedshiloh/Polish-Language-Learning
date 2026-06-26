@@ -17,8 +17,8 @@ export default function AboutLayout({ children }: { children: React.ReactNode })
   return (
     <>
       <JsonLd data={breadcrumbSchema([
-        { name: 'Home', url: 'https://polishpal.pl' },
-        { name: 'About', url: 'https://polishpal.pl/about' },
+        { name: 'Home', url: 'https://www.polishpal.pl' },
+        { name: 'About', url: 'https://www.polishpal.pl/about' },
       ])} />
       {children}
     </>

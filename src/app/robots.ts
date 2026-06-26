@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/polaris', '/api/', '/progress'],
     },
-    sitemap: 'https://polishpal.pl/sitemap.xml',
+    sitemap: 'https://www.polishpal.pl/sitemap.xml',
   };
 }
