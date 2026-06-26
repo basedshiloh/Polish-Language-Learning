@@ -17,6 +17,24 @@ export const blogCategoryStyles: Record<BlogCategory, { label: string; bg: strin
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'polish-accusative-case-guide',
+    title: 'Polish Accusative Case: 5 Simple Rules to Master It',
+    excerpt: 'Struggling with the Polish accusative case? Learn 5 simple rules to master biernik — including endings for masculine, feminine, and neuter nouns, plus common exceptions.',
+    category: 'grammar-deep-dive',
+    author: blogAuthors.polishpal,
+    date: '2026-06-27',
+    featuredImage: '/blog/accusative-case-featured.jpg',
+    featuredImageAlt: 'Grammar study notebook with Polish language exercises — Photo by Polina Tankilevitch on Pexels',
+    readingTime: 14,
+    tags: ['accusative', 'cases', 'grammar', 'beginners', 'biernik'],
+    summary: [
+      'The Polish accusative case marks the direct object — learn it immediately after nominative',
+      'Masculine animate nouns take -a, masculine inanimate stay the same',
+      'Feminine -a becomes -ę; consonant-ending feminines and all neuter nouns stay unchanged',
+    ],
+    published: true,
+  },
+  {
     slug: 'learn-polish-for-beginners',
     title: 'How to Learn Polish: 7 Proven Steps for Beginners',
     excerpt: 'Want to learn Polish from scratch? This step-by-step beginner guide covers the alphabet, pronunciation, grammar, and a 90-day plan to reach A1 — free.',
