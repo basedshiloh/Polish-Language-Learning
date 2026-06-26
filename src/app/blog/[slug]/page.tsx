@@ -54,16 +54,16 @@ export default async function BlogPostPage({ params }: Props) {
             updatedDate={post.updatedDate}
           />
 
-          <div className="relative aspect-[2/1] rounded-xl overflow-hidden my-6 bg-gray-100 dark:bg-gray-800">
-            <Image
-              src={post.featuredImage}
-              alt={post.featuredImageAlt}
-              fill
-              className="object-cover"
-              priority
-              sizes="(max-width: 1024px) 100vw, 896px"
-            />
-          </div>
+          <Image
+            src={post.featuredImage}
+            alt={post.featuredImageAlt}
+            width={896}
+            height={448}
+            priority
+            fetchPriority="high"
+            className="w-full h-auto rounded-xl my-6"
+            sizes="(max-width: 1024px) 100vw, 896px"
+          />
 
           <SummaryBox items={post.summary} />
 

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -133,8 +134,20 @@ export default function MarkdownRenderer({ content }: { content: string }) {
         },
         img: ({ src, alt }) => (
           <figure className="my-6">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={src} alt={alt || ''} className="rounded-lg w-full" loading="lazy" />
+            {typeof src === 'string' && src.startsWith('/') ? (
+              <Image
+                src={src}
+                alt={alt || ''}
+                width={896}
+                height={504}
+                className="rounded-lg w-full h-auto"
+                loading="lazy"
+                sizes="(max-width: 1024px) 100vw, 896px"
+              />
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={src} alt={alt || ''} className="rounded-lg w-full" loading="lazy" />
+            )}
             {alt && <figcaption className="text-center text-xs text-gray-400 dark:text-gray-500 mt-2">{alt}</figcaption>}
           </figure>
         ),

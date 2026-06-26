@@ -21,7 +21,7 @@ The Polish accusative case also appears after several common prepositions:
 
 Understanding when to use the accusative is only half the battle. The other half is knowing how to change the noun's ending. Let us look at each gender one at a time.
 
-![Two students studying grammar exercises at a desk — Photo by Leeloo The First on Pexels](/blog/accusative-case-intro.jpg)
+![Two students studying grammar exercises at a desk — Photo by Leeloo The First on Pexels](/blog/accusative-case-intro.webp)
 
 ## Rule 1: Masculine Nouns — Animate vs Inanimate
 
@@ -56,7 +56,7 @@ If the noun is masculine and refers to a person or an animal, the accusative end
 
 **Exception within the exception:** Masculine nouns ending in *-a* (like *mężczyzna*, *artysta*, *kolega*) follow the feminine pattern in the accusative — they take *-ę* instead of *-a*. *Widzę artystę.* (I see the artist.) *Znam kolegę.* (I know the colleague.)
 
-![A notebook with grammar notes and language study materials — Photo by Min An on Pexels](/blog/accusative-case-endings.jpg)
+![A notebook with grammar notes and language study materials — Photo by Min An on Pexels](/blog/accusative-case-endings.webp)
 
 ## Rule 2: Feminine Nouns — Three Ending Patterns
 
@@ -109,7 +109,7 @@ Neuter nouns are the easiest group in the Polish accusative case. They **do not 
 
 Neuter nouns ending in *-ę* (like *imię*, *zwierzę*, *cielę*) also stay the same in the accusative. No exceptions here — this is the stress-free zone of biernik.
 
-![An open book on a table showing language lessons — Photo by Veronika Andrews on Pexels](/blog/accusative-case-examples.jpg)
+![An open book on a table showing language lessons — Photo by Veronika Andrews on Pexels](/blog/accusative-case-examples.webp)
 
 ## Rule 4: The Accusative After Prepositions
 
@@ -239,4 +239,4 @@ Start by practicing with short sentences using *mieć* (to have). Say what you h
 
 For a deeper understanding of how the accusative fits into the bigger picture, read our overview of [why Polish cases aren't as scary as you think](/blog/why-polish-cases-arent-scary). And when you are ready to put your knowledge to the test, the [Accusative Case lesson](/lessons/accusative-case) on PolishPal has interactive quizzes that will lock in these rules for good.
 
-![A bookshelf with various books representing knowledge and learning — Photo by Suzy Hazelwood on Pexels](/blog/accusative-case-table.jpg)
+![A bookshelf with various books representing knowledge and learning — Photo by Suzy Hazelwood on Pexels](/blog/accusative-case-table.webp)

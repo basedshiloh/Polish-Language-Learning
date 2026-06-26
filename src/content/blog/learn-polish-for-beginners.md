@@ -14,7 +14,7 @@ There are practical payoffs too. Poland has one of the fastest-growing economies
 
 And on a personal level? Choosing to learn Polish is choosing to train your brain. Few languages stretch your pattern-recognition like this one. It's hard in the best way.
 
-![A colorful view of Warsaw's Old Town, a great reason to learn Polish — Photo by Caio on Pexels](/blog/learn-polish.jpg)
+![A colorful view of Warsaw's Old Town, a great reason to learn Polish — Photo by Caio on Pexels](/blog/learn-polish.webp)
 
 ## Is Polish Really That Hard to Learn?
 
@@ -44,7 +44,7 @@ Spend your first few days just learning the alphabet and its sounds. This single
 
 [Polish Phonetics & Pronunciation Guide](/lessons/phonetics)
 
-![Wooden letter blocks for learning the Polish alphabet — Photo by Ann H on Pexels](/blog/polish-alphabet.jpg)
+![Wooden letter blocks for learning the Polish alphabet — Photo by Ann H on Pexels](/blog/polish-alphabet.webp)
 
 ### Step 2: Nail Polish Pronunciation Early
 
@@ -62,7 +62,7 @@ Master those five sound groups and you've handled 90% of what makes Polish pronu
 
 Read everything out loud, use text-to-speech to compare yourself to native audio, and record your voice. Good Polish pronunciation early pays off forever. For a deeper dive, see our full guide on how to [master Polish pronunciation](/blog/master-polish-pronunciation).
 
-![Two people practicing Polish pronunciation in conversation — Photo by August de Richelieu on Pexels](/blog/polish-pronunciation.jpg)
+![Two people practicing Polish pronunciation in conversation — Photo by August de Richelieu on Pexels](/blog/polish-pronunciation.webp)
 
 ### Step 3: Learn Survival Phrases Before Grammar
 
@@ -104,7 +104,7 @@ Don't try to memorize every table at once. Learn one case, use it for a week, th
 
 If you want reassurance that this is doable, read [why Polish cases aren't as scary as you think](/blog/why-polish-cases-arent-scary) — it reframes the whole topic.
 
-![An open notebook for studying Polish grammar — Photo by Negative Space on Pexels](/blog/polish-grammar.jpg)
+![An open notebook for studying Polish grammar — Photo by Negative Space on Pexels](/blog/polish-grammar.webp)
 
 ### Step 5: Build a Daily Vocabulary Habit
 
@@ -160,7 +160,7 @@ You don't need to spend a złoty to learn Polish well. Here's a free toolkit tha
 
 The trick isn't collecting tools — it's using one consistently. Pick a core resource for structure (that's exactly why PolishPal exists), add a flashcard app for vocabulary, and a listening source for your ears. That trio is enough to learn Polish all the way to A1 without spending a thing.
 
-![A learner using an app to learn Polish on a laptop — Photo by cottonbro studio on Pexels](/blog/learn-polish-app.jpg)
+![A learner using an app to learn Polish on a laptop — Photo by cottonbro studio on Pexels](/blog/learn-polish-app.webp)
 
 ## A Realistic 90-Day Plan to Learn Polish
 
