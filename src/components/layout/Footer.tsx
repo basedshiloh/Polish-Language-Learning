@@ -23,18 +23,18 @@ export default function Footer() {
           <span>CC0 1.0 Universal — 2026</span>
         </a>
 
-        <div className="flex items-center justify-center gap-4 text-xs">
-          <Link href="/privacy" className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-            Privacy Policy
-          </Link>
+        <div className="flex items-center justify-center flex-wrap gap-x-4 gap-y-1 text-xs">
+          <Link href="/about" className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">About</Link>
           <span className="text-gray-300 dark:text-gray-700">·</span>
-          <Link href="/cookies" className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-            Cookie Policy
-          </Link>
+          <Link href="/contact" className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">Contact</Link>
           <span className="text-gray-300 dark:text-gray-700">·</span>
-          <Link href="/about" className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-            About
-          </Link>
+          <Link href="/editorial" className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">Editorial Policy</Link>
+          <span className="text-gray-300 dark:text-gray-700">·</span>
+          <Link href="/changelog" className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">Changelog</Link>
+          <span className="text-gray-300 dark:text-gray-700">·</span>
+          <Link href="/privacy" className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">Privacy</Link>
+          <span className="text-gray-300 dark:text-gray-700">·</span>
+          <Link href="/cookies" className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">Cookies</Link>
         </div>
 
         <a

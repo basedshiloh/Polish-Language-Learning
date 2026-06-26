@@ -15,6 +15,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/grammar`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE}/quizzes`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${BASE}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${BASE}/editorial`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${BASE}/changelog`, lastModified: now, changeFrequency: 'weekly', priority: 0.5 },
+    { url: `${BASE}/privacy`, lastModified: now, changeFrequency: 'monthly', priority: 0.3 },
+    { url: `${BASE}/cookies`, lastModified: now, changeFrequency: 'monthly', priority: 0.3 },
     { url: `${BASE}/search`, lastModified: now, changeFrequency: 'monthly', priority: 0.4 },
   ];
 

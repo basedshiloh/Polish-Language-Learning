@@ -6,6 +6,7 @@ import {
   Table2,
   Newspaper,
   Info,
+  Mail,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -28,4 +29,5 @@ export const NAV_ITEMS: NavItem[] = [
 export const EXTRA_NAV_ITEMS: NavItem[] = [
   { label: 'Blog', href: '/blog', icon: Newspaper },
   { label: 'About', href: '/about', icon: Info },
+  { label: 'Contact', href: '/contact', icon: Mail },
 ];
