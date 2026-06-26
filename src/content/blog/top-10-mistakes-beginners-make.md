@@ -106,3 +106,15 @@ Instead of trying to avoid all mistakes, focus on high-impact corrections:
 4. **Pan/Pani** — use formal forms with strangers
 
 Everything else will come with exposure and practice. Mistakes are data points, not failures. Each one teaches you something about how Polish works.
+
+---
+
+## Fix These Mistakes Now
+
+Start with the fundamentals to build correct habits from day one:
+
+[Noun Gender — Learn the Rules](/grammar/noun-gender)
+
+[Personal Pronouns & Być (To Be)](/lessons/pronouns-byc)
+
+[The Three Conjugation Patterns](/grammar/three-conjugations)

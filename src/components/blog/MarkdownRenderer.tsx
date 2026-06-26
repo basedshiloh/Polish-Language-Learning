@@ -1,9 +1,49 @@
 'use client';
 
+import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import { BookOpen, Table2, ArrowRight } from 'lucide-react';
 import { slugify } from '@/lib/utils';
+
+function InternalCard({ href, children }: { href: string; children: React.ReactNode }) {
+  const isLesson = href.startsWith('/lessons/');
+  const Icon = isLesson ? BookOpen : Table2;
+  const label = isLesson ? 'Lesson' : 'Grammar';
+
+  return (
+    <Link
+      href={href}
+      className={`group flex items-center gap-4 my-4 p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl hover:shadow-md transition-all no-underline ${
+        isLesson
+          ? 'hover:border-blue-300 dark:hover:border-blue-700'
+          : 'hover:border-purple-300 dark:hover:border-purple-700'
+      }`}
+    >
+      <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
+        isLesson
+          ? 'bg-blue-100 dark:bg-blue-900/40'
+          : 'bg-purple-100 dark:bg-purple-900/40'
+      }`}>
+        <Icon className={`w-5 h-5 ${
+          isLesson ? 'text-blue-600 dark:text-blue-400' : 'text-purple-600 dark:text-purple-400'
+        }`} />
+      </div>
+      <div className="flex-1 min-w-0">
+        <span className={`text-[10px] font-semibold uppercase tracking-wider ${
+          isLesson ? 'text-blue-600 dark:text-blue-400' : 'text-purple-600 dark:text-purple-400'
+        }`}>
+          {label}
+        </span>
+        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
+          {children}
+        </p>
+      </div>
+      <ArrowRight className="w-4 h-4 text-gray-300 dark:text-gray-600 group-hover:text-blue-500 transition-colors shrink-0" />
+    </Link>
+  );
+}
 
 export default function MarkdownRenderer({ content }: { content: string }) {
   return (
@@ -22,9 +62,16 @@ export default function MarkdownRenderer({ content }: { content: string }) {
         h3: ({ children }) => (
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mt-6 mb-3">{children}</h3>
         ),
-        p: ({ children }) => (
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">{children}</p>
-        ),
+        p: ({ children, node }) => {
+          const child = node?.children;
+          if (child && child.length === 1 && child[0].type === 'element' && child[0].tagName === 'a') {
+            const href = child[0].properties?.href as string;
+            if (href?.startsWith('/lessons/') || href?.startsWith('/grammar/')) {
+              return <>{children}</>;
+            }
+          }
+          return <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">{children}</p>;
+        },
         ul: ({ children }) => (
           <ul className="list-disc space-y-1 text-gray-700 dark:text-gray-300 mb-4 ml-6">{children}</ul>
         ),
@@ -69,16 +116,21 @@ export default function MarkdownRenderer({ content }: { content: string }) {
             {children}
           </td>
         ),
-        a: ({ href, children }) => (
-          <a
-            href={href}
-            target={href?.startsWith('http') ? '_blank' : undefined}
-            rel={href?.startsWith('http') ? 'noopener noreferrer nofollow' : undefined}
-            className="text-blue-600 dark:text-blue-400 hover:underline"
-          >
-            {children}
-          </a>
-        ),
+        a: ({ href, children }) => {
+          if (href?.startsWith('/lessons/') || href?.startsWith('/grammar/')) {
+            return <InternalCard href={href}>{children}</InternalCard>;
+          }
+          return (
+            <a
+              href={href}
+              target={href?.startsWith('http') ? '_blank' : undefined}
+              rel={href?.startsWith('http') ? 'noopener noreferrer nofollow' : undefined}
+              className="text-blue-600 dark:text-blue-400 hover:underline"
+            >
+              {children}
+            </a>
+          );
+        },
         img: ({ src, alt }) => (
           <figure className="my-6">
             {/* eslint-disable-next-line @next/next/no-img-element */}

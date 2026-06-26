@@ -157,3 +157,17 @@ A handful of extremely common verbs don't follow any of the three patterns. You'
 4. **Focus on the "ja" and "ty" forms first** — those are the ones you'll use most in conversation.
 
 The three groups cover the vast majority of Polish verbs. Master these patterns, memorize the handful of irregulars, and you'll have a solid conjugation foundation for everything that comes next.
+
+---
+
+## Practice Conjugation
+
+Master each pattern with dedicated lessons and exercises:
+
+[The Three Conjugations — Grammar Reference](/grammar/three-conjugations)
+
+[Pattern 1: -am/-asz Conjugation Lesson](/lessons/conjugation-am-asz)
+
+[Pattern 2: -ę/-isz Conjugation Lesson](/lessons/conjugation-e-isz)
+
+[Pattern 3: -uję/-ujesz Conjugation Lesson](/lessons/conjugation-uje)

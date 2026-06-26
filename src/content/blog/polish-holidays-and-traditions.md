@@ -83,3 +83,15 @@ Polish holidays aren't just dates on a calendar — they're windows into what Po
 Bring up any of these holidays in conversation with a Polish person, and you'll see their face light up. It shows that you care about their culture, not just their language.
 
 > **Tip:** Wishing someone well during a holiday is always appreciated. A simple *Wesołych Świąt!* at Christmas or *Smacznego pączka!* on Fat Thursday goes a long way.
+
+---
+
+## Learn the Language of Polish Traditions
+
+Know what to say during Polish celebrations:
+
+[Introductions & Basic Phrases](/lessons/introductions)
+
+[Food, Drinks & Ordering](/lessons/food-drinks-ordering)
+
+[Family & Possessives](/lessons/family-possessives)

@@ -84,3 +84,15 @@ Boredom kills routines. Alternate between grammar drills, watching a Polish vide
 | Sunday | Rest or Light Review | Optional: review the week's new words |
 
 > **Remember:** The perfect routine is the one you actually follow. Start small, be consistent, and adjust as you go. Progress in Polish is cumulative — every small session adds up.
+
+---
+
+## Start Your Routine Now
+
+Begin with these foundational lessons:
+
+[Introductions & Basic Phrases](/lessons/introductions)
+
+[Daily Routine & Telling Time](/lessons/daily-routine-time)
+
+[Telling Time — Grammar Reference](/grammar/telling-time)

@@ -141,3 +141,15 @@ When you want to say "know" in Polish, ask yourself:
 3. **Do I have a skill or ability?** → Use **umieć**
 
 > **Final tip:** If you're ever unsure, look at what follows the verb. A noun (person/place/thing) points to *znać*. A clause with "that/where/when" points to *wiedzieć*. An infinitive ("to swim," "to cook") points to *umieć*. The grammar will guide you.
+
+---
+
+## Practice These Verbs
+
+Explore the full grammar reference with tables and examples:
+
+[Znać vs Wiedzieć vs Umieć — Complete Reference](/grammar/znac-wiedziec-umiec)
+
+[The Three Conjugation Patterns](/grammar/three-conjugations)
+
+[Hobbies & Free Time — Use Umieć in Context](/lessons/hobbies-free-time)

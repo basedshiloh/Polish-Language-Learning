@@ -8,11 +8,8 @@ export default function BlogCard({ post }: { post: BlogPost }) {
   const cat = blogCategoryStyles[post.category];
 
   return (
-    <Link
-      href={`/blog/${post.slug}`}
-      className="group bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 hover:border-blue-200 dark:hover:border-blue-800 hover:shadow-md transition-all overflow-hidden flex flex-col"
-    >
-      <div className="relative aspect-[16/9] overflow-hidden bg-gray-100 dark:bg-gray-800">
+    <div className="group bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 hover:border-blue-200 dark:hover:border-blue-800 hover:shadow-md transition-all overflow-hidden flex flex-col">
+      <Link href={`/blog/${post.slug}`} className="relative aspect-[16/9] overflow-hidden bg-gray-100 dark:bg-gray-800 block">
         <Image
           src={post.featuredImage}
           alt={post.featuredImageAlt}
@@ -20,26 +17,30 @@ export default function BlogCard({ post }: { post: BlogPost }) {
           className="object-cover group-hover:scale-105 transition-transform duration-300"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
-      </div>
+      </Link>
 
       <div className="p-5 flex flex-col flex-1">
         <div className="flex items-center justify-between mb-3">
-          <span className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${cat.bg} ${cat.text} ${cat.darkBg} ${cat.darkText}`}>
+          <Link
+            href={`/blog?category=${post.category}`}
+            className={`text-xs font-medium px-2.5 py-0.5 rounded-full hover:opacity-80 transition-opacity ${cat.bg} ${cat.text} ${cat.darkBg} ${cat.darkText}`}
+          >
             {cat.label}
-          </span>
+          </Link>
           <div className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500">
             <Calendar className="w-3 h-3" />
             {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
           </div>
         </div>
 
-        <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
-          {post.title}
-        </h3>
-
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2 flex-1">
-          {post.excerpt}
-        </p>
+        <Link href={`/blog/${post.slug}`} className="flex-1">
+          <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+            {post.title}
+          </h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2">
+            {post.excerpt}
+          </p>
+        </Link>
 
         <div className="flex items-center justify-between pt-3 border-t border-gray-50 dark:border-gray-800">
           <div className="flex items-center gap-2">
@@ -56,6 +57,6 @@ export default function BlogCard({ post }: { post: BlogPost }) {
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

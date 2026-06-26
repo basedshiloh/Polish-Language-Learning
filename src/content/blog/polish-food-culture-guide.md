@@ -76,3 +76,15 @@ Here are words you'll encounter constantly:
 - *Jestem wegetarianinem/wegetarianką.* — I'm a vegetarian (male/female).
 
 > **Pro tip:** Learning food vocabulary is one of the most rewarding ways to study Polish. You'll use these words every single day, and they open the door to real conversations with native speakers.
+
+---
+
+## Learn Food & Restaurant Vocabulary
+
+Practice ordering food in Polish with our interactive lesson:
+
+[Food, Drinks & Ordering — Full Lesson](/lessons/food-drinks-ordering)
+
+[Shopping & Clothing Vocabulary](/lessons/shopping-clothing)
+
+[Shopping & Money — Grammar Reference](/grammar/shopping-money)

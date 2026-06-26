@@ -24,8 +24,8 @@ export const blogPosts: BlogPost[] = [
     category: 'grammar-deep-dive',
     author: blogAuthors.polishpal,
     date: '2026-06-20',
-    featuredImage: '/blog/cases.svg',
-    featuredImageAlt: 'Diagram of Polish grammatical cases',
+    featuredImage: '/blog/cases.jpg',
+    featuredImageAlt: 'Two students studying Polish grammar books together — Photo by Ivan S on Pexels',
     readingTime: 8,
     tags: ['cases', 'grammar', 'beginners'],
     summary: [
@@ -42,8 +42,8 @@ export const blogPosts: BlogPost[] = [
     category: 'pronunciation',
     author: blogAuthors.polishpal,
     date: '2026-06-18',
-    featuredImage: '/blog/pronunciation.svg',
-    featuredImageAlt: 'Polish alphabet pronunciation chart',
+    featuredImage: '/blog/pronunciation.jpg',
+    featuredImageAlt: 'Close-up of a dictionary page highlighting pronunciation — Photo by Pixabay on Pexels',
     readingTime: 10,
     tags: ['pronunciation', 'phonetics', 'beginners'],
     summary: [
@@ -60,8 +60,8 @@ export const blogPosts: BlogPost[] = [
     category: 'learning-tips',
     author: blogAuthors.polishpal,
     date: '2026-06-15',
-    featuredImage: '/blog/mistakes.svg',
-    featuredImageAlt: 'Common Polish learning mistakes',
+    featuredImage: '/blog/mistakes.jpg',
+    featuredImageAlt: 'Notebook with crossed out words representing common learning mistakes — Photo by KATRIN BOLOVTSOVA on Pexels',
     readingTime: 7,
     tags: ['mistakes', 'beginners', 'tips'],
     summary: [
@@ -78,8 +78,8 @@ export const blogPosts: BlogPost[] = [
     category: 'culture',
     author: blogAuthors.polishpal,
     date: '2026-06-12',
-    featuredImage: '/blog/food.svg',
-    featuredImageAlt: 'Traditional Polish food illustration',
+    featuredImage: '/blog/food.jpg',
+    featuredImageAlt: 'Freshly made pierogi dusted with flour on a wooden board — Photo by kaboompics on Pexels',
     readingTime: 6,
     tags: ['food', 'culture', 'vocabulary'],
     summary: [
@@ -96,8 +96,8 @@ export const blogPosts: BlogPost[] = [
     category: 'grammar-deep-dive',
     author: blogAuthors.polishpal,
     date: '2026-06-10',
-    featuredImage: '/blog/verbs.svg',
-    featuredImageAlt: 'Polish verb conjugation chart',
+    featuredImage: '/blog/verbs.jpg',
+    featuredImageAlt: 'Students studying verb conjugation at a whiteboard — Photo by Thirdman on Pexels',
     readingTime: 9,
     tags: ['verbs', 'conjugation', 'grammar'],
     summary: [
@@ -114,8 +114,8 @@ export const blogPosts: BlogPost[] = [
     category: 'learning-tips',
     author: blogAuthors.polishpal,
     date: '2026-06-08',
-    featuredImage: '/blog/routine.svg',
-    featuredImageAlt: 'Daily Polish study routine schedule',
+    featuredImage: '/blog/routine.jpg',
+    featuredImageAlt: 'Cozy workspace with laptop, coffee, and book for daily study — Photo by Esra Saltürk on Pexels',
     readingTime: 5,
     tags: ['study', 'routine', 'motivation'],
     summary: [
@@ -132,8 +132,8 @@ export const blogPosts: BlogPost[] = [
     category: 'vocabulary',
     author: blogAuthors.polishpal,
     date: '2026-06-05',
-    featuredImage: '/blog/travel.svg',
-    featuredImageAlt: 'Polish travel phrases illustration',
+    featuredImage: '/blog/travel.jpg',
+    featuredImageAlt: 'Historic architecture of Kraków Market Square, Poland — Photo by Piotr Kalinowski on Pexels',
     readingTime: 8,
     tags: ['phrases', 'travel', 'vocabulary'],
     summary: [
@@ -150,8 +150,8 @@ export const blogPosts: BlogPost[] = [
     category: 'grammar-deep-dive',
     author: blogAuthors.polishpal,
     date: '2026-06-03',
-    featuredImage: '/blog/gender.svg',
-    featuredImageAlt: 'Polish noun gender classification',
+    featuredImage: '/blog/gender.jpg',
+    featuredImageAlt: 'Scrabble letter tiles arranged into the alphabet — Photo by DS stories on Pexels',
     readingTime: 7,
     tags: ['gender', 'nouns', 'grammar'],
     summary: [
@@ -168,8 +168,8 @@ export const blogPosts: BlogPost[] = [
     category: 'culture',
     author: blogAuthors.polishpal,
     date: '2026-06-01',
-    featuredImage: '/blog/holidays.svg',
-    featuredImageAlt: 'Polish holiday traditions',
+    featuredImage: '/blog/holidays.jpg',
+    featuredImageAlt: 'Festively adorned horses in Kraków old town on a winter day — Photo by Janusz Mitura on Pexels',
     readingTime: 6,
     tags: ['holidays', 'traditions', 'culture'],
     summary: [
@@ -186,8 +186,8 @@ export const blogPosts: BlogPost[] = [
     category: 'vocabulary',
     author: blogAuthors.polishpal,
     date: '2026-05-28',
-    featuredImage: '/blog/know.svg',
-    featuredImageAlt: 'Znać vs wiedzieć vs umieć comparison',
+    featuredImage: '/blog/know.jpg',
+    featuredImageAlt: 'Close-up of an open dictionary showing vocabulary entries — Photo by freestocks.org on Pexels',
     readingTime: 6,
     tags: ['vocabulary', 'verbs', 'confusing-words'],
     summary: [
@@ -211,8 +211,11 @@ export function getRelatedPosts(slug: string, category: string, limit = 3): Blog
     .slice(0, limit);
 }
 
-export function getPaginatedPosts(page: number, perPage = 9) {
-  const posts = getPublishedPosts();
+export function getPaginatedPosts(page: number, perPage = 9, category?: string) {
+  let posts = getPublishedPosts();
+  if (category && category in blogCategoryStyles) {
+    posts = posts.filter((p) => p.category === category);
+  }
   const totalPages = Math.ceil(posts.length / perPage);
   const currentPage = Math.max(1, Math.min(page, totalPages || 1));
   const start = (currentPage - 1) * perPage;
@@ -221,5 +224,6 @@ export function getPaginatedPosts(page: number, perPage = 9) {
     currentPage,
     totalPages,
     totalPosts: posts.length,
+    activeCategory: category && category in blogCategoryStyles ? category : undefined,
   };
 }

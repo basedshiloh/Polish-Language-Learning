@@ -148,3 +148,15 @@ This means that for masculine nouns referring to people and animals, the Accusat
 4. **Don't panic about mistakes:** Using the wrong gender is noticeable but rarely causes misunderstanding. Poles will still understand *dobry książka* — they'll just know you're learning.
 
 > **Bottom line:** Gender in Polish is systematic, not random. Learn the three main endings (consonant = M, -a = F, -o/-e = N), memorize the handful of exceptions, and practice agreement in context. It becomes second nature faster than you'd expect.
+
+---
+
+## Master Gender in Context
+
+Apply gender rules in real sentences:
+
+[Noun Gender — Complete Grammar Reference](/grammar/noun-gender)
+
+[Nominative Case & Gender — Lesson](/lessons/nominative-gender)
+
+[The Cases — Overview](/grammar/cases-overview)

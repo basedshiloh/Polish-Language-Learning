@@ -137,3 +137,13 @@ Polish stress is refreshingly simple:
 4. **Listen and shadow** — Find a Polish podcast or YouTube channel. Listen to a sentence, pause, repeat. Match the rhythm and melody.
 
 > **Final tip:** Polish pronunciation is all about muscle memory. Your mouth needs to learn new positions. Give it time, practice daily, and within a few weeks, those "impossible" sounds will feel natural.
+
+---
+
+## Practice Your Pronunciation
+
+Put these rules into practice with our interactive lesson:
+
+[Polish Phonetics & Pronunciation — Full Lesson](/lessons/phonetics)
+
+[Introductions & Basic Phrases](/lessons/introductions)

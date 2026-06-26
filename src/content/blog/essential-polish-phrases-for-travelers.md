@@ -123,3 +123,17 @@ These are the phrases you'll use dozens of times a day.
 | Na zdrowie! | nah ZDROH-vyeh | Cheers! / Bless you! |
 
 > **Final tip:** Don't worry about perfect pronunciation. Polish people are genuinely thrilled when foreigners try to speak their language. Your effort matters far more than your accuracy. A smile and a *dziękuję* will take you surprisingly far.
+
+---
+
+## Learn More Essential Polish
+
+Dive deeper into these topics before your trip:
+
+[Introductions & Basic Phrases — Full Lesson](/lessons/introductions)
+
+[Numbers & Counting](/lessons/numbers-counting)
+
+[Food, Drinks & Ordering](/lessons/food-drinks-ordering)
+
+[Polish Cities — Grammar Reference](/grammar/polish-cities)

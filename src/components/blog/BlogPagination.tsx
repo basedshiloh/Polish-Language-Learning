@@ -1,11 +1,23 @@
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-export default function BlogPagination({ currentPage, totalPages }: { currentPage: number; totalPages: number }) {
+export default function BlogPagination({
+  currentPage,
+  totalPages,
+  category,
+}: {
+  currentPage: number;
+  totalPages: number;
+  category?: string;
+}) {
   if (totalPages <= 1) return null;
 
   function href(page: number) {
-    return page === 1 ? '/blog' : `/blog?page=${page}`;
+    const params = new URLSearchParams();
+    if (page > 1) params.set('page', String(page));
+    if (category) params.set('category', category);
+    const qs = params.toString();
+    return qs ? `/blog?${qs}` : '/blog';
   }
 
   return (

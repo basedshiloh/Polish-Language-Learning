@@ -112,3 +112,19 @@ If you say *Lubię mama* instead of *Lubię mamę*, every Polish person will sti
 Polish has seven cases total: Dative, Locative, and Vocative are the remaining three. You'll encounter them as you progress to A2 and beyond, but they follow similar logic. Once you internalize the idea that endings = job titles, adding more cases becomes a matter of learning new patterns, not a new concept.
 
 > **Bottom line:** Cases are just endings that tell you what a noun is doing. Start with four, learn them in phrases, and don't worry about perfection. You've got this.
+
+---
+
+## Continue Learning
+
+Ready to dive deeper into each case? Start with these:
+
+[The Cases — Overview](/grammar/cases-overview)
+
+[Accusative Case — Direct Objects](/grammar/accusative)
+
+[Instrumental Case — Identity & Companions](/grammar/instrumental)
+
+[Genitive Case — Negation & Possession](/grammar/genitive)
+
+[Nominative Case & Gender — Lesson](/lessons/nominative-gender)
