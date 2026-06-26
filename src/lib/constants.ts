@@ -5,6 +5,7 @@ import {
   BarChart3,
   Table2,
   Newspaper,
+  Info,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -21,6 +22,10 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Lessons', href: '/lessons', icon: BookOpen },
   { label: 'Grammar', href: '/grammar', icon: Table2 },
   { label: 'Quizzes', href: '/quizzes', icon: Brain },
-  { label: 'Blog', href: '/blog', icon: Newspaper },
   { label: 'Progress', href: '/progress', icon: BarChart3 },
+];
+
+export const EXTRA_NAV_ITEMS: NavItem[] = [
+  { label: 'Blog', href: '/blog', icon: Newspaper },
+  { label: 'About', href: '/about', icon: Info },
 ];

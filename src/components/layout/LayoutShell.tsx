@@ -5,6 +5,7 @@ import { SidebarContext, useSidebarState } from '@/hooks/useSidebar';
 import { ThemeContext, useThemeState, type Theme } from '@/hooks/useTheme';
 import Sidebar from './Sidebar';
 import MobileNav from './MobileNav';
+import MobileMenu from './MobileMenu';
 import SearchBox from './SearchBox';
 import Footer from './Footer';
 import AccessibilityPanel from './AccessibilityPanel';
@@ -30,7 +31,7 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
           }`}
         >
           <div className="sticky top-0 z-30 bg-slate-50/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-100 dark:border-gray-800 px-6 py-3">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <SearchBox />
               <button
                 onClick={() => themeState.setTheme(nextTheme)}
@@ -39,6 +40,7 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
               >
                 <ThemeIcon className="w-5 h-5" />
               </button>
+              <MobileMenu />
             </div>
           </div>
           {children}

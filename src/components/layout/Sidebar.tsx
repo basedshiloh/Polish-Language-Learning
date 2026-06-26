@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { BookOpen, PanelLeftClose, PanelLeft } from 'lucide-react';
-import { NAV_ITEMS } from '@/lib/constants';
+import { NAV_ITEMS, EXTRA_NAV_ITEMS } from '@/lib/constants';
 import { useSidebar } from '@/hooks/useSidebar';
 import ThemeSwitcher from './ThemeSwitcher';
 
@@ -30,7 +30,7 @@ export default function Sidebar() {
       </div>
 
       <nav className={`flex-1 py-4 space-y-1 ${collapsed ? 'px-1.5' : 'px-3'}`}>
-        {NAV_ITEMS.map((item) => {
+        {[...NAV_ITEMS, ...EXTRA_NAV_ITEMS].map((item) => {
           const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
           const Icon = item.icon;
           return (
