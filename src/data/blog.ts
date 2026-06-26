@@ -17,6 +17,24 @@ export const blogCategoryStyles: Record<BlogCategory, { label: string; bg: strin
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'learn-polish-for-beginners',
+    title: 'How to Learn Polish: 7 Proven Steps for Beginners',
+    excerpt: 'Want to learn Polish from scratch? This step-by-step beginner guide covers the alphabet, pronunciation, grammar, and a 90-day plan to reach A1 — free.',
+    category: 'learning-tips',
+    author: blogAuthors.polishpal,
+    date: '2026-06-26',
+    featuredImage: '/blog/learn-polish.jpg',
+    featuredImageAlt: 'Colorful Old Town of Warsaw — a great reason to learn Polish — Photo by Caio on Pexels',
+    readingTime: 12,
+    tags: ['beginners', 'learning-tips', 'study'],
+    summary: [
+      'Master the Polish alphabet and pronunciation before grammar',
+      'At A1 you only need 4 of the 7 Polish cases',
+      'A realistic 20 minutes a day reaches A1 in about 3 months',
+    ],
+    published: true,
+  },
+  {
     slug: 'why-polish-cases-arent-scary',
     title: "Why Polish Cases Aren't as Scary as You Think",
     excerpt: "Cases are the #1 fear for Polish learners. Here's why they're actually more logical than you'd expect — and how to learn them without the headache.",
