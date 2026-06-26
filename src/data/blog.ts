@@ -2,8 +2,8 @@ import type { BlogPost, BlogCategory } from '@/lib/types';
 
 export const blogAuthors = {
   polishpal: {
-    name: 'PolishPal Team',
-    bio: 'Language educators passionate about making Polish accessible to everyone.',
+    name: 'PolishPal Contributor',
+    bio: 'Community-driven language education — making Polish accessible to everyone.',
   },
 };
 
