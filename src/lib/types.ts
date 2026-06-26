@@ -210,8 +210,7 @@ export type BlogCategory =
   | 'grammar-deep-dive'
   | 'culture'
   | 'pronunciation'
-  | 'vocabulary'
-  | 'student-stories';
+  | 'vocabulary';
 
 export interface BlogAuthor {
   name: string;

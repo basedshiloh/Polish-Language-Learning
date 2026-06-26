@@ -13,7 +13,6 @@ export const blogCategoryStyles: Record<BlogCategory, { label: string; bg: strin
   'culture':           { label: 'Culture',            bg: 'bg-amber-100',  text: 'text-amber-700',  darkBg: 'dark:bg-amber-900/30',  darkText: 'dark:text-amber-300' },
   'pronunciation':     { label: 'Pronunciation',      bg: 'bg-rose-100',   text: 'text-rose-700',   darkBg: 'dark:bg-rose-900/30',   darkText: 'dark:text-rose-300' },
   'vocabulary':        { label: 'Vocabulary',          bg: 'bg-green-100',  text: 'text-green-700',  darkBg: 'dark:bg-green-900/30',  darkText: 'dark:text-green-300' },
-  'student-stories':   { label: 'Student Stories',     bg: 'bg-teal-100',   text: 'text-teal-700',   darkBg: 'dark:bg-teal-900/30',   darkText: 'dark:text-teal-300' },
 };
 
 export const blogPosts: BlogPost[] = [
