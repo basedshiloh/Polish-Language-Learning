@@ -176,7 +176,7 @@ A Polish cases overview is only useful if you use it correctly. These are the fo
 
 **Mistake 4: Skipping the preposition section.** Many learners focus on noun endings and completely miss that certain prepositions *force* a specific case regardless of the noun's role. The preposition *do* (to, into) always takes Genitive; *przez* (through) always takes Accusative. These trigger words are shortcuts — learn them early. The [Cases Overview grammar reference](/grammar/cases-overview) has the full list organised by case.
 
-According to the [Wikipedia article on spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition), spaced retrieval practice — which is exactly what cover-and-recall does — is the single most effective strategy for retaining grammar paradigms. A printed chart makes that kind of daily low-effort retrieval practice easy.
+According to the [Wikipedia article on spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition), the technique dates back to Hermann Ebbinghaus in the 1880s and remains the most evidence-backed method for retaining new material — which is exactly what cover-and-recall with a printed chart replicates. A chart on your desk makes that kind of daily low-effort retrieval practice effortless.
 
 ## How to Print the Polish Case Chart
 
