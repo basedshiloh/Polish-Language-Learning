@@ -166,8 +166,8 @@ export default function SearchBox() {
                 onClick={() => handleSelect(result)}
                 onMouseEnter={() => setSelectedIdx(i)}
                 className={`w-full flex items-start gap-3 px-4 py-3 text-left transition-colors ${
-                  selectedIdx === i ? 'bg-blue-50' : 'hover:bg-gray-50'
-                } ${i > 0 ? 'border-t border-gray-50' : ''}`}
+                  selectedIdx === i ? 'bg-blue-50 dark:bg-gray-700/60' : 'hover:bg-gray-50 dark:hover:bg-gray-700/60'
+                } ${i > 0 ? 'border-t border-gray-50 dark:border-gray-700/60' : ''}`}
               >
                 <div className={`w-8 h-8 rounded-lg ${meta.bg} flex items-center justify-center shrink-0 mt-0.5`}>
                   <Icon className={`w-4 h-4 ${meta.color}`} />
@@ -190,7 +190,7 @@ export default function SearchBox() {
           })}
           <button
             onClick={goToFullSearch}
-            className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-blue-600 hover:bg-blue-50 border-t border-gray-100 transition-colors"
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-700/60 border-t border-gray-100 dark:border-gray-700/60 transition-colors"
           >
             Search all results ({results.length})
             <ArrowRight className="w-4 h-4" />
