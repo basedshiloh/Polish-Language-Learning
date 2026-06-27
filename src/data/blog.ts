@@ -23,7 +23,7 @@ export const blogPosts: BlogPost[] = [
     category: 'learning-tips',
     author: blogAuthors.polishpal,
     date: '2026-06-27',
-    featuredImage: '/blog/case-chart-desk.jpg',
+    featuredImage: '/blog/case-chart-desk.webp',
     featuredImageAlt: 'Free Polish case chart download — student using reference sheets and notes while studying — Photo by RDNE Stock project on Pexels',
     readingTime: 11,
     tags: ['cases', 'grammar', 'cheatsheet'],

@@ -4,7 +4,7 @@ The chart below covers all four cases you need at A1 level: Nominative, Accusati
 
 Before we get to the chart itself, two minutes on *why* a reference sheet works so well for Polish cases — and how to use it so you are not just staring blankly at a table every time you write a sentence.
 
-![Free Polish case chart download — student using reference sheets and notes while studying — Photo by RDNE Stock project on Pexels](/blog/case-chart-desk.jpg)
+![Free Polish case chart download — student using reference sheets and notes while studying — Photo by RDNE Stock project on Pexels](/blog/case-chart-desk.webp)
 
 ## Why a Free Polish Case Chart Download Saves Beginners Hours
 
@@ -77,7 +77,7 @@ This chart covers the four cases every beginner must master, with three genders,
 
 > *Na*, *w*, and *po* each take two different cases depending on meaning — this is a common source of errors. At A1, focus on the Accusative and Genitive columns; Locative comes at A2.
 
-![Open notebook with grammar tables and handwritten language notes — Photo by betül nur akyürek on Pexels](/blog/case-chart-notes.jpg)
+![Open notebook with grammar tables and handwritten language notes — Photo by betül nur akyürek on Pexels](/blog/case-chart-notes.webp)
 
 ## 3 Ways to Use This Polish Case Chart for Download and Daily Study
 
@@ -103,7 +103,7 @@ When you combine this method with the interactive lessons on PolishPal, you get 
 
 [Accusative Case — Grammar Reference](/grammar/accusative)
 
-![Language learning textbook open to reference pages — Photo by Manta paopao on Pexels](/blog/case-chart-textbook.jpg)
+![Language learning textbook open to reference pages — Photo by Manta paopao on Pexels](/blog/case-chart-textbook.webp)
 
 ## The 4 Polish Accusative Rules and Cases in Action: Real Sentence Examples
 
@@ -146,7 +146,7 @@ Genitive is the case that surprises beginners: negation flips the direct object 
 
 [Genitive Case Lesson](/lessons/genitive-case)
 
-![Person studying language learning materials with flashcards — Photo by Ling App on Pexels](/blog/case-chart-study.jpg)
+![Person studying language learning materials with flashcards — Photo by Ling App on Pexels](/blog/case-chart-study.webp)
 
 ## Polish Case Chart vs Buy Polish Grammar Workbook: Which Do You Need?
 
@@ -189,7 +189,7 @@ The table above is formatted to fit cleanly on an A4 or Letter-size sheet in lan
 
 If you are on mobile, the easiest approach is to share the page to a notes app (such as Apple Notes or Google Keep), paste the tables, and export as a PDF. Most modern phones can print directly from the browser via the share menu.
 
-![Printed reference sheet on desk ready for study — Photo by RDNE Stock project on Pexels](/blog/case-chart-print.jpg)
+![Printed reference sheet on desk ready for study — Photo by RDNE Stock project on Pexels](/blog/case-chart-print.webp)
 
 ## Your Next Steps After the Chart
 
