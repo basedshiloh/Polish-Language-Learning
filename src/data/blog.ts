@@ -17,6 +17,24 @@ export const blogCategoryStyles: Record<BlogCategory, { label: string; bg: strin
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'when-to-use-polish-cases',
+    title: 'When to Use Polish Cases: 7 Essential Rules Explained',
+    excerpt: 'Not sure when to use Polish cases? This guide gives you the trigger rules, a preposition cheat sheet, and a decision flowchart — in plain English.',
+    category: 'grammar-deep-dive',
+    author: blogAuthors.polishpal,
+    date: '2026-06-27',
+    featuredImage: '/blog/when-cases-hero.webp',
+    featuredImageAlt: 'When to use Polish cases — decision-making diagram with arrows representing case choices — Photo by Tara Winstead on Pexels',
+    readingTime: 13,
+    tags: ['cases', 'grammar', 'beginners'],
+    summary: [
+      'Cases fire in response to triggers — verbs, prepositions, and grammatical roles',
+      'One flowchart answers "which case?" for 95% of A1 sentences in under three seconds',
+      'Negation is the most important Accusative → Genitive trigger beginners miss',
+    ],
+    published: true,
+  },
+  {
     slug: 'polish-cases-overview',
     title: 'Polish Cases Overview: 7 Essential Cases Explained',
     excerpt: 'Polish cases overview for beginners: what all 7 cases do, which 4 you actually need at A1, and how the ending patterns work — with a visual table.',
