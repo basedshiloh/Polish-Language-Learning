@@ -111,8 +111,11 @@ in `src/components/blog/MarkdownRenderer.tsx`.
 
 ### Images
 
-- Reference as `![ALT text](/blog/<name>.jpg)`. They render inside a `<figure>` with the
-  ALT shown as a caption — so write human-readable ALT text.
+- **Always use `.webp` or `.avif` — never `.jpg` or `.png`.** Convert immediately after
+  downloading. Quick CLI conversion: `cwebp input.jpg -o public/blog/name.webp -q 82`
+  or `convert input.jpg -quality 82 public/blog/name.webp` (ImageMagick).
+- Reference as `![ALT text](/blog/<name>.webp)` (or `.avif`). They render inside a `<figure>`
+  with the ALT shown as a caption — so write human-readable ALT text.
 - Aim for **at least 4 images** in/with the article (featured + 3 inline) for the media score.
 - **At least one image's ALT must contain the focus keyword.** Make every ALT genuinely
   describe the photo (don't keyword-stuff ALTs).
@@ -188,7 +191,7 @@ and `/blog/…` link target actually exists).
 
 - [ ] `src/content/blog/<slug>.md` created — opens with intro paragraphs, no leading H2, no conclusion heading
 - [ ] `BlogPost` entry prepended to `blogPosts` in `src/data/blog.ts`, one valid `category`
-- [ ] Featured + 3 inline images in `public/blog/`, verified visually, 1+ ALT has the focus keyword
+- [ ] Featured + 3 inline images in `public/blog/` as **`.webp` or `.avif`** (never jpg/png), verified visually, 1+ ALT has the focus keyword
 - [ ] Focus keyword in title / excerpt / slug / first sentence; secondaries in body + headings
 - [ ] 2500+ words, density 1.0–1.5%, no paragraph >120 words
 - [ ] 2–3 internal links (lesson/grammar as cards, posts as inline links) + 1–2 external links
