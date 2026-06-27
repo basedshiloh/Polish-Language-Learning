@@ -105,7 +105,7 @@ export default function ProgressPage() {
                     <Circle className="w-5 h-5 text-gray-300 shrink-0" />
                   )}
                   <div className="flex-1 min-w-0">
-                    <p className={`text-sm font-medium truncate ${isCompleted ? 'text-gray-900' : 'text-gray-500'}`}>
+                    <p className={`text-sm font-medium truncate ${isCompleted ? 'text-gray-900 dark:text-gray-100' : 'text-gray-500 dark:text-gray-400'}`}>
                       {lesson.title}
                     </p>
                     <p className="text-xs text-gray-400 dark:text-gray-500">{lesson.level} • ~{lesson.estimatedMinutes} min</p>

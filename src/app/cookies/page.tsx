@@ -19,15 +19,16 @@ export default function CookiePolicyPage() {
         </Link>
 
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Cookie Policy</h1>
-        <p className="text-sm text-gray-400 dark:text-gray-500 mb-8">Last updated: June 26, 2026</p>
+        <p className="text-sm text-gray-400 dark:text-gray-500 mb-8">Last updated: June 27, 2026</p>
 
         <div className="space-y-8 text-gray-700 dark:text-gray-300 leading-relaxed">
           <section>
             <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">The short version</h2>
             <div className="bg-green-50 dark:bg-green-950/30 border border-green-100 dark:border-green-900 rounded-xl p-5">
               <p className="text-green-800 dark:text-green-300 font-medium">
-                PolishPal does not use cookies for tracking, advertising, or analytics. We don&apos;t set any third-party cookies.
-                We don&apos;t use cookie banners because there&apos;s nothing to consent to.
+                PolishPal does not use cookies for tracking, advertising, or analytics, and we don&apos;t set any third-party cookies.
+                The only cookie we use is a strictly-necessary login cookie for the site administrator — regular visitors never
+                receive it. Because we set no tracking or marketing cookies, there&apos;s nothing for visitors to consent to.
               </p>
             </div>
           </section>
@@ -77,6 +78,37 @@ export default function CookiePolicyPage() {
                 </tbody>
               </table>
             </div>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">The one cookie we do use</h2>
+            <p className="mb-3">
+              PolishPal has a private content-management area used only by the site administrator. When the administrator logs in,
+              we set a single <strong>strictly-necessary</strong> cookie to keep them signed in:
+            </p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm border-collapse">
+                <thead>
+                  <tr>
+                    <th className="bg-gray-100 dark:bg-gray-800 px-4 py-2 text-left font-semibold text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700">Cookie</th>
+                    <th className="bg-gray-100 dark:bg-gray-800 px-4 py-2 text-left font-semibold text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700">Purpose</th>
+                    <th className="bg-gray-100 dark:bg-gray-800 px-4 py-2 text-left font-semibold text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700">Who gets it</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="px-4 py-2 border border-gray-200 dark:border-gray-700 font-mono text-xs">cms_session</td>
+                    <td className="px-4 py-2 border border-gray-200 dark:border-gray-700">Keeps the administrator logged into the content-management area</td>
+                    <td className="px-4 py-2 border border-gray-200 dark:border-gray-700">Admin only</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
+              This cookie is <strong>httpOnly</strong> (not readable by JavaScript), <strong>secure</strong> (HTTPS only), and
+              <strong> SameSite=Lax</strong>. It contains no personal data and is never set for regular visitors browsing lessons,
+              grammar, quizzes, or the blog. It expires after 30 days or when the admin logs out.
+            </p>
           </section>
 
           <section>
