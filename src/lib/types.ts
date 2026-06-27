@@ -233,3 +233,27 @@ export interface BlogPost {
   summary: string[];
   published: boolean;
 }
+
+export type PostStatus = 'draft' | 'published';
+
+// CMS-managed post (maps to the Supabase `posts` table). Shaped to stay
+// compatible with the blog components that previously consumed BlogPost.
+export interface Post {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  metaDescription: string;
+  focusKeyword: string;
+  category: BlogCategory;
+  author: BlogAuthor;
+  content: string;
+  featuredImage: string;
+  featuredImageAlt: string;
+  summary: string[];
+  tags: string[];
+  readingTime: number;
+  status: PostStatus;
+  date: string;        // published_at (or created_at) ISO string
+  updatedDate?: string; // updated_at ISO string
+}

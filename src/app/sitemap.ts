@@ -2,11 +2,13 @@ import type { MetadataRoute } from 'next';
 import { lessons } from '@/data/lessons';
 import { grammarTopics } from '@/data/grammar';
 import { quizzes } from '@/data/quizzes';
-import { getPublishedPosts } from '@/data/blog';
+import { getPublishedPosts } from '@/lib/posts';
 
 const BASE = 'https://www.polishpal.pl';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const revalidate = 3600;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const staticPages: MetadataRoute.Sitemap = [
@@ -44,9 +46,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
+  const published = await getPublishedPosts();
   const blogPages: MetadataRoute.Sitemap = [
     { url: `${BASE}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
-    ...getPublishedPosts().map((p) => ({
+    ...published.map((p) => ({
       url: `${BASE}/blog/${p.slug}`,
       lastModified: p.updatedDate ? new Date(p.updatedDate) : new Date(p.date),
       changeFrequency: 'monthly' as const,

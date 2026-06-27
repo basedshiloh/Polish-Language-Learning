@@ -24,6 +24,19 @@ const typeStyles = {
 const changelog: ChangelogEntry[] = [
   {
     date: 'June 27, 2026',
+    version: '1.6.0',
+    changes: [
+      { type: 'added', text: 'Custom CMS at /polaris — write, edit, and publish blog posts from the browser' },
+      { type: 'added', text: 'Markdown editor with live preview, formatting toolbar, and word/reading-time counter' },
+      { type: 'added', text: 'RankMath-style SEO panel — focus keyword, density, title/meta length, and live score' },
+      { type: 'added', text: 'Link Genius — keyword-based internal link suggestions across lessons, grammar, quizzes, and posts' },
+      { type: 'added', text: 'Image uploads auto-converted to WebP and stored in Supabase Storage' },
+      { type: 'added', text: 'Secure cookie-based CMS login; comment moderation folded into the CMS' },
+      { type: 'changed', text: 'Blog content migrated from repo files to the Supabase database (instant publishing)' },
+    ],
+  },
+  {
+    date: 'June 27, 2026',
     version: '1.5.0',
     changes: [
       { type: 'added', text: 'Share box on every lesson and grammar page — Facebook, X, Bluesky, Reddit, Instagram, and copy link' },

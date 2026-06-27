@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest } from 'next/server';
+import { SESSION_COOKIE, isValidToken } from '@/lib/cms-auth';
 
 function getAdminClient() {
   return createClient(
@@ -11,8 +12,9 @@ function getAdminClient() {
 function isAuthorized(request: NextRequest): boolean {
   const password = process.env.ADMIN_PASSWORD;
   if (!password) return false;
-  const auth = request.headers.get('x-admin-token');
-  return auth === password;
+  // Accept either the legacy header token or the CMS session cookie
+  if (request.headers.get('x-admin-token') === password) return true;
+  return isValidToken(request.cookies.get(SESSION_COOKIE)?.value);
 }
 
 export async function POST(request: NextRequest) {

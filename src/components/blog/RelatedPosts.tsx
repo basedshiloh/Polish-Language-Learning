@@ -1,7 +1,7 @@
-import type { BlogPost } from '@/lib/types';
+import type { Post } from '@/lib/types';
 import BlogCard from './BlogCard';
 
-export default function RelatedPosts({ posts }: { posts: BlogPost[] }) {
+export default function RelatedPosts({ posts }: { posts: Post[] }) {
   if (posts.length === 0) return null;
 
   return (

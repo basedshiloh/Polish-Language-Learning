@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
-import { blogPosts } from '@/data/blog';
+import { getPostBySlug, getPublishedPosts } from '@/lib/posts';
 import JsonLd, { breadcrumbSchema } from '@/components/seo/JsonLd';
+
+export const revalidate = 3600;
+export const dynamicParams = true;
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -9,12 +12,12 @@ interface Props {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug && p.published);
+  const post = await getPostBySlug(slug);
   if (!post) return {};
 
   return {
     title: post.title,
-    description: post.excerpt,
+    description: post.metaDescription || post.excerpt,
     openGraph: {
       title: `${post.title} | PolishPal`,
       description: post.excerpt,
@@ -36,15 +39,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export function generateStaticParams() {
-  return blogPosts
-    .filter((p) => p.published)
-    .map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  const posts = await getPublishedPosts();
+  return posts.map((p) => ({ slug: p.slug }));
 }
 
 export default async function BlogPostLayout({ params, children }: Props) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug && p.published);
+  const post = await getPostBySlug(slug);
   if (!post) return <>{children}</>;
 
   const articleData = {

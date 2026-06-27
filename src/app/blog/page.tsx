@@ -1,8 +1,11 @@
 import Link from 'next/link';
-import { getPaginatedPosts, blogCategoryStyles } from '@/data/blog';
+import { blogCategoryStyles } from '@/data/blog';
+import { getPaginatedPosts } from '@/lib/posts';
 import type { BlogCategory } from '@/lib/types';
 import BlogCard from '@/components/blog/BlogCard';
 import BlogPagination from '@/components/blog/BlogPagination';
+
+export const revalidate = 3600;
 
 interface Props {
   searchParams: Promise<{ page?: string; category?: string }>;
@@ -11,7 +14,7 @@ interface Props {
 export default async function BlogPage({ searchParams }: Props) {
   const { page, category } = await searchParams;
   const pageNum = Math.max(1, parseInt(page || '1', 10) || 1);
-  const { posts, currentPage, totalPages, activeCategory } = getPaginatedPosts(pageNum, 9, category);
+  const { posts, currentPage, totalPages, activeCategory } = await getPaginatedPosts(pageNum, 9, category);
 
   return (
     <div className="p-6 md:p-10">

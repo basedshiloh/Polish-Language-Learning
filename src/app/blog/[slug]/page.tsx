@@ -2,8 +2,9 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
-import { blogPosts, getRelatedPosts, blogCategoryStyles } from '@/data/blog';
-import { getBlogContent, extractHeadings } from '@/lib/blog';
+import { blogCategoryStyles } from '@/data/blog';
+import { getPostBySlug, getRelatedPosts } from '@/lib/posts';
+import { extractHeadings } from '@/lib/blog';
 import AuthorBox from '@/components/blog/AuthorBox';
 import SummaryBox from '@/components/blog/SummaryBox';
 import MarkdownRenderer from '@/components/blog/MarkdownRenderer';
@@ -11,18 +12,20 @@ import RelatedPosts from '@/components/blog/RelatedPosts';
 import TableOfContents from '@/components/layout/TableOfContents';
 import CommentSection from '@/components/shared/CommentSection';
 
+export const revalidate = 3600;
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug && p.published);
+  const post = await getPostBySlug(slug);
   if (!post) notFound();
 
-  const content = getBlogContent(post.slug);
+  const content = post.content;
   const headings = extractHeadings(content);
-  const related = getRelatedPosts(post.slug, post.category, 3);
+  const related = await getRelatedPosts(post.slug, post.category, 3);
   const cat = blogCategoryStyles[post.category];
 
   return (

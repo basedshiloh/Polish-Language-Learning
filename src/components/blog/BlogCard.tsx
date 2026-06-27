@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Clock, Calendar } from 'lucide-react';
-import type { BlogPost } from '@/lib/types';
+import type { Post } from '@/lib/types';
 import { blogCategoryStyles } from '@/data/blog';
 
-export default function BlogCard({ post }: { post: BlogPost }) {
+export default function BlogCard({ post }: { post: Post }) {
   const cat = blogCategoryStyles[post.category];
 
   return (
