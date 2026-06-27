@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="PolishPal logo">
   <defs>
-    <linearGradient id="ppRed" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#EA4B5E"/>
-      <stop offset="1" stop-color="#C8102E"/>
+    <linearGradient id="ppBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3B82F6"/>
+      <stop offset="1" stop-color="#4F46E5"/>
     </linearGradient>
   </defs>
 
-  <!-- Rounded app tile in Polish red -->
-  <rect x="0" y="0" width="512" height="512" rx="116" fill="url(#ppRed)"/>
+  <!-- Rounded app tile in calm blue-indigo -->
+  <rect x="0" y="0" width="512" height="512" rx="116" fill="url(#ppBlue)"/>
 
   <!-- Speech-bubble tail (open communication) -->
   <path d="M180 300 L150 384 L246 312 Z" fill="#ffffff"/>
@@ -16,11 +16,11 @@
   <rect x="116" y="96" width="280" height="224" rx="56" fill="#ffffff"/>
 
   <!-- Polish letter Ł -->
-  <rect x="196" y="146" width="40" height="138" rx="6" fill="#C8102E"/>
-  <rect x="196" y="244" width="110" height="40" rx="6" fill="#C8102E"/>
-  <line x1="178" y1="240" x2="252" y2="192" stroke="#C8102E" stroke-width="22" stroke-linecap="round"/>
+  <rect x="196" y="146" width="40" height="138" rx="6" fill="#2563EB"/>
+  <rect x="196" y="244" width="110" height="40" rx="6" fill="#2563EB"/>
+  <line x1="178" y1="240" x2="252" y2="192" stroke="#2563EB" stroke-width="22" stroke-linecap="round"/>
 
   <!-- Heart accent (inclusivity / community) -->
-  <path transform="translate(300,140) scale(1.7)" fill="#C8102E"
+  <path transform="translate(300,140) scale(1.7)" fill="#2563EB"
         d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
 </svg>
