@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, FileText, MessageSquare, Link2, LogOut, ExternalLink } from 'lucide-react';
+import { LayoutDashboard, FileText, MessageSquare, Link2, Network, LogOut, ExternalLink } from 'lucide-react';
 
 const nav = [
   { label: 'Dashboard', href: '/polaris', icon: LayoutDashboard },
   { label: 'Posts', href: '/polaris/posts', icon: FileText },
   { label: 'Comments', href: '/polaris/comments', icon: MessageSquare },
   { label: 'Link Genius', href: '/polaris/links', icon: Link2 },
+  { label: 'Link Manager', href: '/polaris/manager', icon: Network },
 ];
 
 export default function CmsShell({ children }: { children: React.ReactNode }) {

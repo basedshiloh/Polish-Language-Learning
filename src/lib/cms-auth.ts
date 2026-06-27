@@ -3,25 +3,37 @@ import { cookies } from 'next/headers';
 
 export const SESSION_COOKIE = 'cms_session';
 
-// A bearer token derived from ADMIN_PASSWORD (the password itself is never
-// stored in the cookie). Forging it requires knowing ADMIN_PASSWORD.
-export function expectedToken(): string {
-  const secret = process.env.ADMIN_PASSWORD || '';
-  return crypto.createHmac('sha256', secret).update('polishpal-cms-v1').digest('hex');
+// Constant-time string comparison (hash to fixed length first so differing
+// lengths don't leak via timingSafeEqual throwing).
+function safeEqual(a: string, b: string): boolean {
+  const ha = crypto.createHash('sha256').update(a).digest();
+  const hb = crypto.createHash('sha256').update(b).digest();
+  return crypto.timingSafeEqual(ha, hb);
 }
 
-export function checkPassword(password: string): boolean {
-  const pw = process.env.ADMIN_PASSWORD;
-  return !!pw && password === pw;
+// A bearer token derived from the username + password (neither is stored in
+// the cookie). Forging it requires knowing both credentials.
+export function expectedToken(): string {
+  const secret = process.env.ADMIN_PASSWORD || '';
+  const user = process.env.ADMIN_USERNAME || '';
+  return crypto.createHmac('sha256', secret).update(`polishpal-cms-v2:${user}`).digest('hex');
+}
+
+export function checkCredentials(username: string, password: string): boolean {
+  const u = process.env.ADMIN_USERNAME || '';
+  const p = process.env.ADMIN_PASSWORD || '';
+  if (!u || !p) return false;
+  return safeEqual(username, u) && safeEqual(password, p);
 }
 
 // For server components / layouts
 export async function isAuthed(): Promise<boolean> {
   const c = await cookies();
-  return c.get(SESSION_COOKIE)?.value === expectedToken();
+  const v = c.get(SESSION_COOKIE)?.value;
+  return !!v && safeEqual(v, expectedToken());
 }
 
 // For route handlers that receive a token value (from req.cookies)
 export function isValidToken(value: string | undefined): boolean {
-  return !!value && value === expectedToken();
+  return !!value && safeEqual(value, expectedToken());
 }
