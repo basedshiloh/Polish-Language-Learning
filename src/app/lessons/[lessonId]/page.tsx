@@ -13,6 +13,7 @@ import DialogueBlock from '@/components/lessons/DialogueBlock';
 import PhraseList from '@/components/lessons/PhraseList';
 import TableOfContents from '@/components/layout/TableOfContents';
 import StarRating from '@/components/shared/StarRating';
+import ShareBox from '@/components/shared/ShareBox';
 import CommentSection from '@/components/shared/CommentSection';
 
 export default function LessonPage({ params }: { params: Promise<{ lessonId: string }> }) {
@@ -35,7 +36,7 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
         <div className="flex-1 min-w-0 max-w-4xl">
           <Link
             href="/lessons"
-            className="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 mb-6 transition-colors"
+            className="no-print inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Lessons
@@ -95,7 +96,9 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
             ))}
           </div>
 
-          <div className="mt-8 flex flex-col sm:flex-row gap-3">
+          <ShareBox title={lesson.title} label="lesson" />
+
+          <div className="no-print mt-8 flex flex-col sm:flex-row gap-3">
             {!completed ? (
               <button
                 onClick={() => markLessonComplete(lesson.id)}

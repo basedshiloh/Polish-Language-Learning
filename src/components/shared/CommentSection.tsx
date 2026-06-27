@@ -152,7 +152,7 @@ export default function CommentSection({ pageId, pageType }: CommentSectionProps
   const { roots, replies } = buildThread(comments);
 
   return (
-    <div className="mt-10 border-t border-gray-200 dark:border-gray-800 pt-8">
+    <div className="no-print mt-10 border-t border-gray-200 dark:border-gray-800 pt-8">
       <div className="flex items-center gap-2 mb-6">
         <MessageSquare className="w-5 h-5 text-blue-600" />
         <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">

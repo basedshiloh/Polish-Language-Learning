@@ -107,3 +107,39 @@ body {
 .a11y-reading-line #a11y-reading-guide {
   display: block;
 }
+
+/* ─── Print / Download-as-PDF styles ─────────────────────── */
+@media print {
+  /* Hide site chrome — keep only the article content */
+  aside,
+  nav,
+  footer,
+  .no-print,
+  [data-no-print] {
+    display: none !important;
+  }
+
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body {
+    background: #ffffff !important;
+  }
+
+  /* Force light, ink-friendly text and remove shadows/borders clutter */
+  * {
+    color: #111 !important;
+    box-shadow: none !important;
+  }
+
+  a {
+    text-decoration: none !important;
+  }
+
+  /* Avoid breaking cards/tables across pages where possible */
+  section, table, tr, img {
+    break-inside: avoid;
+  }
+}

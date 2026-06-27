@@ -134,7 +134,7 @@ export default function AccessibilityPanel() {
         onClick={() => setOpen(!open)}
         title="Accessibility adjustments (Alt+A)"
         data-a11y-keep="true"
-        className={`fixed z-50 w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all ${
+        className={`no-print fixed z-50 w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all ${
           open
             ? 'bottom-6 right-6 bg-gray-200 dark:bg-gray-700'
             : 'bottom-24 md:bottom-6 right-4 md:right-6 bg-blue-600 hover:bg-blue-700 hover:scale-110'

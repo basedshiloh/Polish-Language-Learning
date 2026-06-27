@@ -23,6 +23,17 @@ const typeStyles = {
 
 const changelog: ChangelogEntry[] = [
   {
+    date: 'June 27, 2026',
+    version: '1.5.0',
+    changes: [
+      { type: 'added', text: 'Share box on every lesson and grammar page — Facebook, X, Bluesky, Reddit, Instagram, and copy link' },
+      { type: 'added', text: '"Download PDF" button on lessons and grammar topics (clean, content-only export)' },
+      { type: 'added', text: 'New PolishPal logo — a speech bubble with the Polish "Ł", in calm blue-indigo' },
+      { type: 'changed', text: 'Favicon regenerated to match the new logo' },
+      { type: 'changed', text: 'Logo color switched from red to blue-indigo to suit the language-learning niche and match the site brand' },
+    ],
+  },
+  {
     date: 'June 26, 2026',
     version: '1.4.0',
     changes: [
