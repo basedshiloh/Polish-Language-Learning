@@ -17,6 +17,24 @@ export const blogCategoryStyles: Record<BlogCategory, { label: string; bg: strin
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'polish-case-chart-download',
+    title: 'Free Polish Case Chart: 5 Tables, 4 Cases, 1 Page (PDF)',
+    excerpt: 'Download a free Polish case chart covering all 4 beginner cases, noun endings, adjective endings, and key prepositions — printable, one-page PDF.',
+    category: 'learning-tips',
+    author: blogAuthors.polishpal,
+    date: '2026-06-27',
+    featuredImage: '/blog/case-chart-desk.jpg',
+    featuredImageAlt: 'Free Polish case chart download — student using reference sheets and notes while studying — Photo by RDNE Stock project on Pexels',
+    readingTime: 11,
+    tags: ['cases', 'grammar', 'cheatsheet'],
+    summary: [
+      'One-page printable chart: all 4 A1 cases, 3 genders, noun + adjective endings',
+      'Key prepositions that force each case — the shortcut most beginners miss',
+      '3 study methods that turn the chart into long-term memory',
+    ],
+    published: true,
+  },
+  {
     slug: 'polish-accusative-case-guide',
     title: 'Polish Accusative Case: 5 Simple Rules to Master It',
     excerpt: 'Struggling with the Polish accusative case? Learn 5 simple rules to master biernik — including endings for masculine, feminine, and neuter nouns, plus common exceptions.',
