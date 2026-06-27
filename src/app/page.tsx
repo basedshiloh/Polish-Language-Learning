@@ -2,13 +2,26 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { BookOpen, Brain, Flame, ArrowRight, Trophy, Table2, Sparkles } from 'lucide-react';
+import Image from 'next/image';
+import { BookOpen, Brain, Flame, ArrowRight, Trophy, Table2, Sparkles, Clock, Newspaper } from 'lucide-react';
 import { useProgress } from '@/hooks/useProgress';
 import { lessons } from '@/data/lessons';
 import { quizzes } from '@/data/quizzes';
 import { grammarTopics } from '@/data/grammar';
+import { blogCategoryStyles } from '@/data/blog';
 import ProgressBar from '@/components/shared/ProgressBar';
 import PageSidebar, { SidebarCard } from '@/components/layout/PageSidebar';
+
+interface LatestPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  featuredImage: string;
+  featuredImageAlt: string;
+  category: keyof typeof blogCategoryStyles;
+  date: string;
+  readingTime: number;
+}
 
 const dailyPhrases = [
   { polish: 'Dzień dobry!', english: 'Good day!' },
@@ -31,6 +44,7 @@ const dailyPhrases = [
 export default function Dashboard() {
   const { progress, mounted, getOverallCompletion } = useProgress();
   const [todayPhrases, setTodayPhrases] = useState<typeof dailyPhrases>([]);
+  const [latestPosts, setLatestPosts] = useState<LatestPost[]>([]);
 
   useEffect(() => {
     const dayIndex = new Date().getDate() % dailyPhrases.length;
@@ -39,6 +53,11 @@ export default function Dashboard() {
       dailyPhrases[(dayIndex + 5) % dailyPhrases.length],
       dailyPhrases[(dayIndex + 10) % dailyPhrases.length],
     ]);
+
+    fetch('/api/blog/latest')
+      .then((r) => r.json())
+      .then((d) => setLatestPosts(d.posts || []))
+      .catch(() => {});
   }, []);
 
   if (!mounted) {
@@ -205,6 +224,57 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
+
+          {/* Latest from the blog */}
+          {latestPosts.length > 0 && (
+            <div className="mt-8">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
+                  <Newspaper className="w-5 h-5 text-blue-600" />
+                  Latest from the Blog
+                </h3>
+                <Link href="/blog" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:underline">
+                  View all <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {latestPosts.map((post) => {
+                  const cat = blogCategoryStyles[post.category];
+                  return (
+                    <Link
+                      key={post.slug}
+                      href={`/blog/${post.slug}`}
+                      className="group bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 hover:border-blue-200 dark:hover:border-blue-800 hover:shadow-md transition-all overflow-hidden flex flex-col"
+                    >
+                      <div className="relative aspect-[16/9] overflow-hidden bg-gray-100 dark:bg-gray-800">
+                        <Image
+                          src={post.featuredImage}
+                          alt={post.featuredImageAlt}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        />
+                      </div>
+                      <div className="p-4 flex flex-col flex-1">
+                        {cat && (
+                          <span className={`self-start text-xs font-medium px-2 py-0.5 rounded-full mb-2 ${cat.bg} ${cat.text} ${cat.darkBg} ${cat.darkText}`}>
+                            {cat.label}
+                          </span>
+                        )}
+                        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 mb-2">
+                          {post.title}
+                        </p>
+                        <div className="mt-auto flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500">
+                          <Clock className="w-3 h-3" />
+                          {post.readingTime} min read
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
 
         <PageSidebar>
