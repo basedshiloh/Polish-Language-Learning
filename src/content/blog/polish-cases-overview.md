@@ -152,7 +152,7 @@ Every Polish grammar course eventually hits the same wall: noun endings are stra
 
 The grammar reference for the Accusative shows both noun and adjective forms side by side. Practise them together from the start rather than trying to retrofit adjective agreement later.
 
-According to research covered by [the Cambridge Language Research Centre](https://www.cam.ac.uk/research/news/learning-foreign-languages), retrieval practice — actively recalling endings rather than re-reading tables — produces significantly better retention than passive review. The most effective Polish grammar course structure mirrors this: short daily recall sessions with the endings table, not long passive reads.
+Retrieval practice — actively recalling endings rather than re-reading tables — produces significantly better retention than passive review. This is documented in detail in the [Wikipedia article on spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition), which covers the research behind why testing yourself beats re-studying. The most effective Polish grammar course structure mirrors this: short daily recall sessions with the endings table, not long passive reads.
 
 ## Frequently Asked Questions About Polish Cases Overview
 
