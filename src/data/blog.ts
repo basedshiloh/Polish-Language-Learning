@@ -17,6 +17,24 @@ export const blogCategoryStyles: Record<BlogCategory, { label: string; bg: strin
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'polish-cases-overview',
+    title: 'Polish Cases Overview: 7 Essential Cases Explained',
+    excerpt: 'Polish cases overview for beginners: what all 7 cases do, which 4 you actually need at A1, and how the ending patterns work — with a visual table.',
+    category: 'grammar-deep-dive',
+    author: blogAuthors.polishpal,
+    date: '2026-06-27',
+    featuredImage: '/blog/cases-overview-hero.webp',
+    featuredImageAlt: 'Polish cases overview study materials — grammar textbook and course notes on a desk — Photo by Julia Khalimova on Pexels',
+    readingTime: 12,
+    tags: ['cases', 'grammar', 'beginners'],
+    summary: [
+      'Polish has 7 cases — but A1 learners only need to master 4 of them',
+      'Each case gives a noun a "job tag": subject, object, possession, and more',
+      'The Accusative feminine rule (-a → -ę) alone unlocks hundreds of common words',
+    ],
+    published: true,
+  },
+  {
     slug: 'polish-case-chart-download',
     title: 'Free Polish Case Chart: 5 Tables, 4 Cases, 1 Page (PDF)',
     excerpt: 'Download a free Polish case chart covering all 4 beginner cases, noun endings, adjective endings, and key prepositions — printable, one-page PDF.',
