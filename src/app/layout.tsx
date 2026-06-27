@@ -28,6 +28,13 @@ export const metadata: Metadata = {
   authors: [{ name: "PolishPal" }],
   creator: "PolishPal",
   publisher: "PolishPal",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/logo.svg", type: "image/svg+xml" },
+    ],
+    apple: "/logo.svg",
+  },
   robots: {
     index: true,
     follow: true,

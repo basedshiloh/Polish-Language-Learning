@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { BookOpen, PanelLeftClose, PanelLeft } from 'lucide-react';
+import { PanelLeftClose, PanelLeft } from 'lucide-react';
 import { NAV_ITEMS, EXTRA_NAV_ITEMS } from '@/lib/constants';
 import { useSidebar } from '@/hooks/useSidebar';
 import ThemeSwitcher from './ThemeSwitcher';
@@ -18,9 +19,7 @@ export default function Sidebar() {
       }`}
     >
       <div className={`flex items-center border-b border-gray-100 dark:border-gray-800 ${collapsed ? 'justify-center py-5 px-2' : 'gap-3 px-6 py-5'}`}>
-        <div className="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center shrink-0">
-          <BookOpen className="w-5 h-5 text-white" />
-        </div>
+        <Image src="/logo.svg" alt="PolishPal logo" width={36} height={36} className="rounded-lg shrink-0" priority />
         {!collapsed && (
           <div>
             <span className="text-lg font-bold text-gray-900 dark:text-gray-100">PolishPal</span>
