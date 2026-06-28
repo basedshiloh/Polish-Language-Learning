@@ -12,3 +12,12 @@ It is the required format and SEO ruleset for PolishPal posts: the three files t
 (start with intro paragraphs not an `<h2>`, end with no "Conclusion" heading), the internal-link
 **card** system (`/lessons/…` and `/grammar/…` render as cards), and the Rank Math on-page rules.
 Run the self-check script in that guide before publishing.
+
+# Publishing via the CMS API + images
+
+To publish/update a post through the CMS HTTP API (the `posts` table is the live source,
+not the legacy markdown files) and to get images to actually render, read
+**[`docs/cms-api-publishing.md`](docs/cms-api-publishing.md)**. Critical gotcha: **do not
+rely on `/api/cms/upload` for post images** — its output has rendered as corrupt/broken in
+browsers. Convert images to WebP locally (Pillow), validate RIFF integrity, self-host them
+in `public/blog/` referenced as `/blog/<slug>-*.webp`, and `git push` to `main` to deploy.
