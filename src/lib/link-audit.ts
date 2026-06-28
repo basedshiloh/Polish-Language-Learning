@@ -1,9 +1,11 @@
 export type LinkType = 'internal' | 'external';
+export type Rel = 'dofollow' | 'nofollow';
 
 export interface AuditedLink {
   anchor: string;
   url: string;
   type: LinkType;
+  rel?: Rel; // only meaningful for external links
 }
 
 export interface DuplicateLink {
@@ -33,23 +35,43 @@ function classify(url: string): LinkType | null {
   return null; // bare relative text — ignore
 }
 
+// External links are nofollow by default; mark dofollow with a markdown
+// title, e.g. [text](https://example.com "dofollow").
+function relFromTitle(title: string | undefined): Rel {
+  return title && /dofollow/i.test(title) ? 'dofollow' : 'nofollow';
+}
+
 // Find markdown links + bare URLs in a block of text.
 export function extractLinks(text: string): AuditedLink[] {
   const links: AuditedLink[] = [];
 
-  const mdRe = /\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g;
+  const mdRe = /\[([^\]]+)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)/g;
   let m: RegExpExecArray | null;
   while ((m = mdRe.exec(text)) !== null) {
     const type = classify(m[2]);
-    if (type) links.push({ anchor: m[1].trim(), url: m[2].trim(), type });
+    if (type) {
+      links.push({
+        anchor: m[1].trim(),
+        url: m[2].trim(),
+        type,
+        ...(type === 'external' ? { rel: relFromTitle(m[3]) } : {}),
+      });
+    }
   }
 
-  // Strip markdown links, then catch any remaining bare URLs.
+  // Strip markdown links, then catch any remaining bare URLs (always nofollow).
   const noMd = text.replace(mdRe, ' ');
   const urlRe = /(https?:\/\/[^\s)<>"'\\]+)/g;
   while ((m = urlRe.exec(noMd)) !== null) {
     const type = classify(m[1]);
-    if (type) links.push({ anchor: m[1], url: m[1].replace(/[.,;]+$/, ''), type });
+    if (type) {
+      links.push({
+        anchor: m[1],
+        url: m[1].replace(/[.,;]+$/, ''),
+        type,
+        ...(type === 'external' ? { rel: 'nofollow' as Rel } : {}),
+      });
+    }
   }
 
   return links;

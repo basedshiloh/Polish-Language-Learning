@@ -24,13 +24,14 @@ export async function POST(request: NextRequest) {
 
   const body = await request.json();
   const { action, commentId, limit = 50, offset = 0 } = body;
+  const ascending = body.order === 'oldest';
   const supabase = getAdminClient();
 
   if (action === 'list-all') {
     const { data, count, error } = await supabase
       .from('comments')
       .select('*', { count: 'exact' })
-      .order('created_at', { ascending: false })
+      .order('created_at', { ascending })
       .range(offset, offset + limit - 1);
 
     if (error) return Response.json({ error: error.message }, { status: 500 });
@@ -43,7 +44,7 @@ export async function POST(request: NextRequest) {
       .from('comments')
       .select('*', { count: 'exact' })
       .eq('hidden', hidden)
-      .order('created_at', { ascending: false })
+      .order('created_at', { ascending })
       .range(offset, offset + limit - 1);
 
     if (error) return Response.json({ error: error.message }, { status: 500 });

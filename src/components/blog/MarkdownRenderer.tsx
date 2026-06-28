@@ -117,15 +117,20 @@ export default function MarkdownRenderer({ content }: { content: string }) {
             {children}
           </td>
         ),
-        a: ({ href, children }) => {
+        a: ({ href, title, children }) => {
           if (href?.startsWith('/lessons/') || href?.startsWith('/grammar/')) {
             return <InternalCard href={href}>{children}</InternalCard>;
           }
+          const isExternal = href?.startsWith('http');
+          // External links are nofollow by default; opt into dofollow with a
+          // markdown title: [text](https://example.com "dofollow").
+          const dofollow = typeof title === 'string' && /dofollow/i.test(title);
           return (
             <a
               href={href}
-              target={href?.startsWith('http') ? '_blank' : undefined}
-              rel={href?.startsWith('http') ? 'noopener noreferrer nofollow' : undefined}
+              title={title}
+              target={isExternal ? '_blank' : undefined}
+              rel={isExternal ? (dofollow ? 'noopener noreferrer' : 'noopener noreferrer nofollow') : undefined}
               className="text-blue-600 dark:text-blue-400 hover:underline"
             >
               {children}

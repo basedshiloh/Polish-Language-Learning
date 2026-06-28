@@ -1,12 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { adminClient } from '@/lib/posts';
-import { SESSION_COOKIE, isValidToken } from '@/lib/cms-auth';
+import { isAuthorizedRequest } from '@/lib/cms-access';
 import { slugify } from '@/lib/utils';
-
-function authed(req: NextRequest): boolean {
-  return isValidToken(req.cookies.get(SESSION_COOKIE)?.value);
-}
 
 function wordCount(md: string): number {
   return md.trim().split(/\s+/).filter(Boolean).length;
@@ -19,7 +15,7 @@ function revalidateBlog(slug?: string) {
 }
 
 export async function POST(req: NextRequest) {
-  if (!authed(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!(await isAuthorizedRequest(req))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const body = await req.json();
   const { action } = body;

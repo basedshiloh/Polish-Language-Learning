@@ -46,6 +46,7 @@ export default function CommentsPage() {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(0);
   const [filter, setFilter] = useState<'all' | 'visible' | 'hidden'>('all');
+  const [order, setOrder] = useState<'newest' | 'oldest'>('newest');
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
 
@@ -58,12 +59,12 @@ export default function CommentsPage() {
     return res.json();
   }, []);
 
-  const refresh = useCallback(async (currentFilter: string, currentPage: number) => {
+  const refresh = useCallback(async (currentFilter: string, currentPage: number, currentOrder: string) => {
     setLoading(true);
     const [commentsData, statsData] = await Promise.all([
       currentFilter === 'all'
-        ? api({ action: 'list-all', limit: PAGE_SIZE, offset: currentPage * PAGE_SIZE })
-        : api({ action: 'list-filtered', hidden: currentFilter === 'hidden', limit: PAGE_SIZE, offset: currentPage * PAGE_SIZE }),
+        ? api({ action: 'list-all', limit: PAGE_SIZE, offset: currentPage * PAGE_SIZE, order: currentOrder })
+        : api({ action: 'list-filtered', hidden: currentFilter === 'hidden', limit: PAGE_SIZE, offset: currentPage * PAGE_SIZE, order: currentOrder }),
       api({ action: 'stats' }),
     ]);
     setComments(commentsData.comments || []);
@@ -72,13 +73,13 @@ export default function CommentsPage() {
     setLoading(false);
   }, [api]);
 
-  useEffect(() => { refresh(filter, page); }, [page, filter, refresh]);
+  useEffect(() => { refresh(filter, page, order); }, [page, filter, order, refresh]);
 
   const handleAction = async (commentId: string, action: 'hide' | 'unhide' | 'delete') => {
     setActionLoading(commentId);
     await api({ action, commentId });
     setDeleteConfirm(null);
-    await refresh(filter, page);
+    await refresh(filter, page, order);
     setActionLoading(null);
   };
 
@@ -93,7 +94,7 @@ export default function CommentsPage() {
             <p className="text-sm text-gray-400 dark:text-gray-500">Moderate community comments</p>
           </div>
           <button
-            onClick={() => refresh(filter, page)}
+            onClick={() => refresh(filter, page, order)}
             className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 transition-colors"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -117,20 +118,30 @@ export default function CommentsPage() {
           </div>
         )}
 
-        <div className="flex gap-2 mb-4">
-          {(['all', 'visible', 'hidden'] as const).map((f) => (
-            <button
-              key={f}
-              onClick={() => { setFilter(f); setPage(0); }}
-              className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
-                filter === f
-                  ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-medium'
-                  : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-              }`}
-            >
-              {f.charAt(0).toUpperCase() + f.slice(1)}
-            </button>
-          ))}
+        <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
+          <div className="flex gap-2">
+            {(['all', 'visible', 'hidden'] as const).map((f) => (
+              <button
+                key={f}
+                onClick={() => { setFilter(f); setPage(0); }}
+                className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
+                  filter === f
+                    ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-medium'
+                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                }`}
+              >
+                {f.charAt(0).toUpperCase() + f.slice(1)}
+              </button>
+            ))}
+          </div>
+          <select
+            value={order}
+            onChange={(e) => { setOrder(e.target.value as 'newest' | 'oldest'); setPage(0); }}
+            className="text-sm bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-3 py-1.5 outline-none text-gray-700 dark:text-gray-300"
+          >
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+          </select>
         </div>
 
         <div className="space-y-3">

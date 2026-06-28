@@ -1,16 +1,31 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { PlusCircle, Pencil, Trash2, ExternalLink } from 'lucide-react';
+import { PlusCircle, Pencil, Trash2, ExternalLink, Search } from 'lucide-react';
 import type { Post } from '@/lib/types';
 import { blogCategoryStyles } from '@/data/blog';
+
+type Sort = 'recent' | 'oldest' | 'title' | 'status';
 
 export default function PostsList({ posts }: { posts: Post[] }) {
   const router = useRouter();
   const [busy, setBusy] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+  const [sort, setSort] = useState<Sort>('recent');
+  const [query, setQuery] = useState('');
+
+  const shown = useMemo(() => {
+    const q = query.toLowerCase().trim();
+    let list = q ? posts.filter((p) => p.title.toLowerCase().includes(q) || p.slug.includes(q)) : [...posts];
+    const t = (p: Post) => new Date(p.updatedDate || p.date).getTime();
+    if (sort === 'recent') list.sort((a, b) => t(b) - t(a));
+    else if (sort === 'oldest') list.sort((a, b) => t(a) - t(b));
+    else if (sort === 'title') list.sort((a, b) => a.title.localeCompare(b.title));
+    else if (sort === 'status') list.sort((a, b) => a.status.localeCompare(b.status) || t(b) - t(a));
+    return list;
+  }, [posts, query, sort]);
 
   async function action(body: Record<string, unknown>) {
     setBusy(String(body.id));
@@ -37,11 +52,30 @@ export default function PostsList({ posts }: { posts: Post[] }) {
           </Link>
         </div>
 
-        {posts.length === 0 ? (
-          <p className="text-center py-12 text-gray-400 dark:text-gray-500">No posts yet. Create your first one.</p>
+        {/* Search + sort */}
+        <div className="flex gap-2 mb-4">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search posts…"
+              className="w-full pl-9 pr-3 py-2 text-sm bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg outline-none focus:border-blue-400 text-gray-900 dark:text-gray-100"
+            />
+          </div>
+          <select value={sort} onChange={(e) => setSort(e.target.value as Sort)} className="text-sm bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-3 py-2 outline-none text-gray-700 dark:text-gray-300">
+            <option value="recent">Most recent</option>
+            <option value="oldest">Oldest</option>
+            <option value="title">Title A–Z</option>
+            <option value="status">Status</option>
+          </select>
+        </div>
+
+        {shown.length === 0 ? (
+          <p className="text-center py-12 text-gray-400 dark:text-gray-500">{posts.length === 0 ? 'No posts yet. Create your first one.' : 'No posts match your search.'}</p>
         ) : (
           <div className="space-y-2">
-            {posts.map((p) => {
+            {shown.map((p) => {
               const cat = blogCategoryStyles[p.category];
               return (
                 <div key={p.id} className="flex items-center gap-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-3">

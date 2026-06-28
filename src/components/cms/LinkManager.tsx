@@ -6,6 +6,7 @@ import type { LinkAudit } from '@/lib/link-audit';
 
 type Filter = 'all' | 'Post' | 'Lesson' | 'Grammar';
 type View = 'out' | 'in';
+type Sort = 'most' | 'least' | 'title';
 
 interface InboundSource {
   title: string;
@@ -25,6 +26,7 @@ function norm(u: string): string {
 export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
   const [view, setView] = useState<View>('out');
   const [filter, setFilter] = useState<Filter>('all');
+  const [sort, setSort] = useState<Sort>('most');
   const [expanded, setExpanded] = useState<string | null>(null);
 
   // Reverse index: page URL → who links to it (internal links pointing at audited pages)
@@ -57,13 +59,14 @@ export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
 
   const rows = useMemo(() => {
     const list = filter === 'all' ? audits : audits.filter((a) => a.kind === filter);
-    return [...list].sort((a, b) =>
-      view === 'out'
-        ? b.internal + b.external - (a.internal + a.external)
-        : inboundCount(b) - inboundCount(a)
-    );
+    const metric = (a: LinkAudit) => (view === 'out' ? a.internal + a.external : inboundCount(a));
+    return [...list].sort((a, b) => {
+      if (sort === 'title') return a.title.localeCompare(b.title);
+      if (sort === 'least') return metric(a) - metric(b);
+      return metric(b) - metric(a); // most
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [audits, filter, view, inbound]);
+  }, [audits, filter, view, sort, inbound]);
 
   return (
     <div className="p-6 md:p-8">
@@ -113,21 +116,32 @@ export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
           </div>
         </div>
 
-        {/* Kind filter */}
-        <div className="flex gap-2 mb-4">
-          {(['all', 'Post', 'Lesson', 'Grammar'] as Filter[]).map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
-                filter === f
-                  ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-medium'
-                  : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-              }`}
-            >
-              {f === 'all' ? 'All' : `${f}s`}
-            </button>
-          ))}
+        {/* Kind filter + sort */}
+        <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
+          <div className="flex gap-2">
+            {(['all', 'Post', 'Lesson', 'Grammar'] as Filter[]).map((f) => (
+              <button
+                key={f}
+                onClick={() => setFilter(f)}
+                className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
+                  filter === f
+                    ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-medium'
+                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                }`}
+              >
+                {f === 'all' ? 'All' : `${f}s`}
+              </button>
+            ))}
+          </div>
+          <select
+            value={sort}
+            onChange={(e) => setSort(e.target.value as Sort)}
+            className="text-sm bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-3 py-1.5 outline-none text-gray-700 dark:text-gray-300"
+          >
+            <option value="most">Most links</option>
+            <option value="least">Fewest links</option>
+            <option value="title">Title A–Z</option>
+          </select>
         </div>
 
         {/* Rows */}
@@ -197,7 +211,12 @@ export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
                                   <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full shrink-0 ${l.type === 'internal' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' : 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400'}`}>
                                     {l.type === 'internal' ? 'INT' : 'EXT'}
                                   </span>
-                                  <span className="text-gray-700 dark:text-gray-300 truncate max-w-[40%]" title={l.anchor}>{l.anchor}</span>
+                                  {l.type === 'external' && l.rel && (
+                                    <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full shrink-0 ${l.rel === 'dofollow' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' : 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400'}`}>
+                                      {l.rel}
+                                    </span>
+                                  )}
+                                  <span className="text-gray-700 dark:text-gray-300 truncate max-w-[35%]" title={l.anchor}>{l.anchor}</span>
                                   <span className="text-gray-300 dark:text-gray-600">→</span>
                                   <span className={`truncate ${dup ? 'text-amber-600 dark:text-amber-400 font-medium' : 'text-gray-400 dark:text-gray-500'}`} title={l.url}>{l.url}</span>
                                 </li>

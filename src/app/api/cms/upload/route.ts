@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import sharp from 'sharp';
 import { adminClient } from '@/lib/posts';
-import { SESSION_COOKIE, isValidToken } from '@/lib/cms-auth';
+import { isAuthorizedRequest } from '@/lib/cms-access';
 import { slugify } from '@/lib/utils';
 
 const BUCKET = 'blog-images';
 
 export async function POST(req: NextRequest) {
-  if (!isValidToken(req.cookies.get(SESSION_COOKIE)?.value)) {
+  if (!(await isAuthorizedRequest(req))) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
