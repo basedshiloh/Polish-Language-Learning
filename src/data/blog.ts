@@ -17,6 +17,24 @@ export const blogCategoryStyles: Record<BlogCategory, { label: string; bg: strin
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'i-love-you-in-polish',
+    title: 'I Love You in Polish: 9 Essential Phrases to Charm Locals',
+    excerpt: 'Learn how to say I love you in Polish — plus thank you and cheers — with easy pronunciation, romantic variations, and the culture behind each phrase.',
+    category: 'vocabulary',
+    author: blogAuthors.polishpal,
+    date: '2026-06-28',
+    featuredImage: '/blog/i-love-you-in-polish-hero.webp',
+    featuredImageAlt: 'Couple holding hands at sunset learning how to say I love you in Polish — Kocham Cię — Photo by Jessika Arraes on Pexels',
+    readingTime: 11,
+    tags: ['phrases', 'vocabulary', 'beginners'],
+    summary: [
+      '"Kocham Cię" is how to say I love you in Polish — sincere, and used for family and friends too',
+      '"Dziękuję" (thank you) and "Na zdrowie!" (cheers) round out the three phrases that win Polish hearts',
+      'Every phrase comes with English-friendly pronunciation, plus toasting etiquette and texting shorthand',
+    ],
+    published: true,
+  },
+  {
     slug: 'when-to-use-polish-cases',
     title: 'When to Use Polish Cases: 7 Essential Rules Explained',
     excerpt: 'Not sure when to use Polish cases? This guide gives you the trigger rules, a preposition cheat sheet, and a decision flowchart — in plain English.',
