@@ -154,7 +154,7 @@ Here are the main voicing pairs in Polish:
 - *jabłko* (apple) — BŁ before voiceless K causes B to shift toward P, so it sounds like *yap-wko*
 - *też* (also) — perfectly regular, but learners often add a helper vowel between T and Ż
 
-Understanding voicing assimilation is what separates "reading Polish out loud" from actually speaking it naturally. For a thorough technical breakdown of Polish sounds, the Wikipedia entry on [Polish phonology](https://en.wikipedia.org/wiki/Polish_phonology) provides detailed phonological analysis including assimilation tables and audio examples.
+Understanding voicing assimilation is what separates "reading Polish out loud" from actually speaking it naturally. For a thorough technical breakdown of Polish sounds, the Wikipedia entry on [Polish phonology](https://en.wikipedia.org/wiki/Polish_phonology "dofollow") provides detailed phonological analysis including assimilation tables and audio examples.
 
 ## Common Beginner Mistakes with Polish Consonant Clusters
 
