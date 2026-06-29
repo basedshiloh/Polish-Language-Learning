@@ -104,7 +104,7 @@ Here's a reference table showing the most common Polish consonant clusters in ev
 
 Notice the pattern: nearly every one of these Polish consonant clusters is either a recognized digraph (one unit, one sound) or a combination of two digraphs. Studying Polish consonant clusters this way — as a table of units rather than a wall of scary letters — removes the guesswork entirely.
 
-Polish consonant clusters are building blocks, not arbitrary exceptions. If you're working on the broader foundations of Polish — including the alphabet, basic grammar, and a study plan — the [learn polish for beginners](/blog/learn-polish-for-beginners) guide on this site covers all of it in one place.
+Polish consonant clusters are building blocks, not arbitrary exceptions. If you're working on the broader foundations of Polish — including the alphabet, basic grammar, and a study plan — our guide to [learn polish](/blog/learn-polish-for-beginners) from scratch covers all of it in one place.
 
 ## Pattern Recognition: Stop Decoding and Start Speaking
 
@@ -226,7 +226,7 @@ The key insight from this guide: Polish consonant clusters are not a collection 
 
 Start with the seven clusters above. Practise five words per cluster every day. Return to the tongue twisters once a week and notice how much easier they get. Within a month, *szczur* will feel like just another Polish word.
 
-Ready to keep building? Our full guide to [learning Polish for beginners](/blog/learn-polish-for-beginners) walks you through everything from the alphabet to grammar fundamentals and a 90-day study plan. Or jump straight into listening and speaking practice with our interactive lessons:
+Ready to keep building? Jump straight into listening and speaking practice with our interactive lessons:
 
 [Polish Phonetics & Pronunciation — Full Lesson](/lessons/phonetics)
 

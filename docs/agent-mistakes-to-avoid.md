@@ -168,6 +168,42 @@ All items must look correct before pushing. Fix any failures first.
 
 ---
 
+## 9. NEVER link to the same URL more than once in one article
+
+Repeating the same destination URL multiple times in one article — even with different
+anchor text — is internal link stuffing. Google treats it as manipulation and it dilutes
+link equity rather than building it.
+
+**Wrong (two links, same URL, same article):**
+```md
+…our guide to [learn polish](/blog/learn-polish-for-beginners) covers the basics.
+…see our [learn polish for beginners](/blog/learn-polish-for-beginners) guide.
+```
+
+**Right — one link per destination URL per article:**
+```md
+…our guide to [learn polish](/blog/learn-polish-for-beginners) covers the basics.
+```
+
+### Anchor texts across articles
+
+When a keyword research plan gives you multiple anchor texts for one URL (e.g.
+"learn polish", "how to learn polish", "polish for beginners"), those anchors are
+meant to be distributed across **separate future articles** — one anchor per article.
+This builds a natural, varied anchor profile pointing to that URL over time.
+
+**Mapping example for `/blog/learn-polish-for-beginners`:**
+
+| Article | Anchor text to use | Why |
+|---|---|---|
+| Pronunciation / consonant clusters article | `learn polish` | Pronunciation is a first step; "learn polish" is broad |
+| Self-study method / how-to article | `how to learn polish` | Matches the method angle |
+| Grammar / vocabulary article | `polish for beginners` | Matches the beginner framing |
+
+Never assign two anchors from the same target URL to the same article.
+
+---
+
 ## 8. Existing images available in `public/blog/`
 
 These files are already deployed and safe to use as inline images:
