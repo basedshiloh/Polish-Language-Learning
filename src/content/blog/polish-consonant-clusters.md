@@ -4,8 +4,6 @@ Here's the good news: Polish consonant clusters follow consistent rules. The rea
 
 This guide breaks down the 7 essential Polish consonant clusters every beginner needs, explains the phonics behind them, and gives you practical techniques to start pronouncing them correctly. No IPA overload — just clear explanations and plenty of real examples to practise with.
 
----
-
 ## What Are Polish Consonant Clusters?
 
 A consonant cluster is any sequence of two or more consonants appearing together without a vowel between them. English has them too — think of the "str" in *street*, the "spl" in *splash*, or the "nds" in *hands*.
@@ -15,8 +13,6 @@ Polish consonant clusters follow the same basic principle, but Polish allows far
 The crucial difference is that Polish is completely phonetic. Every letter maps to exactly one sound, and there are no silent letters. This actually works in your favor once you learn the rules: a cluster that looks scary written down sounds perfectly natural when you apply the correct phonics systematically.
 
 Understanding Polish consonant clusters is not about memorizing exceptions — it's about learning a handful of consistent patterns that repeat across thousands of words. The same Polish consonant clusters appear again and again: nail them once, and they apply everywhere.
-
----
 
 ## Why Polish Consonant Clusters Scare English Speakers
 
@@ -32,11 +28,11 @@ There are three main reasons Polish consonant clusters feel so foreign to native
 
 All three of these challenges are learnable. They are rules, not randomness. If you're starting to build a foundation for how to pronounce Polish from scratch, recognizing why clusters feel hard is the first practical step toward solving them.
 
----
-
 ## The 7 Essential Polish Consonant Clusters
 
 These seven clusters appear in thousands of everyday Polish words. Get comfortable with these and you'll be able to decode the vast majority of Polish consonant clusters you encounter at beginner level. Each entry gives you the sound, a memory anchor, and example words to practise.
+
+![Polish pronunciation guide open on a desk — Photo by Pixabay on Pexels](/blog/pronunciation.webp)
 
 ### 1. SZ — The "SH" Sound
 
@@ -89,8 +85,6 @@ In modern spoken Polish, CH and H are pronounced identically — a fricative som
 
 SZCZ is the cluster that made Polish famous for being "unpronounceable" on the internet. In reality, it's simply two familiar sounds merged: the *sh* from SZ followed immediately by the *ch* from CZ. Say *fresh cheese* at normal conversational speed and you'll produce something very close to SZCZ. The trick: don't slow down and separate them. Connect them smoothly and speed builds naturally.
 
----
-
 ## Polish Consonant Clusters in Real Words
 
 Here's a reference table showing the most common Polish consonant clusters in everyday vocabulary, with pronunciation guides you can use immediately:
@@ -112,9 +106,7 @@ Notice the pattern: nearly every one of these Polish consonant clusters is eithe
 
 Polish consonant clusters are building blocks, not arbitrary exceptions. If you're working on the broader foundations of Polish — including the alphabet, basic grammar, and a study plan — the [learn polish for beginners](/blog/learn-polish-for-beginners) guide on this site covers all of it in one place.
 
----
-
-## Pattern Recognition: Stop Decoding and Start Speaking {#pattern-recognition}
+## Pattern Recognition: Stop Decoding and Start Speaking
 
 The biggest shift you can make with Polish consonant clusters is moving from letter-by-letter decoding to phoneme recognition. When you read English, you don't spell out S then H every time you see SH — your brain fires one sound automatically. That's exactly the fluency you're building with Polish digraphs.
 
@@ -135,9 +127,7 @@ Minimal pairs — two words that differ by only one sound — are one of the mos
 - *szał* (frenzy) vs. *sałata* (lettuce) — contrast SZ vs. S
 - *czas* (time) vs. *cas* (not a word, but useful for contrast) — feel the difference in tongue position for CZ vs. a simple C
 
----
-
-## Voicing Assimilation: The Hidden Rule That Changes Everything {#voicing-assimilation}
+## Voicing Assimilation: The Hidden Rule That Changes Everything
 
 ### How to Pronounce Polish Consonants Accurately in Connected Speech
 
@@ -166,11 +156,11 @@ Here are the main voicing pairs in Polish:
 
 Understanding voicing assimilation is what separates "reading Polish out loud" from actually speaking it naturally. For a thorough technical breakdown of Polish sounds, the Wikipedia entry on [Polish phonology](https://en.wikipedia.org/wiki/Polish_phonology) provides detailed phonological analysis including assimilation tables and audio examples.
 
----
-
-## Common Beginner Mistakes with Polish Consonant Clusters {#common-beginner-mistakes}
+## Common Beginner Mistakes with Polish Consonant Clusters
 
 Knowing what to avoid is just as useful as knowing what to aim for. Learners who struggle most with Polish consonant clusters usually share one or more of these four habits — fix them early and you'll accelerate fast.
+
+![Notebook with crossed out words representing common Polish learning mistakes — Photo by KATRIN BOLOVTSOVA on Pexels](/blog/mistakes.webp)
 
 ### Inserting Helper Vowels
 
@@ -188,11 +178,11 @@ Reading every consonant exactly as written and skipping the voicing adjustments.
 
 Polish pronunciation for beginners often involves excessive tension around difficult sounds — concentrating so hard on getting it right that each consonant gets hammered individually. Clusters in real Polish speech flow quickly and smoothly. The more you slow down and isolate each consonant, the more unnatural it sounds. Trust the pattern, stay loose, and let speed develop naturally through repetition.
 
----
+## Practice Exercises for Polish Consonant Clusters
 
-## Practice Exercises for Polish Consonant Clusters {#practice-exercises}
+Knowing the rules is one thing. Building automatic fluency with Polish consonant clusters requires regular low-stakes practice. The drills below are specifically chosen because they isolate the problem — each one targets the exact difficulties that make Polish consonant clusters hard for English speakers.
 
-Knowing the rules is one thing. Building automatic fluency with Polish consonant clusters requires regular low-stakes practice. The drills below are specifically chosen because they isolate the problem — each one targets the exact difficulties that make Polish consonant clusters hard for English speakers. Here are the most effective methods.
+![Student practising Polish with a language learning app — Photo by Maxim Ilyahov on Pexels](/blog/learn-polish-app.webp)
 
 ### Polish Tongue Twisters
 
@@ -229,8 +219,6 @@ Reading rules only takes you so far — your ear needs training alongside your m
 - **Easy Polish** (YouTube) — filmed street conversations with Polish and English subtitles, ideal for hearing clusters in authentic natural speech at conversational speed
 - **Forvo.com** — a free database of native speaker recordings of individual words; look up any Polish word and hear exactly how a native speaker pronounces each cluster
 - **Shadowing practice** — play a Polish audio clip, pause every sentence, and repeat exactly what you heard with the same rhythm and speed; this is the fastest known method for acquiring natural prosody
-
----
 
 Polish consonant clusters are the barrier that separates casual learners from those who commit — and once you're past them, everything else in the language feels more manageable. The alphabet is fully phonetic. Stress falls predictably on the second-to-last syllable in almost every word. Vocabulary builds on patterns you've already internalized.
 
