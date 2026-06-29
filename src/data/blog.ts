@@ -17,6 +17,24 @@ export const blogCategoryStyles: Record<BlogCategory, { label: string; bg: strin
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'polish-consonant-clusters',
+    title: 'Polish Consonant Clusters Explained: 7 Essential Sounds Decoded',
+    excerpt: 'Polish consonant clusters like SZCZ and STRZ look terrifying — but they follow strict rules. Learn the 7 essential clusters that unlock Polish pronunciation for beginners.',
+    category: 'pronunciation',
+    author: blogAuthors.polishpal,
+    date: '2026-06-29',
+    featuredImage: '/blog/polish-pronunciation.webp',
+    featuredImageAlt: 'Polish consonant clusters study guide — close-up of pronunciation practice — Photo by Pixabay on Pexels',
+    readingTime: 14,
+    tags: ['pronunciation', 'consonant clusters', 'beginners'],
+    summary: [
+      'SZ, CZ, RZ, DŻ, DZ, CH, and SZCZ are the 7 essential clusters — each maps to one familiar sound',
+      'Voicing assimilation explains why written Polish sounds different from letter-by-letter reading',
+      'Treat every digraph as a single unit — long clusters like SZCZ stop being overwhelming',
+    ],
+    published: true,
+  },
+  {
     slug: 'i-love-you-in-polish',
     title: 'I Love You in Polish: 9 Essential Phrases to Charm Locals',
     excerpt: 'Learn how to say I love you in Polish — plus thank you and cheers — with easy pronunciation, romantic variations, and the culture behind each phrase.',
