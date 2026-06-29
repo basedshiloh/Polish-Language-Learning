@@ -6,7 +6,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # Writing blog articles
 
-Before writing or editing any blog post, read **[`docs/blog-authoring.md`](docs/blog-authoring.md)**.
+Before writing or editing any blog post, read **[`docs/agent-mistakes-to-avoid.md`](docs/agent-mistakes-to-avoid.md)** first — it lists the exact errors that have caused broken posts in production. Then read **[`docs/blog-authoring.md`](docs/blog-authoring.md)**.
 It is the required format and SEO ruleset for PolishPal posts: the three files to touch
 (`src/content/blog/<slug>.md`, `src/data/blog.ts`, `public/blog/`), the markdown conventions
 (start with intro paragraphs not an `<h2>`, end with no "Conclusion" heading), the internal-link

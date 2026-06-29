@@ -1,0 +1,192 @@
+# PolishPal — Agent Mistakes to Avoid
+
+Hard lessons from real publishing errors. Read this alongside
+`blog-authoring.md` and `cms-api-publishing.md` before writing or posting anything.
+
+---
+
+## 1. NEVER use placeholder image paths
+
+**Wrong:**
+```md
+![Some alt text](polish-consonant-clusters-chart.jpg)
+![Another image](szcz-sound-breakdown.jpg)
+```
+
+These files do not exist. They render as broken images on the live site.
+No placeholder. No `.jpg`. No `.png`. No filename-only paths.
+
+**Right — option A (existing image already in `public/blog/`):**
+```md
+![Polish pronunciation guide open on a desk — Photo by Pixabay on Pexels](/blog/pronunciation.webp)
+```
+
+**Right — option B (new image, full pipeline):**
+1. Download from Pexels (API key in maintainer notes)
+2. Convert with Python Pillow — never `sips`, never `/api/cms/upload`
+3. Validate RIFF: `f[8:12] == b"WEBP"` and `int.from_bytes(f[4:8],"little") + 8 == len(f)`
+4. Save as `public/blog/<slug>-<purpose>.webp`
+5. Reference as `/blog/<slug>-<purpose>.webp`
+6. `git add` + `git push` to deploy before the post goes live
+
+**If you don't have images ready: publish as `"status": "draft"` and note what images are needed.
+Never publish `"published"` with broken image paths.**
+
+---
+
+## 2. NEVER add a manual Table of Contents
+
+The site renders a `TableOfContents` component automatically in the right sidebar,
+built from every `##` heading in the article. A manual TOC in the body creates a
+duplicate and looks broken.
+
+**Wrong:**
+```md
+## Table of Contents
+- [Section One](#section-one)
+- [Section Two](#section-two)
+```
+
+**Just don't add it. The sidebar handles it.**
+
+---
+
+## 3. NEVER use `{#anchor-id}` in headings
+
+Pandoc-style heading anchors like `## My Section {#my-section}` are not stripped
+by `MarkdownRenderer` — they render as visible literal text in the article.
+
+**Wrong:**
+```md
+## Practice Exercises {#practice-exercises}
+## Voicing Assimilation {#voicing-assimilation}
+```
+
+**Right:**
+```md
+## Practice Exercises
+## Voicing Assimilation
+```
+
+If you need anchor links for a TOC, use plain heading text — the site's TOC
+component derives IDs from heading text automatically.
+
+---
+
+## 4. NEVER open the markdown body with an `<h2>` or the article title
+
+The page template renders `post.title` as the `<h1>`. Repeating it at the top of
+the markdown creates a double title. Opening with `## …` skips the required 2–3
+intro paragraphs.
+
+**Wrong:**
+```md
+# Polish Consonant Clusters Explained
+## Introduction
+…
+```
+
+**Right:**
+```md
+Polish consonant clusters are one of the first things…
+
+Here's the good news…
+
+This guide covers…
+
+## What Are Polish Consonant Clusters?
+```
+
+---
+
+## 5. NEVER publish without checking all three files
+
+A complete post = three changes, all in sync:
+
+| File | Purpose |
+|---|---|
+| `src/content/blog/<slug>.md` | Body copy (reference / git history) |
+| `src/data/blog.ts` | Metadata entry in `blogPosts` array |
+| Supabase `posts` table | Live source — what the site actually renders |
+
+Publishing to Supabase only (without updating `blog.ts` and the `.md`) leaves the
+repository out of sync. Updating only the `.md` does nothing to the live site.
+
+---
+
+## 6. ALWAYS use relative paths for images and internal links
+
+`MarkdownRenderer` only routes images through `next/image` (optimised, AVIF/WebP
+negotiation) when `src` starts with `/`. An external `https://…` URL falls through
+to a bare `<img>` and is not optimised.
+
+**Wrong:**
+```md
+![alt](https://images.pexels.com/photos/123/photo.jpg)
+![alt](https://gdtbogshuqmayallpgmk.supabase.co/storage/…/photo.webp)
+```
+
+**Right:**
+```md
+![alt](/blog/polish-consonant-clusters-featured.webp)
+```
+
+Same rule for internal links — always `/blog/…`, `/lessons/…`, `/grammar/…`,
+never full `https://www.polishpal.pl/…` URLs.
+
+---
+
+## 7. Run the self-check script before every publish
+
+From the repo root:
+
+```bash
+python3 - src/content/blog/<slug>.md "<focus keyword>" <<'PY'
+import sys,re
+t=open(sys.argv[1],encoding='utf-8').read(); low=t.lower(); kw=sys.argv[2].lower()
+lines=t.splitlines(); words=re.findall(r"[A-Za-ząćęłńóśźż0-9']+",t); wc=len(words)
+n=len(re.findall(r'(?<![a-z])'+re.escape(kw)+r'(?![a-z])',low))
+first_h2=next((i for i,l in enumerate(lines) if l.startswith('## ')), len(lines))
+intro=[l for l in lines[:first_h2] if l.strip() and not l.startswith('#')]
+heads=re.findall(r'^#{2,3}\s+(.+)$',t,re.M)
+print("words:",wc," | density: %.2f%%"%(100*n/wc),"(target 1.0-1.5%)")
+print("starts with H2?:", lines[0].startswith('#'), "(should be False)")
+print("intro paragraphs before first H2:",len(intro),"(want 2-3)")
+print("'Conclusion' heading?:", bool(re.search(r'^#+.*conclusion',low,re.M)),"(should be False)")
+print("keyword in first sentence?:", kw in low[:low.find('.')+1])
+print("keyword in a heading?:", any(kw in h.lower() for h in heads))
+print("images:",len(re.findall(r'!\[',t))," | internal cards:",len(re.findall(r'\]\(/(lessons|grammar)/',t)),
+      " | blog links:",len(re.findall(r'\]\(/blog/',t))," | external:",len(re.findall(r'\]\(http',t)))
+# Extra checks
+print("{# anchors?:", bool(re.search(r'\{#[^}]+\}',t)), "(should be False)")
+print("broken images (.jpg/.png)?:", bool(re.search(r'!\[[^\]]*\]\([^)]*\.(jpg|png)\)',t,re.I)), "(should be False)")
+print("manual TOC?:", '## Table of Contents' in t, "(should be False)")
+PY
+```
+
+All items must look correct before pushing. Fix any failures first.
+
+---
+
+## 8. Existing images available in `public/blog/`
+
+These files are already deployed and safe to use as inline images:
+
+| File | Best used for |
+|---|---|
+| `/blog/pronunciation.webp` | Pronunciation, sounds, audio |
+| `/blog/polish-pronunciation.webp` | Pronunciation guide sections |
+| `/blog/polish-alphabet.webp` | Alphabet, letters, writing |
+| `/blog/mistakes.webp` | Common mistakes, errors to avoid |
+| `/blog/learn-polish-app.webp` | Apps, practice, study tools |
+| `/blog/routine.webp` | Study routine, daily practice |
+| `/blog/cases.webp` | Grammar, cases, rules |
+| `/blog/verbs.webp` | Verb conjugation, grammar |
+| `/blog/gender.webp` | Noun gender, grammar |
+| `/blog/travel.webp` | Travel phrases, Kraków |
+| `/blog/food.webp` | Food, culture, vocabulary |
+| `/blog/holidays.webp` | Holidays, traditions, culture |
+| `/blog/know.webp` | Vocabulary, word choice |
+
+Always write descriptive ALT text; at least one ALT must contain the focus keyword.
+Format: `descriptive caption — Photo by NAME on Pexels`
