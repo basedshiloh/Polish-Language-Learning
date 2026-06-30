@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Save, Upload, ArrowLeft, Globe, FileText } from 'lucide-react';
+import { Save, Upload, ArrowLeft, Globe, FileText, Star } from 'lucide-react';
 import Link from 'next/link';
-import type { Post, PostStatus } from '@/lib/types';
+import type { Post, PostStatus, PostIntent } from '@/lib/types';
 import type { LinkTarget } from '@/lib/internal-links';
 import { blogCategoryStyles } from '@/data/blog';
 import { slugify } from '@/lib/utils';
@@ -16,9 +16,17 @@ import LinkGenius from './LinkGenius';
 interface Props {
   initial: Post | null;
   linkIndex: LinkTarget[];
+  pillars: { id: string; title: string }[];
 }
 
-export default function PostEditor({ initial, linkIndex }: Props) {
+const INTENT_LABELS: Record<PostIntent, string> = {
+  informational: 'Informational — answers a question / teaches',
+  commercial: 'Commercial — compares or evaluates options',
+  transactional: 'Transactional — download / sign-up / action',
+  navigational: 'Navigational — brand or specific page',
+};
+
+export default function PostEditor({ initial, linkIndex, pillars }: Props) {
   const router = useRouter();
   const isNew = !initial;
 
@@ -38,6 +46,9 @@ export default function PostEditor({ initial, linkIndex }: Props) {
   const [summaryText, setSummaryText] = useState((initial?.summary || []).join('\n'));
   const [tagsText, setTagsText] = useState((initial?.tags || []).join(', '));
   const [status, setStatus] = useState<PostStatus>(initial?.status || 'draft');
+  const [intent, setIntent] = useState<PostIntent>(initial?.intent || 'informational');
+  const [isPillar, setIsPillar] = useState(initial?.isPillar || false);
+  const [pillarId, setPillarId] = useState<string>(initial?.pillarId || '');
 
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -88,6 +99,9 @@ export default function PostEditor({ initial, linkIndex }: Props) {
       summary: summaryText.split('\n').map((s) => s.trim()).filter(Boolean),
       tags: tagsText.split(',').map((t) => t.trim()).filter(Boolean),
       status: nextStatus,
+      intent,
+      isPillar,
+      pillarId: isPillar ? null : (pillarId || null),
     };
     const res = await fetch('/api/cms/posts', {
       method: 'POST',
@@ -184,6 +198,39 @@ export default function PostEditor({ initial, linkIndex }: Props) {
                 <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Author name</label>
                 <input value={authorName} onChange={(e) => setAuthorName(e.target.value)} className="w-full text-sm bg-gray-50 dark:bg-gray-800 rounded-lg p-2 outline-none text-gray-900 dark:text-gray-100 border border-gray-100 dark:border-gray-700" />
               </div>
+            </div>
+
+            {/* Content strategy */}
+            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 space-y-3">
+              <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">Content strategy</p>
+              <div>
+                <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Search intent</label>
+                <select value={intent} onChange={(e) => setIntent(e.target.value as PostIntent)} className="w-full text-sm bg-gray-50 dark:bg-gray-800 rounded-lg p-2 outline-none text-gray-900 dark:text-gray-100 border border-gray-100 dark:border-gray-700">
+                  {(Object.keys(INTENT_LABELS) as PostIntent[]).map((k) => (
+                    <option key={k} value={k}>{INTENT_LABELS[k]}</option>
+                  ))}
+                </select>
+              </div>
+
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" checked={isPillar} onChange={(e) => setIsPillar(e.target.checked)} className="rounded border-gray-300 dark:border-gray-600 text-amber-500 focus:ring-amber-400" />
+                <span className="text-sm text-gray-700 dark:text-gray-300 flex items-center gap-1">
+                  <Star className="w-3.5 h-3.5 text-amber-500" /> This is a pillar post
+                </span>
+              </label>
+              <p className="text-xs text-gray-400 dark:text-gray-500 -mt-1">Pillar posts are prioritized as internal-link targets (in Link Genius and for agents).</p>
+
+              {!isPillar && (
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Belongs to pillar (cluster)</label>
+                  <select value={pillarId} onChange={(e) => setPillarId(e.target.value)} className="w-full text-sm bg-gray-50 dark:bg-gray-800 rounded-lg p-2 outline-none text-gray-900 dark:text-gray-100 border border-gray-100 dark:border-gray-700">
+                    <option value="">— none —</option>
+                    {pillars.map((p) => (
+                      <option key={p.id} value={p.id}>{p.title}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
             </div>
 
             {/* Featured image */}

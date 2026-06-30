@@ -45,6 +45,9 @@ export default function LinkGenius({
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
                     <Icon className="w-3 h-3" /> {s.type}
+                    {s.isPillar && (
+                      <span className="px-1 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">★ Pillar</span>
+                    )}
                   </div>
                   <p className="text-sm text-gray-900 dark:text-gray-100 truncate">
                     Link <span className="font-medium">&ldquo;{s.phrase}&rdquo;</span>

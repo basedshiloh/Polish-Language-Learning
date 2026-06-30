@@ -15,8 +15,12 @@ export default async function PostEditorPage({ params }: { params: Promise<{ id:
 
   const extraPosts = allPosts
     .filter((p) => p.id !== id)
-    .map((p) => ({ title: p.title, slug: p.slug, tags: p.tags }));
+    .map((p) => ({ title: p.title, slug: p.slug, tags: p.tags, isPillar: p.isPillar }));
   const linkIndex = buildInternalLinkIndex(extraPosts);
 
-  return <PostEditor initial={post} linkIndex={linkIndex} />;
+  const pillars = allPosts
+    .filter((p) => p.isPillar && p.id !== id)
+    .map((p) => ({ id: p.id, title: p.title }));
+
+  return <PostEditor initial={post} linkIndex={linkIndex} pillars={pillars} />;
 }

@@ -1,11 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
-import { adminClient } from '@/lib/posts';
+import { adminClient, getPublishedPosts } from '@/lib/posts';
 import { isAuthorizedRequest } from '@/lib/cms-access';
+import { analyzeSeo } from '@/lib/seo-analysis';
 import { slugify } from '@/lib/utils';
 
 function wordCount(md: string): number {
   return md.trim().split(/\s+/).filter(Boolean).length;
+}
+
+const INTENTS = ['informational', 'commercial', 'transactional', 'navigational'];
+function normIntent(v: unknown): string {
+  const s = String(v || 'informational');
+  return INTENTS.includes(s) ? s : 'informational';
 }
 
 function revalidateBlog(slug?: string) {
@@ -20,6 +27,39 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const { action } = body;
   const supabase = adminClient();
+
+  // Agent-facing: list published posts as internal-link targets.
+  if (action === 'list') {
+    const posts = await getPublishedPosts();
+    return NextResponse.json({
+      posts: posts.map((p) => ({
+        title: p.title,
+        slug: p.slug,
+        url: `/blog/${p.slug}`,
+        isPillar: p.isPillar,
+        intent: p.intent,
+        focusKeyword: p.focusKeyword,
+      })),
+    });
+  }
+
+  // One-time / maintenance: recompute seo_score for all posts.
+  if (action === 'recompute-scores') {
+    const { data } = await supabase.from('posts').select('id, title, meta_description, slug, focus_keyword, content');
+    let updated = 0;
+    for (const p of data || []) {
+      const { score } = analyzeSeo({
+        title: p.title || '',
+        metaDescription: p.meta_description || '',
+        slug: p.slug || '',
+        focusKeyword: p.focus_keyword || '',
+        content: p.content || '',
+      });
+      await supabase.from('posts').update({ seo_score: score }).eq('id', p.id);
+      updated++;
+    }
+    return NextResponse.json({ updated });
+  }
 
   if (action === 'delete') {
     const { id, slug } = body;
@@ -48,13 +88,17 @@ export async function POST(req: NextRequest) {
 
     const content = String(p.content || '');
     const status = p.status === 'published' ? 'published' : 'draft';
+    const metaDescription = String(p.metaDescription || p.excerpt || '');
+    const focusKeyword = String(p.focusKeyword || '');
+
+    const { score: seoScore } = analyzeSeo({ title, metaDescription, slug, focusKeyword, content });
 
     const row: Record<string, unknown> = {
       slug,
       title,
       excerpt: String(p.excerpt || ''),
-      meta_description: String(p.metaDescription || p.excerpt || ''),
-      focus_keyword: String(p.focusKeyword || ''),
+      meta_description: metaDescription,
+      focus_keyword: focusKeyword,
       category: String(p.category || 'learning-tips'),
       author_name: String(p.authorName || 'PolishPal Contributor'),
       author_bio: String(p.authorBio || ''),
@@ -65,6 +109,10 @@ export async function POST(req: NextRequest) {
       tags: Array.isArray(p.tags) ? p.tags : [],
       reading_time: Math.max(1, Math.round(wordCount(content) / 200)),
       status,
+      intent: normIntent(p.intent),
+      is_pillar: p.isPillar === true,
+      pillar_id: p.pillarId ? String(p.pillarId) : null,
+      seo_score: seoScore,
       updated_at: new Date().toISOString(),
     };
 

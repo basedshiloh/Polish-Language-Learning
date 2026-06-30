@@ -235,6 +235,7 @@ export interface BlogPost {
 }
 
 export type PostStatus = 'draft' | 'published';
+export type PostIntent = 'informational' | 'commercial' | 'transactional' | 'navigational';
 
 // CMS-managed post (maps to the Supabase `posts` table). Shaped to stay
 // compatible with the blog components that previously consumed BlogPost.
@@ -254,6 +255,10 @@ export interface Post {
   tags: string[];
   readingTime: number;
   status: PostStatus;
+  intent: PostIntent;
+  isPillar: boolean;
+  pillarId: string | null;
+  seoScore: number;
   date: string;        // published_at (or created_at) ISO string
   updatedDate?: string; // updated_at ISO string
 }

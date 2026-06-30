@@ -7,6 +7,7 @@ export interface LinkTarget {
   url: string;
   type: 'Lesson' | 'Grammar' | 'Quiz' | 'Blog';
   keywords: string[];
+  isPillar?: boolean;
 }
 
 function keywordsFromTitle(title: string): string[] {
@@ -20,7 +21,7 @@ function keywordsFromTitle(title: string): string[] {
 // Build the index of internal pages that posts can link to.
 // `extraPosts` lets the editor include other published blog posts.
 export function buildInternalLinkIndex(
-  extraPosts: { title: string; slug: string; tags?: string[] }[] = []
+  extraPosts: { title: string; slug: string; tags?: string[]; isPillar?: boolean }[] = []
 ): LinkTarget[] {
   const targets: LinkTarget[] = [];
 
@@ -38,7 +39,7 @@ export function buildInternalLinkIndex(
   for (const p of extraPosts) {
     const kw = keywordsFromTitle(p.title);
     if (p.tags) kw.push(...p.tags.map((t) => t.toLowerCase()));
-    targets.push({ title: p.title, url: `/blog/${p.slug}`, type: 'Blog', keywords: kw });
+    targets.push({ title: p.title, url: `/blog/${p.slug}`, type: 'Blog', keywords: kw, isPillar: p.isPillar });
   }
 
   return targets;
@@ -49,6 +50,7 @@ export interface LinkSuggestion {
   url: string;
   title: string;
   type: LinkTarget['type'];
+  isPillar?: boolean;
 }
 
 // Suggest internal links: a target matches if its full title (or a strong
@@ -87,9 +89,11 @@ export function suggestLinks(content: string, index: LinkTarget[]): LinkSuggesti
 
     if (phrase && !seen.has(t.url)) {
       seen.add(t.url);
-      out.push({ phrase, url: t.url, title: t.title, type: t.type });
+      out.push({ phrase, url: t.url, title: t.title, type: t.type, isPillar: t.isPillar });
     }
   }
 
+  // Prioritize pillar posts — agents/authors should link to them first.
+  out.sort((a, b) => Number(b.isPillar) - Number(a.isPillar));
   return out.slice(0, 12);
 }

@@ -25,7 +25,7 @@ export async function GET() {
     .join('\n');
 
   const blogLines = posts.length
-    ? posts.map((p) => `- [${p.title}](${BASE}/blog/${p.slug}): ${p.excerpt}`).join('\n')
+    ? posts.map((p) => `- [${p.title}](${BASE}/blog/${p.slug})${p.isPillar ? ' *(pillar)*' : ''}: ${p.excerpt}`).join('\n')
     : '- [Blog](' + BASE + '/blog)';
 
   const body = `# PolishPal

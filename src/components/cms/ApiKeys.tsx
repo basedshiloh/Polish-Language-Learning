@@ -69,6 +69,8 @@ export default function ApiKeys({ initialKeys }: { initialKeys: ApiKeyRecord[] }
       "metaDescription": "SEO description",
       "focusKeyword": "polish cases",
       "category": "grammar-deep-dive",
+      "intent": "informational",
+      "isPillar": false,
       "tags": ["cases", "grammar"],
       "summary": ["Point 1", "Point 2"],
       "featuredImage": "https://…/image.webp",
@@ -167,6 +169,11 @@ export default function ApiKeys({ initialKeys }: { initialKeys: ApiKeyRecord[] }
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-3">
             Image upload: POST a multipart form with a <code className="font-mono">file</code> field to <code className="font-mono">/api/cms/upload</code> (same Bearer header) — returns a WebP URL to use as <code className="font-mono">featuredImage</code>.
           </p>
+          <div className="mt-3 bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900 rounded-lg p-3">
+            <p className="text-xs text-blue-800 dark:text-blue-300">
+              <strong>For internal linking:</strong> send <code className="font-mono">{'{"action":"list"}'}</code> to <code className="font-mono">/api/cms/posts</code> to get all published posts with <code className="font-mono">isPillar</code> and <code className="font-mono">intent</code>. Agents should <strong>prioritize linking to <code className="font-mono">isPillar: true</code> posts</strong> and write content that matches the target&apos;s <code className="font-mono">intent</code>. Set <code className="font-mono">intent</code> (informational / commercial / transactional / navigational) on every post.
+            </p>
+          </div>
         </div>
       </div>
     </div>

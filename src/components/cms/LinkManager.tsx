@@ -231,13 +231,18 @@ export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
                           <AlertTriangle className="w-3.5 h-3.5" /> No pages link here. Add internal links to this page to fix the orphan.
                         </p>
                       ) : (
-                        <ul className="space-y-1.5">
+                        <ul className="space-y-2">
                           {sources.map((s, i) => (
-                            <li key={i} className="flex items-center gap-2 text-sm">
-                              <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500 shrink-0 w-14">{s.kind}</span>
-                              <span className="text-gray-700 dark:text-gray-300 truncate max-w-[45%]" title={s.title}>{s.title}</span>
-                              <span className="text-gray-300 dark:text-gray-600">via</span>
-                              <span className="text-gray-400 dark:text-gray-500 truncate" title={s.anchor}>&ldquo;{s.anchor}&rdquo;</span>
+                            <li key={i} className="text-sm">
+                              <div className="flex items-center gap-2">
+                                <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500 shrink-0 w-14">{s.kind}</span>
+                                <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 truncate max-w-[55%]" title={s.title}>{s.title}</a>
+                              </div>
+                              <div className="flex items-center gap-2 pl-16 mt-0.5">
+                                <span className="text-[10px] text-gray-400 dark:text-gray-500 uppercase tracking-wide shrink-0">anchor</span>
+                                <span className="px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-xs font-medium truncate" title={s.anchor}>{s.anchor}</span>
+                                <span className="text-gray-300 dark:text-gray-600 text-xs truncate" title={s.url}>{s.url}</span>
+                              </div>
                             </li>
                           ))}
                         </ul>

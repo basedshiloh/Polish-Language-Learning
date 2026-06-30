@@ -7,7 +7,20 @@ import { PlusCircle, Pencil, Trash2, ExternalLink, Search } from 'lucide-react';
 import type { Post } from '@/lib/types';
 import { blogCategoryStyles } from '@/data/blog';
 
-type Sort = 'recent' | 'oldest' | 'title' | 'status';
+type Sort = 'recent' | 'oldest' | 'title' | 'status' | 'seo';
+
+const INTENT_SHORT: Record<string, string> = {
+  informational: 'Info',
+  commercial: 'Commercial',
+  transactional: 'Transactional',
+  navigational: 'Navigational',
+};
+
+function scoreColor(s: number): string {
+  if (s >= 80) return 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400';
+  if (s >= 50) return 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400';
+  return 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400';
+}
 
 export default function PostsList({ posts }: { posts: Post[] }) {
   const router = useRouter();
@@ -24,6 +37,7 @@ export default function PostsList({ posts }: { posts: Post[] }) {
     else if (sort === 'oldest') list.sort((a, b) => t(a) - t(b));
     else if (sort === 'title') list.sort((a, b) => a.title.localeCompare(b.title));
     else if (sort === 'status') list.sort((a, b) => a.status.localeCompare(b.status) || t(b) - t(a));
+    else if (sort === 'seo') list.sort((a, b) => a.seoScore - b.seoScore); // worst first — needs improvement
     return list;
   }, [posts, query, sort]);
 
@@ -68,6 +82,7 @@ export default function PostsList({ posts }: { posts: Post[] }) {
             <option value="oldest">Oldest</option>
             <option value="title">Title A–Z</option>
             <option value="status">Status</option>
+            <option value="seo">SEO score</option>
           </select>
         </div>
 
@@ -79,11 +94,22 @@ export default function PostsList({ posts }: { posts: Post[] }) {
               const cat = blogCategoryStyles[p.category];
               return (
                 <div key={p.id} className="flex items-center gap-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-3">
+                  <div
+                    className={`shrink-0 w-11 h-11 rounded-lg flex flex-col items-center justify-center font-bold ${scoreColor(p.seoScore)}`}
+                    title={`SEO score ${p.seoScore}/100`}
+                  >
+                    <span className="text-sm leading-none">{p.seoScore}</span>
+                    <span className="text-[8px] font-medium uppercase opacity-70">SEO</span>
+                  </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-0.5">
+                    <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
                       <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${p.status === 'published' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' : 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400'}`}>
                         {p.status}
                       </span>
+                      {p.isPillar && (
+                        <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">★ Pillar</span>
+                      )}
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">{INTENT_SHORT[p.intent] || p.intent}</span>
                       {cat && <span className="text-xs text-gray-400 dark:text-gray-500">{cat.label}</span>}
                     </div>
                     <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{p.title}</p>
