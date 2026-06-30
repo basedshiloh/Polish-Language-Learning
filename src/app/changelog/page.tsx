@@ -23,6 +23,30 @@ const typeStyles = {
 
 const changelog: ChangelogEntry[] = [
   {
+    date: 'June 28, 2026',
+    version: '1.8.0',
+    changes: [
+      { type: 'added', text: 'Content Visualizer — a pillar → cluster "pyramid" showing how posts relate, with green/orange flags for whether cluster posts actually link to their pillar' },
+      { type: 'added', text: 'Search-intent tagging on posts (informational / commercial / transactional / navigational)' },
+      { type: 'added', text: 'Mark a post as a "pillar" — Link Genius and agents now prioritize internal links to pillar posts' },
+      { type: 'added', text: 'Visible SEO score on every post in the list (color-coded) with a "worst-first" sort to spot pages to improve' },
+      { type: 'added', text: 'Link Manager now shows inbound anchor text + source URL — see exactly which keywords point to each page' },
+    ],
+  },
+  {
+    date: 'June 28, 2026',
+    version: '1.7.0',
+    changes: [
+      { type: 'added', text: 'Application Passwords — REST API keys so agents/apps can publish posts without logging into the CMS' },
+      { type: 'added', text: 'Sorting & search in Posts, Comments, and Link Manager' },
+      { type: 'added', text: 'Link Manager dofollow/nofollow badges (green/orange) for external links' },
+      { type: 'added', text: '"Latest from the Blog" section on the homepage' },
+      { type: 'added', text: 'Custom 404 page (returns a proper 404 status, not a soft 200)' },
+      { type: 'added', text: 'llms.txt — a curated index that helps AI assistants understand and cite the site' },
+      { type: 'changed', text: 'Cookie Policy updated to document the admin login cookie (cms_session)' },
+    ],
+  },
+  {
     date: 'June 27, 2026',
     version: '1.6.0',
     changes: [
