@@ -17,6 +17,24 @@ export const blogCategoryStyles: Record<BlogCategory, { label: string; bg: strin
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'famous-polish-painters',
+    title: '9 Famous Polish Painters: Complete Guide to Loving Poland',
+    excerpt: '9 famous Polish painters who will make you fall in love with Poland — from Matejko to Beksiński — and where to find their masterpieces across the country.',
+    category: 'culture' as BlogCategory,
+    author: blogAuthors.polishpal,
+    date: '2026-07-01',
+    featuredImage: '/blog/famous-polish-painters-featured.webp',
+    featuredImageAlt: 'Visitors looking at paintings in an art gallery — famous Polish painters guide to Poland museums — Photo by Pexels',
+    readingTime: 13,
+    tags: ['polish painters', 'culture', 'art', 'poland travel'],
+    summary: [
+      '9 famous Polish painters span every style — from Matejko\'s epic battle scenes to Beksiński\'s surreal nightmares',
+      'Every painter has a specific museum where you can stand in front of their real work',
+      'Emotional connection to Polish art accelerates language retention — you care before you learn',
+    ],
+    published: true,
+  },
+  {
     slug: 'polish-consonant-clusters',
     title: 'Polish Consonant Clusters Explained: 7 Essential Sounds Decoded',
     excerpt: 'Polish consonant clusters like SZCZ and STRZ look terrifying — but they follow strict rules. Learn the 7 essential clusters that unlock Polish pronunciation for beginners.',
