@@ -39,12 +39,14 @@ export default function TableOfContents({ items, children }: TableOfContentsProp
 
   return (
     <nav className="hidden xl:block w-56 shrink-0">
-      <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
+      <div className="sticky top-20">
         <div className="flex items-center gap-2 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">
           <List className="w-3.5 h-3.5" />
           On this page
         </div>
-        <ul className="space-y-1 border-l-2 border-gray-100 dark:border-gray-800">
+        {/* Long TOCs scroll within this cap (scrollbar hidden) so the whole
+            sidebar — including anything below the list — fits the viewport. */}
+        <ul className={`no-scrollbar space-y-1 border-l-2 border-gray-100 dark:border-gray-800 overflow-y-auto ${children ? 'max-h-[45vh]' : 'max-h-[calc(100vh-9rem)]'}`}>
           {items.map((item) => (
             <li key={item.id}>
               <a

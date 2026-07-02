@@ -147,7 +147,7 @@ export default async function BlogPage({ searchParams }: Props) {
   return (
     <div className="p-6 md:p-10">
       {/* Masthead */}
-      <div className="border-b-2 border-gray-900 dark:border-gray-100 pb-4 mb-8">
+      <div className="border-b-2 border-gray-900 dark:border-gray-800 pb-4 mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 tracking-tight">The PolishPal Blog</h1>
         <p className="text-gray-500 dark:text-gray-400 mt-1">Tips, deep dives, and stories about learning Polish.</p>
       </div>

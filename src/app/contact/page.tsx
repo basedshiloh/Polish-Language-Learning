@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowLeft, ExternalLink, MessageSquare, Bug, Lightbulb, BookOpen } from 'lucide-react';
+import { ArrowLeft, ExternalLink, MessageSquare, Bug, Lightbulb, BookOpen, Megaphone, Mail } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -90,6 +90,26 @@ export default function ContactPage() {
             );
           })}
         </div>
+
+        {/* Advertising & sponsorship — the ad-slot placeholders link here */}
+        <section id="advertise" className="mb-10 bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900 rounded-2xl p-6 scroll-mt-8">
+          <div className="flex items-center gap-2 mb-2">
+            <Megaphone className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <h2 className="font-semibold text-gray-900 dark:text-gray-100">Advertising &amp; Sponsorship</h2>
+          </div>
+          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+            Want to advertise on PolishPal or sponsor the project? We offer banner slots on the blog and inside
+            articles (728×90 and 300×250), sponsored content, and partnership options. Reach a growing audience
+            of Polish learners — email us and we&apos;ll get back to you with details.
+          </p>
+          <a
+            href="mailto:0xshilloh@gmail.com?subject=PolishPal%20Advertising%20Inquiry"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors"
+          >
+            <Mail className="w-4 h-4" />
+            0xshilloh@gmail.com
+          </a>
+        </section>
 
         <section className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6">
           <h2 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">Why GitHub?</h2>

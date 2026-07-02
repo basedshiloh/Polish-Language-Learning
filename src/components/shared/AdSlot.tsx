@@ -33,7 +33,7 @@ export default function AdSlot({ slot }: { slot: AdSlotData | undefined }) {
         <AdHtml html={slot.html} maxWidth={w} />
       ) : (
         <Link
-          href="/contact"
+          href="/contact#advertise"
           style={{ maxWidth: w, aspectRatio: `${w} / ${h}` }}
           className="w-full flex flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/50 hover:border-blue-300 dark:hover:border-blue-700 transition-colors p-4"
         >

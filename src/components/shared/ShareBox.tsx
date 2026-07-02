@@ -127,7 +127,7 @@ export default function ShareBox({ title, label = 'page' }: ShareBoxProps) {
 
         <button
           onClick={downloadPdf}
-          className="flex items-center justify-center gap-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors shrink-0"
+          className="flex items-center justify-center gap-2 bg-gray-900 dark:bg-gray-800 text-white dark:text-gray-100 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-700 transition-colors shrink-0"
         >
           <Download className="w-4 h-4" />
           Download PDF

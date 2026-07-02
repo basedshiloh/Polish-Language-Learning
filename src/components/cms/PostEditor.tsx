@@ -130,7 +130,7 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
             <span className={`text-xs px-2 py-1 rounded-full font-medium ${status === 'published' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' : 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400'}`}>
               {status === 'published' ? 'Published' : 'Draft'}
             </span>
-            <button onClick={() => save()} disabled={saving} className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm font-medium hover:opacity-90 disabled:opacity-50 transition-opacity">
+            <button onClick={() => save()} disabled={saving} className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gray-900 dark:bg-gray-800 text-white dark:text-gray-100 text-sm font-medium hover:opacity-90 disabled:opacity-50 transition-opacity">
               <Save className="w-4 h-4" /> {saving ? 'Saving…' : 'Save'}
             </button>
             {status === 'published' ? (
