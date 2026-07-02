@@ -30,7 +30,7 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
             sidebarState.collapsed ? 'md:ml-16' : 'md:ml-64'
           }`}
         >
-          <div className="no-print sticky top-0 z-30 bg-slate-50/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-100 dark:border-gray-800 px-6 py-3">
+          <div className="no-print sticky top-0 z-30 bg-[#F3F4FE]/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-blue-100/60 dark:border-gray-800 px-6 py-3">
             <div className="flex items-center gap-2">
               <SearchBox />
               <button

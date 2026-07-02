@@ -25,7 +25,7 @@ export default function ProgressPage() {
     );
   }
 
-  const { completed, total, percentage } = getOverallCompletion();
+  const { completed, total } = getOverallCompletion();
   const streak = progress.streak.current;
 
   const allAttempts = Object.values(progress.quizAttempts).flat();

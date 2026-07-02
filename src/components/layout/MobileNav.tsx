@@ -17,16 +17,13 @@ export default function MobileNav() {
             <Link
               key={item.href}
               href={item.href}
-              className={`relative flex flex-col items-center gap-1 px-2 py-1.5 rounded-lg text-[11px] font-medium transition-colors ${
+              className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-[11px] font-medium transition-colors ${
                 isActive
-                  ? 'text-blue-600'
+                  ? 'bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300'
                   : 'text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
               }`}
             >
-              {isActive && (
-                <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-blue-600 rounded-full" />
-              )}
-              <Icon className={`w-5 h-5 ${isActive ? 'text-blue-600' : ''}`} />
+              <Icon className="w-5 h-5" />
               <span>{item.label}</span>
             </Link>
           );

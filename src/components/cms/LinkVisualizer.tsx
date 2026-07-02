@@ -4,12 +4,7 @@ import Link from 'next/link';
 import { Network, Star, Check, AlertTriangle, FileText } from 'lucide-react';
 import type { ContentGraph, ClusterNode } from '@/lib/content-graph';
 import { blogCategoryStyles } from '@/data/blog';
-
-function scoreColor(s: number): string {
-  if (s >= 80) return 'text-green-600 dark:text-green-400';
-  if (s >= 50) return 'text-amber-600 dark:text-amber-400';
-  return 'text-red-500 dark:text-red-400';
-}
+import { seoScoreText } from '@/lib/utils';
 
 function ClusterCard({ c }: { c: ClusterNode }) {
   const cat = blogCategoryStyles[c.category as keyof typeof blogCategoryStyles];
@@ -20,7 +15,7 @@ function ClusterCard({ c }: { c: ClusterNode }) {
     >
       <div className="flex items-center justify-between mb-1">
         {cat && <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${cat.bg} ${cat.text} ${cat.darkBg} ${cat.darkText}`}>{cat.label}</span>}
-        <span className={`text-xs font-bold ${scoreColor(c.seoScore)}`}>{c.seoScore}</span>
+        <span className={`text-xs font-bold ${seoScoreText(c.seoScore)}`}>{c.seoScore}</span>
       </div>
       <p className="text-xs font-medium text-gray-900 dark:text-gray-100 line-clamp-2 mb-1.5">{c.title}</p>
       {c.linksToPillar ? (
@@ -75,7 +70,7 @@ export default function LinkVisualizer({ graph }: { graph: ContentGraph }) {
                     <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide text-amber-600 dark:text-amber-400">
                       <Star className="w-3 h-3" /> Pillar
                     </span>
-                    <span className={`text-sm font-bold ${scoreColor(pillar.seoScore)}`}>{pillar.seoScore}</span>
+                    <span className={`text-sm font-bold ${seoScoreText(pillar.seoScore)}`}>{pillar.seoScore}</span>
                   </div>
                   <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">{pillar.title}</p>
                   {cat && <span className="text-xs text-gray-400 dark:text-gray-500">{cat.label}</span>}

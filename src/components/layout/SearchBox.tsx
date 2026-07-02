@@ -128,7 +128,6 @@ export default function SearchBox() {
   }
 
   const visibleResults = results.slice(0, DROPDOWN_LIMIT);
-  const hasMore = results.length > DROPDOWN_LIMIT;
 
   return (
     <div ref={wrapperRef} className="relative w-full max-w-2xl">

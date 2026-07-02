@@ -39,7 +39,7 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
   const [focusKeyword, setFocusKeyword] = useState(initial?.focusKeyword || '');
   const [category, setCategory] = useState(initial?.category || 'learning-tips');
   const [authorName, setAuthorName] = useState(initial?.author.name || 'PolishPal Contributor');
-  const [authorBio, setAuthorBio] = useState(initial?.author.bio || 'Community-driven language education — making Polish accessible to everyone.');
+  const [authorBio] = useState(initial?.author.bio || 'Community-driven language education — making Polish accessible to everyone.');
   const [content, setContent] = useState(initial?.content || '');
   const [featuredImage, setFeaturedImage] = useState(initial?.featuredImage || '');
   const [featuredImageAlt, setFeaturedImageAlt] = useState(initial?.featuredImageAlt || '');

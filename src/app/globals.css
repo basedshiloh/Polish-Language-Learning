@@ -3,16 +3,28 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
+  /* Brand blue scale centered on #242EF7 — recolors every blue-* class sitewide */
+  --color-blue-50: #F0F1FE;
+  --color-blue-100: #E1E3FD;
+  --color-blue-200: #C3C7FC;
+  --color-blue-300: #A5AAFA;
+  --color-blue-400: #6E76F9;
+  --color-blue-500: #4750F8;
+  --color-blue-600: #242EF7;
+  --color-blue-700: #1C24CE;
+  --color-blue-800: #161CA3;
+  --color-blue-900: #121678;
+  --color-blue-950: #0B0D4A;
+  --color-primary-50: #F0F1FE;
+  --color-primary-100: #E1E3FD;
+  --color-primary-200: #C3C7FC;
+  --color-primary-300: #A5AAFA;
+  --color-primary-400: #6E76F9;
+  --color-primary-500: #4750F8;
+  --color-primary-600: #242EF7;
+  --color-primary-700: #1C24CE;
+  --color-primary-800: #161CA3;
+  --color-primary-900: #121678;
   --color-accent-50: #fffbeb;
   --color-accent-400: #fbbf24;
   --color-accent-500: #f59e0b;
@@ -22,7 +34,7 @@
 }
 
 body {
-  background: #f8fafc;
+  background: #F3F4FE;
   color: #1e293b;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
@@ -35,11 +47,11 @@ body {
 
 .polish-text {
   font-weight: 600;
-  color: #1e40af;
+  color: #161CA3;
 }
 
 :where(.dark) .polish-text {
-  color: #93c5fd;
+  color: #A5AAFA;
 }
 
 .pronunciation-text {

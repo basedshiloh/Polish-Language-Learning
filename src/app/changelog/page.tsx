@@ -23,6 +23,18 @@ const typeStyles = {
 
 const changelog: ChangelogEntry[] = [
   {
+    date: 'June 29, 2026',
+    version: '1.9.0',
+    changes: [
+      { type: 'changed', text: 'New brand color (#242EF7) across the whole site — softer periwinkle canvas, rounder cards, and pill-style active navigation' },
+      { type: 'changed', text: 'Logo and favicon recolored to match the new brand' },
+      { type: 'added', text: 'Advertisement slots managed from the CMS — image banners, ad-network embeds, or a default "Advertise here" placeholder linking to the contact page' },
+      { type: 'added', text: 'Magazine-style blog front page: lead story, Latest column, and a Culture Picks section' },
+      { type: 'added', text: 'Collapsible in-article table of contents on mobile (desktop keeps the sidebar TOC)' },
+      { type: 'removed', text: 'Legacy markdown blog files and dead code removed — the Supabase CMS is the single source of truth' },
+    ],
+  },
+  {
     date: 'June 28, 2026',
     version: '1.8.0',
     changes: [

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, FileText, MessageSquare, Link2, Network, GitFork, KeyRound, LogOut, ExternalLink } from 'lucide-react';
+import { LayoutDashboard, FileText, MessageSquare, Link2, Network, GitFork, Megaphone, KeyRound, LogOut, ExternalLink } from 'lucide-react';
 
 const nav = [
   { label: 'Dashboard', href: '/polaris', icon: LayoutDashboard },
@@ -11,6 +11,7 @@ const nav = [
   { label: 'Link Genius', href: '/polaris/links', icon: Link2 },
   { label: 'Link Manager', href: '/polaris/manager', icon: Network },
   { label: 'Visualizer', href: '/polaris/visualizer', icon: GitFork },
+  { label: 'Ads', href: '/polaris/ads', icon: Megaphone },
   { label: 'API Keys', href: '/polaris/api', icon: KeyRound },
 ];
 

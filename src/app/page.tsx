@@ -67,7 +67,7 @@ export default function Dashboard() {
         <div className="h-4 bg-gray-200 rounded w-96 mb-8" />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-32 bg-gray-200 rounded-xl" />
+            <div key={i} className="h-32 bg-gray-200 rounded-2xl" />
           ))}
         </div>
       </div>
@@ -96,7 +96,7 @@ export default function Dashboard() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-            <div className="bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                   <BookOpen className="w-5 h-5 text-blue-600" />
@@ -109,7 +109,7 @@ export default function Dashboard() {
               <ProgressBar value={completed} max={total} size="sm" />
             </div>
 
-            <div className="bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
                   <Flame className="w-5 h-5 text-amber-600" />
@@ -122,7 +122,7 @@ export default function Dashboard() {
               <p className="text-xs text-gray-400 dark:text-gray-500">Keep learning daily!</p>
             </div>
 
-            <div className="bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
                   <Trophy className="w-5 h-5 text-green-600" />
@@ -137,7 +137,7 @@ export default function Dashboard() {
           </div>
 
           {nextLesson && (
-            <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-6 mb-8 text-white">
+            <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-6 mb-8 text-white">
               <p className="text-blue-200 text-sm font-medium mb-1">Continue Learning</p>
               <h2 className="text-xl font-bold mb-2">{nextLesson.title}</h2>
               <p className="text-blue-100 text-sm mb-4">{nextLesson.description}</p>
@@ -244,7 +244,7 @@ export default function Dashboard() {
                     <Link
                       key={post.slug}
                       href={`/blog/${post.slug}`}
-                      className="group bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 hover:border-blue-200 dark:hover:border-blue-800 hover:shadow-md transition-all overflow-hidden flex flex-col"
+                      className="group bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-blue-200 dark:hover:border-blue-800 hover:shadow-md transition-all overflow-hidden flex flex-col"
                     >
                       <div className="relative aspect-[16/9] overflow-hidden bg-gray-100 dark:bg-gray-800">
                         <Image

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { PlusCircle, Pencil, Trash2, ExternalLink, Search } from 'lucide-react';
 import type { Post } from '@/lib/types';
 import { blogCategoryStyles } from '@/data/blog';
+import { seoScoreBadge } from '@/lib/utils';
 
 type Sort = 'recent' | 'oldest' | 'title' | 'status' | 'seo';
 
@@ -16,12 +17,6 @@ const INTENT_SHORT: Record<string, string> = {
   navigational: 'Navigational',
 };
 
-function scoreColor(s: number): string {
-  if (s >= 80) return 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400';
-  if (s >= 50) return 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400';
-  return 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400';
-}
-
 export default function PostsList({ posts }: { posts: Post[] }) {
   const router = useRouter();
   const [busy, setBusy] = useState<string | null>(null);
@@ -31,7 +26,7 @@ export default function PostsList({ posts }: { posts: Post[] }) {
 
   const shown = useMemo(() => {
     const q = query.toLowerCase().trim();
-    let list = q ? posts.filter((p) => p.title.toLowerCase().includes(q) || p.slug.includes(q)) : [...posts];
+    const list = q ? posts.filter((p) => p.title.toLowerCase().includes(q) || p.slug.includes(q)) : [...posts];
     const t = (p: Post) => new Date(p.updatedDate || p.date).getTime();
     if (sort === 'recent') list.sort((a, b) => t(b) - t(a));
     else if (sort === 'oldest') list.sort((a, b) => t(a) - t(b));
@@ -95,7 +90,7 @@ export default function PostsList({ posts }: { posts: Post[] }) {
               return (
                 <div key={p.id} className="flex items-center gap-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-3">
                   <div
-                    className={`shrink-0 w-11 h-11 rounded-lg flex flex-col items-center justify-center font-bold ${scoreColor(p.seoScore)}`}
+                    className={`shrink-0 w-11 h-11 rounded-lg flex flex-col items-center justify-center font-bold ${seoScoreBadge(p.seoScore)}`}
                     title={`SEO score ${p.seoScore}/100`}
                   >
                     <span className="text-sm leading-none">{p.seoScore}</span>

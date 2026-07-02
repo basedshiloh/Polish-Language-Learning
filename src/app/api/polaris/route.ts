@@ -10,10 +10,6 @@ function getAdminClient() {
 }
 
 function isAuthorized(request: NextRequest): boolean {
-  const password = process.env.ADMIN_PASSWORD;
-  if (!password) return false;
-  // Accept either the legacy header token or the CMS session cookie
-  if (request.headers.get('x-admin-token') === password) return true;
   return isValidToken(request.cookies.get(SESSION_COOKIE)?.value);
 }
 

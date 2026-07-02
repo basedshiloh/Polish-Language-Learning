@@ -218,22 +218,6 @@ export interface BlogAuthor {
   bio: string;
 }
 
-export interface BlogPost {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: BlogCategory;
-  author: BlogAuthor;
-  date: string;
-  updatedDate?: string;
-  featuredImage: string;
-  featuredImageAlt: string;
-  readingTime: number;
-  tags: string[];
-  summary: string[];
-  published: boolean;
-}
-
 export type PostStatus = 'draft' | 'published';
 export type PostIntent = 'informational' | 'commercial' | 'transactional' | 'navigational';
 

@@ -82,7 +82,8 @@ export function useProgress() {
 
   const unmarkLessonComplete = useCallback((lessonId: string) => {
     setProgress((prev) => {
-      const { [lessonId]: _, ...rest } = prev.lessonProgress;
+      const rest = { ...prev.lessonProgress };
+      delete rest[lessonId];
       const updated = {
         ...prev,
         lessonProgress: rest,

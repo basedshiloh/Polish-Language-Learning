@@ -10,9 +10,10 @@ interface TocItem {
 
 interface TableOfContentsProps {
   items: TocItem[];
+  children?: React.ReactNode; // rendered under the list inside the sticky container (e.g. sidebar ad)
 }
 
-export default function TableOfContents({ items }: TableOfContentsProps) {
+export default function TableOfContents({ items, children }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState('');
 
   useEffect(() => {
@@ -63,6 +64,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
             </li>
           ))}
         </ul>
+        {children}
       </div>
     </nav>
   );

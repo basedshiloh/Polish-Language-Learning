@@ -37,14 +37,14 @@ export default function Sidebar() {
               key={item.href}
               href={item.href}
               title={collapsed ? item.label : undefined}
-              className={`flex items-center rounded-lg text-sm font-medium transition-colors ${
+              className={`flex items-center rounded-xl text-sm font-medium transition-colors ${
                 collapsed
                   ? 'justify-center p-2.5'
                   : 'gap-3 px-3 py-2.5'
               } ${
                 isActive
-                  ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-200'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-blue-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-200'
               }`}
             >
               <Icon className="w-5 h-5 shrink-0" />

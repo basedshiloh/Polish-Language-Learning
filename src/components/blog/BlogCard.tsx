@@ -8,7 +8,7 @@ export default function BlogCard({ post }: { post: Post }) {
   const cat = blogCategoryStyles[post.category];
 
   return (
-    <div className="group bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 hover:border-blue-200 dark:hover:border-blue-800 hover:shadow-md transition-all overflow-hidden flex flex-col">
+    <div className="group bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-blue-200 dark:hover:border-blue-800 hover:shadow-md transition-all overflow-hidden flex flex-col">
       <Link href={`/blog/${post.slug}`} className="relative aspect-[16/9] overflow-hidden bg-gray-100 dark:bg-gray-800 block">
         <Image
           src={post.featuredImage}

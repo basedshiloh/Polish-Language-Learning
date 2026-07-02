@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { Heart, BookOpen, ExternalLink, Users, AlertCircle, Globe } from 'lucide-react';
 
 export default function AboutPage() {
