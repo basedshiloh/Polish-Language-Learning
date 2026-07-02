@@ -24,7 +24,7 @@ export const blogPosts: BlogPost[] = [
     author: blogAuthors.polishpal,
     date: '2026-07-01',
     featuredImage: '/blog/famous-polish-painters-featured.webp',
-    featuredImageAlt: 'Visitors looking at paintings in an art gallery — famous Polish painters guide to Poland museums — Photo by Pexels',
+    featuredImageAlt: 'Jacek Malczewski painting at Muzeum Narodowe w Poznaniu — Photo by PolishPal, 16 May 2026',
     readingTime: 13,
     tags: ['polish painters', 'culture', 'art', 'poland travel'],
     summary: [

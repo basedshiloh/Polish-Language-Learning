@@ -6,8 +6,6 @@ One thing you'll notice as you read: these famous Polish painters don't share a 
 
 ### Why Polish Artists Make the Perfect Introduction to the Country
 
-![Krakow Main Market Square at night with St. Mary's Basilica illuminated — Photo by Pexels](/blog/famous-polish-painters-krakow-main-square.webp)
-
 ## Jan Matejko Paintings — The Epic That Defined Polish Art History
 
 If you remember only one name from this list of famous Polish painters, make it Jan Matejko. He is the most recognisable figure in Polish art history — the painter who spent his life putting Poland's national story on canvas at a time when Poland didn't exist on the map.
@@ -18,7 +16,7 @@ Born in Kraków in 1838, this most Polish of famous Polish painters lived throug
 
 **Where to see it:** *Battle of Grunwald* hangs in the **National Museum in Warsaw**. His murals also cover the ceiling of **St. Mary's Basilica in Kraków**, and the National Museum in Kraków holds an extensive collection of his smaller works. If you have time for only one museum for Polish art, make it the National Museum in Kraków.
 
-![Visitors admiring artwork in an art gallery — famous Polish painters on display — Photo by Pexels](/blog/famous-polish-painters-people-looking-at-painting.webp)
+![Jan Matejko painting at Muzeum Narodowe w Poznaniu — Photo by PolishPal, 16 May 2026](/blog/famous-polish-painters-matejko-1.webp)
 
 ## Stanisław Wyspiański — The Renaissance Man of Young Poland
 
@@ -40,6 +38,12 @@ He is the leading figure of Polish Symbolism, a movement that rejected the liter
 
 **Where to see it:** The **National Museum in Kraków** holds the best and largest collection of his work, making this museum an essential stop for anyone exploring famous Polish painters. The **National Museum in Poznań** also has significant pieces worth seeking out.
 
+![Jacek Malczewski painting at Muzeum Narodowe w Poznaniu — Photo by PolishPal, 16 May 2026](/blog/famous-polish-painters-malczewski-1.webp)
+
+![Jacek Malczewski painting at Muzeum Narodowe w Poznaniu — Photo by PolishPal, 16 May 2026](/blog/famous-polish-painters-malczewski-2.webp)
+
+![Jacek Malczewski painting at Muzeum Narodowe w Poznaniu — Photo by PolishPal, 16 May 2026](/blog/famous-polish-painters-malczewski-3.webp)
+
 ## Olga Boznańska — The Quiet Master of the Portrait
 
 One of the few women to achieve major recognition in this era of Polish painting, Boznańska spent most of her career in Paris but was always claimed — and loved — as a Polish artist. Her portraits are muted, soft-focus, and almost melancholic. She painted people not as they posed but as they existed in memory: slightly blurred at the edges, captured in a moment of private thought rather than public performance.
@@ -59,8 +63,6 @@ She fled the Russian Revolution, settled in Paris, and painted the wealthy and t
 **The feeling:** Glamour, confidence, and the electric energy of a world between wars. Lempicka reminds us that famous Polish painters can also be international icons.
 
 **Where to see it:** Her most famous works live internationally — the Centre Pompidou in Paris holds *The Beautiful Rafaela* — but the **National Museum in Warsaw** owns pieces that connect her back to her Polish roots. Check what's on view before your visit, as Lempicka's works rotate.
-
-![Artist painting on an easel in a studio — Photo by Pexels](/blog/famous-polish-painters-artist-painting.webp)
 
 ## Zdzisław Beksiński Art — Why Poland's Darkest Painter Has a Cult Following
 
@@ -102,7 +104,7 @@ His most famous work, *Storks* (1900), shows a father and son pausing mid-plough
 
 **Where to see it:** *Storks* hangs in the **National Museum in Warsaw**. *Summer Evening* is held permanently by the **National Museum in Poznań** — a city usually skipped in favour of Warsaw and Kraków, but whose art collection is genuinely significant. Poznań co-hosted a major 2025 Chełmoński retrospective alongside the Warsaw and Kraków national museums, confirming its place in the Polish art world.
 
-![Polish countryside landscape with green fields under a cloudy summer sky — Photo by Pexels](/blog/famous-polish-painters-polish-countryside.webp)
+![Józef Chełmoński painting at Muzeum Narodowe w Poznaniu — Photo by PolishPal, 16 May 2026](/blog/famous-polish-painters-chelmonski-1.webp)
 
 ## Where to See These Famous Polish Painters — The Essential Museum Guide
 
