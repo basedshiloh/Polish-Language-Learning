@@ -147,7 +147,7 @@ function CategorySection({ catKey, posts }: { catKey: BlogCategory; posts: Post[
   return (
     <section className="mb-12">
       <div className="flex items-center justify-between mb-5">
-        <h2 className="text-base font-black uppercase tracking-wider text-gray-900 dark:text-gray-100 pb-1 border-b-2 border-gray-900 dark:border-gray-100 pr-4">
+        <h2 className="text-base font-black uppercase tracking-wider text-gray-900 dark:text-gray-100 pb-1 border-b-2 border-gray-300 dark:border-gray-700 pr-4">
           {style.label}
         </h2>
         <Link
@@ -221,7 +221,7 @@ export default async function BlogPage({ searchParams }: Props) {
     <div className="p-6 md:p-10">
       {/* ── Masthead ── */}
       <div className="mb-6">
-        <div className="flex items-end justify-between pb-3 border-b-2 border-gray-900 dark:border-gray-100">
+        <div className="flex items-end justify-between pb-3 border-b-2 border-gray-300 dark:border-gray-700">
           <div>
             <h1 className="text-3xl md:text-5xl font-black tracking-tight text-gray-900 dark:text-gray-100 leading-none">
               The PolishPal Blog
@@ -235,8 +235,8 @@ export default async function BlogPage({ searchParams }: Props) {
           </p>
         </div>
         <div className="flex gap-0.5 mt-0.5">
-          <div className="h-0.5 flex-1 bg-gray-900 dark:bg-gray-100" />
-          <div className="h-0.5 flex-1 bg-gray-400 dark:bg-gray-600" />
+          <div className="h-0.5 flex-1 bg-gray-300 dark:bg-gray-700" />
+          <div className="h-0.5 flex-1 bg-gray-200 dark:bg-gray-800" />
         </div>
       </div>
 
