@@ -210,7 +210,7 @@ export default async function BlogPage({ searchParams }: Props) {
   const remaining = all.filter((p) => !topSlugs.has(p.slug) && p.category !== 'culture');
 
   // Group by category in a defined display order
-  const catOrder: BlogCategory[] = ['grammar-deep-dive', 'learning-tips', 'vocabulary', 'pronunciation'];
+  const catOrder: BlogCategory[] = ['grammar-deep-dive', 'learning-tips', 'music', 'memes-pop-culture', 'arts', 'vocabulary', 'pronunciation'];
   const byCategory: Partial<Record<BlogCategory, Post[]>> = {};
   for (const p of remaining) {
     if (!byCategory[p.category as BlogCategory]) byCategory[p.category as BlogCategory] = [];

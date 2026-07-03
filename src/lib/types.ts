@@ -210,7 +210,10 @@ export type BlogCategory =
   | 'grammar-deep-dive'
   | 'culture'
   | 'pronunciation'
-  | 'vocabulary';
+  | 'vocabulary'
+  | 'music'
+  | 'memes-pop-culture'
+  | 'arts';
 
 export interface BlogAuthor {
   name: string;
