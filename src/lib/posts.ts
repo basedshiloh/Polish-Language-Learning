@@ -1,6 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Post, BlogCategory } from '@/lib/types';
-import { blogCategoryStyles } from '@/data/blog';
+import { blogAuthors, blogCategoryStyles } from '@/data/blog';
+
+// Build a name → avatar lookup from the static blogAuthors map
+const avatarByName: Record<string, string> = Object.fromEntries(
+  Object.values(blogAuthors)
+    .filter((a) => a.avatar)
+    .map((a) => [a.name, a.avatar as string])
+);
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -74,7 +81,7 @@ export function rowToPost(r: PostRow): Post {
     focusKeyword: r.focus_keyword || '',
     category,
     categories,
-    author: { name: r.author_name, bio: r.author_bio },
+    author: { name: r.author_name, bio: r.author_bio, avatar: avatarByName[r.author_name] },
     content: r.content,
     featuredImage: r.featured_image,
     featuredImageAlt: r.featured_image_alt,
