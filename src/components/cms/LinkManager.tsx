@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Link2, ChevronDown, ChevronRight, ArrowUpRight, ArrowDownLeft, CornerDownRight, AlertTriangle, ExternalLink } from 'lucide-react';
+import { Link2, ChevronDown, ChevronRight, ArrowUpRight, ArrowDownLeft, CornerDownRight, AlertTriangle, ExternalLink, Search } from 'lucide-react';
 import type { LinkAudit } from '@/lib/link-audit';
 
 type Filter = 'all' | 'Post' | 'Lesson' | 'Grammar';
@@ -28,6 +28,7 @@ export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
   const [filter, setFilter] = useState<Filter>('all');
   const [sort, setSort] = useState<Sort>('most');
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
 
   // Reverse index: page URL → who links to it (internal links pointing at audited pages)
   const inbound = useMemo(() => {
@@ -58,7 +59,9 @@ export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
   }, [audits, inbound]);
 
   const rows = useMemo(() => {
-    const list = filter === 'all' ? audits : audits.filter((a) => a.kind === filter);
+    const q = search.trim().toLowerCase();
+    let list = filter === 'all' ? audits : audits.filter((a) => a.kind === filter);
+    if (q) list = list.filter((a) => a.title.toLowerCase().includes(q) || a.url.toLowerCase().includes(q));
     const metric = (a: LinkAudit) => (view === 'out' ? a.internal + a.external : inboundCount(a));
     return [...list].sort((a, b) => {
       if (sort === 'title') return a.title.localeCompare(b.title);
@@ -66,7 +69,7 @@ export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
       return metric(b) - metric(a); // most
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [audits, filter, view, sort, inbound]);
+  }, [audits, filter, view, sort, search, inbound]);
 
   return (
     <div className="p-6 md:p-8">
@@ -114,6 +117,23 @@ export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
             <p className="text-xs text-gray-400 dark:text-gray-500">Orphan pages</p>
             <p className={`text-2xl font-bold ${totals.orphans > 0 ? 'text-amber-600' : 'text-green-600'}`}>{totals.orphans}</p>
           </div>
+        </div>
+
+        {/* Search */}
+        <div className="relative mb-4">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500 pointer-events-none" />
+          <input
+            type="search"
+            value={search}
+            onChange={(e) => { setSearch(e.target.value); setExpanded(null); }}
+            placeholder="Search by title or URL…"
+            className="w-full pl-9 pr-4 py-2 text-sm bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg outline-none text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:border-blue-400 dark:focus:border-blue-600 transition-colors"
+          />
+          {search && (
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 dark:text-gray-500">
+              {rows.length} result{rows.length !== 1 ? 's' : ''}
+            </span>
+          )}
         </div>
 
         {/* Kind filter + sort */}
