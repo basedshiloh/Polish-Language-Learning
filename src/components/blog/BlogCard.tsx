@@ -44,10 +44,12 @@ export default function BlogCard({ post }: { post: Post }) {
 
         <div className="flex items-center justify-between pt-3 border-t border-gray-50 dark:border-gray-800">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
-              <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400">
-                {post.author.name.charAt(0)}
-              </span>
+            <div className="w-6 h-6 rounded-full bg-white border border-gray-100 dark:border-gray-700 flex items-center justify-center overflow-hidden shrink-0">
+              {post.author.avatar ? (
+                <Image src={post.author.avatar} alt={post.author.name} width={24} height={24} className="w-4 h-4 object-contain" />
+              ) : (
+                <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400">{post.author.name.charAt(0)}</span>
+              )}
             </div>
             <span className="text-xs text-gray-500 dark:text-gray-400">{post.author.name}</span>
           </div>

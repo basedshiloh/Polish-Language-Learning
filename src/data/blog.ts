@@ -6,6 +6,7 @@ import type { BlogCategory } from '@/lib/types';
 export const blogAuthors = {
   polishpal: {
     name: 'PolishPal Contributor',
+    avatar: '/logo.svg',
     bio: 'Community-driven language education — making Polish accessible to everyone.',
   },
 };
