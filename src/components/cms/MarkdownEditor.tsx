@@ -39,6 +39,11 @@ export default function MarkdownEditor({ value, onChange }: Props) {
   }
 
   const words = value.trim() ? value.trim().split(/\s+/).length : 0;
+  const chars = value.length;
+  const sentences = value.trim() ? (value.match(/[^.!?]*[.!?]+/g) || []).length : 0;
+  const paragraphs = value.trim() ? value.split(/\n\s*\n/).filter((p) => p.trim()).length : 0;
+  const h2count = (value.match(/^## /gm) || []).length;
+  const h3count = (value.match(/^### /gm) || []).length;
   const readMin = Math.max(1, Math.round(words / 200));
 
   const tools = [
@@ -77,23 +82,39 @@ export default function MarkdownEditor({ value, onChange }: Props) {
         </div>
       </div>
 
-      {tab === 'write' ? (
-        <textarea
-          ref={ref}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder="Write your post in Markdown…"
-          className="w-full h-[480px] p-4 text-sm font-mono bg-transparent outline-none resize-y text-gray-900 dark:text-gray-100 leading-relaxed"
-        />
-      ) : (
-        <div className="h-[480px] overflow-y-auto p-4">
-          {value.trim() ? <MarkdownRenderer content={value} /> : <p className="text-sm text-gray-400">Nothing to preview yet.</p>}
+      <div className="flex">
+        {/* Left stats strip */}
+        <div className="hidden sm:flex flex-col items-center gap-3 w-16 shrink-0 border-r border-gray-100 dark:border-gray-800 py-4 px-1 bg-gray-50/60 dark:bg-gray-800/30">
+          {[
+            { label: 'Words', value: words >= 1000 ? `${(words / 1000).toFixed(1)}k` : words },
+            { label: 'Chars', value: chars >= 1000 ? `${(chars / 1000).toFixed(1)}k` : chars },
+            { label: 'Min', value: `~${readMin}` },
+            { label: 'Para', value: paragraphs },
+            { label: 'Sent', value: sentences },
+            { label: 'H2', value: h2count },
+            { label: 'H3', value: h3count },
+          ].map((s) => (
+            <div key={s.label} className="flex flex-col items-center gap-0.5">
+              <span className="text-sm font-bold text-gray-700 dark:text-gray-200 leading-none">{s.value}</span>
+              <span className="text-[9px] uppercase tracking-widest text-gray-400 dark:text-gray-500">{s.label}</span>
+            </div>
+          ))}
         </div>
-      )}
 
-      <div className="border-t border-gray-100 dark:border-gray-800 px-4 py-1.5 text-xs text-gray-400 dark:text-gray-500 flex gap-4">
-        <span>{words} words</span>
-        <span>~{readMin} min read</span>
+        {/* Editor / Preview */}
+        {tab === 'write' ? (
+          <textarea
+            ref={ref}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            placeholder="Write your post in Markdown…"
+            className="flex-1 h-[480px] p-4 text-sm font-mono bg-transparent outline-none resize-y text-gray-900 dark:text-gray-100 leading-relaxed"
+          />
+        ) : (
+          <div className="flex-1 h-[480px] overflow-y-auto p-4">
+            {value.trim() ? <MarkdownRenderer content={value} /> : <p className="text-sm text-gray-400">Nothing to preview yet.</p>}
+          </div>
+        )}
       </div>
     </div>
   );
