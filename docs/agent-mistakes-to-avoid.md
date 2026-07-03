@@ -204,47 +204,43 @@ Never assign two anchors from the same target URL to the same article.
 
 ---
 
-## 10. External links: dofollow for Tier 1 & Tier 2, nofollow for Tier 3 ONLY
+## 10. External links: dofollow by default — only add "nofollow" for Tier 3
 
-**Wrong — adding `rel="nofollow"` to a Wikipedia or gov/edu link:**
+**External links are dofollow by default. Do NOT add `title="dofollow"` — it is redundant and renders as a visible tooltip on the link.**
+
+**Wrong — title="dofollow" is unnecessary and leaks into the HTML as a tooltip:**
 ```md
-[Polish phonology](https://en.wikipedia.org/wiki/Polish_phonology){rel="nofollow"}
+[Polish phonology](https://en.wikipedia.org/wiki/Polish_phonology "dofollow")
+[Culture.pl profile](https://culture.pl/en/artist/zdzislaw-beksinski "dofollow")
 ```
 
-**Right — plain markdown link, no rel attribute (dofollow by default):**
+**Right — plain markdown link, dofollow automatically:**
 ```md
 [Polish phonology](https://en.wikipedia.org/wiki/Polish_phonology)
+[Culture.pl profile](https://culture.pl/en/artist/zdzislaw-beksinski)
 ```
 
 ### The rule by tier
 
-| Tier | Examples | rel attribute |
+| Tier | Examples | What to write |
 |---|---|---|
-| **Tier 1** — Always safe | Wikipedia, MDN, .gov, .edu, .ac.uk, Cambridge Dictionary, Oxford Learner's, Merriam-Webster | **dofollow** (no rel= needed) |
-| **Tier 2** — Usually good | British Council, Duolingo Research, Ethnologue, BBC, Guardian, Culture.pl | **dofollow** (no rel= needed) |
-| **Tier 3** — Verify carefully | University news/blog pages, smaller niche blogs, forums | `rel="nofollow"` |
+| **Tier 1** — Always safe | Wikipedia, MDN, .gov, .edu, .ac.uk, Cambridge Dictionary, Oxford Learner's, Merriam-Webster | Plain link — `[text](url)` |
+| **Tier 2** — Usually good | British Council, Duolingo Research, Ethnologue, BBC, Guardian, Culture.pl | Plain link — `[text](url)` |
+| **Tier 3** — Verify carefully | University news/blog pages, smaller niche blogs, forums | Add `"nofollow"` title |
 
 Linking out to authoritative Tier 1/Tier 2 sources with dofollow **builds topical trust** —
 search engines expect it. Slapping nofollow on Wikipedia looks unnatural and signals low confidence.
 
-### How to set dofollow in MarkdownRenderer
+### How to mark nofollow (Tier 3 only)
 
-The site's `MarkdownRenderer` adds `nofollow` to **all** external links by default.
-To opt a Tier 1 or Tier 2 link into dofollow, add `"dofollow"` as the markdown title attribute:
-
-**Wrong (gets nofollow automatically):**
 ```md
-[Polish phonology](https://en.wikipedia.org/wiki/Polish_phonology)
+[some forum post](https://randomforum.com/thread/123 "nofollow")
 ```
 
-**Right — dofollow for Tier 1/2 sources:**
-```md
-[Polish phonology](https://en.wikipedia.org/wiki/Polish_phonology "dofollow")
-```
+The `MarkdownRenderer` reads the `"nofollow"` title, adds `rel="nofollow"` to the rendered `<a>`,
+and strips the word from the visible tooltip so it never appears to readers.
 
-Tier 3 links — leave without any title attribute; they get nofollow automatically.
-
-**Before publishing:** scan every external link. Apply `"dofollow"` title to all Tier 1 and Tier 2 sources. Leave Tier 3 links as plain markdown.
+**Before publishing:** scan every external link. Tier 1 and Tier 2 sources — plain markdown, no title needed. Only Tier 3 sources get `"nofollow"` title.
 
 ---
 

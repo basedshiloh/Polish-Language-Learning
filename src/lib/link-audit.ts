@@ -35,10 +35,10 @@ function classify(url: string): LinkType | null {
   return null; // bare relative text — ignore
 }
 
-// External links are nofollow by default; mark dofollow with a markdown
-// title, e.g. [text](https://example.com "dofollow").
+// External links are dofollow by default.
+// Opt into nofollow: [text](https://example.com "nofollow")
 function relFromTitle(title: string | undefined): Rel {
-  return title && /dofollow/i.test(title) ? 'dofollow' : 'nofollow';
+  return title && /nofollow/i.test(title) ? 'nofollow' : 'dofollow';
 }
 
 // Find markdown links + bare URLs in a block of text.

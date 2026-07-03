@@ -122,15 +122,19 @@ export default function MarkdownRenderer({ content }: { content: string }) {
             return <InternalCard href={href}>{children}</InternalCard>;
           }
           const isExternal = href?.startsWith('http');
-          // External links are nofollow by default; opt into dofollow with a
-          // markdown title: [text](https://example.com "dofollow").
-          const dofollow = typeof title === 'string' && /dofollow/i.test(title);
+          // External links are dofollow by default.
+          // To mark a link nofollow: [text](https://example.com "nofollow")
+          // The signal word is stripped from the rendered title attribute.
+          const nofollow = typeof title === 'string' && /nofollow/i.test(title);
+          const cleanTitle = typeof title === 'string' && /^(dofollow|nofollow)$/i.test(title.trim())
+            ? undefined
+            : title;
           return (
             <a
               href={href}
-              title={title}
+              title={cleanTitle}
               target={isExternal ? '_blank' : undefined}
-              rel={isExternal ? (dofollow ? 'noopener noreferrer' : 'noopener noreferrer nofollow') : undefined}
+              rel={isExternal ? (nofollow ? 'noopener noreferrer nofollow' : 'noopener noreferrer') : undefined}
               className="text-blue-600 dark:text-blue-400 hover:underline"
             >
               {children}
