@@ -93,13 +93,19 @@ export async function POST(req: NextRequest) {
 
     const { score: seoScore } = analyzeSeo({ title, metaDescription, slug, focusKeyword, content });
 
+    const rawCategories = Array.isArray(p.categories) && p.categories.length > 0
+      ? (p.categories as string[])
+      : [String(p.category || 'learning-tips')];
+    const primaryCategory = rawCategories[0];
+
     const row: Record<string, unknown> = {
       slug,
       title,
       excerpt: String(p.excerpt || ''),
       meta_description: metaDescription,
       focus_keyword: focusKeyword,
-      category: String(p.category || 'learning-tips'),
+      category: primaryCategory,
+      categories: rawCategories,
       author_name: String(p.authorName || 'PolishPal Contributor'),
       author_bio: String(p.authorBio || ''),
       content,

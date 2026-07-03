@@ -215,6 +215,7 @@ export type BlogCategory =
   | 'memes-pop-culture'
   | 'arts';
 
+
 export interface BlogAuthor {
   name: string;
   avatar?: string;
@@ -233,7 +234,8 @@ export interface Post {
   excerpt: string;
   metaDescription: string;
   focusKeyword: string;
-  category: BlogCategory;
+  category: BlogCategory;       // primary category (first in categories[])
+  categories: BlogCategory[];   // all assigned categories
   author: BlogAuthor;
   content: string;
   featuredImage: string;

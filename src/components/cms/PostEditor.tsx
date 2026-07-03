@@ -37,7 +37,9 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
   const [excerpt, setExcerpt] = useState(initial?.excerpt || '');
   const [metaDescription, setMetaDescription] = useState(initial?.metaDescription || '');
   const [focusKeyword, setFocusKeyword] = useState(initial?.focusKeyword || '');
-  const [category, setCategory] = useState(initial?.category || 'learning-tips');
+  const [categories, setCategories] = useState<string[]>(
+    initial?.categories?.length ? initial.categories : [initial?.category || 'learning-tips']
+  );
   const [authorName, setAuthorName] = useState(initial?.author.name || 'PolishPal Contributor');
   const [authorBio] = useState(initial?.author.bio || 'Community-driven language education — making Polish accessible to everyone.');
   const [content, setContent] = useState(initial?.content || '');
@@ -90,7 +92,8 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
       excerpt,
       metaDescription: metaDescription || excerpt,
       focusKeyword,
-      category,
+      category: categories[0] || 'learning-tips',
+      categories,
       authorName,
       authorBio,
       content,
@@ -183,12 +186,45 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
             {/* Publish/meta settings */}
             <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 space-y-3">
               <div>
-                <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Category</label>
-                <select value={category} onChange={(e) => setCategory(e.target.value as Post['category'])} className="w-full text-sm bg-gray-50 dark:bg-gray-800 rounded-lg p-2 outline-none text-gray-900 dark:text-gray-100 border border-gray-100 dark:border-gray-700">
-                  {Object.entries(blogCategoryStyles).map(([key, s]) => (
-                    <option key={key} value={key}>{s.label}</option>
-                  ))}
-                </select>
+                <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">
+                  Categories <span className="text-gray-400 font-normal">(first = primary)</span>
+                </label>
+                <div className="grid grid-cols-1 gap-1">
+                  {Object.entries(blogCategoryStyles).map(([key, s]) => {
+                    const checked = categories.includes(key);
+                    const isPrimary = categories[0] === key;
+                    return (
+                      <label key={key} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors ${checked ? `${s.bg} ${s.darkBg}` : 'hover:bg-gray-50 dark:hover:bg-gray-800'}`}>
+                        <input
+                          type="checkbox"
+                          checked={checked}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setCategories((prev) => [...prev, key]);
+                            } else {
+                              const next = categories.filter((c) => c !== key);
+                              setCategories(next.length ? next : [key]); // keep at least one
+                            }
+                          }}
+                          className="rounded border-gray-300 dark:border-gray-600"
+                        />
+                        <span className={`text-xs font-medium flex-1 ${checked ? `${s.text} ${s.darkText}` : 'text-gray-600 dark:text-gray-300'}`}>
+                          {s.label}
+                        </span>
+                        {isPrimary && checked && (
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">Primary</span>
+                        )}
+                      </label>
+                    );
+                  })}
+                </div>
+                {categories.length > 1 && (
+                  <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-1.5">
+                    Drag to reorder — first checked category is primary.
+                    <br />
+                    To change primary: uncheck &amp; recheck in order.
+                  </p>
+                )}
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Tags (comma-separated)</label>

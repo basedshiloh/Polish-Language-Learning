@@ -203,11 +203,11 @@ export default async function BlogPage({ searchParams }: Props) {
   const hero = all[0];
   const sideStories = all.slice(1, 4);          // right column: 3 stories
   const recentList = all.slice(0, 7);            // left column: top 7 (including hero)
-  const culturePosts = all.filter((p) => p.category === 'culture');
+  const culturePosts = all.filter((p) => p.categories.includes('culture'));
 
   // Remaining posts for category sections (exclude hero + side, skip culture — covered by slider)
   const topSlugs = new Set([hero?.slug, ...sideStories.map((p) => p.slug)]);
-  const remaining = all.filter((p) => !topSlugs.has(p.slug) && p.category !== 'culture');
+  const remaining = all.filter((p) => !topSlugs.has(p.slug) && !p.categories.includes('culture'));
 
   // Group by category in a defined display order
   const catOrder: BlogCategory[] = ['grammar-deep-dive', 'learning-tips', 'music', 'memes-pop-culture', 'arts', 'vocabulary', 'pronunciation'];

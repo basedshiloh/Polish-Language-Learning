@@ -24,6 +24,7 @@ interface PostRow {
   meta_description: string;
   focus_keyword: string;
   category: string;
+  categories: string[] | null;
   author_name: string;
   author_bio: string;
   content: string;
@@ -58,7 +59,12 @@ function toStringArray(v: unknown): string[] {
 }
 
 export function rowToPost(r: PostRow): Post {
-  const category = (r.category in blogCategoryStyles ? r.category : 'learning-tips') as BlogCategory;
+  // Derive categories array — fall back to [category] for rows predating the migration
+  const rawCategories: BlogCategory[] = (r.categories && r.categories.length > 0 ? r.categories : [r.category])
+    .filter((c): c is BlogCategory => c in blogCategoryStyles);
+  const categories = rawCategories.length > 0 ? rawCategories : ['learning-tips' as BlogCategory];
+  const category = categories[0];
+
   return {
     id: r.id,
     slug: r.slug,
@@ -67,6 +73,7 @@ export function rowToPost(r: PostRow): Post {
     metaDescription: r.meta_description || r.excerpt,
     focusKeyword: r.focus_keyword || '',
     category,
+    categories,
     author: { name: r.author_name, bio: r.author_bio },
     content: r.content,
     featuredImage: r.featured_image,
@@ -110,7 +117,7 @@ export async function getRelatedPosts(slug: string, category: string, limit = 3)
     .from('posts')
     .select(SELECT)
     .eq('status', 'published')
-    .eq('category', category)
+    .contains('categories', [category])
     .neq('slug', slug)
     .order('published_at', { ascending: false })
     .limit(limit);
@@ -120,7 +127,7 @@ export async function getRelatedPosts(slug: string, category: string, limit = 3)
 export async function getPaginatedPosts(page: number, perPage = 9, category?: string) {
   let all = await getPublishedPosts();
   const activeCategory = category && category in blogCategoryStyles ? category : undefined;
-  if (activeCategory) all = all.filter((p) => p.category === activeCategory);
+  if (activeCategory) all = all.filter((p) => p.categories.includes(activeCategory as BlogCategory));
   const totalPages = Math.ceil(all.length / perPage);
   const currentPage = Math.max(1, Math.min(page, totalPages || 1));
   const start = (currentPage - 1) * perPage;
