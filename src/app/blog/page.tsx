@@ -121,7 +121,7 @@ function HeroStory({ post }: { post: Post }) {
 
 function SideStories({ posts }: { posts: Post[] }) {
   return (
-    <aside className="hidden lg:block divide-y divide-gray-100 dark:divide-gray-800">
+    <aside className="divide-y divide-gray-100 dark:divide-gray-800">
       {posts.map((p) => (
         <Link key={p.slug} href={`/blog/${p.slug}`} className="group flex gap-3 py-3 first:pt-0">
           <div className="relative w-20 h-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
@@ -198,11 +198,11 @@ export default async function BlogPage({ searchParams }: Props) {
   }
 
   // ── Magazine front page ──────────────────────────────────────────────────
-  const [all, ads] = await Promise.all([getPublishedPosts(), getAdSlots(['blog-top'])]);
+  const [all, ads] = await Promise.all([getPublishedPosts(), getAdSlots(['blog-top', 'blog-hero-sidebar'])]);
 
   const hero = all[0];
   const sideStories = all.slice(1, 4);          // right column: 3 stories
-  const recentList = all.slice(0, 7);            // left column: top 7 (including hero)
+  const recentList = all.slice(0, 6);            // left column: top 6 (including hero)
   const culturePosts = all.filter((p) => p.categories.includes('culture'));
 
   // Remaining posts for category sections (exclude hero + side, skip culture — covered by slider)
@@ -250,7 +250,10 @@ export default async function BlogPage({ searchParams }: Props) {
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)_minmax(0,1fr)] gap-6 mb-10 pb-10 border-b border-gray-200 dark:border-gray-800">
             <RecentList posts={recentList} />
             <HeroStory post={hero} />
-            <SideStories posts={sideStories} />
+            <div className="hidden lg:flex flex-col gap-4">
+              <SideStories posts={sideStories} />
+              <AdSlot slot={ads['blog-hero-sidebar']} />
+            </div>
 
             {/* Mobile: show side stories below hero */}
             <div className="lg:hidden col-span-1 divide-y divide-gray-100 dark:divide-gray-800">
