@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 // Spam/referrer domains to block. Add new entries here as needed.
 const BLOCKED_REFERRERS = [
   'rankchief.shop',
+  'skyrocketlink.shop',
 ];
 
 export function middleware(req: NextRequest) {
