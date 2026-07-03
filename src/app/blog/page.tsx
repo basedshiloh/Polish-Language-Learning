@@ -8,12 +8,13 @@ import type { BlogCategory, Post } from '@/lib/types';
 import BlogCard from '@/components/blog/BlogCard';
 import BlogPagination from '@/components/blog/BlogPagination';
 import CultureSlider from '@/components/blog/CultureSlider';
+import BlogSearchBox from '@/components/blog/BlogSearchBox';
 import AdSlot from '@/components/shared/AdSlot';
 
 export const revalidate = 3600;
 
 interface Props {
-  searchParams: Promise<{ page?: string; category?: string }>;
+  searchParams: Promise<{ page?: string; category?: string; q?: string }>;
 }
 
 function fmtDate(d: string) {
@@ -167,17 +168,59 @@ function CategorySection({ catKey, posts }: { catKey: BlogCategory; posts: Post[
 // ── Page ─────────────────────────────────────────────────────────────────────
 
 export default async function BlogPage({ searchParams }: Props) {
-  const { page, category } = await searchParams;
+  const { page, category, q } = await searchParams;
   const pageNum = Math.max(1, parseInt(page || '1', 10) || 1);
-  const magazine = pageNum === 1 && !category;
+  const searchQuery = q?.trim() || '';
+  const magazine = pageNum === 1 && !category && !searchQuery;
 
+  // ── Search results view ──────────────────────────────────────────────────
+  if (searchQuery) {
+    const all = await getPublishedPosts();
+    const lower = searchQuery.toLowerCase();
+    const results = all.filter((p) =>
+      p.title.toLowerCase().includes(lower) ||
+      p.excerpt.toLowerCase().includes(lower) ||
+      p.tags.some((t) => t.toLowerCase().includes(lower))
+    );
+    return (
+      <div className="p-6 md:p-10">
+        <div className="mb-6">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">Blog</h1>
+        </div>
+        <div className="mb-6">
+          <BlogSearchBox initialQuery={searchQuery} />
+        </div>
+        <div className="flex items-center justify-between mb-6">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            <span className="font-semibold text-gray-900 dark:text-gray-100">{results.length}</span> result{results.length !== 1 ? 's' : ''} for &ldquo;{searchQuery}&rdquo;
+          </p>
+          <Link href="/blog" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">← Back to blog</Link>
+        </div>
+        {results.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {results.map((post) => <BlogCard key={post.slug} post={post} />)}
+          </div>
+        ) : (
+          <div className="text-center py-16">
+            <p className="text-gray-400 dark:text-gray-500 mb-2">No posts matched &ldquo;{searchQuery}&rdquo;.</p>
+            <Link href="/blog" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">View all posts</Link>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // ── Category / paginated view ─────────────────────────────────────────────
   if (!magazine) {
     const { posts, currentPage, totalPages, activeCategory } = await getPaginatedPosts(pageNum, 9, category);
     return (
       <div className="p-6 md:p-10">
-        <div className="mb-8">
+        <div className="mb-6">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">Blog</h1>
           <p className="text-gray-500 dark:text-gray-400 mt-1">Tips, deep dives, and stories about learning Polish.</p>
+        </div>
+        <div className="mb-6">
+          <BlogSearchBox />
         </div>
         <CategoryFilters activeCategory={activeCategory} />
         {posts.length > 0 ? (
@@ -238,6 +281,10 @@ export default async function BlogPage({ searchParams }: Props) {
           <div className="h-0.5 flex-1 bg-gray-200 dark:bg-gray-700" />
           <div className="h-0.5 flex-1 bg-gray-100 dark:bg-gray-800" />
         </div>
+      </div>
+
+      <div className="mb-5">
+        <BlogSearchBox />
       </div>
 
       <CategoryFilters />
