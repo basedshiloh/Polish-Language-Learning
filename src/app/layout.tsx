@@ -63,6 +63,7 @@ export const metadata: Metadata = {
   },
   other: {
     "google-site-verification": "",
+    "google-adsense-account": "ca-pub-7316825064118043",
   },
 };
 
