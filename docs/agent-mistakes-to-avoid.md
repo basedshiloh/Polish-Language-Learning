@@ -244,27 +244,30 @@ and strips the word from the visible tooltip so it never appears to readers.
 
 ---
 
-## 11. Titles: no forced numbering, and don't reuse the same template back-to-back
+## 11. Titles: no forced numbering — but keep the focus keyword front-loaded
 
 **There is no rule requiring a number in the title.** An earlier version of this guide said
 every title needed a number + power word (`7 Proven Steps…`). That's gone — it made every
 post read like the same listicle template, and the user explicitly called it out as a bad
 default. Only use a number when the article genuinely is a numbered list of things.
 
-**Also avoid landing on the same title *shape* two posts in a row**, even without numbers.
-`what-is-paczkomat` and `what-is-bar-mleczny` were first published as `"What Is a Paczkomat?
-7 Facts About Poland's Parcel Lockers"` and `"What Is a Bar Mleczny? 7 Facts About Poland's
-Milk Bars"` — same "What Is X? N Facts About Y" template twice in a row. Fixed by giving each
-a genuinely different structure instead:
+**If the slug is `what-is-<subject>`, the title MUST start with `What Is <Subject>?`.**
+This isn't just a stylistic default — the slug, the focus keyword, and the title's opening
+words all need to match for the on-page SEO to work, and the site's own precedent (Żabka,
+Biedronka) already does this. Don't drop the "What Is X" opening for the sake of variety —
+that was tried on `what-is-paczkomat` and `what-is-bar-mleczny` (retitled to `"Meet the
+Paczkomat…"` and `"Bar Mleczny: …"`) and had to be reverted once the user caught it, since it
+broke the keyword-front-loading the slug was chosen for.
 
-- `Bar Mleczny: Poland's Cheap Communist-Era Cafeterias, Explained` — colon + descriptor
-- `Meet the Paczkomat: Poland's Orange Parcel-Locker Obsession` — invitational opener, no "Explained"
+**Get variety from the second half of the title instead**, after the `What Is X?` opener —
+that's where a colon-descriptor, a distinctive fact, or a tone shift belongs:
 
-**Before publishing, check the last 2–3 post titles** (`select title from posts order by
-published_at desc limit 3`) and pick a visibly different opening and ending than whatever
-they used. Some shapes to rotate through: `What Is X?`, `X: Y, Explained`, `Meet the X`,
-`Why Poland Still Has X`, `The Story Behind X`, a direct statement with no question mark at
-all. The goal is that a reader scanning the blog index doesn't see the same formula twice.
+- `What Is Bar Mleczny? Poland's Cheap Communist-Era Cafeterias, Explained`
+- `What Is Paczkomat? Poland's Orange Parcel-Locker Obsession`
+
+Both open identically (correctly — that's the point), but end differently. **Before
+publishing, check the last 2–3 post titles** (`select title from posts order by published_at
+desc limit 3`) and vary the back half of the title, never the front-loaded keyword opener.
 
 ---
 
