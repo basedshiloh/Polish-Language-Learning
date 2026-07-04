@@ -143,7 +143,6 @@ function SideStories({ posts }: { posts: Post[] }) {
 }
 
 function CategorySection({ catKey, posts }: { catKey: BlogCategory; posts: Post[] }) {
-  if (posts.length === 0) return null;
   const style = blogCategoryStyles[catKey];
   return (
     <section className="mb-12">
@@ -151,16 +150,27 @@ function CategorySection({ catKey, posts }: { catKey: BlogCategory; posts: Post[
         <h2 className="text-base font-black uppercase tracking-wider text-gray-900 dark:text-gray-100 pb-1 border-b-2 border-gray-200 dark:border-gray-700 pr-4">
           {style.label}
         </h2>
-        <Link
-          href={`/blog?category=${catKey}`}
-          className={`text-xs font-medium ${style.text} ${style.darkText} hover:underline`}
-        >
-          All {style.label} →
-        </Link>
+        {posts.length > 0 && (
+          <Link
+            href={`/blog?category=${catKey}`}
+            className={`text-xs font-medium ${style.text} ${style.darkText} hover:underline`}
+          >
+            All {style.label} →
+          </Link>
+        )}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {posts.slice(0, 3).map((p) => <BlogCard key={p.slug} post={p} />)}
-      </div>
+      {posts.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {posts.slice(0, 3).map((p) => <BlogCard key={p.slug} post={p} />)}
+        </div>
+      ) : (
+        <div className={`rounded-xl border-2 border-dashed p-8 text-center ${style.bg} ${style.darkBg}`}>
+          <p className={`text-sm font-semibold ${style.text} ${style.darkText} mb-1`}>Coming soon</p>
+          <p className="text-xs text-gray-400 dark:text-gray-500">
+            No posts in this category yet — check back soon.
+          </p>
+        </div>
+      )}
     </section>
   );
 }
