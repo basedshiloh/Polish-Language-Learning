@@ -142,10 +142,13 @@ in `src/components/blog/MarkdownRenderer.tsx`.
 - Primary **and** each secondary keyword appears in **at least one H2/H3 subheading**.
 - 2–3 internal links + 1–2 external links (see above).
 
-**Title (all four at once, < 60 chars)**
-- Focus keyword near the front, a **number**, a **power word** (Proven, Ultimate, Essential,
-  Best, Easy…), and **positive or negative sentiment**. No dishonest clickbait.
-- Example shape: `How to Learn Polish: 7 Proven Steps for Beginners`
+**Title (< 60 chars)**
+- Focus keyword near the front. No dishonest clickbait.
+- **Do not default to a numbered-listicle title** (`7 Facts About…`, `9 Reasons…`). Numbers
+  are allowed when the article is genuinely a list, but they should not be a reflex — vary
+  the structure article to article. See [`docs/agent-mistakes-to-avoid.md`](docs/agent-mistakes-to-avoid.md)
+  for the "don't reuse the same title template back-to-back" rule and examples of different
+  shapes to reach for.
 
 **Readability**
 - No paragraph over 120 words; clear H2/H3 hierarchy; 4+ images; the site auto-generates a
