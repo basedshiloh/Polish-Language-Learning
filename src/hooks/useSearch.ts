@@ -7,7 +7,7 @@ import { quizzes } from '@/data/quizzes';
 
 export interface SearchEntry {
   title: string;
-  category: 'lesson' | 'grammar' | 'quiz';
+  category: 'lesson' | 'grammar' | 'quiz' | 'blog';
   href: string;
   snippet: string;
 }
@@ -110,8 +110,8 @@ export interface SearchResult {
   matchedText: string;
 }
 
-export function useSearch() {
-  const index = useMemo(() => buildIndex(), []);
+export function useSearch(extraEntries: SearchEntry[] = []) {
+  const index = useMemo(() => [...buildIndex(), ...extraEntries], [extraEntries]);
 
   function search(query: string): SearchResult[] {
     if (!query || query.length < 2) return [];

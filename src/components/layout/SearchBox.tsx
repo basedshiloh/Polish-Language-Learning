@@ -2,15 +2,16 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, X, BookOpen, Table2, Brain, ArrowRight } from 'lucide-react';
-import { useSearch, type SearchResult } from '@/hooks/useSearch';
+import { Search, X, BookOpen, Table2, Brain, Newspaper, ArrowRight } from 'lucide-react';
+import { useSearch, type SearchResult, type SearchEntry } from '@/hooks/useSearch';
 
 const DROPDOWN_LIMIT = 10;
 
 const categoryMeta = {
-  lesson: { icon: BookOpen, label: 'Lesson', color: 'text-blue-600', bg: 'bg-blue-50' },
-  grammar: { icon: Table2, label: 'Grammar', color: 'text-purple-600', bg: 'bg-purple-50' },
-  quiz: { icon: Brain, label: 'Quiz', color: 'text-green-600', bg: 'bg-green-50' },
+  lesson:  { icon: BookOpen,   label: 'Lesson',  color: 'text-blue-600',   bg: 'bg-blue-50 dark:bg-blue-900/20' },
+  grammar: { icon: Table2,     label: 'Grammar', color: 'text-purple-600', bg: 'bg-purple-50 dark:bg-purple-900/20' },
+  quiz:    { icon: Brain,      label: 'Quiz',    color: 'text-green-600',  bg: 'bg-green-50 dark:bg-green-900/20' },
+  blog:    { icon: Newspaper,  label: 'Blog',    color: 'text-amber-600',  bg: 'bg-amber-50 dark:bg-amber-900/20' },
 };
 
 function HighlightMatch({ text, query }: { text: string; query: string }) {
@@ -52,10 +53,28 @@ export default function SearchBox() {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [open, setOpen] = useState(false);
   const [selectedIdx, setSelectedIdx] = useState(-1);
+  const [blogEntries, setBlogEntries] = useState<SearchEntry[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const { search } = useSearch();
+  const { search } = useSearch(blogEntries);
   const router = useRouter();
+
+  // Fetch blog posts once for search indexing
+  useEffect(() => {
+    fetch('/api/search/posts')
+      .then((r) => r.json())
+      .then(({ posts }) => {
+        setBlogEntries(
+          (posts as { title: string; excerpt: string; slug: string; tags: string[] }[]).map((p) => ({
+            title: p.title,
+            category: 'blog' as const,
+            href: `/blog/${p.slug}`,
+            snippet: [p.title, p.excerpt, ...(p.tags || [])].join(' '),
+          }))
+        );
+      })
+      .catch(() => {}); // fail silently — blog search degrades gracefully
+  }, []);
 
   const doSearch = useCallback((q: string) => {
     setQuery(q);
