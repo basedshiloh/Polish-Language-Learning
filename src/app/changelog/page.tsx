@@ -23,6 +23,30 @@ const typeStyles = {
 
 const changelog: ChangelogEntry[] = [
   {
+    date: 'July 5, 2026',
+    version: '2.0.0',
+    changes: [
+      { type: 'added', text: 'Automatic content backup system — every save and edit creates a snapshot before overwriting; deletion always saves a pre-delete copy that is kept forever' },
+      { type: 'added', text: 'Daily full-site backup at 02:00 UTC via Vercel Cron — all posts saved as a single JSON snapshot' },
+      { type: 'added', text: 'Backups CMS page (/polaris/backups) — browse all backups by type, filter by slug, preview JSON, and restore any post to any past state in one click' },
+      { type: 'added', text: '"Backup All Now" button for on-demand full-site manual snapshots' },
+      { type: 'added', text: 'Multi-category support for blog posts — assign more than one category per post; first selected is the primary' },
+      { type: 'added', text: 'New blog categories: Polish Music, Memes & Pop Culture, Arts' },
+      { type: 'added', text: 'Culture Picks slider on the blog front page — auto-populated from the culture category with prev/next arrows and brand-blue background' },
+      { type: 'added', text: 'Blog posts included in the global header search with grouped results (Blog / Lessons / Grammar / Quizzes)' },
+      { type: 'added', text: 'Per-quiz SEO metadata — each quiz gets its own title, description, and Open Graph tags' },
+      { type: 'added', text: 'Ad slot in the blog hero right column (300×250)' },
+      { type: 'added', text: 'Live word/character/reading-time/paragraph/sentence/H2/H3 counters in the post editor' },
+      { type: 'added', text: 'Search box in Link Manager with live result count' },
+      { type: 'added', text: 'Google AdSense verification meta tag' },
+      { type: 'fixed', text: 'Author avatar now shows the PolishPal logo on all posts, including older ones, without any database change' },
+      { type: 'fixed', text: 'External outbound links are dofollow by default; nofollow is opt-in only via title="nofollow"' },
+      { type: 'fixed', text: 'Dark mode border lines changed from white to gray-700/800; light mode lines softened to gray-200' },
+      { type: 'changed', text: 'Blog front page redesigned as a newspaper layout — 3-column masthead grid, category sections, and "Coming soon" placeholder for empty categories' },
+      { type: 'added', text: 'Referrer spam blocking — 403 returned for known spam domains (rankchief.shop, skyrocketlink.shop)' },
+    ],
+  },
+  {
     date: 'June 29, 2026',
     version: '1.9.0',
     changes: [
