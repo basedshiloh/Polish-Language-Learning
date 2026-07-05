@@ -81,40 +81,59 @@ export function buildContentGraph(posts: Post[]): ContentGraph {
   const pillarById = new Map(pillars.map((p) => [p.id, p]));
   const pillarPosts = posts.filter((p) => p.isPillar);
 
+  // Pre-compute which pillar(s) each post actually links to in its content.
+  // A post can link to multiple pillars; we track the full set.
+  const linkedPillarIds = new Map<string, string[]>(); // postId → pillarIds[]
+  for (const p of posts) {
+    if (p.isPillar) continue;
+    const targets: string[] = [];
+    for (const pillarPost of pillarPosts) {
+      if (postLinksTo(p, pillarPost.slug)) targets.push(pillarPost.id);
+    }
+    if (targets.length > 0) linkedPillarIds.set(p.id, targets);
+  }
+
+  const clustered = new Set<string>(); // postIds already assigned
   const unclustered: ClusterNode[] = [];
 
   for (const p of posts) {
     if (p.isPillar) continue;
 
-    // 1. Manual override takes priority
+    // 1. Manual pillarId override — highest priority
     if (p.pillarId && pillarById.has(p.pillarId)) {
-      const pillarPost = byId.get(p.pillarId)!;
-      pillarById.get(p.pillarId)!.clusters.push(toNode(p, postLinksTo(p, pillarPost.slug)));
+      pillarById.get(p.pillarId)!.clusters.push(toNode(p, true)); // must link since it's manual
+      clustered.add(p.id);
       continue;
     }
 
-    // 2. Auto-assign: find the highest-scoring pillar (min score 10 = same category)
-    if (pillarPosts.length > 0) {
-      let bestPillar: PillarNode | null = null;
-      let bestScore = 9; // must beat 9 to be assigned (requires at least same-category match)
-      for (const pillarPost of pillarPosts) {
-        const s = matchScore(p, pillarPost);
-        if (s > bestScore) {
-          bestScore = s;
-          bestPillar = pillarById.get(pillarPost.id)!;
-        }
+    // 2. Inbound-link detection — if this post links to one or more pillars,
+    //    cluster it under each of them (a post can appear in multiple clusters)
+    const linkTargets = linkedPillarIds.get(p.id);
+    if (linkTargets && linkTargets.length > 0) {
+      for (const pillarId of linkTargets) {
+        pillarById.get(pillarId)!.clusters.push(toNode(p, true));
       }
-      if (bestPillar) {
-        const pillarPost = byId.get(bestPillar.id)!;
-        bestPillar.clusters.push(toNode(p, postLinksTo(p, pillarPost.slug)));
-        continue;
-      }
+      clustered.add(p.id);
+      continue;
+    }
+
+    // 3. Category + tag auto-match as fallback (min score 10 = same primary category)
+    let bestPillar: PillarNode | null = null;
+    let bestScore = 9;
+    for (const pillarPost of pillarPosts) {
+      const s = matchScore(p, pillarPost);
+      if (s > bestScore) { bestScore = s; bestPillar = pillarById.get(pillarPost.id)!; }
+    }
+    if (bestPillar) {
+      bestPillar.clusters.push(toNode(p, false));
+      clustered.add(p.id);
+      continue;
     }
 
     unclustered.push(toNode(p));
   }
 
-  // sort clusters: unlinked first (need attention), then by score desc
+  // sort clusters: unlinked first (need attention), then by seo score asc
   for (const pillar of pillars) {
     pillar.clusters.sort((a, b) => Number(a.linksToPillar) - Number(b.linksToPillar) || a.seoScore - b.seoScore);
   }
