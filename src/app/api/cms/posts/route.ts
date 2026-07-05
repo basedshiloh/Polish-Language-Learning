@@ -4,6 +4,7 @@ import { adminClient, getPublishedPosts } from '@/lib/posts';
 import { isAuthorizedRequest } from '@/lib/cms-access';
 import { analyzeSeo } from '@/lib/seo-analysis';
 import { slugify } from '@/lib/utils';
+import { saveBackup, deleteOldAutoBackups } from '@/lib/backup';
 
 function wordCount(md: string): number {
   return md.trim().split(/\s+/).filter(Boolean).length;
@@ -63,6 +64,9 @@ export async function POST(req: NextRequest) {
 
   if (action === 'delete') {
     const { id, slug } = body;
+    // Backup before delete so content can always be recovered
+    const { data: existing } = await supabase.from('posts').select('*').eq('id', id).maybeSingle();
+    if (existing) await saveBackup('pre-delete', existing.slug, existing, supabase);
     const { error } = await supabase.from('posts').delete().eq('id', id);
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
     revalidateBlog(slug);
@@ -125,10 +129,15 @@ export async function POST(req: NextRequest) {
     const id = p.id ? String(p.id) : '';
 
     if (id) {
+      // Snapshot the current state before overwriting
+      const { data: before } = await supabase.from('posts').select('*').eq('id', id).maybeSingle();
+      if (before) {
+        await saveBackup('auto', before.slug, before, supabase);
+        void deleteOldAutoBackups(supabase, before.slug);
+      }
       // Preserve published_at unless transitioning to published for the first time
       if (status === 'published') {
-        const { data: existing } = await supabase.from('posts').select('published_at').eq('id', id).maybeSingle();
-        if (!existing?.published_at) row.published_at = new Date().toISOString();
+        if (!before?.published_at) row.published_at = new Date().toISOString();
       }
       const { data, error } = await supabase.from('posts').update(row).eq('id', id).select('id, slug').single();
       if (error) return NextResponse.json({ error: error.message }, { status: 500 });
@@ -141,6 +150,8 @@ export async function POST(req: NextRequest) {
         const msg = error.message.includes('duplicate') ? 'A post with that slug already exists.' : error.message;
         return NextResponse.json({ error: msg }, { status: 500 });
       }
+      // Backup the newly created post
+      await saveBackup('auto', slug, { ...row, id: data.id }, supabase);
       revalidateBlog(slug);
       return NextResponse.json({ ok: true, id: data.id, slug: data.slug });
     }
