@@ -23,6 +23,15 @@ const typeStyles = {
 
 const changelog: ChangelogEntry[] = [
   {
+    date: 'July 6, 2026',
+    version: '2.0.1',
+    changes: [
+      { type: 'fixed', text: 'Blog category sections now always show all posts — previously, if the newest post in a category became the hero or a side story, the entire section appeared empty' },
+      { type: 'fixed', text: 'Multi-category posts (e.g. tagged as both Culture and Arts) now appear in every category section they belong to, not just the Culture slider' },
+      { type: 'changed', text: 'Content Visualizer now auto-clusters posts under pillars — posts in the same category as a pillar group automatically without needing a manual assignment; tag and keyword overlap breaks ties between multiple pillars in the same category' },
+    ],
+  },
+  {
     date: 'July 5, 2026',
     version: '2.0.0',
     changes: [
