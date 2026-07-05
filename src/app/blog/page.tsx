@@ -216,14 +216,17 @@ export default async function BlogPage({ searchParams }: Props) {
   const recentList = all.slice(0, 6);            // left column: top 6 (including hero)
   const culturePosts = all.filter((p) => p.categories.includes('culture'));
 
-  // Category sections show ALL posts in each category (not just non-featured ones),
-  // so a post being the hero or side story doesn't make its category section go empty.
-  // Culture posts are excluded here — they're covered by the slider above.
+  // Build category sections from ALL categories on each post so multi-category posts
+  // (e.g. ['culture','arts']) appear in every relevant section.
+  // 'culture' is intentionally excluded from catOrder — it's covered by the slider.
   const catOrder: BlogCategory[] = ['grammar-deep-dive', 'learning-tips', 'music', 'memes-pop-culture', 'arts', 'vocabulary', 'pronunciation'];
   const byCategory: Partial<Record<BlogCategory, Post[]>> = {};
-  for (const p of all.filter((p) => !p.categories.includes('culture'))) {
-    if (!byCategory[p.category as BlogCategory]) byCategory[p.category as BlogCategory] = [];
-    byCategory[p.category as BlogCategory]!.push(p);
+  for (const p of all) {
+    for (const cat of p.categories) {
+      if (cat === 'culture') continue; // handled by slider
+      if (!byCategory[cat as BlogCategory]) byCategory[cat as BlogCategory] = [];
+      byCategory[cat as BlogCategory]!.push(p);
+    }
   }
 
   return (
