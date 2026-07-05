@@ -43,15 +43,16 @@ export default function LinkVisualizer({ graph }: { graph: ContentGraph }) {
           <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">Content Visualizer</h1>
         </div>
         <p className="text-sm text-gray-400 dark:text-gray-500 mb-8">
-          Your pillar → cluster structure. Each pillar sits at the top with its cluster posts below.
-          Green = the cluster post actually links up to its pillar; orange = the internal link is still missing.
+          Pillar → cluster structure built automatically. Posts in the same category as a pillar are clustered under it;
+          tag and keyword overlap breaks ties. You can still override any post&apos;s pillar manually in the editor.
+          Green = cluster post links to its pillar; orange = internal link missing.
         </p>
 
         {!hasPillars && (
           <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900 rounded-xl p-5 mb-8">
             <p className="text-sm text-amber-800 dark:text-amber-300">
-              No pillar posts yet. Open a post in the editor and toggle <strong>&ldquo;This is a pillar post&rdquo;</strong> to start
-              building a pyramid, then assign related posts to it via <strong>&ldquo;Belongs to pillar&rdquo;</strong>.
+              No pillar posts yet. Open a post in the editor and toggle <strong>&ldquo;This is a pillar post&rdquo;</strong>.
+              Once a pillar exists, all posts in the same category will auto-cluster under it.
             </p>
           </div>
         )}
