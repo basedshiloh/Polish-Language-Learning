@@ -22,7 +22,13 @@ No placeholder. No `.jpg`. No `.png`. No filename-only paths.
 ```
 
 **Right — option B (new image, full pipeline):**
-1. Download from Pexels (API key in maintainer notes)
+1. Source the image — don't default to one provider out of habit:
+   - **Wikimedia Commons** for real people/places/named things (verify the *specific
+     file's* license, never assume a whole category is free-use; avoid trademarked
+     logos unless the file is tagged public-domain/textlogo)
+   - **Pexels or Pixabay** (API keys in maintainer notes) for generic/thematic images
+     with no specific real-world subject — mix providers across an article rather than
+     pulling every image from the same source
 2. Convert with Python Pillow — never `sips`, never `/api/cms/upload`
 3. Validate RIFF: `f[8:12] == b"WEBP"` and `int.from_bytes(f[4:8],"little") + 8 == len(f)`
 4. Save as `public/blog/<slug>-<purpose>.webp`
@@ -268,6 +274,62 @@ that's where a colon-descriptor, a distinctive fact, or a tone shift belongs:
 Both open identically (correctly — that's the point), but end differently. **Before
 publishing, check the last 2–3 post titles** (`select title from posts order by published_at
 desc limit 3`) and vary the back half of the title, never the front-loaded keyword opener.
+
+---
+
+## 12. NEVER duplicate an external URL in one article — including image-credit/license links
+
+Rule 9 already covers internal `/blog/`, `/lessons/`, `/grammar/` links. The same
+principle applies to **external** links, and it's easy to miss because it usually
+sneaks in through image captions rather than body citations: two images in the same
+article sharing a license or a source page each get their own credit line, and it's
+tempting to hyperlink the license/source URL every time.
+
+**Wrong (same license URL linked twice in one article):**
+```md
+*Photo: Jane Doe, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), via Wikimedia Commons.*
+
+...
+
+*Photo: John Smith, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), via Wikimedia Commons.*
+```
+
+**Wrong (same source page linked twice for two different images from that source):**
+```md
+*Album artwork courtesy of [Requiem Records](https://requiem-records.com/pl/sklep/jesienne_odcienie_melancholii).*
+
+...
+
+*Photo courtesy of [Requiem Records](https://requiem-records.com/pl/sklep/jesienne_odcienie_melancholii).*
+```
+
+**Right — hyperlink the URL once, on its first appearance; every later mention is plain text:**
+```md
+*Photo: Jane Doe, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), via Wikimedia Commons.*
+
+...
+
+*Photo: John Smith, CC BY-SA 3.0, via Wikimedia Commons.*
+```
+```md
+*Album artwork courtesy of [Requiem Records](https://requiem-records.com/pl/sklep/jesienne_odcienie_melancholii).*
+
+...
+
+*Photo courtesy of Requiem Records.*
+```
+
+**How to apply:** Before publishing, grep the draft for every `http` URL. If any URL
+appears more than once, keep the markdown link on the first occurrence and strip the
+link markup (keep the plain text) from every later one. This applies per-article —
+it's fine (expected, even) for the same Wikipedia article or the same generic CC
+license page to be cited across *different* articles; the problem is only repeating
+it *within* one post.
+
+**Why:** User caught this live (2026-07-06) after noticing the same
+`creativecommons.org/licenses/...` URL repeated across image captions in a single
+post. A duplicated outbound link adds no reader value the second time and looks
+sloppy even where it isn't a real SEO penalty risk the way duplicate internal anchors are.
 
 ---
 

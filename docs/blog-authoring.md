@@ -109,6 +109,15 @@ external links are nofollow site-wide. Rank Math's external-link test still pass
 presence; honoring the "followed external link" best practice would require a code change
 in `src/components/blog/MarkdownRenderer.tsx`.
 
+**Never link the same external URL twice in one article.** This includes image-credit
+links, not just citations — if two images in the same post share a license (e.g. both
+CC BY-SA 3.0) or come from the same source page (e.g. two photos from the same record
+label's shop page), hyperlink that URL on its **first** appearance only. For every
+later occurrence, write the credit as plain text (photographer name + license name,
+no markdown link). Before adding any external link, scan the draft for that exact URL —
+if it's already there, don't add a second anchor to it. See
+`agent-mistakes-to-avoid.md` Rule 12 for worked examples.
+
 ### Images
 
 - **Always use `.webp` or `.avif` — never `.jpg` or `.png`.** Convert immediately after
@@ -119,10 +128,21 @@ in `src/components/blog/MarkdownRenderer.tsx`.
 - Aim for **at least 4 images** in/with the article (featured + 3 inline) for the media score.
 - **At least one image's ALT must contain the focus keyword.** Make every ALT genuinely
   describe the photo (don't keyword-stuff ALTs).
-- Fetch real photos from Pexels (API key is in the maintainer's notes). **Open the image
-  and confirm it actually matches the section** before using it — a "Polish alphabet" photo
-  must show letters, not a random stock shot.
-- Existing posts credit photographers in the ALT, e.g. `… — Photo by NAME on Pexels`.
+- Image sources are not limited to one provider. Use whichever fits the subject:
+  - **Wikimedia Commons** — best for real people, places, historical events, and named
+    entities (a specific castle, a specific author, a specific monument). Always check
+    the individual file's license page (not just the category), and never use official
+    logos/trademarks unless the specific file is tagged public-domain/textlogo.
+  - **Pexels / Pixabay** (API keys in the maintainer's notes) — best for generic,
+    thematic images with no specific real-world subject (a plate of food, a study desk,
+    a stack of books) where a stock photo reads as authentic rather than a stand-in.
+  - Don't default to Commons out of habit when the topic has no real photographable
+    subject — check Pexels/Pixabay too, and mix sources across an article's image set
+    rather than pulling every image from the same provider.
+  - **Open the image and confirm it actually matches the section** before using it — a
+    "Polish alphabet" photo must show letters, not a random stock shot.
+- Existing posts credit photographers in the ALT/caption, e.g. `… — Photo by NAME on
+  Pexels` or `Photo: NAME, CC BY-SA 4.0, via Wikimedia Commons`.
 
 ---
 
