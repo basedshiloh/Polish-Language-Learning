@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, FileText, MessageSquare, Link2, Network, GitFork, Megaphone, KeyRound, ShieldCheck, LogOut, ExternalLink } from 'lucide-react';
+import { LayoutDashboard, FileText, MessageSquare, Link2, Network, GitFork, Megaphone, KeyRound, ShieldCheck, Zap, LogOut, ExternalLink } from 'lucide-react';
 
 const nav = [
   { label: 'Dashboard', href: '/polaris', icon: LayoutDashboard },
@@ -14,6 +14,7 @@ const nav = [
   { label: 'Ads', href: '/polaris/ads', icon: Megaphone },
   { label: 'API Keys', href: '/polaris/api', icon: KeyRound },
   { label: 'Backups', href: '/polaris/backups', icon: ShieldCheck },
+  { label: 'IndexNow', href: '/polaris/indexnow', icon: Zap },
 ];
 
 export default function CmsShell({ children }: { children: React.ReactNode }) {

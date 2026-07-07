@@ -22,6 +22,22 @@ function revalidateBlog(slug?: string) {
   if (slug) revalidatePath(`/blog/${slug}`);
 }
 
+function submitToIndexNow(slug: string) {
+  const key = process.env.INDEXNOW_KEY;
+  if (!key) return;
+  const url = `https://www.polishpal.pl/blog/${slug}`;
+  void fetch('https://api.indexnow.org/indexnow', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    body: JSON.stringify({
+      host: 'www.polishpal.pl',
+      key,
+      keyLocation: `https://www.polishpal.pl/${key}.txt`,
+      urlList: [url],
+    }),
+  }).catch(() => {});
+}
+
 export async function POST(req: NextRequest) {
   if (!(await isAuthorizedRequest(req))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
@@ -79,6 +95,7 @@ export async function POST(req: NextRequest) {
     if (status === 'published') patch.published_at = new Date().toISOString();
     const { error } = await supabase.from('posts').update(patch).eq('id', id);
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    if (status === 'published' && slug) submitToIndexNow(slug);
     revalidateBlog(slug);
     return NextResponse.json({ ok: true });
   }
@@ -141,6 +158,7 @@ export async function POST(req: NextRequest) {
       }
       const { data, error } = await supabase.from('posts').update(row).eq('id', id).select('id, slug').single();
       if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+      if (status === 'published') submitToIndexNow(slug);
       revalidateBlog(slug);
       return NextResponse.json({ ok: true, id: data.id, slug: data.slug });
     } else {
@@ -152,6 +170,7 @@ export async function POST(req: NextRequest) {
       }
       // Backup the newly created post
       await saveBackup('auto', slug, { ...row, id: data.id }, supabase);
+      if (status === 'published') submitToIndexNow(slug);
       revalidateBlog(slug);
       return NextResponse.json({ ok: true, id: data.id, slug: data.slug });
     }
