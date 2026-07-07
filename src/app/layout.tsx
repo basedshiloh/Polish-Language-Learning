@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import LayoutShell from "@/components/layout/LayoutShell";
-import JsonLd, { websiteSchema, courseSchema } from "@/components/seo/JsonLd";
+import JsonLd, { websiteSchema, courseSchema, organizationSchema } from "@/components/seo/JsonLd";
 
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
@@ -84,6 +84,7 @@ export default function RootLayout({
             } catch(e) {}
           })();
         `}} />
+        <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
         <JsonLd data={courseSchema()} />
       </head>

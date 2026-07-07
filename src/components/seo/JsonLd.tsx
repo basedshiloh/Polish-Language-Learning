@@ -11,6 +11,22 @@ export default function JsonLd({ data }: JsonLdProps) {
   );
 }
 
+export function organizationSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'PolishPal',
+    url: 'https://www.polishpal.pl',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://www.polishpal.pl/logo.svg',
+      width: 512,
+      height: 512,
+    },
+    sameAs: ['https://www.polishpal.pl'],
+  };
+}
+
 export function websiteSchema() {
   return {
     '@context': 'https://schema.org',
@@ -83,8 +99,8 @@ export function articleSchema({
     url,
     datePublished,
     dateModified: '2026-06-20',
-    author: { '@type': 'Organization', name: 'PolishPal' },
-    publisher: { '@type': 'Organization', name: 'PolishPal' },
+    author: { '@type': 'Organization', name: 'PolishPal', url: 'https://www.polishpal.pl', logo: { '@type': 'ImageObject', url: 'https://www.polishpal.pl/logo.svg' } },
+    publisher: { '@type': 'Organization', name: 'PolishPal', url: 'https://www.polishpal.pl', logo: { '@type': 'ImageObject', url: 'https://www.polishpal.pl/logo.svg' } },
     inLanguage: ['en', 'pl'],
     isAccessibleForFree: true,
   };
