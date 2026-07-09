@@ -24,6 +24,20 @@ const typeStyles = {
 const changelog: ChangelogEntry[] = [
   {
     date: 'July 10, 2026',
+    version: '2.1.1',
+    changes: [
+      { type: 'changed', text: 'Blog list page container widened to max-w-5xl for a more spacious editorial feel' },
+      { type: 'changed', text: 'Blog list page and filtered/paginated view now have sticky left and right ad sidebars (w-[160px], visible at 2xl breakpoint) — fully managed via /polaris/ads using slot keys blog-sidebar-left and blog-sidebar-right' },
+      { type: 'changed', text: 'Blog sidebar ads positioned at 25vh offset and sticky at 30vh so they appear in the mid-screen zone rather than pinned to the top edge' },
+      { type: 'changed', text: 'Single post layout changed to 3-column: left sticky ad sidebar (post-sidebar slot) | centered max-w-2xl article | right TOC' },
+      { type: 'fixed', text: 'Single post TOC and left ad sidebar were not sticky — caused by items-start on the flex container collapsing aside height; removed items-start so asides stretch to article height' },
+      { type: 'fixed', text: 'Single post left and right sidebars were pushed to page edges because center column used flex-1 (consumed all space); changed to w-full max-w-2xl with justify-center so sidebars hug the article' },
+      { type: 'changed', text: 'Section dividers and borders throughout the blog page softened — dark mode uses gray-700/800 instead of near-white; light mode uses gray-100/200 instead of bold gray-900 lines' },
+      { type: 'changed', text: 'Category sections now show 6 posts per section (1 lead feature + 5 stacked mini-cards) for better left/right column balance' },
+    ],
+  },
+  {
+    date: 'July 10, 2026',
     version: '2.1.0',
     changes: [
       { type: 'added', text: 'IndexNow CMS page (/polaris/indexnow) — bulk-submit any combination of blog posts, lessons, grammar pages, quizzes, and static pages to Bing/Yandex/other search engines with one click' },
