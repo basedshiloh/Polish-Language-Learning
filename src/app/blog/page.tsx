@@ -212,7 +212,7 @@ export default async function BlogPage({ searchParams }: Props) {
   if (!magazine) {
     const { posts, currentPage, totalPages, activeCategory } = await getPaginatedPosts(pageNum, 9, category);
     return (
-      <div className="max-w-4xl mx-auto px-6 md:px-8 py-10">
+      <div className="max-w-5xl mx-auto px-6 md:px-8 py-10">
         <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mb-8">
           <h1 className="text-2xl font-black uppercase tracking-wide text-gray-900 dark:text-gray-100 mt-1">
             {activeCategory
@@ -261,7 +261,7 @@ export default async function BlogPage({ searchParams }: Props) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-6 md:px-8 py-8">
+    <div className="max-w-5xl mx-auto px-6 md:px-8 py-8">
 
       {/* ── Masthead ── */}
       <header className="mb-8">

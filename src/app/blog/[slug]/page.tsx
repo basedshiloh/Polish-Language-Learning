@@ -41,80 +41,91 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <div className="p-6 md:p-10">
-      <div className="flex gap-8">
-        <div className="flex-1 min-w-0 max-w-4xl">
-          <Link
-            href="/blog"
-            className="no-print inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 mb-6 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Blog
-          </Link>
+      <div className="flex gap-8 xl:gap-10 items-start">
 
-          <div className="mb-2">
-            <span className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${cat.bg} ${cat.text} ${cat.darkBg} ${cat.darkText}`}>
-              {cat.label}
-            </span>
+        {/* ── Left sticky ad sidebar ── */}
+        <aside className="hidden xl:block w-56 shrink-0">
+          <div className="sticky top-20">
+            <AdSlot slot={ads['post-sidebar']} />
           </div>
+        </aside>
 
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mt-3">
-            {post.title}
-          </h1>
+        {/* ── Main article — narrowed and centered ── */}
+        <div className="flex-1 min-w-0">
+          <div className="max-w-2xl mx-auto">
+            <Link
+              href="/blog"
+              className="no-print inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 mb-6 transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Blog
+            </Link>
 
-          <AuthorBox
-            author={post.author}
-            date={post.date}
-            readingTime={post.readingTime}
-            updatedDate={post.updatedDate}
-          />
-
-          <Image
-            src={post.featuredImage}
-            alt={post.featuredImageAlt}
-            width={896}
-            height={448}
-            priority
-            fetchPriority="high"
-            className="w-full h-auto rounded-2xl my-6"
-            sizes="(max-width: 1024px) 100vw, 896px"
-          />
-
-          <SummaryBox items={post.summary} />
-
-          <AdSlot slot={ads['post-before-content']} />
-
-          <article>
-            {intro ? (
-              <>
-                <MarkdownRenderer content={intro} />
-                <MobileToc items={headings} />
-                <MarkdownRenderer content={rest} />
-              </>
-            ) : (
-              <MarkdownRenderer content={rest} />
-            )}
-          </article>
-
-          <AdSlot slot={ads['post-after-content']} />
-
-          {post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
-              {post.tags.map((tag) => (
-                <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
-                  #{tag}
-                </span>
-              ))}
+            <div className="mb-2">
+              <span className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${cat.bg} ${cat.text} ${cat.darkBg} ${cat.darkText}`}>
+                {cat.label}
+              </span>
             </div>
-          )}
 
-          <RelatedPosts posts={related} />
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mt-3">
+              {post.title}
+            </h1>
 
-          <CommentSection pageId={`blog-${post.slug}`} pageType="blog" />
+            <AuthorBox
+              author={post.author}
+              date={post.date}
+              readingTime={post.readingTime}
+              updatedDate={post.updatedDate}
+            />
+
+            <Image
+              src={post.featuredImage}
+              alt={post.featuredImageAlt}
+              width={672}
+              height={378}
+              priority
+              fetchPriority="high"
+              className="w-full h-auto rounded-2xl my-6"
+              sizes="(max-width: 1280px) 100vw, 672px"
+            />
+
+            <SummaryBox items={post.summary} />
+
+            <AdSlot slot={ads['post-before-content']} />
+
+            <article>
+              {intro ? (
+                <>
+                  <MarkdownRenderer content={intro} />
+                  <MobileToc items={headings} />
+                  <MarkdownRenderer content={rest} />
+                </>
+              ) : (
+                <MarkdownRenderer content={rest} />
+              )}
+            </article>
+
+            <AdSlot slot={ads['post-after-content']} />
+
+            {post.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
+                {post.tags.map((tag) => (
+                  <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <RelatedPosts posts={related} />
+
+            <CommentSection pageId={`blog-${post.slug}`} pageType="blog" />
+          </div>
         </div>
 
-        <TableOfContents items={headings}>
-          <AdSlot slot={ads['post-sidebar']} />
-        </TableOfContents>
+        {/* ── Right TOC ── */}
+        <TableOfContents items={headings} />
+
       </div>
     </div>
   );
