@@ -221,8 +221,8 @@ function SidebarAdBox({ slot }: { slot: Parameters<typeof AdSlot>[0]['slot'] }) 
 
 function BlogSidebar({ slot }: { slot: Parameters<typeof AdSlot>[0]['slot'] }) {
   return (
-    <aside className="hidden 2xl:block w-[160px] shrink-0">
-      <div className="sticky top-20">
+    <aside className="hidden 2xl:block w-[160px] shrink-0 pt-[25vh]">
+      <div className="sticky top-[30vh]">
         <SidebarAdBox slot={slot} />
       </div>
     </aside>
