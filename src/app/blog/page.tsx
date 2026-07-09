@@ -201,6 +201,34 @@ function CategorySection({ catKey, posts }: { catKey: BlogCategory; posts: Post[
   );
 }
 
+// ── Sidebar ad placeholder (shows when no slot configured in CMS) ─────────────
+
+function SidebarAdBox({ slot }: { slot: Parameters<typeof AdSlot>[0]['slot'] }) {
+  if (slot?.enabled) return <AdSlot slot={slot} />;
+  return (
+    <Link
+      href="/contact#advertise"
+      className="flex flex-col items-center justify-center gap-1.5 rounded-xl border-2 border-dashed border-gray-100 dark:border-gray-800 bg-gray-50/40 dark:bg-gray-900/30 p-4 text-center transition-colors hover:border-blue-200 dark:hover:border-blue-800"
+      style={{ minHeight: 200 }}
+    >
+      <span className="text-xs font-medium text-gray-300 dark:text-gray-600">Ad Space</span>
+      <span className="text-[10px] text-gray-300 dark:text-gray-700">Advertise here</span>
+    </Link>
+  );
+}
+
+// ── Shared page sidebar ───────────────────────────────────────────────────────
+
+function BlogSidebar({ slot }: { slot: Parameters<typeof AdSlot>[0]['slot'] }) {
+  return (
+    <aside className="hidden 2xl:block w-[160px] shrink-0">
+      <div className="sticky top-20">
+        <SidebarAdBox slot={slot} />
+      </div>
+    </aside>
+  );
+}
+
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 export default async function BlogPage({ searchParams }: Props) {
@@ -211,40 +239,48 @@ export default async function BlogPage({ searchParams }: Props) {
   // ── Filtered / paginated view ─────────────────────────────────────────────
   if (!magazine) {
     const { posts, currentPage, totalPages, activeCategory } = await getPaginatedPosts(pageNum, 9, category);
+    const ads = await getAdSlots(['blog-sidebar-left', 'blog-sidebar-right']);
     return (
-      <div className="max-w-5xl mx-auto px-6 md:px-8 py-10">
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mb-8">
-          <h1 className="text-2xl font-black uppercase tracking-wide text-gray-900 dark:text-gray-100 mt-1">
-            {activeCategory
-              ? (blogCategoryStyles[activeCategory as BlogCategory]?.label ?? 'Blog')
-              : 'All Articles'}
-          </h1>
-          <Link href="/blog" className="text-xs text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors mt-1 inline-block">
-            ← Back to front page
-          </Link>
-        </div>
-        <CategoryFilters activeCategory={activeCategory} />
-        {posts.length > 0 ? (
-          <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {posts.map((post) => <BlogCard key={post.slug} post={post} />)}
-            </div>
-            <BlogPagination currentPage={currentPage} totalPages={totalPages} category={activeCategory} />
-          </>
-        ) : (
-          <div className="text-center py-16">
-            <p className="text-gray-400 dark:text-gray-500 mb-3">No posts in this category yet.</p>
-            <Link href="/blog" className="text-sm font-semibold text-blue-600 hover:underline">
-              View all posts →
+      <div className="flex gap-6 2xl:gap-8 justify-center py-10">
+        <BlogSidebar slot={ads['blog-sidebar-left']} />
+        <div className="w-full max-w-5xl min-w-0 px-6 md:px-8">
+          <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mb-8">
+            <h1 className="text-2xl font-black uppercase tracking-wide text-gray-900 dark:text-gray-100 mt-1">
+              {activeCategory
+                ? (blogCategoryStyles[activeCategory as BlogCategory]?.label ?? 'Blog')
+                : 'All Articles'}
+            </h1>
+            <Link href="/blog" className="text-xs text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors mt-1 inline-block">
+              ← Back to front page
             </Link>
           </div>
-        )}
+          <CategoryFilters activeCategory={activeCategory} />
+          {posts.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {posts.map((post) => <BlogCard key={post.slug} post={post} />)}
+              </div>
+              <BlogPagination currentPage={currentPage} totalPages={totalPages} category={activeCategory} />
+            </>
+          ) : (
+            <div className="text-center py-16">
+              <p className="text-gray-400 dark:text-gray-500 mb-3">No posts in this category yet.</p>
+              <Link href="/blog" className="text-sm font-semibold text-blue-600 hover:underline">
+                View all posts →
+              </Link>
+            </div>
+          )}
+        </div>
+        <BlogSidebar slot={ads['blog-sidebar-right']} />
       </div>
     );
   }
 
   // ── Magazine front page ───────────────────────────────────────────────────
-  const [all, ads] = await Promise.all([getPublishedPosts(), getAdSlots(['blog-top'])]);
+  const [all, ads] = await Promise.all([
+    getPublishedPosts(),
+    getAdSlots(['blog-top', 'blog-sidebar-left', 'blog-sidebar-right']),
+  ]);
 
   const hero = all[0];
   const moreStories = all.slice(1, 6);
@@ -261,70 +297,77 @@ export default async function BlogPage({ searchParams }: Props) {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-6 md:px-8 py-8">
+    <div className="flex gap-6 2xl:gap-8 justify-center py-8">
+      <BlogSidebar slot={ads['blog-sidebar-left']} />
 
-      {/* ── Masthead ── */}
-      <header className="mb-8">
-        <div className="flex items-end justify-between gap-4 pt-2">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-gray-900 dark:text-gray-100 leading-none">
-            The PolishPal<br />
-            <span className="text-blue-600 dark:text-blue-400">Blog</span>
-          </h1>
-          <p className="hidden md:block text-[10px] text-gray-400 dark:text-gray-500 uppercase tracking-widest text-right shrink-0 pb-1">
-            {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
-          </p>
-        </div>
-        <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-600 mt-3 pb-4 border-b border-gray-100 dark:border-gray-800">
-          Tips &nbsp;·&nbsp; Deep Dives &nbsp;·&nbsp; Culture &nbsp;·&nbsp; Stories
-        </p>
-      </header>
+      {/* ── Main content ── */}
+      <div className="w-full max-w-5xl min-w-0 px-6 md:px-8">
 
-      <CategoryFilters />
-
-      {!hero ? (
-        <p className="text-center py-16 text-gray-400 dark:text-gray-500">No posts yet. Check back soon!</p>
-      ) : (
-        <>
-          {/* ── Hero: big feature + More Stories list ── */}
-          <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-8 lg:gap-12 mb-12 pb-12 border-b border-gray-100 dark:border-gray-800">
-            <HeroFeature post={hero} />
-            <div className="hidden lg:block">
-              <MoreStoriesList posts={moreStories} />
-            </div>
-
-            {/* Mobile: compact story list below hero */}
-            <div className="lg:hidden divide-y divide-gray-100 dark:divide-gray-800">
-              {moreStories.slice(0, 3).map((p) => (
-                <Link key={p.slug} href={`/blog/${p.slug}`} className="group flex gap-3 py-3 first:pt-0">
-                  <div className="relative w-20 h-14 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
-                    <Image
-                      src={p.featuredImage}
-                      alt={p.featuredImageAlt}
-                      fill
-                      className="object-cover"
-                      sizes="80px"
-                    />
-                  </div>
-                  <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 leading-snug line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                    {p.title}
-                  </p>
-                </Link>
-              ))}
-            </div>
+        {/* ── Masthead ── */}
+        <header className="mb-8">
+          <div className="flex items-end justify-between gap-4 pt-2">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-gray-900 dark:text-gray-100 leading-none">
+              The PolishPal<br />
+              <span className="text-blue-600 dark:text-blue-400">Blog</span>
+            </h1>
+            <p className="hidden md:block text-[10px] text-gray-400 dark:text-gray-500 uppercase tracking-widest text-right shrink-0 pb-1">
+              {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
+            </p>
           </div>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-600 mt-3 pb-4 border-b border-gray-100 dark:border-gray-800">
+            Tips &nbsp;·&nbsp; Deep Dives &nbsp;·&nbsp; Culture &nbsp;·&nbsp; Stories
+          </p>
+        </header>
 
-          {/* ── Ad banner ── */}
-          <AdSlot slot={ads['blog-top']} />
+        <CategoryFilters />
 
-          {/* ── Culture Picks slider ── */}
-          <CultureSlider posts={culturePosts} />
+        {!hero ? (
+          <p className="text-center py-16 text-gray-400 dark:text-gray-500">No posts yet. Check back soon!</p>
+        ) : (
+          <>
+            {/* ── Hero: big feature + More Stories list ── */}
+            <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-8 lg:gap-12 mb-12 pb-12 border-b border-gray-100 dark:border-gray-800">
+              <HeroFeature post={hero} />
+              <div className="hidden lg:block">
+                <MoreStoriesList posts={moreStories} />
+              </div>
 
-          {/* ── Category sections ── */}
-          {catOrder.map((key) => (
-            <CategorySection key={key} catKey={key} posts={byCategory[key] ?? []} />
-          ))}
-        </>
-      )}
+              {/* Mobile: compact story list below hero */}
+              <div className="lg:hidden divide-y divide-gray-100 dark:divide-gray-800">
+                {moreStories.slice(0, 3).map((p) => (
+                  <Link key={p.slug} href={`/blog/${p.slug}`} className="group flex gap-3 py-3 first:pt-0">
+                    <div className="relative w-20 h-14 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
+                      <Image
+                        src={p.featuredImage}
+                        alt={p.featuredImageAlt}
+                        fill
+                        className="object-cover"
+                        sizes="80px"
+                      />
+                    </div>
+                    <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 leading-snug line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      {p.title}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* ── Ad banner ── */}
+            <AdSlot slot={ads['blog-top']} />
+
+            {/* ── Culture Picks slider ── */}
+            <CultureSlider posts={culturePosts} />
+
+            {/* ── Category sections ── */}
+            {catOrder.map((key) => (
+              <CategorySection key={key} catKey={key} posts={byCategory[key] ?? []} />
+            ))}
+          </>
+        )}
+      </div>
+
+      <BlogSidebar slot={ads['blog-sidebar-right']} />
     </div>
   );
 }

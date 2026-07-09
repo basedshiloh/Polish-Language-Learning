@@ -41,7 +41,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <div className="p-6 md:p-10">
-      <div className="flex gap-8 xl:gap-10 items-start">
+      <div className="flex gap-8 xl:gap-10 justify-center">
 
         {/* ── Left sticky ad sidebar ── */}
         <aside className="hidden xl:block w-56 shrink-0">
@@ -50,9 +50,8 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </aside>
 
-        {/* ── Main article — narrowed and centered ── */}
-        <div className="flex-1 min-w-0">
-          <div className="max-w-2xl mx-auto">
+        {/* ── Main article — hugs both sidebars ── */}
+        <div className="w-full max-w-2xl min-w-0">
             <Link
               href="/blog"
               className="no-print inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 mb-6 transition-colors"
@@ -120,7 +119,6 @@ export default async function BlogPostPage({ params }: Props) {
             <RelatedPosts posts={related} />
 
             <CommentSection pageId={`blog-${post.slug}`} pageType="blog" />
-          </div>
         </div>
 
         {/* ── Right TOC ── */}
