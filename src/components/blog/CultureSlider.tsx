@@ -23,7 +23,7 @@ export default function CultureSlider({ posts }: { posts: Post[] }) {
 
   return (
     <section
-      className="-mx-6 md:-mx-10 px-6 md:px-10 py-10 my-10"
+      className="-mx-6 md:-mx-8 px-6 md:px-8 py-10 my-10 rounded-2xl"
       style={{ background: '#242EF7' }}
     >
       {/* Header row */}

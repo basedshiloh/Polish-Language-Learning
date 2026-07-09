@@ -25,10 +25,10 @@ function CategoryFilters({ activeCategory }: { activeCategory?: string }) {
     <div className="flex flex-wrap gap-2 mb-8">
       <Link
         href="/blog"
-        className={`px-3 py-1.5 text-sm rounded-xl transition-colors ${
+        className={`px-3 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-lg border transition-colors ${
           !activeCategory
-            ? 'bg-blue-600 text-white font-medium'
-            : 'text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800'
+            ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 border-gray-900 dark:border-gray-100'
+            : 'text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-gray-500 dark:hover:border-gray-500'
         }`}
       >
         All
@@ -37,10 +37,10 @@ function CategoryFilters({ activeCategory }: { activeCategory?: string }) {
         <Link
           key={key}
           href={`/blog?category=${key}`}
-          className={`px-3 py-1.5 text-sm rounded-xl transition-colors ${
+          className={`px-3 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-lg border transition-colors ${
             activeCategory === key
-              ? 'bg-blue-600 text-white font-medium'
-              : `${style.bg} ${style.text} ${style.darkBg} ${style.darkText} hover:opacity-80`
+              ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 border-gray-900 dark:border-gray-100'
+              : 'text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-gray-500 dark:hover:border-gray-500'
           }`}
         >
           {style.label}
@@ -50,145 +50,179 @@ function CategoryFilters({ activeCategory }: { activeCategory?: string }) {
   );
 }
 
-// ── Newspaper sub-components ─────────────────────────────────────────────────
+// ── Hero feature ──────────────────────────────────────────────────────────────
 
-function RecentList({ posts }: { posts: Post[] }) {
+function HeroFeature({ post }: { post: Post }) {
+  const cat = blogCategoryStyles[post.category];
   return (
-    <aside className="hidden lg:block">
-      <h3 className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3 pb-2 border-b border-gray-200 dark:border-gray-800">
-        Recent Posts
-      </h3>
+    <Link href={`/blog/${post.slug}`} className="group block">
+      <div className="relative aspect-[3/2] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-5">
+        <Image
+          src={post.featuredImage}
+          alt={post.featuredImageAlt}
+          fill
+          priority
+          className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+          sizes="(max-width: 768px) 100vw, 55vw"
+        />
+      </div>
+      <span className={`text-[10px] font-black uppercase tracking-widest ${cat.text} ${cat.darkText}`}>
+        {cat.label}
+      </span>
+      <h2 className="mt-1.5 text-2xl md:text-3xl lg:text-[2.2rem] font-black text-gray-900 dark:text-gray-100 leading-tight tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-3">
+        {post.title}
+      </h2>
+      <p className="text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-3 mb-4 text-[15px]">
+        {post.excerpt}
+      </p>
+      <p className="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1.5">
+        <span className="font-semibold text-gray-600 dark:text-gray-300">{post.author.name}</span>
+        <span>·</span>
+        <span>{fmtDate(post.date)}</span>
+        <span>·</span>
+        <Clock className="w-3 h-3" />
+        <span>{post.readingTime} min</span>
+      </p>
+    </Link>
+  );
+}
+
+// ── More Stories list (Atlantic-style — no thumbnails, pure text) ─────────────
+
+function MoreStoriesList({ posts }: { posts: Post[] }) {
+  return (
+    <aside>
+      <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500 pb-3 mb-1 border-b-2 border-gray-900 dark:border-gray-100">
+        More Stories
+      </p>
       <ol className="divide-y divide-gray-100 dark:divide-gray-800">
-        {posts.map((p, i) => (
-          <li key={p.slug} className="py-3 first:pt-0">
-            <Link href={`/blog/${p.slug}`} className="group block">
-              <span className="text-[10px] font-bold text-blue-600 dark:text-blue-500 mr-1">{String(i + 1).padStart(2, '0')}</span>
-              <p className="text-sm font-medium text-gray-800 dark:text-gray-200 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 mt-0.5">
-                {p.title}
-              </p>
-              <p className="text-[11px] text-gray-400 dark:text-gray-500 mt-1 flex items-center gap-1">
-                <Clock className="w-2.5 h-2.5" /> {p.readingTime} min · {fmtDate(p.date)}
-              </p>
-            </Link>
-          </li>
-        ))}
+        {posts.map((p, i) => {
+          const cat = blogCategoryStyles[p.category];
+          return (
+            <li key={p.slug}>
+              <Link href={`/blog/${p.slug}`} className="group flex gap-3 py-4">
+                <span className="text-xs font-black text-blue-600 dark:text-blue-500 tabular-nums w-5 shrink-0 pt-0.5 leading-none">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div className="min-w-0">
+                  <p className="text-sm font-bold text-gray-900 dark:text-gray-100 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 mb-1.5">
+                    {p.title}
+                  </p>
+                  <p className={`text-[10px] font-bold uppercase tracking-wider ${cat.text} ${cat.darkText}`}>
+                    {cat.label}
+                    <span className="text-gray-400 dark:text-gray-600 font-normal normal-case tracking-normal"> · {fmtDate(p.date)}</span>
+                  </p>
+                </div>
+              </Link>
+            </li>
+          );
+        })}
       </ol>
     </aside>
   );
 }
 
-function HeroStory({ post }: { post: Post }) {
-  const cat = blogCategoryStyles[post.category];
-  return (
-    <article className="lg:border-x lg:border-gray-200 lg:dark:border-gray-800 lg:px-6">
-      <Link href={`/blog/${post.slug}`} className="group block">
-        <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-4">
-          <Image
-            src={post.featuredImage}
-            alt={post.featuredImageAlt}
-            fill
-            priority
-            className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
-            sizes="(max-width: 1024px) 100vw, 50vw"
-          />
-        </div>
-        <div className="flex items-center gap-2 mb-2">
-          <span className={`text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${cat.bg} ${cat.text} ${cat.darkBg} ${cat.darkText}`}>
-            {cat.label}
-          </span>
-          <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-            Editor&apos;s Pick
-          </span>
-        </div>
-        <h2 className="text-2xl md:text-3xl font-black text-gray-900 dark:text-gray-100 leading-tight tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">
-          {post.title}
-        </h2>
-        <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed line-clamp-3 mb-3">
-          {post.excerpt}
-        </p>
-        <p className="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1">
-          <span className="font-medium text-gray-600 dark:text-gray-300">{post.author.name}</span>
-          <span>·</span>
-          <span>{fmtDate(post.date)}</span>
-          <span>·</span>
-          <Clock className="w-3 h-3" />
-          <span>{post.readingTime} min read</span>
-        </p>
-      </Link>
-    </article>
-  );
-}
-
-function SideStories({ posts }: { posts: Post[] }) {
-  return (
-    <aside className="divide-y divide-gray-100 dark:divide-gray-800">
-      {posts.map((p) => (
-        <Link key={p.slug} href={`/blog/${p.slug}`} className="group flex gap-3 py-3 first:pt-0">
-          <div className="relative w-20 h-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
-            <Image src={p.featuredImage} alt={p.featuredImageAlt} fill className="object-cover group-hover:scale-105 transition-transform duration-300" sizes="80px" />
-          </div>
-          <div className="min-w-0">
-            <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 leading-snug line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-1">
-              {p.title}
-            </p>
-            <p className="text-[11px] text-gray-400 dark:text-gray-500 flex items-center gap-1">
-              <Clock className="w-2.5 h-2.5" /> {p.readingTime} min · {fmtDate(p.date)}
-            </p>
-          </div>
-        </Link>
-      ))}
-    </aside>
-  );
-}
+// ── Category section (Atlantic: lead feature + stacked mini list) ──────────────
 
 function CategorySection({ catKey, posts }: { catKey: BlogCategory; posts: Post[] }) {
+  if (posts.length === 0) return null;
   const style = blogCategoryStyles[catKey];
+  const [lead, ...rest] = posts;
+  const sideItems = rest.slice(0, 3);
+
   return (
-    <section className="mb-12">
-      <div className="flex items-center justify-between mb-5">
-        <h2 className="text-base font-black uppercase tracking-wider text-gray-900 dark:text-gray-100 pb-1 border-b-2 border-gray-200 dark:border-gray-700 pr-4">
+    <section className="mb-14">
+      {/* Atlantic-style thick rule header */}
+      <div className="flex items-center justify-between border-t-2 border-gray-900 dark:border-gray-100 pt-3 mb-6">
+        <h2 className={`text-[10px] font-black uppercase tracking-widest ${style.text} ${style.darkText}`}>
           {style.label}
         </h2>
-        {posts.length > 0 && (
-          <Link
-            href={`/blog?category=${catKey}`}
-            className={`text-xs font-medium ${style.text} ${style.darkText} hover:underline`}
-          >
-            All {style.label} →
-          </Link>
+        <Link
+          href={`/blog?category=${catKey}`}
+          className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+        >
+          See all →
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        {/* Lead feature card */}
+        <Link href={`/blog/${lead.slug}`} className="group block">
+          <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-4">
+            <Image
+              src={lead.featuredImage}
+              alt={lead.featuredImageAlt}
+              fill
+              className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+              sizes="(max-width: 768px) 100vw, 40vw"
+            />
+          </div>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2 line-clamp-2">
+            {lead.title}
+          </h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-2 leading-relaxed">
+            {lead.excerpt}
+          </p>
+          <p className="text-xs text-gray-400 dark:text-gray-500">
+            {lead.author.name} · {fmtDate(lead.date)} · {lead.readingTime} min read
+          </p>
+        </Link>
+
+        {/* Stacked mini-cards */}
+        {sideItems.length > 0 && (
+          <div className="divide-y divide-gray-100 dark:divide-gray-800">
+            {sideItems.map((p) => (
+              <Link key={p.slug} href={`/blog/${p.slug}`} className="group flex gap-4 py-4 first:pt-0 last:pb-0">
+                <div
+                  className="relative shrink-0 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800"
+                  style={{ width: 88, height: 66 }}
+                >
+                  <Image
+                    src={p.featuredImage}
+                    alt={p.featuredImageAlt}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    sizes="88px"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h4 className="text-sm font-bold text-gray-900 dark:text-gray-100 leading-snug line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-1.5">
+                    {p.title}
+                  </h4>
+                  <p className="text-xs text-gray-400 dark:text-gray-500">
+                    {fmtDate(p.date)} · {p.readingTime} min
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
         )}
       </div>
-      {posts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {posts.slice(0, 3).map((p) => <BlogCard key={p.slug} post={p} />)}
-        </div>
-      ) : (
-        <div className={`rounded-xl border-2 border-dashed p-8 text-center ${style.bg} ${style.darkBg}`}>
-          <p className={`text-sm font-semibold ${style.text} ${style.darkText} mb-1`}>Coming soon</p>
-          <p className="text-xs text-gray-400 dark:text-gray-500">
-            No posts in this category yet — check back soon.
-          </p>
-        </div>
-      )}
     </section>
   );
 }
 
-// ── Page ─────────────────────────────────────────────────────────────────────
+// ── Page ──────────────────────────────────────────────────────────────────────
 
 export default async function BlogPage({ searchParams }: Props) {
   const { page, category } = await searchParams;
   const pageNum = Math.max(1, parseInt(page || '1', 10) || 1);
   const magazine = pageNum === 1 && !category;
 
-  // ── Category / paginated view ─────────────────────────────────────────────
+  // ── Filtered / paginated view ─────────────────────────────────────────────
   if (!magazine) {
     const { posts, currentPage, totalPages, activeCategory } = await getPaginatedPosts(pageNum, 9, category);
     return (
-      <div className="p-6 md:p-10">
-        <div className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">Blog</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">Tips, deep dives, and stories about learning Polish.</p>
+      <div className="max-w-4xl mx-auto px-6 md:px-8 py-10">
+        <div className="border-t-2 border-gray-900 dark:border-gray-100 pt-4 mb-8">
+          <h1 className="text-2xl font-black uppercase tracking-wide text-gray-900 dark:text-gray-100 mt-1">
+            {activeCategory
+              ? (blogCategoryStyles[activeCategory as BlogCategory]?.label ?? 'Blog')
+              : 'All Articles'}
+          </h1>
+          <Link href="/blog" className="text-xs text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors mt-1 inline-block">
+            ← Back to front page
+          </Link>
         </div>
         <CategoryFilters activeCategory={activeCategory} />
         {posts.length > 0 ? (
@@ -199,87 +233,82 @@ export default async function BlogPage({ searchParams }: Props) {
             <BlogPagination currentPage={currentPage} totalPages={totalPages} category={activeCategory} />
           </>
         ) : (
-          <div className="text-center py-12">
-            <p className="text-gray-400 dark:text-gray-500">No posts in this category yet.</p>
-            <Link href="/blog" className="text-sm text-blue-600 hover:underline mt-2 inline-block">View all posts</Link>
+          <div className="text-center py-16">
+            <p className="text-gray-400 dark:text-gray-500 mb-3">No posts in this category yet.</p>
+            <Link href="/blog" className="text-sm font-semibold text-blue-600 hover:underline">
+              View all posts →
+            </Link>
           </div>
         )}
       </div>
     );
   }
 
-  // ── Magazine front page ──────────────────────────────────────────────────
-  const [all, ads] = await Promise.all([getPublishedPosts(), getAdSlots(['blog-top', 'blog-hero-sidebar'])]);
+  // ── Magazine front page ───────────────────────────────────────────────────
+  const [all, ads] = await Promise.all([getPublishedPosts(), getAdSlots(['blog-top'])]);
 
   const hero = all[0];
-  const sideStories = all.slice(1, 4);          // right column: 3 stories
-  const recentList = all.slice(0, 6);            // left column: top 6 (including hero)
+  const moreStories = all.slice(1, 6);
   const culturePosts = all.filter((p) => p.categories.includes('culture'));
 
-  // Build category sections from ALL categories on each post so multi-category posts
-  // (e.g. ['culture','arts']) appear in every relevant section.
-  // 'culture' is intentionally excluded from catOrder — it's covered by the slider.
   const catOrder: BlogCategory[] = ['grammar-deep-dive', 'learning-tips', 'music', 'memes-pop-culture', 'arts', 'vocabulary', 'pronunciation'];
   const byCategory: Partial<Record<BlogCategory, Post[]>> = {};
   for (const p of all) {
     for (const cat of p.categories) {
-      if (cat === 'culture') continue; // handled by slider
+      if (cat === 'culture') continue;
       if (!byCategory[cat as BlogCategory]) byCategory[cat as BlogCategory] = [];
       byCategory[cat as BlogCategory]!.push(p);
     }
   }
 
   return (
-    <div className="p-6 md:p-10">
+    <div className="max-w-4xl mx-auto px-6 md:px-8 py-8">
+
       {/* ── Masthead ── */}
-      <div className="mb-6">
-        <div className="flex items-end justify-between pb-3 border-b-2 border-gray-200 dark:border-gray-700">
-          <div>
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-gray-900 dark:text-gray-100 leading-none">
-              The PolishPal Blog
-            </h1>
-            <p className="text-xs text-gray-400 dark:text-gray-500 mt-1 uppercase tracking-widest">
-              Tips, deep dives &amp; stories about learning Polish
-            </p>
-          </div>
-          <p className="hidden sm:block text-xs text-gray-400 dark:text-gray-500 text-right shrink-0 ml-4 pb-1">
-            {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+      <header className="mb-8">
+        <div className="border-t-4 border-gray-900 dark:border-gray-100 pt-5 flex items-end justify-between gap-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-gray-900 dark:text-gray-100 leading-none">
+            The PolishPal<br />
+            <span className="text-blue-600 dark:text-blue-400">Blog</span>
+          </h1>
+          <p className="hidden md:block text-[10px] text-gray-400 dark:text-gray-500 uppercase tracking-widest text-right shrink-0 pb-1">
+            {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
           </p>
         </div>
-        <div className="flex gap-0.5 mt-0.5">
-          <div className="h-0.5 flex-1 bg-gray-200 dark:bg-gray-700" />
-          <div className="h-0.5 flex-1 bg-gray-100 dark:bg-gray-800" />
-        </div>
-      </div>
+        <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-600 mt-3 pb-4 border-b border-gray-200 dark:border-gray-800">
+          Tips &nbsp;·&nbsp; Deep Dives &nbsp;·&nbsp; Culture &nbsp;·&nbsp; Stories
+        </p>
+      </header>
 
       <CategoryFilters />
 
       {!hero ? (
-        <p className="text-center py-12 text-gray-400 dark:text-gray-500">No posts yet. Check back soon!</p>
+        <p className="text-center py-16 text-gray-400 dark:text-gray-500">No posts yet. Check back soon!</p>
       ) : (
         <>
-          {/* ── 3-column newspaper grid ── */}
-          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)_minmax(0,1fr)] gap-6 mb-10 pb-10 border-b border-gray-200 dark:border-gray-800">
-            <RecentList posts={recentList} />
-            <HeroStory post={hero} />
-            <div className="hidden lg:flex flex-col gap-4">
-              <SideStories posts={sideStories} />
-              <AdSlot slot={ads['blog-hero-sidebar']} />
+          {/* ── Hero: big feature + More Stories list ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-8 lg:gap-12 mb-12 pb-12 border-b border-gray-200 dark:border-gray-800">
+            <HeroFeature post={hero} />
+            <div className="hidden lg:block">
+              <MoreStoriesList posts={moreStories} />
             </div>
 
-            {/* Mobile: show side stories below hero */}
-            <div className="lg:hidden col-span-1 divide-y divide-gray-100 dark:divide-gray-800">
-              {sideStories.map((p) => (
+            {/* Mobile: compact story list below hero */}
+            <div className="lg:hidden divide-y divide-gray-100 dark:divide-gray-800">
+              {moreStories.slice(0, 3).map((p) => (
                 <Link key={p.slug} href={`/blog/${p.slug}`} className="group flex gap-3 py-3 first:pt-0">
-                  <div className="relative w-20 h-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
-                    <Image src={p.featuredImage} alt={p.featuredImageAlt} fill className="object-cover" sizes="80px" />
+                  <div className="relative w-20 h-14 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
+                    <Image
+                      src={p.featuredImage}
+                      alt={p.featuredImageAlt}
+                      fill
+                      className="object-cover"
+                      sizes="80px"
+                    />
                   </div>
-                  <div className="min-w-0">
-                    <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 leading-snug line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                      {p.title}
-                    </p>
-                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">{fmtDate(p.date)}</p>
-                  </div>
+                  <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 leading-snug line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    {p.title}
+                  </p>
                 </Link>
               ))}
             </div>
@@ -288,7 +317,7 @@ export default async function BlogPage({ searchParams }: Props) {
           {/* ── Ad banner ── */}
           <AdSlot slot={ads['blog-top']} />
 
-          {/* ── Culture Picks slider (all culture posts, auto) ── */}
+          {/* ── Culture Picks slider ── */}
           <CultureSlider posts={culturePosts} />
 
           {/* ── Category sections ── */}

@@ -23,6 +23,18 @@ const typeStyles = {
 
 const changelog: ChangelogEntry[] = [
   {
+    date: 'July 10, 2026',
+    version: '2.1.0',
+    changes: [
+      { type: 'added', text: 'IndexNow CMS page (/polaris/indexnow) — bulk-submit any combination of blog posts, lessons, grammar pages, quizzes, and static pages to Bing/Yandex/other search engines with one click' },
+      { type: 'added', text: 'IndexNow auto-submit on publish — when a post is saved as published or toggled to published, its URL is automatically submitted to IndexNow in the background' },
+      { type: 'added', text: 'IndexNow key file hosted at /c1c02929ad4d4c7ba63a4561cc5e83b5.txt for domain ownership verification' },
+      { type: 'changed', text: 'Blog page redesigned with Atlantic/every.to-inspired editorial layout — compact max-width container (max-w-4xl), left/right breathing margins, bold masthead, 2-column hero with numbered "More Stories" list, Atlantic-style thick-rule section headers per category, and lead feature + stacked mini-card layout for each category section' },
+      { type: 'changed', text: 'Category filter pills updated to minimal black border / filled style matching editorial aesthetic' },
+      { type: 'changed', text: 'Culture Picks slider now contained within the max-width grid with rounded corners rather than full-width bleeding' },
+    ],
+  },
+  {
     date: 'July 6, 2026',
     version: '2.0.1',
     changes: [
