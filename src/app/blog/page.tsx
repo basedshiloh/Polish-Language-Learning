@@ -92,7 +92,7 @@ function HeroFeature({ post }: { post: Post }) {
 function MoreStoriesList({ posts }: { posts: Post[] }) {
   return (
     <aside>
-      <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500 pb-3 mb-1 border-b-2 border-gray-900 dark:border-gray-100">
+      <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500 pb-3 mb-1 border-b border-gray-200 dark:border-gray-700">
         More Stories
       </p>
       <ol className="divide-y divide-gray-100 dark:divide-gray-800">
@@ -128,12 +128,11 @@ function CategorySection({ catKey, posts }: { catKey: BlogCategory; posts: Post[
   if (posts.length === 0) return null;
   const style = blogCategoryStyles[catKey];
   const [lead, ...rest] = posts;
-  const sideItems = rest.slice(0, 3);
+  const sideItems = rest.slice(0, 4);
 
   return (
     <section className="mb-14">
-      {/* Atlantic-style thick rule header */}
-      <div className="flex items-center justify-between border-t-2 border-gray-900 dark:border-gray-100 pt-3 mb-6">
+      <div className="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-3 mb-6">
         <h2 className={`text-[10px] font-black uppercase tracking-widest ${style.text} ${style.darkText}`}>
           {style.label}
         </h2>
@@ -213,8 +212,8 @@ export default async function BlogPage({ searchParams }: Props) {
   if (!magazine) {
     const { posts, currentPage, totalPages, activeCategory } = await getPaginatedPosts(pageNum, 9, category);
     return (
-      <div className="max-w-4xl mx-auto px-6 md:px-8 py-10">
-        <div className="border-t-2 border-gray-900 dark:border-gray-100 pt-4 mb-8">
+      <div className="max-w-6xl mx-auto px-6 md:px-8 py-10">
+        <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mb-8">
           <h1 className="text-2xl font-black uppercase tracking-wide text-gray-900 dark:text-gray-100 mt-1">
             {activeCategory
               ? (blogCategoryStyles[activeCategory as BlogCategory]?.label ?? 'Blog')
@@ -262,11 +261,11 @@ export default async function BlogPage({ searchParams }: Props) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-6 md:px-8 py-8">
+    <div className="max-w-6xl mx-auto px-6 md:px-8 py-8">
 
       {/* ── Masthead ── */}
       <header className="mb-8">
-        <div className="border-t-4 border-gray-900 dark:border-gray-100 pt-5 flex items-end justify-between gap-4">
+        <div className="flex items-end justify-between gap-4 pt-2">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-gray-900 dark:text-gray-100 leading-none">
             The PolishPal<br />
             <span className="text-blue-600 dark:text-blue-400">Blog</span>
@@ -275,7 +274,7 @@ export default async function BlogPage({ searchParams }: Props) {
             {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
           </p>
         </div>
-        <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-600 mt-3 pb-4 border-b border-gray-200 dark:border-gray-800">
+        <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-600 mt-3 pb-4 border-b border-gray-100 dark:border-gray-800">
           Tips &nbsp;·&nbsp; Deep Dives &nbsp;·&nbsp; Culture &nbsp;·&nbsp; Stories
         </p>
       </header>
@@ -287,7 +286,7 @@ export default async function BlogPage({ searchParams }: Props) {
       ) : (
         <>
           {/* ── Hero: big feature + More Stories list ── */}
-          <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-8 lg:gap-12 mb-12 pb-12 border-b border-gray-200 dark:border-gray-800">
+          <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-8 lg:gap-12 mb-12 pb-12 border-b border-gray-100 dark:border-gray-800">
             <HeroFeature post={hero} />
             <div className="hidden lg:block">
               <MoreStoriesList posts={moreStories} />
