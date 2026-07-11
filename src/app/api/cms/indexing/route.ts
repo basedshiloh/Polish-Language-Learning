@@ -47,14 +47,7 @@ export async function POST(req: NextRequest) {
 
     if (!inspectRes.ok) {
       const errText = await inspectRes.text();
-      if (inspectRes.status === 403) {
-        return NextResponse.json({
-          url,
-          verdict: 'error',
-          error: 'Permission denied — add the service account as a Search Console Full User or Owner.',
-        });
-      }
-      return NextResponse.json({ url, verdict: 'error', error: `GSC API ${inspectRes.status}: ${errText}` });
+      return NextResponse.json({ url, verdict: 'error', error: `GSC ${inspectRes.status}: ${errText}` });
     }
 
     const data = await inspectRes.json();
