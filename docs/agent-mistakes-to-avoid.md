@@ -333,6 +333,64 @@ sloppy even where it isn't a real SEO penalty risk the way duplicate internal an
 
 ---
 
+## 13. Internal links: spread them across the article, don't stack them near the end
+
+It's tempting to write the whole article first and bolt on internal links afterward —
+which naturally makes them all land in the same place: the closing paragraph, right
+before (or instead of) a natural ending. That reads as a link dump, not natural
+cross-referencing, even when each individual link is genuinely relevant.
+
+**Wrong (both links saved for the closing paragraph):**
+```md
+...body with no internal links anywhere...
+
+Reading Mickiewicz isn't really an academic exercise — it's a shortcut into
+understanding why Poles talk about their language and literature the way they do.
+
+If you want the fuller picture, our guide to [famous Polish people](/blog/famous-polish-people)
+is a good next stop — and if the visual side of Polish Romanticism interests you,
+[Polish folk motifs hiding in famous paintings](/blog/folk-motifs-in-polish-art)
+covers the same era from the canvas instead of the page.
+```
+
+**Right — each link placed where its topic is actually being discussed:**
+```md
+...## Pan Tadeusz: Poland's National Epic, Explained
+
+...a lavishly detailed portrait of Polish-Lithuanian gentry life just before it
+vanished for good. That same attention to rural custom and folk detail shows up
+constantly in [the folk motifs Polish painters later wove into their canvases]
+(/blog/folk-motifs-in-polish-art) — Mickiewicz was doing in verse what visual
+artists would spend the rest of the century doing in paint.
+
+...## How Mickiewicz Shaped Modern Polish Identity
+
+Streets named "Mickiewicza" exist in nearly every Polish city, and his name sits
+alongside the other names covered in our guide to [famous Polish people]
+(/blog/famous-polish-people) as one every visitor eventually learns to pronounce.
+
+...closing paragraph ends naturally, no forced link.
+```
+
+This also makes Rule 9 (never duplicate a URL in one article) easier to follow —
+when you place a link the moment its topic comes up, you naturally stop reaching
+for the same destination twice out of habit at the end.
+
+**How to apply:** While drafting, as soon as a sentence touches a topic that
+another PolishPal post covers, link it right there. Don't keep a mental list of
+"links to add" and dump them all into the wrap-up paragraph. If you're revising a
+draft and notice every link is in the last 1-2 paragraphs, that's the signal to
+move them.
+
+**Why:** User caught this live (2026-07-12) after two back-to-back articles
+(`adam-mickiewicz-pan-tadeusz`, `polish-nobel-prize-winners-in-literature`) both
+had every internal link clustered in the closing paragraph — and the Nobel article
+had even linked the same `/blog/adam-mickiewicz-pan-tadeusz` URL twice (once
+mid-article where it was genuinely relevant, once again in the closing out of
+habit), compounding this mistake with Rule 9's duplicate-link mistake.
+
+---
+
 ## 8. Existing images available in `public/blog/`
 
 These files are already deployed and safe to use as inline images:

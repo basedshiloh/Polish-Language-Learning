@@ -86,7 +86,13 @@ render as normal inline blue links — weave these into sentences with descripti
 ```
 
 Use **descriptive, keyword-relevant anchor text** — never "click here". Include at
-least 2–3 internal links total; weave them in naturally, not as a dump at the bottom.
+least 1–3 internal links when genuinely relevant target pages exist (more if more
+targets are genuinely relevant, but never link the same destination twice — see
+Rule 9 below). **Place each link in the specific paragraph where it's actually
+relevant** — spread across the intro, middle, and closing as the topic comes up
+naturally. Do not save every internal link for the closing paragraph or stack them
+all in one spot right before the FAQ — that reads as a link dump. See
+[`docs/agent-mistakes-to-avoid.md`](docs/agent-mistakes-to-avoid.md) Rule 13.
 
 Valid IDs you can link to (must exist — check `src/data/lessons.ts` / `grammar.ts`):
 
