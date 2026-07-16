@@ -87,6 +87,7 @@ export default function RootLayout({
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
         <JsonLd data={courseSchema()} />
+        <script src="https://pl30392371.effectivecpmnetwork.com/4a/20/63/4a20639cb481e54d2d80f6b9b21f6cac.js" async />
       </head>
       <body className="min-h-full bg-slate-50 dark:bg-slate-950 font-sans text-gray-900 dark:text-gray-100">
         <LayoutShell>{children}</LayoutShell>
