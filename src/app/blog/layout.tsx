@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import JsonLd, { breadcrumbSchema } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
@@ -20,6 +21,12 @@ export const metadata: Metadata = {
 export default function BlogLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7316825064118043"
+        crossOrigin="anonymous"
+        strategy="afterInteractive"
+      />
       <JsonLd data={breadcrumbSchema([
         { name: 'Home', url: 'https://www.polishpal.pl' },
         { name: 'Blog', url: 'https://www.polishpal.pl/blog' },
