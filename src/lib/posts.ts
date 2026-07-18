@@ -45,6 +45,7 @@ interface PostRow {
   is_pillar: boolean | null;
   pillar_id: string | null;
   seo_score: number | null;
+  is_highlighted: boolean | null;
   published_at: string | null;
   created_at: string;
   updated_at: string;
@@ -91,6 +92,7 @@ export function rowToPost(r: PostRow): Post {
     status: r.status === 'published' ? 'published' : 'draft',
     intent: (INTENTS.includes(r.intent as typeof INTENTS[number]) ? r.intent : 'informational') as Post['intent'],
     isPillar: !!r.is_pillar,
+    isHighlighted: !!r.is_highlighted,
     pillarId: r.pillar_id || null,
     seoScore: r.seo_score ?? 0,
     date: (r.published_at || r.created_at || new Date().toISOString()).slice(0, 10),
@@ -145,6 +147,16 @@ export async function getPaginatedPosts(page: number, perPage = 9, category?: st
     totalPosts: all.length,
     activeCategory,
   };
+}
+
+export async function getHighlightedPosts(): Promise<Post[]> {
+  const { data } = await publicClient()
+    .from('posts')
+    .select(SELECT)
+    .eq('status', 'published')
+    .eq('is_highlighted', true)
+    .order('published_at', { ascending: false });
+  return (data || []).map((r) => rowToPost(r as PostRow));
 }
 
 // ── Admin (service role) ──────────────────────────────────

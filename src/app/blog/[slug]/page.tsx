@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Pin } from 'lucide-react';
 import { blogCategoryStyles } from '@/data/blog';
-import { getPostBySlug, getRelatedPosts } from '@/lib/posts';
+import { getPostBySlug, getRelatedPosts, getHighlightedPosts } from '@/lib/posts';
 import { extractHeadings } from '@/lib/blog';
 import { getAdSlots } from '@/lib/ads';
 import AuthorBox from '@/components/blog/AuthorBox';
@@ -28,10 +28,12 @@ export default async function BlogPostPage({ params }: Props) {
 
   const content = post.content;
   const headings = extractHeadings(content);
-  const [related, ads] = await Promise.all([
+  const [related, ads, highlighted] = await Promise.all([
     getRelatedPosts(post.slug, post.category, 3),
     getAdSlots(['post-before-content', 'post-sidebar', 'post-after-content']),
+    getHighlightedPosts(),
   ]);
+  const sideHighlights = highlighted.filter((p) => p.slug !== post.slug).slice(0, 4);
   const cat = blogCategoryStyles[post.category];
 
   // Split at the first H2 so the mobile TOC sits after the intro paragraphs.
@@ -121,8 +123,28 @@ export default async function BlogPostPage({ params }: Props) {
             <CommentSection pageId={`blog-${post.slug}`} pageType="blog" />
         </div>
 
-        {/* ── Right TOC ── */}
-        <TableOfContents items={headings} />
+        {/* ── Right TOC + Editor's Picks ── */}
+        <TableOfContents items={headings}>
+          {sideHighlights.length > 0 && (
+            <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800">
+              <p className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-blue-600 dark:text-blue-400 mb-3">
+                <Pin className="w-3 h-3" /> Editor&apos;s Picks
+              </p>
+              <div className="space-y-4">
+                {sideHighlights.map((p) => (
+                  <Link key={p.slug} href={`/blog/${p.slug}`} className="group flex gap-2.5 items-start">
+                    <div className="relative w-12 h-9 rounded-md overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0 mt-0.5">
+                      <Image src={p.featuredImage} alt={p.featuredImageAlt} fill className="object-cover group-hover:scale-105 transition-transform duration-300" sizes="48px" />
+                    </div>
+                    <p className="text-xs font-medium text-gray-700 dark:text-gray-300 leading-snug line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      {p.title}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </TableOfContents>
 
       </div>
     </div>

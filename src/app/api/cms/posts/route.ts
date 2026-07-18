@@ -138,6 +138,7 @@ export async function POST(req: NextRequest) {
       status,
       intent: normIntent(p.intent),
       is_pillar: p.isPillar === true,
+      is_highlighted: p.isHighlighted === true,
       pillar_id: p.pillarId ? String(p.pillarId) : null,
       seo_score: seoScore,
       updated_at: new Date().toISOString(),

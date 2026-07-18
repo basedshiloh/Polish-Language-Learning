@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Save, Upload, ArrowLeft, Globe, FileText, Star } from 'lucide-react';
+import { Save, Upload, ArrowLeft, Globe, FileText, Star, Pin } from 'lucide-react';
 import Link from 'next/link';
 import type { Post, PostStatus, PostIntent } from '@/lib/types';
 import type { LinkTarget } from '@/lib/internal-links';
@@ -50,6 +50,7 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
   const [status, setStatus] = useState<PostStatus>(initial?.status || 'draft');
   const [intent, setIntent] = useState<PostIntent>(initial?.intent || 'informational');
   const [isPillar, setIsPillar] = useState(initial?.isPillar || false);
+  const [isHighlighted, setIsHighlighted] = useState(initial?.isHighlighted || false);
   const [pillarId, setPillarId] = useState<string>(initial?.pillarId || '');
 
   const [saving, setSaving] = useState(false);
@@ -104,6 +105,7 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
       status: nextStatus,
       intent,
       isPillar,
+      isHighlighted,
       pillarId: isPillar ? null : (pillarId || null),
     };
     const res = await fetch('/api/cms/posts', {
@@ -255,6 +257,14 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
                 </span>
               </label>
               <p className="text-xs text-gray-400 dark:text-gray-500 -mt-1">Pillar posts are prioritized as internal-link targets (in Link Genius and for agents).</p>
+
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" checked={isHighlighted} onChange={(e) => setIsHighlighted(e.target.checked)} className="rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500" />
+                <span className="text-sm text-gray-700 dark:text-gray-300 flex items-center gap-1">
+                  <Pin className="w-3.5 h-3.5 text-blue-500" /> Highlight this post
+                </span>
+              </label>
+              <p className="text-xs text-gray-400 dark:text-gray-500 -mt-1">Highlighted posts appear in the "Editor&apos;s Picks" section on the blog page and below the TOC on every post.</p>
 
               {!isPillar && (
                 <div>

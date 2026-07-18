@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Clock } from 'lucide-react';
+import { Clock, Pin } from 'lucide-react';
 import { blogCategoryStyles } from '@/data/blog';
-import { getPaginatedPosts, getPublishedPosts } from '@/lib/posts';
+import { getPaginatedPosts, getPublishedPosts, getHighlightedPosts } from '@/lib/posts';
 import { getAdSlots } from '@/lib/ads';
 import type { BlogCategory, Post } from '@/lib/types';
 import BlogCard from '@/components/blog/BlogCard';
@@ -201,6 +201,46 @@ function CategorySection({ catKey, posts }: { catKey: BlogCategory; posts: Post[
   );
 }
 
+// ── Editor's Picks / Highlighted ─────────────────────────────────────────────
+
+function HighlightedSection({ posts }: { posts: Post[] }) {
+  if (posts.length === 0) return null;
+  return (
+    <section className="mb-14">
+      <div className="flex items-center justify-between border-t border-blue-100 dark:border-blue-900/40 pt-3 mb-6">
+        <h2 className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-blue-600 dark:text-blue-400">
+          <Pin className="w-3 h-3" /> Editor&apos;s Picks
+        </h2>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {posts.map((p) => {
+          const cat = blogCategoryStyles[p.category];
+          return (
+            <Link key={p.slug} href={`/blog/${p.slug}`} className="group flex flex-col gap-3">
+              <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+                <Image
+                  src={p.featuredImage}
+                  alt={p.featuredImageAlt}
+                  fill
+                  className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+              </div>
+              <div>
+                <p className={`text-[10px] font-bold uppercase tracking-wider mb-1 ${cat.text} ${cat.darkText}`}>{cat.label}</p>
+                <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100 leading-snug line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-1">
+                  {p.title}
+                </h3>
+                <p className="text-xs text-gray-400 dark:text-gray-500">{fmtDate(p.date)} · {p.readingTime} min</p>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 // ── Sidebar ad placeholder (shows when no slot configured in CMS) ─────────────
 
 function SidebarAdBox({ slot }: { slot: Parameters<typeof AdSlot>[0]['slot'] }) {
@@ -277,8 +317,9 @@ export default async function BlogPage({ searchParams }: Props) {
   }
 
   // ── Magazine front page ───────────────────────────────────────────────────
-  const [all, ads] = await Promise.all([
+  const [all, highlighted, ads] = await Promise.all([
     getPublishedPosts(),
+    getHighlightedPosts(),
     getAdSlots(['blog-top', 'blog-sidebar-left', 'blog-sidebar-right']),
   ]);
 
@@ -358,6 +399,9 @@ export default async function BlogPage({ searchParams }: Props) {
 
             {/* ── Culture Picks slider ── */}
             <CultureSlider posts={culturePosts} />
+
+            {/* ── Editor's Picks ── */}
+            <HighlightedSection posts={highlighted} />
 
             {/* ── Category sections ── */}
             {catOrder.map((key) => (

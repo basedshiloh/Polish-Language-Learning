@@ -246,6 +246,7 @@ export interface Post {
   status: PostStatus;
   intent: PostIntent;
   isPillar: boolean;
+  isHighlighted: boolean;
   pillarId: string | null;
   seoScore: number;
   date: string;        // published_at (or created_at) ISO string
