@@ -88,40 +88,49 @@ export default async function HomePage() {
       <JsonLd data={faqSchema} />
 
       {/* ── Hero ────────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-white dark:bg-gray-950 pt-16 pb-20 md:pt-24 md:pb-28">
-        {/* Background gradient blobs */}
-        <div aria-hidden="true" className="pointer-events-none absolute -top-24 -right-24 w-[600px] h-[600px] bg-blue-600/5 dark:bg-blue-600/10 rounded-full blur-3xl" />
-        <div aria-hidden="true" className="pointer-events-none absolute top-1/2 -left-32 w-[400px] h-[400px] bg-purple-600/5 dark:bg-purple-600/10 rounded-full blur-3xl" />
+      <section className="relative overflow-hidden pt-16 pb-20 md:pt-24 md:pb-28">
+        {/* Background video */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/background-vid-1080p.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+        />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-gray-950/65" aria-hidden="true" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
             {/* Left — copy */}
             <div className="max-w-xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 rounded-full text-xs font-semibold text-blue-700 dark:text-blue-300 mb-6">
-                <span className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 border border-white/20 rounded-full text-xs font-semibold text-blue-300 mb-6">
+                <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" />
                 Free · No sign-up · A0 → A1
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-black tracking-tight text-gray-900 dark:text-gray-100 leading-[1.1] mb-6">
+              <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-black tracking-tight text-white leading-[1.1] mb-6">
                 Polish,{' '}
-                <span className="text-blue-600 dark:text-blue-400">made simple.</span>
+                <span className="text-blue-400">made simple.</span>
               </h1>
 
-              <p className="text-lg text-gray-500 dark:text-gray-400 leading-relaxed mb-8 max-w-md">
+              <p className="text-lg text-gray-300 leading-relaxed mb-8 max-w-md">
                 Structured lessons from absolute beginner to A1 — built on real university materials. Grammar tables, quizzes, and pronunciation. All free.
               </p>
 
               <div className="flex flex-wrap gap-3">
                 <Link
                   href="/lessons"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold rounded-xl transition-colors shadow-md shadow-blue-600/20 text-sm"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold rounded-xl transition-colors shadow-md shadow-blue-600/30 text-sm"
                 >
                   Start Learning — It&apos;s Free <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
                   href="/grammar"
-                  className="inline-flex items-center gap-2 px-6 py-3 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-semibold rounded-xl transition-colors text-sm"
+                  className="inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-white hover:bg-white/10 font-semibold rounded-xl transition-colors text-sm"
                 >
                   Browse Grammar
                 </Link>
@@ -133,8 +142,8 @@ export default async function HomePage() {
                   'Learn at your pace',
                   'Progress saved locally',
                 ].map((t) => (
-                  <span key={t} className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
-                    <CheckCircle className="w-3.5 h-3.5 text-green-500 shrink-0" />
+                  <span key={t} className="flex items-center gap-1.5 text-sm text-gray-300">
+                    <CheckCircle className="w-3.5 h-3.5 text-green-400 shrink-0" />
                     {t}
                   </span>
                 ))}
