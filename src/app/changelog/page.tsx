@@ -23,6 +23,22 @@ const typeStyles = {
 
 const changelog: ChangelogEntry[] = [
   {
+    date: 'July 17, 2026',
+    version: '3.0.0',
+    changes: [
+      { type: 'changed', text: 'Complete site redesign — moved from a dashboard-oriented sidebar layout to a content-first design with a horizontal top navigation bar' },
+      { type: 'added', text: 'Mintlify-style mega menu: "Learn" dropdown (2×2 grid: Lessons, Grammar, Quizzes, Progress), "Blog" dropdown (categories + lazy-loaded latest posts), "About" simple dropdown' },
+      { type: 'added', text: 'Responsive mobile drawer menu with accordion-style expandable sections for Learn, Blog, and About' },
+      { type: 'changed', text: 'Homepage completely rewritten as a proper landing page (hero, stats strip, 3-column features, how-it-works steps, latest blog posts, FAQ, final CTA) — no longer a personal dashboard' },
+      { type: 'added', text: 'FAQPage schema on the homepage for Google rich result eligibility' },
+      { type: 'changed', text: 'Footer redesigned as a 3-column layout: brand + CC0 license, Learn links, Company links' },
+      { type: 'removed', text: 'Left sidebar and bottom mobile nav replaced by the new top navigation bar' },
+      { type: 'added', text: 'Editor\'s Picks / highlighted posts system — tick the "Highlight this post" checkbox in the CMS to feature a post in a dedicated section on the blog page and below the TOC on every single post' },
+      { type: 'added', text: 'Google AdSense auto ads scoped to blog pages only (/blog and /blog/*) — homepage, lessons, grammar, and quizzes are ad-free' },
+      { type: 'added', text: 'ads.txt file at /ads.txt for Google AdSense publisher verification' },
+    ],
+  },
+  {
     date: 'July 10, 2026',
     version: '2.1.1',
     changes: [
