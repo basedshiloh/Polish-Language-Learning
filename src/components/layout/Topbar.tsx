@@ -8,8 +8,9 @@ import {
   BookOpen, Table2, Brain, BarChart3,
   ChevronDown, Menu, X, ArrowRight,
   Sun, Moon, Monitor, Clock,
-  Info, Mail, History, FileText,
+  Info, Mail, History, FileText, Search,
 } from 'lucide-react';
+import SearchBox from '@/components/layout/SearchBox';
 import { useTheme } from '@/hooks/useTheme';
 import { blogCategoryStyles } from '@/data/blog';
 import type { BlogCategory } from '@/lib/types';
@@ -49,13 +50,23 @@ export default function Topbar() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [open, setOpen] = useState<MenuKey | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSection, setMobileSection] = useState<string | null>(null);
   const [posts, setPosts] = useState<LatestPost[]>([]);
   const [postsLoaded, setPostsLoaded] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { setOpen(null); setMobileOpen(false); }, [pathname]);
+  useEffect(() => { setOpen(null); setMobileOpen(false); setSearchOpen(false); }, [pathname]);
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') setSearchOpen(false);
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); setSearchOpen(true); }
+    }
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, []);
 
   useEffect(() => {
     function handler(e: MouseEvent) {
@@ -253,6 +264,14 @@ export default function Topbar() {
             {/* Right side */}
             <div className="flex items-center gap-2 ml-auto">
               <button
+                onClick={() => setSearchOpen(true)}
+                title="Search (⌘K)"
+                className="p-2 rounded-lg text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                aria-label="Open search"
+              >
+                <Search className="w-4 h-4" />
+              </button>
+              <button
                 onClick={() => setTheme(nextTheme)}
                 title={`Switch theme (${theme})`}
                 className="p-2 rounded-lg text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
@@ -279,6 +298,32 @@ export default function Topbar() {
         </div>
       </header>
 
+      {/* ── Search modal ── */}
+      {searchOpen && (
+        <>
+          <div
+            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+            onClick={() => setSearchOpen(false)}
+            aria-hidden="true"
+          />
+          <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 w-full max-w-2xl px-4">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 p-4">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Search PolishPal</span>
+                <button
+                  onClick={() => setSearchOpen(false)}
+                  className="p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  aria-label="Close search"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+              <SearchBox />
+            </div>
+          </div>
+        </>
+      )}
+
       {/* ── Mobile overlay ── */}
       <div
         onClick={() => setMobileOpen(false)}
@@ -298,9 +343,18 @@ export default function Topbar() {
             <Image src="/logo.svg" alt="PolishPal" width={28} height={28} className="rounded-lg" />
             <span className="font-bold text-gray-900 dark:text-gray-100">PolishPal</span>
           </Link>
-          <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="Close menu">
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => { setMobileOpen(false); setSearchOpen(true); }}
+              className="p-1.5 rounded-lg text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              aria-label="Search"
+            >
+              <Search className="w-4 h-4" />
+            </button>
+            <button onClick={() => setMobileOpen(false)} className="p-1.5 rounded-lg text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="Close menu">
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         <div className="px-4 pt-4 pb-2">
