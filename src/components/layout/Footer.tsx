@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
+import CookieSettingsButton from '@/components/shared/CookieSettingsButton';
 
 const LEARN_LINKS = [
   { label: 'Lessons', href: '/lessons' },
@@ -16,7 +17,7 @@ const COMPANY_LINKS = [
   { label: 'Changelog', href: '/changelog' },
   { label: 'Editorial Policy', href: '/editorial' },
   { label: 'Privacy Policy', href: '/privacy' },
-  { label: 'Cookie Policy', href: '/cookies' },
+  { label: 'GDPR & Cookie Policy', href: '/gdpr' },
 ];
 
 export default function Footer() {
@@ -86,15 +87,18 @@ export default function Footer() {
           <p className="text-xs text-gray-400 dark:text-gray-500">
             © 2026 PolishPal. All content released under CC0.
           </p>
-          <a
-            href="https://github.com/basedshiloh/Polish-Language-Learning"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
-          >
-            <ExternalLink className="w-3 h-3" />
-            Open source on GitHub
-          </a>
+          <div className="flex items-center gap-4">
+            <CookieSettingsButton />
+            <a
+              href="https://github.com/basedshiloh/Polish-Language-Learning"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+            >
+              <ExternalLink className="w-3 h-3" />
+              Open source on GitHub
+            </a>
+          </div>
         </div>
       </div>
     </footer>

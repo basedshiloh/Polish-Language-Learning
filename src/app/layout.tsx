@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import LayoutShell from "@/components/layout/LayoutShell";
 import JsonLd, { websiteSchema, courseSchema, organizationSchema } from "@/components/seo/JsonLd";
+import CookieConsent from "@/components/shared/CookieConsent";
 
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
@@ -87,9 +89,17 @@ export default function RootLayout({
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
         <JsonLd data={courseSchema()} />
+        {/* Umami Analytics — cookie-free, GDPR compliant without consent */}
+        <Script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="2137687a-7d68-4e42-baf4-2f657cd43d2e"
+          strategy="afterInteractive"
+        />
       </head>
       <body className="min-h-full bg-slate-50 dark:bg-slate-950 font-sans text-gray-900 dark:text-gray-100">
         <LayoutShell>{children}</LayoutShell>
+        <CookieConsent />
       </body>
     </html>
   );
