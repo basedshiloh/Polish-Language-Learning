@@ -277,7 +277,7 @@ export default async function HomePage() {
                       </span>
                     )}
                     <span
-                      className={`relative flex items-center justify-center w-[72px] h-[72px] rounded-full text-white font-display text-2xl font-semibold transition-transform duration-100 group-hover:-translate-y-0.5 group-active:translate-y-1.5 ${tone.bg} ${tone.bg === 'bg-sun' ? '!text-ink' : ''}`}
+                      className={`relative flex items-center justify-center w-[72px] h-[72px] rounded-full text-white font-display text-2xl font-semibold transition-transform duration-100 group-hover:-translate-y-0.5 group-active:translate-y-1.5 ${tone.bg} ${tone.bg === 'bg-sun' || tone.bg === 'bg-orange' ? '!text-ink' : ''}`}
                       style={{ boxShadow: `0 6px 0 ${tone.edge}` }}
                     >
                       {i === 0 ? <Star className="w-8 h-8 fill-current" /> : lesson.order}

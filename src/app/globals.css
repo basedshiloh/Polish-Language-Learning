@@ -40,10 +40,10 @@
   --color-crimson-soft: #ffe8ec;
   --color-crimson-ink: #a3142b;
   --color-crimson-edge: #a3142b;
-  --color-emerald: #1a9e55;
+  --color-emerald: #15803d;
   --color-emerald-soft: #e2f6ea;
   --color-emerald-ink: #11703b;
-  --color-emerald-edge: #13793f;
+  --color-emerald-edge: #0e6130;
   --color-sun: #ffc21a;
   --color-sun-soft: #fff4cc;
   --color-sun-ink: #7a5600;
@@ -95,7 +95,7 @@
   --color-accent-400: #ffc21a;
   --color-accent-500: #f5a800;
   --color-accent-600: #d99e00;
-  --color-correct: #1a9e55;
+  --color-correct: #15803d;
   --color-incorrect: #d91f3b;
 }
 
