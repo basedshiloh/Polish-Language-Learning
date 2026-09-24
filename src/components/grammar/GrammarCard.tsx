@@ -117,7 +117,7 @@ export default function GrammarCard({ topic }: { topic: GrammarTopic }) {
       </div>
 
       <ChevronRight
-        className="mt-3 h-5 w-5 shrink-0 text-faint transition-transform group-hover:translate-x-0.5 group-hover:text-ink"
+        className="mt-3 h-5 w-5 shrink-0 text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-ink"
         strokeWidth={2.6}
         aria-hidden="true"
       />

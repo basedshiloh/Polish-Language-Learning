@@ -58,7 +58,7 @@ function ResultCard({ result, query }: { result: SearchResult; query: string }) 
           <HighlightMatch text={result.matchedText} query={query} />
         </p>
       </div>
-      <ArrowRight className="w-4 h-4 mt-1 text-faint group-hover:text-ink transition-colors shrink-0" strokeWidth={2.5} />
+      <ArrowRight className="w-4 h-4 mt-1 text-muted group-hover:text-ink transition-colors shrink-0" strokeWidth={2.5} />
     </Link>
   );
 }

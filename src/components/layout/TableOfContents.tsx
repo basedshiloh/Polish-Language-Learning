@@ -37,7 +37,7 @@ export default function TableOfContents({ items, children }: TableOfContentsProp
   if (items.length < 2) return null;
 
   return (
-    <nav className="hidden xl:block w-60 shrink-0" aria-label="On this page">
+    <nav className="hidden xl:block w-56 shrink-0" aria-label="On this page">
       <div className="sticky top-24">
         <p className="font-display text-lg font-semibold text-ink mb-3">On this page</p>
         {/* Long TOCs scroll within this cap (scrollbar hidden) so the whole

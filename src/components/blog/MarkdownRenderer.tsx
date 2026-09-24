@@ -11,20 +11,17 @@ import { slugify } from '@/lib/utils';
 function InternalCard({ href, children }: { href: string; children: React.ReactNode }) {
   const isLesson = href.startsWith('/lessons/');
   const Icon = isLesson ? BookOpen : Table2;
-  const label = isLesson ? 'Lesson' : 'Grammar';
+  const label = isLesson ? 'Free lesson' : 'Grammar reference';
 
   return (
     <Link
       href={href}
       className="group tile tile-link flex items-center gap-4 my-6 p-4 pr-5 no-underline"
     >
-      <span className={`icon-badge w-12 h-12 ${isLesson ? 'bg-crimson-soft text-crimson-ink' : 'bg-violet-soft text-violet-ink'}`}>
+      <span title={label} aria-hidden="true" className={`icon-badge w-12 h-12 ${isLesson ? 'bg-crimson-soft text-crimson-ink' : 'bg-violet-soft text-violet-ink'}`}>
         <Icon className="w-6 h-6" strokeWidth={2.4} />
       </span>
       <span className="flex-1 min-w-0">
-        <span className={`block text-xs font-extrabold uppercase tracking-[0.1em] ${isLesson ? 'text-crimson-ink' : 'text-violet-ink'}`}>
-          Free {label.toLowerCase()}
-        </span>
         <span className="block text-[16px] font-extrabold text-ink leading-snug">
           {children}
         </span>
@@ -66,13 +63,13 @@ export default function MarkdownRenderer({ content }: { content: string }) {
           // Images render as <figure>, which is invalid inside <p> (hydration error) — use a div.
           const hasImage = child?.some((c) => c.type === 'element' && c.tagName === 'img');
           const Tag = hasImage ? 'div' : 'p';
-          return <Tag className="text-[1.0625rem] md:text-[1.125rem] leading-[1.8] text-ink-2 mb-6">{children}</Tag>;
+          return <Tag className="text-[1.0625rem] md:text-[1.15rem] leading-[1.8] text-ink-2 mb-6">{children}</Tag>;
         },
         ul: ({ children }) => (
-          <ul className="list-disc marker:text-crimson space-y-2 text-[1.0625rem] md:text-[1.125rem] leading-[1.75] text-ink-2 mb-6 pl-6">{children}</ul>
+          <ul className="list-disc marker:text-crimson space-y-2 text-[1.0625rem] md:text-[1.15rem] leading-[1.75] text-ink-2 mb-6 pl-6">{children}</ul>
         ),
         ol: ({ children }) => (
-          <ol className="list-decimal marker:font-extrabold marker:text-crimson-ink space-y-2 text-[1.0625rem] md:text-[1.125rem] leading-[1.75] text-ink-2 mb-6 pl-6">{children}</ol>
+          <ol className="list-decimal marker:font-extrabold marker:text-crimson-ink space-y-2 text-[1.0625rem] md:text-[1.15rem] leading-[1.75] text-ink-2 mb-6 pl-6">{children}</ol>
         ),
         li: ({ children }) => <li className="pl-1.5">{children}</li>,
         blockquote: ({ children }) => (
@@ -150,7 +147,7 @@ export default function MarkdownRenderer({ content }: { content: string }) {
               />
             ) : (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={src} alt={alt || ''} className="rounded-3xl w-full" loading="lazy" />
+              <img src={src} alt={alt || ''} width={896} height={504} className="rounded-3xl w-full h-auto aspect-[16/9] object-cover bg-canvas" loading="lazy" />
             )}
             {alt && <figcaption className="text-center text-sm font-semibold text-muted mt-3 px-4">{alt}</figcaption>}
           </figure>

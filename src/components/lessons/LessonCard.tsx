@@ -86,7 +86,7 @@ export default function LessonCard({ lesson, completed, current = false }: Lesso
           <p className="text-sm text-muted mt-1 line-clamp-2">{lesson.description}</p>
 
           <div className="flex flex-wrap items-center gap-2 mt-3">
-            <span className="inline-flex items-center gap-1 text-xs font-bold text-faint">
+            <span className="inline-flex items-center gap-1 text-xs font-bold text-muted">
               <Clock className="w-3.5 h-3.5" strokeWidth={2.4} />
               ~{lesson.estimatedMinutes} min
             </span>
@@ -105,7 +105,7 @@ export default function LessonCard({ lesson, completed, current = false }: Lesso
         <span className={`icon-badge hidden sm:inline-flex ${completed ? 'bg-emerald-soft text-emerald-ink' : tone.chip}`}>
           <Icon className="w-5 h-5" strokeWidth={2.4} />
         </span>
-        <ChevronRight className="w-5 h-5 text-faint shrink-0 group-hover:text-crimson-ink transition-colors" strokeWidth={2.6} />
+        <ChevronRight className="w-5 h-5 text-muted shrink-0 group-hover:text-crimson-ink transition-colors" strokeWidth={2.6} />
       </div>
     </Link>
   );

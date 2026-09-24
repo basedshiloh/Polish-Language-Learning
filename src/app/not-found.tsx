@@ -51,7 +51,7 @@ export default function NotFound() {
                   <span className="block text-base font-extrabold text-ink leading-tight">{l.label}</span>
                   <span className="block text-sm text-muted truncate mt-0.5">{l.desc}</span>
                 </span>
-                <ArrowRight className="w-5 h-5 text-faint group-hover:text-ink group-hover:translate-x-0.5 transition-all ml-auto shrink-0" strokeWidth={2.5} />
+                <ArrowRight className="w-5 h-5 text-muted group-hover:text-ink group-hover:translate-x-0.5 transition-all ml-auto shrink-0" strokeWidth={2.5} />
               </Link>
             );
           })}

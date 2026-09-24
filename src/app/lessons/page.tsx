@@ -183,7 +183,7 @@ export default function LessonsPage() {
                       ) : (
                         <Circle className="w-4 h-4 text-line-2 shrink-0" strokeWidth={2.6} />
                       )}
-                      <span className={done ? 'text-faint line-through' : 'text-ink-2'}>
+                      <span className={done ? 'text-muted line-through' : 'text-ink-2'}>
                         {lesson.title}
                       </span>
                     </Link>

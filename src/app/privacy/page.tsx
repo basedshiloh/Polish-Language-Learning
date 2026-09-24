@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const h2 = 'text-2xl md:text-[1.75rem] font-bold leading-tight mb-4';
 const link = 'font-bold text-cobalt-ink underline decoration-2 underline-offset-4 decoration-cobalt/30 hover:decoration-cobalt transition-colors';
 const list = 'tile px-6 py-5 pl-10 md:pl-11 list-disc marker:text-crimson space-y-2.5';
-const smallList = 'list-disc pl-5 marker:text-faint space-y-1.5 text-base';
+const smallList = 'list-disc pl-5 marker:text-muted space-y-1.5 text-base';
 
 const notCollected = [
   'No email addresses or accounts',

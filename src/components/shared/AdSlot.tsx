@@ -17,7 +17,7 @@ export default function AdSlot({ slot }: { slot: AdSlotData | undefined }) {
 
   return (
     <div className="no-print my-6 flex flex-col items-center">
-      <span className="self-center text-[10px] font-extrabold uppercase tracking-[0.14em] text-faint mb-1.5">Advertisement</span>
+      <span className="self-center text-[10px] font-extrabold uppercase tracking-[0.14em] text-muted mb-1.5">Advertisement</span>
 
       {slot.type === 'image' && slot.image_url ? (
         <a href={slot.link_url || '#'} target="_blank" rel="noopener noreferrer sponsored" className="block max-w-full">

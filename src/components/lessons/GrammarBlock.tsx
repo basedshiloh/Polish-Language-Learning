@@ -24,7 +24,7 @@ export default function GrammarBlock({ points }: GrammarBlockProps) {
                   <SpeakButton text={ex.polish} />
                   <span className="polish-text">{ex.polish}</span>
                 </div>
-                <span className="text-faint font-bold hidden sm:inline" aria-hidden="true">→</span>
+                <span className="text-muted font-bold hidden sm:inline" aria-hidden="true">→</span>
                 <span className="text-sm text-ink-2 pl-[42px] sm:pl-0">{ex.english}</span>
               </div>
             ))}

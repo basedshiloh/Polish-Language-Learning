@@ -47,7 +47,7 @@ export default function PhraseList({ phrases }: PhraseListProps) {
                 )}
               </div>
               <ChevronDown
-                className={`w-5 h-5 text-faint shrink-0 transition-transform duration-150 ${expanded ? 'rotate-180' : ''}`}
+                className={`w-5 h-5 text-muted shrink-0 transition-transform duration-150 ${expanded ? 'rotate-180' : ''}`}
                 strokeWidth={2.6}
                 aria-hidden="true"
               />

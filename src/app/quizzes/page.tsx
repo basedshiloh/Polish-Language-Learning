@@ -110,7 +110,7 @@ export default function QuizzesPage() {
                       </h3>
                       <p className="text-sm text-muted mb-4">{quiz.description}</p>
                       {lesson && (
-                        <p className="text-xs font-bold text-faint mb-4">Lesson: {lesson.title}</p>
+                        <p className="text-xs font-bold text-muted mb-4">Lesson: {lesson.title}</p>
                       )}
 
                       <div className="mt-auto pt-4 border-t-2 border-line">

@@ -66,7 +66,7 @@ export default function VocabularyTable({ items }: VocabularyTableProps) {
                       )}
                     </>
                   ) : (
-                    <span className="chip bg-canvas text-faint mt-1.5">hidden</span>
+                    <span className="chip bg-canvas text-muted mt-1.5">hidden</span>
                   )}
                 </td>
               </tr>

@@ -171,7 +171,7 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
             <nav aria-label="Lesson navigation" className="no-print mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
               {prevLesson && (
                 <Link href={`/lessons/${prevLesson.id}`} className="tile tile-link group flex items-center gap-3 p-4">
-                  <ArrowLeft className="w-5 h-5 text-faint shrink-0 group-hover:text-crimson-ink transition-colors" strokeWidth={2.6} />
+                  <ArrowLeft className="w-5 h-5 text-muted shrink-0 group-hover:text-crimson-ink transition-colors" strokeWidth={2.6} />
                   <span className="min-w-0">
                     <span className="block text-xs font-extrabold text-muted">Previous · Lesson {prevLesson.order}</span>
                     <span className="block font-bold text-ink truncate">{prevLesson.title}</span>
@@ -187,7 +187,7 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
                     <span className="block text-xs font-extrabold text-muted">Next · Lesson {nextLesson.order}</span>
                     <span className="block font-bold text-ink truncate">{nextLesson.title}</span>
                   </span>
-                  <ArrowRight className="w-5 h-5 text-faint shrink-0 group-hover:text-crimson-ink transition-colors" strokeWidth={2.6} />
+                  <ArrowRight className="w-5 h-5 text-muted shrink-0 group-hover:text-crimson-ink transition-colors" strokeWidth={2.6} />
                 </Link>
               )}
             </nav>

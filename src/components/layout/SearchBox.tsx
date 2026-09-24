@@ -152,7 +152,7 @@ export default function SearchBox() {
           onKeyDown={handleKeyDown}
           placeholder="Search lessons, grammar, quizzes… (⌘K)"
           aria-label="Search lessons, grammar, quizzes and blog posts"
-          className="w-full h-14 pl-12 pr-12 bg-canvas border-2 border-line rounded-2xl text-base font-semibold text-ink outline-none focus:border-cobalt focus:bg-paper transition-colors placeholder:text-faint placeholder:font-semibold"
+          className="w-full h-14 pl-12 pr-12 bg-canvas border-2 border-line rounded-2xl text-base font-semibold text-ink outline-none focus:border-cobalt focus:bg-paper transition-colors placeholder:text-muted placeholder:font-semibold"
           autoComplete="off"
         />
         {query && (

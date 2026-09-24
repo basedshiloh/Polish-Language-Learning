@@ -154,7 +154,7 @@ export default function ProgressPage() {
                             <p className={`text-[15px] font-bold truncate ${isCompleted ? 'text-ink' : 'text-ink-2'}`}>
                               {lesson.title}
                             </p>
-                            <p className="text-xs font-semibold text-faint">{lesson.level} • ~{lesson.estimatedMinutes} min</p>
+                            <p className="text-xs font-semibold text-muted">{lesson.level} • ~{lesson.estimatedMinutes} min</p>
                           </div>
                           {bestScore !== null && (
                             <span className={`chip ${scoreChip(bestScore)}`}>
@@ -162,7 +162,7 @@ export default function ProgressPage() {
                               {bestScore}%
                             </span>
                           )}
-                          <ChevronRight className="w-4 h-4 text-faint shrink-0 group-hover:text-ink transition-colors" strokeWidth={2.6} />
+                          <ChevronRight className="w-4 h-4 text-muted shrink-0 group-hover:text-ink transition-colors" strokeWidth={2.6} />
                         </Link>
                       </li>
                     );
@@ -182,7 +182,7 @@ export default function ProgressPage() {
                         <li key={i} className="flex items-center justify-between gap-3 px-4 py-3.5">
                           <div className="min-w-0">
                             <p className="text-[15px] font-bold text-ink truncate">{quiz?.title || 'Quiz'}</p>
-                            <p className="text-xs font-semibold text-faint">
+                            <p className="text-xs font-semibold text-muted">
                               {new Date(attempt.completedAt).toLocaleDateString()} • {attempt.correctAnswers}/{attempt.totalQuestions} correct
                             </p>
                           </div>

@@ -76,7 +76,7 @@ function HeroFeature({ post }: { post: Post }) {
           {post.title}
         </h2>
         <p className="mt-3 text-[16px] text-muted leading-relaxed line-clamp-3">{post.excerpt}</p>
-        <p className="mt-5 text-sm font-bold text-faint flex flex-wrap items-center gap-1.5">
+        <p className="mt-5 text-sm font-bold text-muted flex flex-wrap items-center gap-1.5">
           <span className="text-ink-2">{post.author.name}</span>
           <span aria-hidden="true">·</span>
           <span>{fmtDate(post.date)}</span>
@@ -108,7 +108,7 @@ function LatestList({ posts }: { posts: Post[] }) {
                   <span className="block text-[15px] font-extrabold text-ink leading-snug line-clamp-2 group-hover:text-crimson-ink transition-colors">
                     {p.title}
                   </span>
-                  <span className="mt-1 flex items-center gap-1.5 text-xs font-bold text-faint">
+                  <span className="mt-1 flex items-center gap-1.5 text-xs font-bold text-muted">
                     {cat && <span className={`w-2 h-2 rounded-full ${cat.solid}`} />}
                     {cat?.label} · {fmtDate(p.date)}
                   </span>
@@ -161,7 +161,7 @@ function CategorySection({ catKey, posts }: { catKey: BlogCategory; posts: Post[
               {lead.title}
             </span>
             <span className="block mt-2 text-[15px] text-muted leading-relaxed line-clamp-2">{lead.excerpt}</span>
-            <span className="block mt-3 text-xs font-bold text-faint">
+            <span className="block mt-3 text-xs font-bold text-muted">
               {fmtDate(lead.date)} · {lead.readingTime} min read
             </span>
           </span>
@@ -179,7 +179,7 @@ function CategorySection({ catKey, posts }: { catKey: BlogCategory; posts: Post[
                     <span className="block text-[15px] font-extrabold text-ink leading-snug line-clamp-2 group-hover:text-crimson-ink transition-colors">
                       {p.title}
                     </span>
-                    <span className="block text-xs font-bold text-faint mt-1">
+                    <span className="block text-xs font-bold text-muted mt-1">
                       {fmtDate(p.date)} · {p.readingTime} min
                     </span>
                   </span>
@@ -219,8 +219,8 @@ function SidebarAdBox({ slot }: { slot: Parameters<typeof AdSlot>[0]['slot'] }) 
       className="flex flex-col items-center justify-center gap-1.5 rounded-2xl border-2 border-dashed border-line bg-canvas p-4 text-center transition-colors hover:border-line-2"
       style={{ minHeight: 200 }}
     >
-      <span className="text-xs font-bold text-faint">Ad space</span>
-      <span className="text-[11px] font-semibold text-faint">Advertise here</span>
+      <span className="text-xs font-bold text-muted">Ad space</span>
+      <span className="text-[11px] font-semibold text-muted">Advertise here</span>
     </Link>
   );
 }

@@ -39,7 +39,7 @@ export default function BlogCard({ post }: { post: Post }) {
           {post.excerpt}
         </p>
 
-        <p className="mt-auto pt-4 flex items-center gap-1.5 text-xs font-bold text-faint">
+        <p className="mt-auto pt-4 flex items-center gap-1.5 text-xs font-bold text-muted">
           {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
           <span aria-hidden="true">·</span>
           <Clock className="w-3.5 h-3.5" />

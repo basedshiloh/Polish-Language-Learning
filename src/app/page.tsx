@@ -98,11 +98,6 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-14 lg:gap-10 items-center">
 
             <div className="max-w-xl">
-              <span className="chip bg-emerald-soft text-emerald-ink mb-6">
-                <Check className="w-3.5 h-3.5" strokeWidth={3} />
-                Free forever · No sign-up · A0 → A1
-              </span>
-
               <h1 className="font-display font-semibold text-[2.9rem] leading-[1.02] sm:text-6xl lg:text-[4.6rem] tracking-[-0.02em] text-ink mb-6 text-balance">
                 Polish, <span className="text-crimson">made simple.</span>
               </h1>
@@ -120,16 +115,12 @@ export default async function HomePage() {
                 </Link>
               </div>
 
-              <ul className="flex flex-wrap gap-x-6 gap-y-2 mt-9 text-[15px] font-bold text-ink-2">
-                {['No registration', 'Learn at your pace', 'Progress saved on your device'].map((t) => (
-                  <li key={t} className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-emerald text-white flex items-center justify-center">
-                      <Check className="w-3 h-3" strokeWidth={3.5} />
-                    </span>
-                    {t}
-                  </li>
-                ))}
-              </ul>
+              <p className="mt-7 flex items-center gap-2 text-[15px] font-bold text-ink-2">
+                <span className="w-5 h-5 rounded-full bg-emerald text-white flex items-center justify-center shrink-0">
+                  <Check className="w-3 h-3" strokeWidth={3.5} />
+                </span>
+                Free forever. No sign-up. Progress saved on your device.
+              </p>
             </div>
 
             {/* Phrase card over a papercut flower */}
@@ -143,11 +134,8 @@ export default async function HomePage() {
 
                 <div className="tile relative overflow-hidden shadow-[0_24px_50px_-24px_rgba(30,33,50,0.35)]">
                   <div className="flex items-center justify-between px-5 pt-5 pb-3">
-                    <div>
-                      <p className="text-xs font-extrabold uppercase tracking-[0.1em] text-muted">Lesson 1</p>
-                      <p className="font-display text-xl font-semibold text-ink">Greetings &amp; first words</p>
-                    </div>
-                    <span className="chip bg-crimson-soft text-crimson-ink">A0</span>
+                    <p className="font-display text-xl font-semibold text-ink">Greetings &amp; first words</p>
+                    <span className="chip bg-crimson-soft text-crimson-ink">Lesson 1 · A0</span>
                   </div>
                   <ul className="px-3 pb-2">
                     {PHRASES.map((p) => (
@@ -207,7 +195,7 @@ export default async function HomePage() {
                         {featured.title}
                       </h3>
                       <p className="mt-3 text-[15px] text-muted leading-relaxed line-clamp-2">{featured.excerpt}</p>
-                      <p className="mt-auto pt-5 text-sm font-semibold text-faint flex items-center gap-1.5">
+                      <p className="mt-auto pt-5 text-sm font-semibold text-muted flex items-center gap-1.5">
                         {fmtDate(featured.date)} <span aria-hidden="true">·</span> <Clock className="w-3.5 h-3.5" /> {featured.readingTime} min read
                       </p>
                     </div>
@@ -229,7 +217,7 @@ export default async function HomePage() {
                         <span className="block font-extrabold text-[15px] leading-snug text-ink line-clamp-2 group-hover:text-crimson-ink transition-colors">
                           {post.title}
                         </span>
-                        <span className="block text-xs font-semibold text-faint mt-1">{post.readingTime} min read</span>
+                        <span className="block text-xs font-semibold text-muted mt-1">{post.readingTime} min read</span>
                       </span>
                     </Link>
                   );
@@ -272,7 +260,7 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          <ol className="relative flex flex-col items-center gap-7 py-2" aria-label="First lessons">
+          <ol className="relative flex flex-col items-center gap-7 pt-12 pb-2 lg:pt-2" aria-label="First lessons">
             {pathLessons.map((lesson, i) => {
               const tone = NODE_TONES[i % NODE_TONES.length];
               const x = ZIGZAG[i % ZIGZAG.length];
@@ -298,7 +286,7 @@ export default async function HomePage() {
                       <span className="block text-[15px] font-extrabold text-ink leading-tight group-hover:text-crimson-ink transition-colors">
                         {lesson.title}
                       </span>
-                      <span className="block text-xs font-bold text-faint mt-0.5">
+                      <span className="block text-xs font-bold text-muted mt-0.5">
                         {lesson.level} · {lesson.estimatedMinutes} min
                       </span>
                     </span>
@@ -341,7 +329,7 @@ export default async function HomePage() {
             <div className="flex-1 rounded-2xl bg-paper border-2 border-violet/20 overflow-hidden self-start w-full">
               <div className="px-4 py-2.5 bg-paper border-b-2 border-violet-soft flex items-center justify-between">
                 <span className="font-extrabold text-sm text-ink">być · to be</span>
-                <span className="text-xs font-bold text-faint">present tense</span>
+                <span className="text-xs font-bold text-muted">present tense</span>
               </div>
               <table className="w-full text-sm">
                 <tbody>

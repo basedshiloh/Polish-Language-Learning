@@ -54,7 +54,7 @@ export default function FillInBlank({ question, onAnswer }: FillInBlankProps) {
               disabled={submitted}
               placeholder="Type your answer..."
               aria-invalid={submitted && !isCorrect ? true : undefined}
-              className={`w-full h-14 rounded-2xl border-2 px-4 pr-12 text-lg font-bold outline-none transition-colors placeholder:text-faint placeholder:font-semibold ${
+              className={`w-full h-14 rounded-2xl border-2 px-4 pr-12 text-lg font-bold outline-none transition-colors placeholder:text-muted placeholder:font-semibold ${
                 submitted
                   ? isCorrect
                     ? 'border-emerald bg-emerald-soft text-emerald-ink'

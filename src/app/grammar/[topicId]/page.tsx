@@ -90,7 +90,7 @@ export default function GrammarTopicPage({ params }: { params: Promise<{ topicId
                   className="tile tile-link group flex items-center gap-3 px-4 py-3.5"
                 >
                   <ArrowLeft
-                    className="h-5 w-5 shrink-0 text-faint transition-colors group-hover:text-violet-ink"
+                    className="h-5 w-5 shrink-0 text-muted transition-colors group-hover:text-violet-ink"
                     strokeWidth={2.6}
                     aria-hidden="true"
                   />
@@ -110,7 +110,7 @@ export default function GrammarTopicPage({ params }: { params: Promise<{ topicId
                     <p className="truncate font-extrabold text-ink">{next.title}</p>
                   </div>
                   <ArrowRight
-                    className="h-5 w-5 shrink-0 text-faint transition-colors group-hover:text-violet-ink"
+                    className="h-5 w-5 shrink-0 text-muted transition-colors group-hover:text-violet-ink"
                     strokeWidth={2.6}
                     aria-hidden="true"
                   />

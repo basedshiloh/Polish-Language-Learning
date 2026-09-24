@@ -80,7 +80,7 @@ function CommentBubble({
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-baseline gap-x-2">
             <span className="text-[15px] font-extrabold text-ink">{comment.author_name}</span>
-            <span className="text-xs font-semibold text-faint">{timeAgo(comment.created_at)}</span>
+            <span className="text-xs font-semibold text-muted">{timeAgo(comment.created_at)}</span>
           </div>
           <p className="text-[15px] leading-relaxed text-ink-2 mt-1 whitespace-pre-line break-words">
             {stripUrls(comment.content)}
@@ -208,7 +208,7 @@ export default function CommentSection({ pageId, pageType }: CommentSectionProps
               placeholder="Your name"
               aria-label="Your name"
               maxLength={50}
-              className="w-full h-12 rounded-2xl border-2 border-line bg-canvas pl-11 pr-4 text-[15px] font-semibold text-ink outline-none focus:border-cobalt focus:bg-paper transition-colors placeholder:text-faint"
+              className="w-full h-12 rounded-2xl border-2 border-line bg-canvas pl-11 pr-4 text-[15px] font-semibold text-ink outline-none focus:border-cobalt focus:bg-paper transition-colors placeholder:text-muted"
             />
           </div>
           <textarea
@@ -218,7 +218,7 @@ export default function CommentSection({ pageId, pageType }: CommentSectionProps
             rows={3}
             maxLength={2000}
             aria-label="Comment"
-            className="w-full rounded-2xl border-2 border-line bg-canvas px-4 py-3 text-[15px] font-semibold leading-relaxed text-ink outline-none resize-none focus:border-cobalt focus:bg-paper transition-colors placeholder:text-faint"
+            className="w-full rounded-2xl border-2 border-line bg-canvas px-4 py-3 text-[15px] font-semibold leading-relaxed text-ink outline-none resize-none focus:border-cobalt focus:bg-paper transition-colors placeholder:text-muted"
           />
           {error && (
             <p className="pp-pop flex items-start gap-2 text-sm font-bold text-crimson-ink bg-crimson-soft rounded-xl px-3 py-2 mt-2" role="alert">
@@ -227,7 +227,7 @@ export default function CommentSection({ pageId, pageType }: CommentSectionProps
             </p>
           )}
           <div className="flex items-center justify-between gap-3 mt-3">
-            <span className="text-xs font-bold text-faint tabular-nums">
+            <span className="text-xs font-bold text-muted tabular-nums">
               {content.length}/2000
             </span>
             <button

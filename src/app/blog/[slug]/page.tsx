@@ -45,7 +45,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <div className="px-4 sm:px-6 pt-8 md:pt-12 pb-8">
-      <div className="flex gap-10 xl:gap-12 justify-center">
+      <div className="flex gap-8 justify-center max-w-[1152px] mx-auto">
 
         {/* ── Left sticky ad sidebar ── */}
         <aside className="hidden xl:block w-56 shrink-0">
@@ -55,13 +55,13 @@ export default async function BlogPostPage({ params }: Props) {
         </aside>
 
         {/* ── Main article column ── */}
-        <div className="w-full max-w-[720px] min-w-0">
+        <div className="w-full max-w-[680px] min-w-0">
           <nav aria-label="Breadcrumb" className="no-print mb-6">
             <ol className="flex items-center flex-wrap gap-1.5 text-sm font-bold text-muted">
               <li><Link href="/blog" className="hover:text-ink transition-colors">Blog</Link></li>
               {cat && (
                 <>
-                  <li aria-hidden="true"><ChevronRight className="w-4 h-4 text-faint" /></li>
+                  <li aria-hidden="true"><ChevronRight className="w-4 h-4 text-muted" /></li>
                   <li>
                     <Link href={`/blog?category=${post.category}`} className={`chip ${cat.bg} ${cat.text} hover:brightness-95`}>
                       {cat.label}
@@ -97,7 +97,7 @@ export default async function BlogPostPage({ params }: Props) {
             priority
             fetchPriority="high"
             className="w-full h-auto rounded-3xl my-8 bg-line"
-            sizes="(max-width: 780px) 100vw, 720px"
+            sizes="(max-width: 740px) 100vw, 680px"
           />
 
           <SummaryBox items={post.summary} />

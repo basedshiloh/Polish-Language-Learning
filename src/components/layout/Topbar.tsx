@@ -194,7 +194,7 @@ export default function Topbar() {
                                 </span>
                                 <span className="min-w-0">
                                   <span className="block text-[13px] font-bold text-ink leading-snug line-clamp-2 group-hover:text-crimson-ink transition-colors">{p.title}</span>
-                                  <span className="text-[11px] text-faint mt-0.5 flex items-center gap-1">
+                                  <span className="text-[11px] text-muted mt-0.5 flex items-center gap-1">
                                     <Clock className="w-3 h-3" />{p.readingTime} min read
                                   </span>
                                 </span>
@@ -260,7 +260,7 @@ export default function Topbar() {
               >
                 <Search className="w-4 h-4" strokeWidth={2.5} />
                 <span className="text-sm font-semibold hidden lg:inline">Search</span>
-                <kbd className="hidden lg:inline text-[10px] font-bold text-faint border border-line rounded-md px-1.5 py-0.5">⌘K</kbd>
+                <kbd className="hidden lg:inline text-[10px] font-bold text-muted border border-line rounded-md px-1.5 py-0.5">⌘K</kbd>
               </button>
               <button
                 onClick={() => setSearchOpen(true)}

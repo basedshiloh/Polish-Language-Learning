@@ -91,7 +91,7 @@ export default function QuizClient({ quiz }: { quiz: Quiz }) {
       .filter((t) => t.count > 0);
 
     return (
-      <div className="bg-canvas">
+      <div className="bg-canvas min-h-[calc(100dvh-4.25rem)]">
         <div className="container-pp py-8 md:py-14">
           <div className="max-w-2xl mx-auto">
             <Link
@@ -172,7 +172,7 @@ export default function QuizClient({ quiz }: { quiz: Quiz }) {
             href="/quizzes"
             aria-label="Exit quiz — back to all quizzes"
             title="Back to Quizzes"
-            className="flex items-center justify-center w-10 h-10 shrink-0 rounded-xl text-faint hover:text-ink hover:bg-canvas transition-colors"
+            className="flex items-center justify-center w-10 h-10 shrink-0 rounded-xl text-muted hover:text-ink hover:bg-canvas transition-colors"
           >
             <X className="w-6 h-6" strokeWidth={2.8} />
           </Link>

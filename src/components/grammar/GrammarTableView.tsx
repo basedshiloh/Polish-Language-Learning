@@ -28,7 +28,7 @@ export function decorate(text: string, { endings = true }: { endings?: boolean }
     if (m[3]) {
       if (start > last) out.push(text.slice(last, start));
       out.push(
-        <span key={key++} className="font-normal text-faint">
+        <span key={key++} className="font-normal text-muted">
           →
         </span>,
       );

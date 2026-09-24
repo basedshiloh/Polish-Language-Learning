@@ -44,7 +44,7 @@ export default function MobileToc({ items }: { items: TocItem[] }) {
                 }}
                 className="flex items-baseline gap-3 py-1.5 text-[15px] font-semibold text-ink-2 hover:text-crimson-ink transition-colors"
               >
-                <span className="text-xs font-extrabold text-faint tabular-nums w-4 shrink-0">{i + 1}</span>
+                <span className="text-xs font-extrabold text-muted tabular-nums w-4 shrink-0">{i + 1}</span>
                 {item.title}
               </a>
             </li>

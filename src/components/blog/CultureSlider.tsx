@@ -72,7 +72,7 @@ export default function CultureSlider({ posts }: { posts: Post[] }) {
               <span className="block font-extrabold text-[15px] text-ink leading-snug line-clamp-2 group-hover:text-orange-ink transition-colors">
                 {post.title}
               </span>
-              <span className="block text-xs font-bold text-faint mt-1.5">{fmtDate(post.date)}</span>
+              <span className="block text-xs font-bold text-muted mt-1.5">{fmtDate(post.date)}</span>
             </span>
           </Link>
         ))}
