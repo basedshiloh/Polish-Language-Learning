@@ -15,13 +15,36 @@ interface ChangelogEntry {
 }
 
 const typeStyles = {
-  added: { label: 'Added', bg: 'bg-green-100 dark:bg-green-900/30', text: 'text-green-700 dark:text-green-400' },
-  fixed: { label: 'Fixed', bg: 'bg-blue-100 dark:bg-blue-900/30', text: 'text-blue-700 dark:text-blue-400' },
-  changed: { label: 'Changed', bg: 'bg-amber-100 dark:bg-amber-900/30', text: 'text-amber-700 dark:text-amber-400' },
-  removed: { label: 'Removed', bg: 'bg-red-100 dark:bg-red-900/30', text: 'text-red-700 dark:text-red-400' },
+  added: { label: 'Added', bg: 'bg-emerald-soft', text: 'text-emerald-ink' },
+  fixed: { label: 'Fixed', bg: 'bg-cobalt-soft', text: 'text-cobalt-ink' },
+  changed: { label: 'Changed', bg: 'bg-sun-soft', text: 'text-sun-ink' },
+  removed: { label: 'Removed', bg: 'bg-crimson-soft', text: 'text-crimson-ink' },
 };
 
+// Timeline dot colour cycles through the papercut palette, newest first.
+const DOT_TONES = [
+  'bg-crimson shadow-[0_0_0_4px_var(--color-crimson-soft)]',
+  'bg-cobalt shadow-[0_0_0_4px_var(--color-cobalt-soft)]',
+  'bg-emerald shadow-[0_0_0_4px_var(--color-emerald-soft)]',
+  'bg-sun shadow-[0_0_0_4px_var(--color-sun-soft)]',
+  'bg-violet shadow-[0_0_0_4px_var(--color-violet-soft)]',
+  'bg-orange shadow-[0_0_0_4px_var(--color-orange-soft)]',
+];
+
 const changelog: ChangelogEntry[] = [
+  {
+    date: 'September 25, 2026',
+    version: '4.0.0',
+    changes: [
+      { type: 'changed', text: 'Full visual redesign: a friendlier, app-like look with rounded Fredoka headings, Nunito body text, tactile buttons and bordered tiles' },
+      { type: 'changed', text: 'New colour palette inspired by Łowicz papercuts (wycinanki): Polish crimson as the brand colour, with each blog topic and grammar category getting its own colour' },
+      { type: 'added', text: 'Homepage lesson path showing the course in order, plus live pronunciation buttons on the hero phrase card' },
+      { type: 'added', text: 'Blog posts now end with a short "start lesson 1" card and show the article summary under the title' },
+      { type: 'added', text: 'Quiz feedback bar that pops in after each answer with the correct answer and explanation' },
+      { type: 'fixed', text: 'Blog images inside paragraphs no longer cause a hydration error' },
+      { type: 'removed', text: 'Dark mode and the theme switcher: the site is now light mode only' },
+    ],
+  },
   {
     date: 'July 17, 2026',
     version: '3.0.0',
@@ -226,45 +249,65 @@ const changelog: ChangelogEntry[] = [
 
 export default function ChangelogPage() {
   return (
-    <div className="p-6 md:p-10">
-      <div className="max-w-3xl mx-auto">
-        <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 mb-6 transition-colors">
-          <ArrowLeft className="w-4 h-4" />
-          Back to Home
-        </Link>
+    <div>
+      <div className="bg-canvas border-b-2 border-line">
+        <div className="container-pp py-12 md:py-16">
+          <div className="max-w-3xl mx-auto">
+            <Link href="/" className="inline-flex items-center gap-1.5 text-sm font-bold text-muted hover:text-ink mb-8 transition-colors">
+              <ArrowLeft className="w-4 h-4" strokeWidth={2.5} />
+              Back to Home
+            </Link>
 
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Changelog</h1>
-        <p className="text-gray-500 dark:text-gray-400 mb-8">
-          A history of updates, fixes, and new features. For the full commit history, see our{' '}
-          <a href="https://github.com/basedshiloh/Polish-Language-Learning/commits/main" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">
-            GitHub commits
-          </a>.
-        </p>
+            <h1 className="text-4xl md:text-5xl font-bold">Changelog</h1>
+            <p className="text-muted text-lg mt-4">
+              A history of updates, fixes, and new features. For the full commit history, see our{' '}
+              <a href="https://github.com/basedshiloh/Polish-Language-Learning/commits/main" target="_blank" rel="noopener noreferrer" className="font-bold text-cobalt-ink underline decoration-2 underline-offset-4 decoration-cobalt/30 hover:decoration-cobalt transition-colors">
+                GitHub commits
+              </a>.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {(Object.keys(typeStyles) as (keyof typeof typeStyles)[]).map((t) => (
+                <span key={t} className={`chip ${typeStyles[t].bg} ${typeStyles[t].text}`}>{typeStyles[t].label}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <div className="space-y-10">
-          {changelog.map((entry) => (
-            <section key={entry.version}>
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-sm font-mono font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2.5 py-1 rounded-lg">
-                  v{entry.version}
-                </span>
-                <span className="text-sm text-gray-400 dark:text-gray-500">{entry.date}</span>
-              </div>
-              <div className="space-y-2 ml-1">
-                {entry.changes.map((change, i) => {
-                  const style = typeStyles[change.type];
-                  return (
-                    <div key={i} className="flex items-start gap-3">
-                      <span className={`text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full shrink-0 mt-0.5 ${style.bg} ${style.text}`}>
-                        {style.label}
-                      </span>
-                      <p className="text-sm text-gray-700 dark:text-gray-300">{change.text}</p>
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
-          ))}
+      <div className="container-pp py-12 md:py-16">
+        <div className="max-w-3xl mx-auto relative">
+          {/* Timeline rail */}
+          <span className="absolute left-[11px] top-3 bottom-3 w-0.5 bg-line rounded-full" aria-hidden="true" />
+
+          <div className="space-y-12">
+            {changelog.map((entry, idx) => (
+              <section key={entry.version} className="relative pl-10 md:pl-12">
+                <span
+                  className={`absolute left-[5px] top-2.5 w-3.5 h-3.5 rounded-full ${DOT_TONES[idx % DOT_TONES.length]}`}
+                  aria-hidden="true"
+                />
+                <div className="flex flex-wrap items-center gap-3 mb-4">
+                  <span className="font-display font-semibold inline-flex items-center rounded-xl bg-ink text-white px-3 py-1.5 text-lg leading-none">
+                    v{entry.version}
+                  </span>
+                  <span className="text-sm font-bold text-muted">{entry.date}</span>
+                </div>
+                <ul className="tile divide-y-2 divide-line overflow-hidden">
+                  {entry.changes.map((change, i) => {
+                    const style = typeStyles[change.type];
+                    return (
+                      <li key={i} className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 px-4 py-3.5 md:px-5">
+                        <span className={`chip self-start sm:w-[5.5rem] sm:justify-center shrink-0 uppercase ${style.bg} ${style.text}`}>
+                          {style.label}
+                        </span>
+                        <p className="text-[15px] md:text-base leading-relaxed text-ink-2 min-w-0 break-words">{change.text}</p>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            ))}
+          </div>
         </div>
       </div>
     </div>

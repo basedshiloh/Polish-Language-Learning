@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { grammarTopics } from '@/data/grammar';
 import GrammarSectionView from '@/components/grammar/GrammarSectionView';
-import { categoryStyles } from '@/components/grammar/GrammarCard';
+import { categoryStyles, GrammarIcon } from '@/components/grammar/GrammarCard';
 import TableOfContents from '@/components/layout/TableOfContents';
 import StarRating from '@/components/shared/StarRating';
 import ShareBox from '@/components/shared/ShareBox';
@@ -32,80 +32,97 @@ export default function GrammarTopicPage({ params }: { params: Promise<{ topicId
   let tocIdx = 0;
 
   return (
-    <div className="p-6 md:p-10">
-      <div className="flex gap-8">
-        <div className="flex-1 min-w-0 max-w-4xl">
+    <div>
+      {/* ── Header band ─────────────────────────────────────── */}
+      <section className="border-b-2 border-line bg-canvas">
+        <div className="container-pp py-8 md:py-12">
           <Link
             href="/grammar"
-            className="no-print inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-purple-600 mb-6 transition-colors"
+            className="no-print mb-6 inline-flex items-center gap-1.5 rounded-xl text-sm font-extrabold text-muted transition-colors hover:text-violet-ink"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="h-4 w-4" strokeWidth={2.6} aria-hidden="true" />
             Back to Grammar
           </Link>
 
-          <div className="mb-8">
-            <span className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${cat.bg} ${cat.text}`}>
-              {cat.label}
+          <div className="flex items-start gap-5">
+            <span className={`icon-badge hidden h-16 w-16 rounded-[20px] sm:inline-flex ${cat.bg} ${cat.text}`}>
+              <GrammarIcon icon={topic.icon} className="h-8 w-8" />
             </span>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mt-3">{topic.title}</h1>
-            {topic.polishTitle && (
-              <p className="text-lg text-purple-600 dark:text-purple-400 font-medium">{topic.polishTitle}</p>
-            )}
-            <p className="text-gray-500 dark:text-gray-400 mt-1">{topic.description}</p>
-            <div className="mt-3">
-              <StarRating itemId={topic.id} itemType="grammar" />
+            <div className="min-w-0 max-w-3xl">
+              <h1 className="text-4xl font-bold leading-[1.1] md:text-5xl">{topic.title}</h1>
+              {topic.polishTitle && (
+                <p lang="pl" className="polish-text mt-2 text-xl md:text-2xl">
+                  {topic.polishTitle}
+                </p>
+              )}
+              <p className="mt-3 text-lg leading-relaxed text-muted">{topic.description}</p>
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                <span className={`chip ${cat.bg} ${cat.text}`}>{cat.label}</span>
+                <StarRating itemId={topic.id} itemType="grammar" />
+              </div>
             </div>
           </div>
-
-          <div className="space-y-8">
-            {topic.sections.map((section, i) => {
-              const hasTocEntry = !!section.title;
-              const sectionId = hasTocEntry ? `gsection-${tocIdx++}` : undefined;
-              return (
-                <section
-                  key={i}
-                  id={sectionId}
-                  className="bg-white dark:bg-gray-900 rounded-xl p-5 md:p-6 border border-gray-100 dark:border-gray-800 scroll-mt-8"
-                >
-                  <GrammarSectionView section={section} />
-                </section>
-              );
-            })}
-          </div>
-
-          <ShareBox title={topic.title} label="topic" />
-
-          <div className="no-print mt-8 grid grid-cols-2 gap-3">
-            {prev ? (
-              <Link
-                href={`/grammar/${prev.id}`}
-                className="flex items-center gap-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-4 py-3 hover:border-purple-200 dark:hover:border-purple-800 hover:shadow-sm transition-all"
-              >
-                <ArrowLeft className="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0" />
-                <div className="min-w-0">
-                  <p className="text-xs text-gray-400 dark:text-gray-500">Previous</p>
-                  <p className="text-sm font-medium text-gray-800 dark:text-gray-200 truncate">{prev.title}</p>
-                </div>
-              </Link>
-            ) : <div />}
-            {next ? (
-              <Link
-                href={`/grammar/${next.id}`}
-                className="flex items-center justify-end gap-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-4 py-3 hover:border-purple-200 dark:hover:border-purple-800 hover:shadow-sm transition-all text-right"
-              >
-                <div className="min-w-0">
-                  <p className="text-xs text-gray-400 dark:text-gray-500">Next</p>
-                  <p className="text-sm font-medium text-gray-800 dark:text-gray-200 truncate">{next.title}</p>
-                </div>
-                <ArrowRight className="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0" />
-              </Link>
-            ) : <div />}
-          </div>
-
-          <CommentSection pageId={`grammar-${topic.id}`} pageType="grammar" />
         </div>
+      </section>
 
-        <TableOfContents items={tocItems} />
+      {/* ── Body ────────────────────────────────────────────── */}
+      <div className="container-pp py-10 md:py-12">
+        <div className="flex gap-10">
+          <div className="min-w-0 max-w-4xl flex-1">
+            <div className="space-y-10 md:space-y-12">
+              {topic.sections.map((section, i) => {
+                const hasTocEntry = !!section.title;
+                const sectionId = hasTocEntry ? `gsection-${tocIdx++}` : undefined;
+                return (
+                  <section key={i} id={sectionId} className="scroll-mt-24">
+                    <GrammarSectionView section={section} />
+                  </section>
+                );
+              })}
+            </div>
+
+            <ShareBox title={topic.title} label="topic" />
+
+            <nav aria-label="Grammar topics" className="no-print mt-10 grid grid-cols-2 gap-3">
+              {prev ? (
+                <Link
+                  href={`/grammar/${prev.id}`}
+                  className="tile tile-link group flex items-center gap-3 px-4 py-3.5"
+                >
+                  <ArrowLeft
+                    className="h-5 w-5 shrink-0 text-faint transition-colors group-hover:text-violet-ink"
+                    strokeWidth={2.6}
+                    aria-hidden="true"
+                  />
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold text-muted">Previous</p>
+                    <p className="truncate font-extrabold text-ink">{prev.title}</p>
+                  </div>
+                </Link>
+              ) : <div />}
+              {next ? (
+                <Link
+                  href={`/grammar/${next.id}`}
+                  className="tile tile-link group flex items-center justify-end gap-3 px-4 py-3.5 text-right"
+                >
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold text-muted">Next</p>
+                    <p className="truncate font-extrabold text-ink">{next.title}</p>
+                  </div>
+                  <ArrowRight
+                    className="h-5 w-5 shrink-0 text-faint transition-colors group-hover:text-violet-ink"
+                    strokeWidth={2.6}
+                    aria-hidden="true"
+                  />
+                </Link>
+              ) : <div />}
+            </nav>
+
+            <CommentSection pageId={`grammar-${topic.id}`} pageType="grammar" />
+          </div>
+
+          <TableOfContents items={tocItems} />
+        </div>
       </div>
     </div>
   );

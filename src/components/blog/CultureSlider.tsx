@@ -10,6 +10,9 @@ function fmtDate(d: string) {
   return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
+const arrowBtn =
+  'w-11 h-11 rounded-full bg-paper text-orange-ink flex items-center justify-center shadow-[0_3px_0_var(--color-orange-edge)] active:translate-y-[3px] active:shadow-none transition-transform';
+
 export default function CultureSlider({ posts }: { posts: Post[] }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -22,80 +25,62 @@ export default function CultureSlider({ posts }: { posts: Post[] }) {
   if (posts.length === 0) return null;
 
   return (
-    <section
-      className="-mx-6 md:-mx-8 px-6 md:px-8 py-10 my-10 rounded-2xl"
-      style={{ background: '#242EF7' }}
-    >
-      {/* Header row */}
-      <div className="flex items-center justify-between mb-6">
+    <section className="rounded-[28px] bg-orange-soft px-5 md:px-8 py-8 md:py-10 my-12">
+      <div className="flex items-end justify-between gap-4 mb-6">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-white/60 mb-1">Editorial</p>
-          <h2 className="text-2xl font-bold text-white leading-tight">Culture Picks</h2>
+          <h2 className="font-display text-2xl md:text-3xl font-semibold text-orange-ink leading-tight">Culture picks</h2>
+          <p className="mt-1 text-[15px] font-semibold text-orange-ink/80">Traditions, places and stories from Poland.</p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           <Link
             href="/blog?category=culture"
-            className="hidden sm:inline-flex items-center gap-1.5 text-sm text-white/70 hover:text-white transition-colors"
+            className="hidden sm:inline-flex items-center gap-1.5 text-sm font-extrabold text-orange-ink hover:gap-2.5 transition-all"
           >
-            All culture posts <ArrowRight className="w-3.5 h-3.5" />
+            All culture posts <ArrowRight className="w-4 h-4" />
           </Link>
-          <div className="flex gap-2">
-            <button
-              onClick={() => scroll('left')}
-              aria-label="Scroll left"
-              className="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition-colors"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={() => scroll('right')}
-              aria-label="Scroll right"
-              className="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition-colors"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
+          <button onClick={() => scroll('left')} aria-label="Scroll left" className={arrowBtn}>
+            <ChevronLeft className="w-5 h-5" strokeWidth={3} />
+          </button>
+          <button onClick={() => scroll('right')} aria-label="Scroll right" className={arrowBtn}>
+            <ChevronRight className="w-5 h-5" strokeWidth={3} />
+          </button>
         </div>
       </div>
 
-      {/* Slider track */}
       <div
         ref={ref}
-        className="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth"
+        className="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth pb-2 -mx-1 px-1"
         style={{ scrollSnapType: 'x mandatory' }}
       >
         {posts.map((post) => (
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="group shrink-0 w-60 sm:w-72"
+            className="group tile tile-link shrink-0 w-64 sm:w-72 overflow-hidden"
             style={{ scrollSnapAlign: 'start' }}
           >
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-3" style={{ background: 'rgba(255,255,255,0.1)' }}>
+            <span className="relative block aspect-[4/3] overflow-hidden bg-line">
               <Image
                 src={post.featuredImage}
                 alt={post.featuredImageAlt}
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-300 opacity-90"
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                 sizes="288px"
               />
-              {/* Gradient overlay */}
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 60%)' }} />
-            </div>
-            <p className="text-xs text-white/50 mb-1">{fmtDate(post.date)}</p>
-            <h3 className="text-white font-semibold text-sm leading-snug line-clamp-2 group-hover:text-white/80 transition-colors">
-              {post.title}
-            </h3>
+            </span>
+            <span className="block p-4">
+              <span className="block font-extrabold text-[15px] text-ink leading-snug line-clamp-2 group-hover:text-orange-ink transition-colors">
+                {post.title}
+              </span>
+              <span className="block text-xs font-bold text-faint mt-1.5">{fmtDate(post.date)}</span>
+            </span>
           </Link>
         ))}
       </div>
 
-      {/* Mobile link */}
-      <div className="sm:hidden mt-5 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.2)' }}>
-        <Link href="/blog?category=culture" className="text-sm text-white/70 hover:text-white transition-colors inline-flex items-center gap-1">
-          All culture posts <ArrowRight className="w-3.5 h-3.5" />
-        </Link>
-      </div>
+      <Link href="/blog?category=culture" className="sm:hidden mt-5 inline-flex items-center gap-1.5 text-sm font-extrabold text-orange-ink">
+        All culture posts <ArrowRight className="w-4 h-4" />
+      </Link>
     </section>
   );
 }

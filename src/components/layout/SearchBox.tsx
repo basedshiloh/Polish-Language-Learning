@@ -8,10 +8,10 @@ import { useSearch, type SearchResult, type SearchEntry } from '@/hooks/useSearc
 const DROPDOWN_LIMIT = 10;
 
 const categoryMeta = {
-  lesson:  { icon: BookOpen,   label: 'Lesson',  color: 'text-blue-600',   bg: 'bg-blue-50 dark:bg-blue-900/20' },
-  grammar: { icon: Table2,     label: 'Grammar', color: 'text-purple-600', bg: 'bg-purple-50 dark:bg-purple-900/20' },
-  quiz:    { icon: Brain,      label: 'Quiz',    color: 'text-green-600',  bg: 'bg-green-50 dark:bg-green-900/20' },
-  blog:    { icon: Newspaper,  label: 'Blog',    color: 'text-amber-600',  bg: 'bg-amber-50 dark:bg-amber-900/20' },
+  lesson:  { icon: BookOpen,   label: 'Lesson',  tone: 'bg-crimson-soft text-crimson-ink' },
+  grammar: { icon: Table2,     label: 'Grammar', tone: 'bg-violet-soft text-violet-ink' },
+  quiz:    { icon: Brain,      label: 'Quiz',    tone: 'bg-emerald-soft text-emerald-ink' },
+  blog:    { icon: Newspaper,  label: 'Blog',    tone: 'bg-orange-soft text-orange-ink' },
 };
 
 function HighlightMatch({ text, query }: { text: string; query: string }) {
@@ -39,7 +39,7 @@ function HighlightMatch({ text, query }: { text: string; query: string }) {
     <span>
       {parts.map((p, i) =>
         p.bold ? (
-          <strong key={i} className="text-blue-700 font-bold">{p.text}</strong>
+          <mark key={i} className="bg-sun-soft text-ink font-extrabold rounded px-0.5">{p.text}</mark>
         ) : (
           <span key={i}>{p.text}</span>
         )
@@ -142,7 +142,7 @@ export default function SearchBox() {
   return (
     <div ref={wrapperRef} className="relative w-full max-w-2xl">
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted pointer-events-none" strokeWidth={2.5} />
         <input
           ref={inputRef}
           type="text"
@@ -151,21 +151,24 @@ export default function SearchBox() {
           onFocus={() => { if (results.length > 0) setOpen(true); }}
           onKeyDown={handleKeyDown}
           placeholder="Search lessons, grammar, quizzes… (⌘K)"
-          className="w-full pl-10 pr-10 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 transition-all placeholder:text-gray-400 dark:text-gray-500 dark:text-gray-100"
+          aria-label="Search lessons, grammar, quizzes and blog posts"
+          className="w-full h-14 pl-12 pr-12 bg-canvas border-2 border-line rounded-2xl text-base font-semibold text-ink outline-none focus:border-cobalt focus:bg-paper transition-colors placeholder:text-faint placeholder:font-semibold"
           autoComplete="off"
         />
         {query && (
           <button
+            type="button"
             onClick={() => { setQuery(''); setResults([]); setOpen(false); }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:text-gray-400"
+            aria-label="Clear search"
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-lg text-muted hover:text-ink hover:bg-line transition-colors"
           >
-            <X className="w-4 h-4" />
+            <X className="w-4 h-4" strokeWidth={2.5} />
           </button>
         )}
       </div>
 
       {open && results.length > 0 && (
-        <div className="absolute top-full mt-1 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg z-50 overflow-hidden max-h-[70vh] overflow-y-auto">
+        <div className="absolute top-full mt-2 w-full tile shadow-[0_18px_40px_-18px_rgba(30,33,50,0.3)] z-50 overflow-hidden max-h-[70vh] overflow-y-auto p-1.5">
           {visibleResults.map((result, i) => {
             const meta = categoryMeta[result.entry.category];
             const Icon = meta.icon;
@@ -174,23 +177,23 @@ export default function SearchBox() {
                 key={i}
                 onClick={() => handleSelect(result)}
                 onMouseEnter={() => setSelectedIdx(i)}
-                className={`w-full flex items-start gap-3 px-4 py-3 text-left transition-colors ${
-                  selectedIdx === i ? 'bg-blue-50 dark:bg-gray-700/60' : 'hover:bg-gray-50 dark:hover:bg-gray-700/60'
-                } ${i > 0 ? 'border-t border-gray-50 dark:border-gray-700/60' : ''}`}
+                className={`w-full flex items-start gap-3 px-3 py-3 rounded-xl text-left transition-colors ${
+                  selectedIdx === i ? 'bg-cobalt-soft' : 'hover:bg-canvas'
+                }`}
               >
-                <div className={`w-8 h-8 rounded-lg ${meta.bg} flex items-center justify-center shrink-0 mt-0.5`}>
-                  <Icon className={`w-4 h-4 ${meta.color}`} />
-                </div>
+                <span className={`icon-badge w-9 h-9 rounded-xl ${meta.tone}`}>
+                  <Icon className="w-[18px] h-[18px]" strokeWidth={2.4} />
+                </span>
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <span className="text-[15px] font-extrabold text-ink leading-snug">
                       <HighlightMatch text={result.entry.title} query={query} />
                     </span>
-                    <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${meta.bg} ${meta.color}`}>
+                    <span className={`chip text-[10px] px-2 py-0.5 uppercase ${meta.tone}`}>
                       {meta.label}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">
+                  <p className="text-[13px] text-muted mt-1 leading-relaxed line-clamp-2">
                     <HighlightMatch text={result.matchedText} query={query} />
                   </p>
                 </div>
@@ -199,7 +202,7 @@ export default function SearchBox() {
           })}
           <button
             onClick={goToFullSearch}
-            className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-700/60 border-t border-gray-100 dark:border-gray-700/60 transition-colors"
+            className="w-full flex items-center justify-center gap-2 mt-1 px-4 py-3 rounded-xl text-[13px] font-extrabold uppercase tracking-[0.06em] text-cobalt-ink bg-canvas hover:bg-cobalt-soft transition-colors"
           >
             Search all results ({results.length})
             <ArrowRight className="w-4 h-4" />
@@ -208,8 +211,8 @@ export default function SearchBox() {
       )}
 
       {open && query.length >= 2 && results.length === 0 && (
-        <div className="absolute top-full mt-1 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg z-50 p-4 text-center">
-          <p className="text-sm text-gray-400 dark:text-gray-500">No results for &quot;{query}&quot;</p>
+        <div className="absolute top-full mt-2 w-full tile shadow-[0_18px_40px_-18px_rgba(30,33,50,0.3)] z-50 p-5 text-center">
+          <p className="text-sm font-semibold text-muted">No results for &quot;{query}&quot;</p>
         </div>
       )}
     </div>

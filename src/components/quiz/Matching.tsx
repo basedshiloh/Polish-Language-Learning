@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, XCircle } from 'lucide-react';
 import { MatchingQuestion } from '@/lib/types';
 
 interface MatchingProps {
@@ -74,67 +74,75 @@ export default function Matching({ question, onAnswer }: MatchingProps) {
     }
   }
 
+  const base = 'tile w-full min-h-14 px-3 sm:px-4 py-3 text-left text-[15px] sm:text-base transition-[transform,background-color,border-color,opacity] duration-100 disabled:cursor-default';
+  const idle = 'border-line bg-paper hover:border-line-2 hover:bg-canvas active:translate-y-0.5';
+  const matched = 'border-emerald bg-emerald-soft text-emerald-ink';
+  const selectedStyle = 'border-cobalt bg-cobalt-soft text-cobalt-ink';
+  const wrong = 'border-crimson bg-crimson-soft text-crimson-ink';
+
   return (
     <div>
-      <p className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">{question.prompt}</p>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
+      <p className="font-display text-2xl md:text-3xl font-semibold text-ink leading-snug mb-2">{question.prompt}</p>
+      <p className="text-sm font-semibold text-muted mb-6 min-h-5">
+        {!done && (selectedLeft === null
+          ? 'Pick an item on the left, then its match on the right.'
+          : 'Now pick its match on the right.')}
+      </p>
+      <div className="grid grid-cols-2 gap-3 sm:gap-4">
+        <div className="space-y-3" role="group" aria-label="Items to match">
           {leftItems.map((item) => {
             const isMatched = matchedLeft.has(item.index);
             const isSelected = selectedLeft === item.index;
             const isWrong = wrongPair?.left === item.index;
 
-            let style = 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-blue-300';
-            if (isMatched) style = 'border-green-300 bg-green-50 opacity-60';
-            if (isSelected) style = 'border-blue-500 bg-blue-50 ring-2 ring-blue-200';
-            if (isWrong) style = 'border-red-400 bg-red-50 animate-shake';
+            let style = `${idle} text-crimson-ink font-extrabold`;
+            if (isMatched) style = `${matched} font-extrabold`;
+            if (isSelected) style = `${selectedStyle} font-extrabold`;
+            if (isWrong) style = `${wrong} font-extrabold`;
 
             return (
               <button
                 key={item.index}
                 onClick={() => handleLeftClick(item)}
                 disabled={isMatched}
-                className={`w-full p-3 rounded-lg border-2 text-sm font-semibold text-blue-800 text-left transition-all ${style}`}
+                aria-pressed={isSelected}
+                className={`${base} ${style}`}
               >
-                <div className="flex items-center justify-between">
-                  {item.text}
-                  {isMatched && <CheckCircle2 className="w-4 h-4 text-green-600" />}
-                </div>
+                <span className="flex items-center justify-between gap-2">
+                  <span className="min-w-0 break-words">{item.text}</span>
+                  {isMatched && <CheckCircle2 className="w-5 h-5 text-emerald shrink-0" strokeWidth={2.4} aria-label="Matched" />}
+                  {isWrong && <XCircle className="w-5 h-5 text-crimson shrink-0" strokeWidth={2.4} aria-label="Wrong match" />}
+                </span>
               </button>
             );
           })}
         </div>
-        <div className="space-y-2">
+        <div className="space-y-3" role="group" aria-label="Matches">
           {rightItems.map((item) => {
             const isMatched = matchedRight.has(item.index);
             const isWrong = wrongPair?.right === item.index;
 
-            let style = 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-blue-300';
-            if (isMatched) style = 'border-green-300 bg-green-50 opacity-60';
-            if (isWrong) style = 'border-red-400 bg-red-50 animate-shake';
+            let style = `${idle} text-ink font-bold`;
+            if (isMatched) style = `${matched} font-bold`;
+            if (isWrong) style = `${wrong} font-bold`;
 
             return (
               <button
                 key={item.index}
                 onClick={() => handleRightClick(item)}
                 disabled={isMatched}
-                className={`w-full p-3 rounded-lg border-2 text-sm text-gray-700 text-left transition-all ${style}`}
+                className={`${base} ${style}`}
               >
-                <div className="flex items-center justify-between">
-                  {item.text}
-                  {isMatched && <CheckCircle2 className="w-4 h-4 text-green-600" />}
-                </div>
+                <span className="flex items-center justify-between gap-2">
+                  <span className="min-w-0 break-words">{item.text}</span>
+                  {isMatched && <CheckCircle2 className="w-5 h-5 text-emerald shrink-0" strokeWidth={2.4} aria-label="Matched" />}
+                  {isWrong && <XCircle className="w-5 h-5 text-crimson shrink-0" strokeWidth={2.4} aria-label="Wrong match" />}
+                </span>
               </button>
             );
           })}
         </div>
       </div>
-
-      {done && (
-        <div className="mt-4 p-3 rounded-lg bg-green-50 text-green-800 text-sm">
-          All pairs matched! {mistakes === 0 ? 'Perfect score!' : `${mistakes} mistake${mistakes === 1 ? '' : 's'}.`}
-        </div>
-      )}
     </div>
   );
 }

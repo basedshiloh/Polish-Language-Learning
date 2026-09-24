@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Clock, Pin } from 'lucide-react';
+import { ArrowRight, Clock } from 'lucide-react';
 import { blogCategoryStyles } from '@/data/blog';
 import { getPaginatedPosts, getPublishedPosts, getHighlightedPosts } from '@/lib/posts';
 import { getAdSlots } from '@/lib/ads';
@@ -21,32 +21,36 @@ function fmtDate(d: string) {
 }
 
 function CategoryFilters({ activeCategory }: { activeCategory?: string }) {
+  const base = 'chip text-[13px] px-4 py-2 border-2 transition-colors';
   return (
-    <div className="flex flex-wrap gap-2 mb-8">
-      <Link
-        href="/blog"
-        className={`px-3 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-lg border transition-colors ${
-          !activeCategory
-            ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 border-gray-900 dark:border-gray-100'
-            : 'text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-gray-500 dark:hover:border-gray-500'
-        }`}
-      >
-        All
-      </Link>
-      {(Object.entries(blogCategoryStyles) as [BlogCategory, typeof blogCategoryStyles[BlogCategory]][]).map(([key, style]) => (
-        <Link
-          key={key}
-          href={`/blog?category=${key}`}
-          className={`px-3 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-lg border transition-colors ${
-            activeCategory === key
-              ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 border-gray-900 dark:border-gray-100'
-              : 'text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-gray-500 dark:hover:border-gray-500'
-          }`}
-        >
-          {style.label}
-        </Link>
-      ))}
-    </div>
+    <nav aria-label="Blog topics" className="-mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto no-scrollbar">
+      <ul className="flex sm:flex-wrap gap-2 w-max sm:w-auto pb-1">
+        <li>
+          <Link
+            href="/blog"
+            aria-current={!activeCategory ? 'page' : undefined}
+            className={`${base} ${!activeCategory ? 'bg-ink text-white border-ink' : 'bg-paper text-ink-2 border-line hover:border-line-2'}`}
+          >
+            All
+          </Link>
+        </li>
+        {(Object.entries(blogCategoryStyles) as [BlogCategory, typeof blogCategoryStyles[BlogCategory]][]).map(([key, style]) => {
+          const active = activeCategory === key;
+          return (
+            <li key={key}>
+              <Link
+                href={`/blog?category=${key}`}
+                aria-current={active ? 'page' : undefined}
+                className={`${base} ${active ? `${style.bg} ${style.text} ${style.border}` : 'bg-paper text-ink-2 border-line hover:border-line-2'}`}
+              >
+                <span className={`w-2 h-2 rounded-full ${style.solid}`} />
+                {style.label}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 }
 
@@ -55,64 +59,60 @@ function CategoryFilters({ activeCategory }: { activeCategory?: string }) {
 function HeroFeature({ post }: { post: Post }) {
   const cat = blogCategoryStyles[post.category];
   return (
-    <Link href={`/blog/${post.slug}`} className="group block">
-      <div className="relative aspect-[3/2] rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-5">
+    <Link href={`/blog/${post.slug}`} className="group tile tile-link overflow-hidden flex flex-col">
+      <div className="relative aspect-[16/10] overflow-hidden bg-line">
         <Image
           src={post.featuredImage}
           alt={post.featuredImageAlt}
           fill
           priority
-          className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
-          sizes="(max-width: 768px) 100vw, 55vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          sizes="(max-width: 1024px) 100vw, 60vw"
         />
       </div>
-      <span className={`text-[10px] font-black uppercase tracking-widest ${cat.text} ${cat.darkText}`}>
-        {cat.label}
-      </span>
-      <h2 className="mt-1.5 text-2xl md:text-3xl lg:text-[2.2rem] font-black text-gray-900 dark:text-gray-100 leading-tight tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-3">
-        {post.title}
-      </h2>
-      <p className="text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-3 mb-4 text-[15px]">
-        {post.excerpt}
-      </p>
-      <p className="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1.5">
-        <span className="font-semibold text-gray-600 dark:text-gray-300">{post.author.name}</span>
-        <span>·</span>
-        <span>{fmtDate(post.date)}</span>
-        <span>·</span>
-        <Clock className="w-3 h-3" />
-        <span>{post.readingTime} min</span>
-      </p>
+      <div className="p-6 md:p-8">
+        {cat && <span className={`chip mb-3 ${cat.bg} ${cat.text}`}>{cat.label}</span>}
+        <h2 className="font-display text-[1.75rem] md:text-[2.3rem] font-semibold leading-[1.12] tracking-tight text-ink group-hover:text-crimson-ink transition-colors text-balance">
+          {post.title}
+        </h2>
+        <p className="mt-3 text-[16px] text-muted leading-relaxed line-clamp-3">{post.excerpt}</p>
+        <p className="mt-5 text-sm font-bold text-faint flex flex-wrap items-center gap-1.5">
+          <span className="text-ink-2">{post.author.name}</span>
+          <span aria-hidden="true">·</span>
+          <span>{fmtDate(post.date)}</span>
+          <span aria-hidden="true">·</span>
+          <Clock className="w-3.5 h-3.5" />
+          <span>{post.readingTime} min read</span>
+        </p>
+      </div>
     </Link>
   );
 }
 
-// ── More Stories list (Atlantic-style — no thumbnails, pure text) ─────────────
+// ── Latest list beside the hero ───────────────────────────────────────────────
 
-function MoreStoriesList({ posts }: { posts: Post[] }) {
+function LatestList({ posts }: { posts: Post[] }) {
   return (
-    <aside>
-      <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500 pb-3 mb-1 border-b border-gray-200 dark:border-gray-700">
-        More Stories
-      </p>
-      <ol className="divide-y divide-gray-100 dark:divide-gray-800">
-        {posts.map((p, i) => {
+    <aside aria-label="Latest stories">
+      <h2 className="font-display text-xl font-semibold text-ink mb-4">Latest stories</h2>
+      <ol className="flex flex-col gap-3">
+        {posts.map((p) => {
           const cat = blogCategoryStyles[p.category];
           return (
             <li key={p.slug}>
-              <Link href={`/blog/${p.slug}`} className="group flex gap-3 py-4">
-                <span className="text-xs font-black text-blue-600 dark:text-blue-500 tabular-nums w-5 shrink-0 pt-0.5 leading-none">
-                  {String(i + 1).padStart(2, '0')}
+              <Link href={`/blog/${p.slug}`} className="group tile tile-link flex gap-3.5 p-3 pr-4 items-center">
+                <span className="relative w-20 h-16 rounded-xl overflow-hidden bg-line shrink-0">
+                  <Image src={p.featuredImage} alt={p.featuredImageAlt} fill className="object-cover" sizes="80px" />
                 </span>
-                <div className="min-w-0">
-                  <p className="text-sm font-bold text-gray-900 dark:text-gray-100 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 mb-1.5">
+                <span className="min-w-0">
+                  <span className="block text-[15px] font-extrabold text-ink leading-snug line-clamp-2 group-hover:text-crimson-ink transition-colors">
                     {p.title}
-                  </p>
-                  <p className={`text-[10px] font-bold uppercase tracking-wider ${cat.text} ${cat.darkText}`}>
-                    {cat.label}
-                    <span className="text-gray-400 dark:text-gray-600 font-normal normal-case tracking-normal"> · {fmtDate(p.date)}</span>
-                  </p>
-                </div>
+                  </span>
+                  <span className="mt-1 flex items-center gap-1.5 text-xs font-bold text-faint">
+                    {cat && <span className={`w-2 h-2 rounded-full ${cat.solid}`} />}
+                    {cat?.label} · {fmtDate(p.date)}
+                  </span>
+                </span>
               </Link>
             </li>
           );
@@ -122,120 +122,88 @@ function MoreStoriesList({ posts }: { posts: Post[] }) {
   );
 }
 
-// ── Category section (Atlantic: lead feature + stacked mini list) ──────────────
+// ── Category section: lead feature + stacked list ─────────────────────────────
 
 function CategorySection({ catKey, posts }: { catKey: BlogCategory; posts: Post[] }) {
   if (posts.length === 0) return null;
   const style = blogCategoryStyles[catKey];
   const [lead, ...rest] = posts;
-  const sideItems = rest.slice(0, 5);
+  const sideItems = rest.slice(0, 4);
 
   return (
-    <section className="mb-14">
-      <div className="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-3 mb-6">
-        <h2 className={`text-[10px] font-black uppercase tracking-widest ${style.text} ${style.darkText}`}>
+    <section className="mb-16" aria-labelledby={`cat-${catKey}`}>
+      <div className="flex items-center justify-between gap-4 mb-6">
+        <h2 id={`cat-${catKey}`} className="flex items-center gap-3 font-display text-2xl md:text-[1.9rem] font-semibold text-ink">
+          <span className={`w-4 h-4 rounded-md rotate-45 ${style.solid}`} aria-hidden="true" />
           {style.label}
         </h2>
         <Link
           href={`/blog?category=${catKey}`}
-          className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+          className={`inline-flex items-center gap-1.5 text-sm font-extrabold ${style.text} hover:gap-2.5 transition-all shrink-0`}
         >
-          See all →
+          See all <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-        {/* Lead feature card */}
-        <Link href={`/blog/${lead.slug}`} className="group block">
-          <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
+        <Link href={`/blog/${lead.slug}`} className="group tile tile-link overflow-hidden block">
+          <span className="relative block aspect-[16/10] overflow-hidden bg-line">
             <Image
               src={lead.featuredImage}
               alt={lead.featuredImageAlt}
               fill
-              className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               sizes="(max-width: 768px) 100vw, 40vw"
             />
-          </div>
-          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2 line-clamp-2">
-            {lead.title}
-          </h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-2 leading-relaxed">
-            {lead.excerpt}
-          </p>
-          <p className="text-xs text-gray-400 dark:text-gray-500">
-            {lead.author.name} · {fmtDate(lead.date)} · {lead.readingTime} min read
-          </p>
+          </span>
+          <span className="block p-5">
+            <span className="block font-display text-xl font-semibold leading-snug text-ink group-hover:text-crimson-ink transition-colors line-clamp-2">
+              {lead.title}
+            </span>
+            <span className="block mt-2 text-[15px] text-muted leading-relaxed line-clamp-2">{lead.excerpt}</span>
+            <span className="block mt-3 text-xs font-bold text-faint">
+              {fmtDate(lead.date)} · {lead.readingTime} min read
+            </span>
+          </span>
         </Link>
 
-        {/* Stacked mini-cards */}
         {sideItems.length > 0 && (
-          <div className="divide-y divide-gray-100 dark:divide-gray-800">
+          <ul className="flex flex-col gap-3">
             {sideItems.map((p) => (
-              <Link key={p.slug} href={`/blog/${p.slug}`} className="group flex gap-4 py-4 first:pt-0 last:pb-0">
-                <div
-                  className="relative shrink-0 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800"
-                  style={{ width: 88, height: 66 }}
-                >
-                  <Image
-                    src={p.featuredImage}
-                    alt={p.featuredImageAlt}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    sizes="88px"
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h4 className="text-sm font-bold text-gray-900 dark:text-gray-100 leading-snug line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-1.5">
-                    {p.title}
-                  </h4>
-                  <p className="text-xs text-gray-400 dark:text-gray-500">
-                    {fmtDate(p.date)} · {p.readingTime} min
-                  </p>
-                </div>
-              </Link>
+              <li key={p.slug}>
+                <Link href={`/blog/${p.slug}`} className="group flex gap-4 p-2 -m-2 rounded-2xl hover:bg-canvas transition-colors items-center">
+                  <span className="relative shrink-0 rounded-xl overflow-hidden bg-line w-[88px] h-[68px]">
+                    <Image src={p.featuredImage} alt={p.featuredImageAlt} fill className="object-cover" sizes="88px" />
+                  </span>
+                  <span className="flex-1 min-w-0">
+                    <span className="block text-[15px] font-extrabold text-ink leading-snug line-clamp-2 group-hover:text-crimson-ink transition-colors">
+                      {p.title}
+                    </span>
+                    <span className="block text-xs font-bold text-faint mt-1">
+                      {fmtDate(p.date)} · {p.readingTime} min
+                    </span>
+                  </span>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
       </div>
     </section>
   );
 }
 
-// ── Editor's Picks / Highlighted ─────────────────────────────────────────────
+// ── Editor's Picks ─────────────────────────────────────────────────────────────
 
 function HighlightedSection({ posts }: { posts: Post[] }) {
   if (posts.length === 0) return null;
   return (
-    <section className="mb-14">
-      <div className="flex items-center justify-between border-t border-blue-100 dark:border-blue-900/40 pt-3 mb-6">
-        <h2 className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-blue-600 dark:text-blue-400">
-          <Pin className="w-3 h-3" /> Editor&apos;s Picks
-        </h2>
-      </div>
+    <section className="mb-16" aria-labelledby="editors-picks">
+      <h2 id="editors-picks" className="font-display text-2xl md:text-[1.9rem] font-semibold text-ink mb-6">
+        Editor&apos;s picks
+      </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {posts.map((p) => {
-          const cat = blogCategoryStyles[p.category];
-          return (
-            <Link key={p.slug} href={`/blog/${p.slug}`} className="group flex flex-col gap-3">
-              <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
-                <Image
-                  src={p.featuredImage}
-                  alt={p.featuredImageAlt}
-                  fill
-                  className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-              </div>
-              <div>
-                <p className={`text-[10px] font-bold uppercase tracking-wider mb-1 ${cat.text} ${cat.darkText}`}>{cat.label}</p>
-                <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100 leading-snug line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-1">
-                  {p.title}
-                </h3>
-                <p className="text-xs text-gray-400 dark:text-gray-500">{fmtDate(p.date)} · {p.readingTime} min</p>
-              </div>
-            </Link>
-          );
-        })}
+        {posts.map((p) => <BlogCard key={p.slug} post={p} />)}
       </div>
     </section>
   );
@@ -248,16 +216,14 @@ function SidebarAdBox({ slot }: { slot: Parameters<typeof AdSlot>[0]['slot'] }) 
   return (
     <Link
       href="/contact#advertise"
-      className="flex flex-col items-center justify-center gap-1.5 rounded-xl border-2 border-dashed border-gray-100 dark:border-gray-800 bg-gray-50/40 dark:bg-gray-900/30 p-4 text-center transition-colors hover:border-blue-200 dark:hover:border-blue-800"
+      className="flex flex-col items-center justify-center gap-1.5 rounded-2xl border-2 border-dashed border-line bg-canvas p-4 text-center transition-colors hover:border-line-2"
       style={{ minHeight: 200 }}
     >
-      <span className="text-xs font-medium text-gray-300 dark:text-gray-600">Ad Space</span>
-      <span className="text-[10px] text-gray-300 dark:text-gray-700">Advertise here</span>
+      <span className="text-xs font-bold text-faint">Ad space</span>
+      <span className="text-[11px] font-semibold text-faint">Advertise here</span>
     </Link>
   );
 }
-
-// ── Shared page sidebar ───────────────────────────────────────────────────────
 
 function BlogSidebar({ slot }: { slot: Parameters<typeof AdSlot>[0]['slot'] }) {
   return (
@@ -280,21 +246,23 @@ export default async function BlogPage({ searchParams }: Props) {
   if (!magazine) {
     const { posts, currentPage, totalPages, activeCategory } = await getPaginatedPosts(pageNum, 9, category);
     const ads = await getAdSlots(['blog-sidebar-left', 'blog-sidebar-right']);
+    const style = activeCategory ? blogCategoryStyles[activeCategory as BlogCategory] : undefined;
     return (
-      <div className="flex gap-6 2xl:gap-8 justify-center py-10">
+      <div className="flex gap-6 2xl:gap-8 justify-center py-10 md:py-14">
         <BlogSidebar slot={ads['blog-sidebar-left']} />
-        <div className="w-full max-w-5xl min-w-0 px-6 md:px-8">
-          <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mb-8">
-            <h1 className="text-2xl font-black uppercase tracking-wide text-gray-900 dark:text-gray-100 mt-1">
-              {activeCategory
-                ? (blogCategoryStyles[activeCategory as BlogCategory]?.label ?? 'Blog')
-                : 'All Articles'}
-            </h1>
-            <Link href="/blog" className="text-xs text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors mt-1 inline-block">
-              ← Back to front page
+        <div className="w-full max-w-6xl min-w-0 px-4 sm:px-6 lg:px-8">
+          <header className="mb-8">
+            <Link href="/blog" className="inline-flex items-center gap-1.5 text-sm font-bold text-muted hover:text-ink transition-colors mb-4">
+              ← Blog front page
             </Link>
+            <h1 className="flex items-center gap-3 font-display text-4xl md:text-5xl font-semibold tracking-tight text-ink">
+              {style && <span className={`w-5 h-5 rounded-md rotate-45 ${style.solid}`} aria-hidden="true" />}
+              {style?.label ?? 'All articles'}
+            </h1>
+          </header>
+          <div className="mb-10">
+            <CategoryFilters activeCategory={activeCategory} />
           </div>
-          <CategoryFilters activeCategory={activeCategory} />
           {posts.length > 0 ? (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -303,11 +271,10 @@ export default async function BlogPage({ searchParams }: Props) {
               <BlogPagination currentPage={currentPage} totalPages={totalPages} category={activeCategory} />
             </>
           ) : (
-            <div className="text-center py-16">
-              <p className="text-gray-400 dark:text-gray-500 mb-3">No posts in this category yet.</p>
-              <Link href="/blog" className="text-sm font-semibold text-blue-600 hover:underline">
-                View all posts →
-              </Link>
+            <div className="tile text-center py-16 px-6">
+              <p className="font-display text-2xl font-semibold text-ink mb-2">Nothing here yet</p>
+              <p className="text-muted mb-6">No posts in this topic so far. Try another one.</p>
+              <Link href="/blog" className="btn btn-primary btn-sm">View all posts</Link>
             </div>
           )}
         </div>
@@ -338,72 +305,43 @@ export default async function BlogPage({ searchParams }: Props) {
   }
 
   return (
-    <div className="flex gap-6 2xl:gap-8 justify-center py-8">
+    <div className="flex gap-6 2xl:gap-8 justify-center py-10 md:py-14">
       <BlogSidebar slot={ads['blog-sidebar-left']} />
 
-      {/* ── Main content ── */}
-      <div className="w-full max-w-5xl min-w-0 px-6 md:px-8">
+      <div className="w-full max-w-6xl min-w-0 px-4 sm:px-6 lg:px-8">
 
         {/* ── Masthead ── */}
-        <header className="mb-8">
-          <div className="flex items-end justify-between gap-4 pt-2">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-gray-900 dark:text-gray-100 leading-none">
-              The PolishPal<br />
-              <span className="text-blue-600 dark:text-blue-400">Blog</span>
-            </h1>
-            <p className="hidden md:block text-[10px] text-gray-400 dark:text-gray-500 uppercase tracking-widest text-right shrink-0 pb-1">
-              {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
-            </p>
-          </div>
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-600 mt-3 pb-4 border-b border-gray-100 dark:border-gray-800">
-            Tips &nbsp;·&nbsp; Deep Dives &nbsp;·&nbsp; Culture &nbsp;·&nbsp; Stories
+        <header className="mb-8 md:mb-10">
+          <h1 className="font-display text-[2.8rem] leading-none sm:text-6xl lg:text-7xl font-semibold tracking-[-0.02em] text-ink">
+            The PolishPal <span className="text-crimson">Blog</span>
+          </h1>
+          <p className="mt-4 text-lg md:text-xl text-muted max-w-2xl">
+            Polish culture, words and grammar, explained by people who love the language.
           </p>
         </header>
 
-        <CategoryFilters />
+        <div className="mb-10">
+          <CategoryFilters />
+        </div>
 
         {!hero ? (
-          <p className="text-center py-16 text-gray-400 dark:text-gray-500">No posts yet. Check back soon!</p>
+          <div className="tile text-center py-16 px-6">
+            <p className="font-display text-2xl font-semibold text-ink">No posts yet</p>
+            <p className="text-muted mt-2">Check back soon!</p>
+          </div>
         ) : (
           <>
-            {/* ── Hero: big feature + More Stories list ── */}
-            <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-8 lg:gap-12 mb-12 pb-12 border-b border-gray-100 dark:border-gray-800">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.55fr_1fr] gap-6 lg:gap-8 mb-14">
               <HeroFeature post={hero} />
-              <div className="hidden lg:block">
-                <MoreStoriesList posts={moreStories} />
-              </div>
-
-              {/* Mobile: compact story list below hero */}
-              <div className="lg:hidden divide-y divide-gray-100 dark:divide-gray-800">
-                {moreStories.slice(0, 3).map((p) => (
-                  <Link key={p.slug} href={`/blog/${p.slug}`} className="group flex gap-3 py-3 first:pt-0">
-                    <div className="relative w-20 h-14 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0">
-                      <Image
-                        src={p.featuredImage}
-                        alt={p.featuredImageAlt}
-                        fill
-                        className="object-cover"
-                        sizes="80px"
-                      />
-                    </div>
-                    <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 leading-snug line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                      {p.title}
-                    </p>
-                  </Link>
-                ))}
-              </div>
+              <LatestList posts={moreStories} />
             </div>
 
-            {/* ── Ad banner ── */}
             <AdSlot slot={ads['blog-top']} />
 
-            {/* ── Culture Picks slider ── */}
             <CultureSlider posts={culturePosts} />
 
-            {/* ── Editor's Picks ── */}
             <HighlightedSection posts={highlighted} />
 
-            {/* ── Category sections ── */}
             {catOrder.map((key) => (
               <CategorySection key={key} catKey={key} posts={byCategory[key] ?? []} />
             ))}

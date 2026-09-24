@@ -90,12 +90,12 @@ export default function CommentsPage() {
       <div className="max-w-4xl">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">Comments</h1>
-            <p className="text-sm text-gray-400 dark:text-gray-500">Moderate community comments</p>
+            <h1 className="text-xl font-bold text-gray-900">Comments</h1>
+            <p className="text-sm text-gray-400">Moderate community comments</p>
           </div>
           <button
             onClick={() => refresh(filter, page, order)}
-            className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 transition-colors"
+            className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-blue-600 transition-colors"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
             Refresh
@@ -110,8 +110,8 @@ export default function CommentsPage() {
               { label: 'Hidden', value: stats.hidden, color: 'text-red-500' },
               { label: 'Pages', value: stats.uniquePages, color: 'text-purple-600' },
             ].map((s) => (
-              <div key={s.label} className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-4">
-                <p className="text-xs text-gray-400 dark:text-gray-500">{s.label}</p>
+              <div key={s.label} className="bg-white rounded-lg border border-gray-200 p-4">
+                <p className="text-xs text-gray-400">{s.label}</p>
                 <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
               </div>
             ))}
@@ -126,8 +126,8 @@ export default function CommentsPage() {
                 onClick={() => { setFilter(f); setPage(0); }}
                 className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
                   filter === f
-                    ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-medium'
-                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    ? 'bg-blue-100 text-blue-700 font-medium'
+                    : 'text-gray-500 hover:bg-gray-100'
                 }`}
               >
                 {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -137,7 +137,7 @@ export default function CommentsPage() {
           <select
             value={order}
             onChange={(e) => { setOrder(e.target.value as 'newest' | 'oldest'); setPage(0); }}
-            className="text-sm bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-3 py-1.5 outline-none text-gray-700 dark:text-gray-300"
+            className="text-sm bg-white border border-gray-200 rounded-lg px-3 py-1.5 outline-none text-gray-700"
           >
             <option value="newest">Newest first</option>
             <option value="oldest">Oldest first</option>
@@ -146,9 +146,9 @@ export default function CommentsPage() {
 
         <div className="space-y-3">
           {loading ? (
-            <div className="text-center py-12 text-gray-400 dark:text-gray-500">Loading...</div>
+            <div className="text-center py-12 text-gray-400">Loading...</div>
           ) : comments.length === 0 ? (
-            <div className="text-center py-12 text-gray-400 dark:text-gray-500">
+            <div className="text-center py-12 text-gray-400">
               <MessageSquare className="w-8 h-8 mx-auto mb-2 opacity-40" />
               No comments found
             </div>
@@ -156,40 +156,40 @@ export default function CommentsPage() {
             comments.map((c) => (
               <div
                 key={c.id}
-                className={`bg-white dark:bg-gray-900 rounded-lg border p-4 transition-colors ${
-                  c.hidden ? 'border-red-200 dark:border-red-900/50 opacity-60' : 'border-gray-200 dark:border-gray-800'
+                className={`bg-white rounded-lg border p-4 transition-colors ${
+                  c.hidden ? 'border-red-200 opacity-60' : 'border-gray-200'
                 }`}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
                       {c.parent_id && <CornerDownRight className="w-3.5 h-3.5 text-blue-400" />}
-                      <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">{c.author_name}</span>
-                      <span className="text-xs text-gray-400 dark:text-gray-500">{timeAgo(c.created_at)}</span>
-                      <span className="text-xs px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">{pageLabel(c.page_id)}</span>
-                      <span className="text-xs text-gray-400 dark:text-gray-600">{c.page_type}</span>
-                      {c.parent_id && <span className="text-xs px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">Reply</span>}
-                      {c.hidden && <span className="text-xs px-1.5 py-0.5 rounded bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 font-medium">Hidden</span>}
+                      <span className="text-sm font-semibold text-gray-900">{c.author_name}</span>
+                      <span className="text-xs text-gray-400">{timeAgo(c.created_at)}</span>
+                      <span className="text-xs px-1.5 py-0.5 rounded bg-gray-100 text-gray-500">{pageLabel(c.page_id)}</span>
+                      <span className="text-xs text-gray-400">{c.page_type}</span>
+                      {c.parent_id && <span className="text-xs px-1.5 py-0.5 rounded bg-blue-50 text-blue-600">Reply</span>}
+                      {c.hidden && <span className="text-xs px-1.5 py-0.5 rounded bg-red-100 text-red-600 font-medium">Hidden</span>}
                     </div>
-                    <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line break-words">{c.content}</p>
+                    <p className="text-sm text-gray-700 whitespace-pre-line break-words">{c.content}</p>
                   </div>
                   <div className="flex items-center gap-1 shrink-0">
                     {c.hidden ? (
-                      <button onClick={() => handleAction(c.id, 'unhide')} disabled={actionLoading === c.id} className="p-1.5 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 rounded transition-colors" title="Show comment">
+                      <button onClick={() => handleAction(c.id, 'unhide')} disabled={actionLoading === c.id} className="p-1.5 text-green-600 hover:bg-green-50 rounded transition-colors" title="Show comment">
                         <Eye className="w-4 h-4" />
                       </button>
                     ) : (
-                      <button onClick={() => handleAction(c.id, 'hide')} disabled={actionLoading === c.id} className="p-1.5 text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded transition-colors" title="Hide comment">
+                      <button onClick={() => handleAction(c.id, 'hide')} disabled={actionLoading === c.id} className="p-1.5 text-amber-600 hover:bg-amber-50 rounded transition-colors" title="Hide comment">
                         <EyeOff className="w-4 h-4" />
                       </button>
                     )}
                     {deleteConfirm === c.id ? (
                       <div className="flex items-center gap-1">
                         <button onClick={() => handleAction(c.id, 'delete')} disabled={actionLoading === c.id} className="px-2 py-1 text-xs bg-red-600 text-white rounded hover:bg-red-700 transition-colors">Confirm</button>
-                        <button onClick={() => setDeleteConfirm(null)} className="px-2 py-1 text-xs text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Cancel</button>
+                        <button onClick={() => setDeleteConfirm(null)} className="px-2 py-1 text-xs text-gray-500 hover:text-gray-700 transition-colors">Cancel</button>
                       </div>
                     ) : (
-                      <button onClick={() => setDeleteConfirm(c.id)} className="p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors" title="Delete permanently">
+                      <button onClick={() => setDeleteConfirm(c.id)} className="p-1.5 text-red-500 hover:bg-red-50 rounded transition-colors" title="Delete permanently">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     )}
@@ -202,11 +202,11 @@ export default function CommentsPage() {
 
         {totalPages > 1 && (
           <div className="flex items-center justify-center gap-3 mt-6">
-            <button onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={page === 0} className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-30 transition-colors">
+            <button onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={page === 0} className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 disabled:opacity-30 transition-colors">
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <span className="text-sm text-gray-500 dark:text-gray-400">Page {page + 1} of {totalPages}</span>
-            <button onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))} disabled={page >= totalPages - 1} className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-30 transition-colors">
+            <span className="text-sm text-gray-500">Page {page + 1} of {totalPages}</span>
+            <button onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))} disabled={page >= totalPages - 1} className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 disabled:opacity-30 transition-colors">
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>

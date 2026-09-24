@@ -128,18 +128,18 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
     <div className="p-6 md:p-8">
       <div className="max-w-6xl">
         <div className="flex items-center justify-between mb-6">
-          <Link href="/polaris/posts" className="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 transition-colors">
+          <Link href="/polaris/posts" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-blue-600 transition-colors">
             <ArrowLeft className="w-4 h-4" /> Posts
           </Link>
           <div className="flex items-center gap-2">
-            <span className={`text-xs px-2 py-1 rounded-full font-medium ${status === 'published' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' : 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400'}`}>
+            <span className={`text-xs px-2 py-1 rounded-full font-medium ${status === 'published' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
               {status === 'published' ? 'Published' : 'Draft'}
             </span>
-            <button onClick={() => save()} disabled={saving} className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gray-900 dark:bg-gray-800 text-white dark:text-gray-100 text-sm font-medium hover:opacity-90 disabled:opacity-50 transition-opacity">
+            <button onClick={() => save()} disabled={saving} className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gray-900 text-white text-sm font-medium hover:opacity-90 disabled:opacity-50 transition-opacity">
               <Save className="w-4 h-4" /> {saving ? 'Saving…' : 'Save'}
             </button>
             {status === 'published' ? (
-              <button onClick={() => save('draft')} disabled={saving} className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+              <button onClick={() => save('draft')} disabled={saving} className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-gray-200 text-gray-600 text-sm font-medium hover:bg-gray-50 transition-colors">
                 <FileText className="w-4 h-4" /> Unpublish
               </button>
             ) : (
@@ -150,8 +150,8 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
           </div>
         </div>
 
-        {error && <div className="mb-4 text-sm text-red-600 bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-900 rounded-lg px-4 py-2">{error}</div>}
-        {message && <div className="mb-4 text-sm text-green-700 bg-green-50 dark:bg-green-950/30 border border-green-100 dark:border-green-900 rounded-lg px-4 py-2">{message}</div>}
+        {error && <div className="mb-4 text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-2">{error}</div>}
+        {message && <div className="mb-4 text-sm text-green-700 bg-green-50 border border-green-100 rounded-lg px-4 py-2">{message}</div>}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main column */}
@@ -160,7 +160,7 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
               value={title}
               onChange={(e) => onTitleChange(e.target.value)}
               placeholder="Post title"
-              className="w-full text-2xl font-bold bg-transparent outline-none text-gray-900 dark:text-gray-100 placeholder:text-gray-300 dark:placeholder:text-gray-600"
+              className="w-full text-2xl font-bold bg-transparent outline-none text-gray-900 placeholder:text-gray-300"
             />
             <div className="flex items-center gap-2 text-sm text-gray-400">
               <span>/blog/</span>
@@ -168,27 +168,27 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
                 value={slug}
                 onChange={(e) => { setSlug(slugify(e.target.value)); setSlugEdited(true); }}
                 placeholder="slug"
-                className="flex-1 bg-transparent outline-none text-gray-600 dark:text-gray-300 border-b border-dashed border-gray-200 dark:border-gray-700"
+                className="flex-1 bg-transparent outline-none text-gray-600 border-b border-dashed border-gray-200"
               />
             </div>
 
             <MarkdownEditor value={content} onChange={setContent} />
 
-            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 space-y-3">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Excerpt (card + meta fallback)</label>
-              <textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} rows={2} className="w-full text-sm bg-gray-50 dark:bg-gray-800 rounded-lg p-2.5 outline-none text-gray-900 dark:text-gray-100 border border-gray-100 dark:border-gray-700" />
+            <div className="bg-white border border-gray-200 rounded-lg p-4 space-y-3">
+              <label className="block text-sm font-medium text-gray-700">Excerpt (card + meta fallback)</label>
+              <textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value)} rows={2} className="w-full text-sm bg-gray-50 rounded-lg p-2.5 outline-none text-gray-900 border border-gray-100" />
 
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Summary (TL;DR — one bullet per line)</label>
-              <textarea value={summaryText} onChange={(e) => setSummaryText(e.target.value)} rows={3} className="w-full text-sm bg-gray-50 dark:bg-gray-800 rounded-lg p-2.5 outline-none text-gray-900 dark:text-gray-100 border border-gray-100 dark:border-gray-700" />
+              <label className="block text-sm font-medium text-gray-700">Summary (TL;DR — one bullet per line)</label>
+              <textarea value={summaryText} onChange={(e) => setSummaryText(e.target.value)} rows={3} className="w-full text-sm bg-gray-50 rounded-lg p-2.5 outline-none text-gray-900 border border-gray-100" />
             </div>
           </div>
 
           {/* Sidebar */}
           <div className="space-y-4">
             {/* Publish/meta settings */}
-            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 space-y-3">
+            <div className="bg-white border border-gray-200 rounded-lg p-4 space-y-3">
               <div>
-                <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5">
                   Categories <span className="text-gray-400 font-normal">(first = primary)</span>
                 </label>
                 <div className="grid grid-cols-1 gap-1">
@@ -196,7 +196,7 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
                     const checked = categories.includes(key);
                     const isPrimary = categories[0] === key;
                     return (
-                      <label key={key} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors ${checked ? `${s.bg} ${s.darkBg}` : 'hover:bg-gray-50 dark:hover:bg-gray-800'}`}>
+                      <label key={key} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors ${checked ? `${s.bg}` : 'hover:bg-gray-50'}`}>
                         <input
                           type="checkbox"
                           checked={checked}
@@ -208,20 +208,20 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
                               setCategories(next.length ? next : [key]); // keep at least one
                             }
                           }}
-                          className="rounded border-gray-300 dark:border-gray-600"
+                          className="rounded border-gray-300"
                         />
-                        <span className={`text-xs font-medium flex-1 ${checked ? `${s.text} ${s.darkText}` : 'text-gray-600 dark:text-gray-300'}`}>
+                        <span className={`text-xs font-medium flex-1 ${checked ? `${s.text}` : 'text-gray-600'}`}>
                           {s.label}
                         </span>
                         {isPrimary && checked && (
-                          <span className="text-[9px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">Primary</span>
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-gray-400">Primary</span>
                         )}
                       </label>
                     );
                   })}
                 </div>
                 {categories.length > 1 && (
-                  <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-1.5">
+                  <p className="text-[10px] text-gray-400 mt-1.5">
                     Drag to reorder — first checked category is primary.
                     <br />
                     To change primary: uncheck &amp; recheck in order.
@@ -229,21 +229,21 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
                 )}
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Tags (comma-separated)</label>
-                <input value={tagsText} onChange={(e) => setTagsText(e.target.value)} className="w-full text-sm bg-gray-50 dark:bg-gray-800 rounded-lg p-2 outline-none text-gray-900 dark:text-gray-100 border border-gray-100 dark:border-gray-700" />
+                <label className="block text-xs font-medium text-gray-500 mb-1">Tags (comma-separated)</label>
+                <input value={tagsText} onChange={(e) => setTagsText(e.target.value)} className="w-full text-sm bg-gray-50 rounded-lg p-2 outline-none text-gray-900 border border-gray-100" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Author name</label>
-                <input value={authorName} onChange={(e) => setAuthorName(e.target.value)} className="w-full text-sm bg-gray-50 dark:bg-gray-800 rounded-lg p-2 outline-none text-gray-900 dark:text-gray-100 border border-gray-100 dark:border-gray-700" />
+                <label className="block text-xs font-medium text-gray-500 mb-1">Author name</label>
+                <input value={authorName} onChange={(e) => setAuthorName(e.target.value)} className="w-full text-sm bg-gray-50 rounded-lg p-2 outline-none text-gray-900 border border-gray-100" />
               </div>
             </div>
 
             {/* Content strategy */}
-            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 space-y-3">
-              <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">Content strategy</p>
+            <div className="bg-white border border-gray-200 rounded-lg p-4 space-y-3">
+              <p className="text-sm font-semibold text-gray-900">Content strategy</p>
               <div>
-                <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Search intent</label>
-                <select value={intent} onChange={(e) => setIntent(e.target.value as PostIntent)} className="w-full text-sm bg-gray-50 dark:bg-gray-800 rounded-lg p-2 outline-none text-gray-900 dark:text-gray-100 border border-gray-100 dark:border-gray-700">
+                <label className="block text-xs font-medium text-gray-500 mb-1">Search intent</label>
+                <select value={intent} onChange={(e) => setIntent(e.target.value as PostIntent)} className="w-full text-sm bg-gray-50 rounded-lg p-2 outline-none text-gray-900 border border-gray-100">
                   {(Object.keys(INTENT_LABELS) as PostIntent[]).map((k) => (
                     <option key={k} value={k}>{INTENT_LABELS[k]}</option>
                   ))}
@@ -251,25 +251,25 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
               </div>
 
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" checked={isPillar} onChange={(e) => setIsPillar(e.target.checked)} className="rounded border-gray-300 dark:border-gray-600 text-amber-500 focus:ring-amber-400" />
-                <span className="text-sm text-gray-700 dark:text-gray-300 flex items-center gap-1">
+                <input type="checkbox" checked={isPillar} onChange={(e) => setIsPillar(e.target.checked)} className="rounded border-gray-300 text-amber-500 focus:ring-amber-400" />
+                <span className="text-sm text-gray-700 flex items-center gap-1">
                   <Star className="w-3.5 h-3.5 text-amber-500" /> This is a pillar post
                 </span>
               </label>
-              <p className="text-xs text-gray-400 dark:text-gray-500 -mt-1">Pillar posts are prioritized as internal-link targets (in Link Genius and for agents).</p>
+              <p className="text-xs text-gray-400 -mt-1">Pillar posts are prioritized as internal-link targets (in Link Genius and for agents).</p>
 
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" checked={isHighlighted} onChange={(e) => setIsHighlighted(e.target.checked)} className="rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500" />
-                <span className="text-sm text-gray-700 dark:text-gray-300 flex items-center gap-1">
+                <input type="checkbox" checked={isHighlighted} onChange={(e) => setIsHighlighted(e.target.checked)} className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                <span className="text-sm text-gray-700 flex items-center gap-1">
                   <Pin className="w-3.5 h-3.5 text-blue-500" /> Highlight this post
                 </span>
               </label>
-              <p className="text-xs text-gray-400 dark:text-gray-500 -mt-1">Highlighted posts appear in the "Editor&apos;s Picks" section on the blog page and below the TOC on every post.</p>
+              <p className="text-xs text-gray-400 -mt-1">Highlighted posts appear in the "Editor&apos;s Picks" section on the blog page and below the TOC on every post.</p>
 
               {!isPillar && (
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Belongs to pillar (cluster)</label>
-                  <select value={pillarId} onChange={(e) => setPillarId(e.target.value)} className="w-full text-sm bg-gray-50 dark:bg-gray-800 rounded-lg p-2 outline-none text-gray-900 dark:text-gray-100 border border-gray-100 dark:border-gray-700">
+                  <label className="block text-xs font-medium text-gray-500 mb-1">Belongs to pillar (cluster)</label>
+                  <select value={pillarId} onChange={(e) => setPillarId(e.target.value)} className="w-full text-sm bg-gray-50 rounded-lg p-2 outline-none text-gray-900 border border-gray-100">
                     <option value="">— none —</option>
                     {pillars.map((p) => (
                       <option key={p.id} value={p.id}>{p.title}</option>
@@ -280,37 +280,37 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
             </div>
 
             {/* Featured image */}
-            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 space-y-3">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Featured image</label>
+            <div className="bg-white border border-gray-200 rounded-lg p-4 space-y-3">
+              <label className="block text-sm font-medium text-gray-700">Featured image</label>
               {featuredImage && (
-                <div className="relative aspect-[2/1] rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800">
+                <div className="relative aspect-[2/1] rounded-lg overflow-hidden bg-gray-100">
                   <Image src={featuredImage} alt={featuredImageAlt || 'preview'} fill className="object-cover" sizes="320px" />
                 </div>
               )}
-              <label className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg border border-dashed border-gray-300 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+              <label className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg border border-dashed border-gray-300 text-sm text-gray-500 cursor-pointer hover:bg-gray-50 transition-colors">
                 <Upload className="w-4 h-4" />
                 {uploading ? 'Uploading…' : 'Upload image (→ WebP)'}
                 <input type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files?.[0] && uploadFeatured(e.target.files[0])} />
               </label>
-              <input value={featuredImage} onChange={(e) => setFeaturedImage(e.target.value)} placeholder="…or paste an image URL" className="w-full text-xs bg-gray-50 dark:bg-gray-800 rounded-lg p-2 outline-none text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-700" />
-              <input value={featuredImageAlt} onChange={(e) => setFeaturedImageAlt(e.target.value)} placeholder="Alt text (describe the image)" className="w-full text-xs bg-gray-50 dark:bg-gray-800 rounded-lg p-2 outline-none text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-700" />
+              <input value={featuredImage} onChange={(e) => setFeaturedImage(e.target.value)} placeholder="…or paste an image URL" className="w-full text-xs bg-gray-50 rounded-lg p-2 outline-none text-gray-600 border border-gray-100" />
+              <input value={featuredImageAlt} onChange={(e) => setFeaturedImageAlt(e.target.value)} placeholder="Alt text (describe the image)" className="w-full text-xs bg-gray-50 rounded-lg p-2 outline-none text-gray-600 border border-gray-100" />
             </div>
 
             {/* SEO */}
-            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 space-y-3">
+            <div className="bg-white border border-gray-200 rounded-lg p-4 space-y-3">
               <div>
-                <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Focus keyword</label>
-                <input value={focusKeyword} onChange={(e) => setFocusKeyword(e.target.value)} placeholder="e.g. polish cases" className="w-full text-sm bg-gray-50 dark:bg-gray-800 rounded-lg p-2 outline-none text-gray-900 dark:text-gray-100 border border-gray-100 dark:border-gray-700" />
+                <label className="block text-xs font-medium text-gray-500 mb-1">Focus keyword</label>
+                <input value={focusKeyword} onChange={(e) => setFocusKeyword(e.target.value)} placeholder="e.g. polish cases" className="w-full text-sm bg-gray-50 rounded-lg p-2 outline-none text-gray-900 border border-gray-100" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Meta description ({metaDescription.length}/160)</label>
-                <textarea value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} rows={3} className="w-full text-sm bg-gray-50 dark:bg-gray-800 rounded-lg p-2 outline-none text-gray-900 dark:text-gray-100 border border-gray-100 dark:border-gray-700" />
+                <label className="block text-xs font-medium text-gray-500 mb-1">Meta description ({metaDescription.length}/160)</label>
+                <textarea value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} rows={3} className="w-full text-sm bg-gray-50 rounded-lg p-2 outline-none text-gray-900 border border-gray-100" />
               </div>
               <SeoPanel title={title} metaDescription={metaDescription || excerpt} slug={slug} focusKeyword={focusKeyword} content={content} />
             </div>
 
             {/* Link Genius */}
-            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
               <LinkGenius content={content} index={linkIndex} onInsert={insertLink} />
             </div>
           </div>

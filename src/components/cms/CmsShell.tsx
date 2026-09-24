@@ -28,11 +28,11 @@ export default function CmsShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex">
+    <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
-      <aside className="w-56 shrink-0 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col fixed inset-y-0">
-        <div className="px-5 py-4 border-b border-gray-100 dark:border-gray-800">
-          <span className="text-sm font-bold text-gray-900 dark:text-gray-100">PolishPal CMS</span>
+      <aside className="w-56 shrink-0 bg-white border-r border-gray-200 flex flex-col fixed inset-y-0">
+        <div className="px-5 py-4 border-b border-gray-100">
+          <span className="text-sm font-bold text-gray-900">PolishPal CMS</span>
         </div>
         <nav className="flex-1 p-3 space-y-1">
           {nav.map((item) => {
@@ -44,8 +44,8 @@ export default function CmsShell({ children }: { children: React.ReactNode }) {
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   active
-                    ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
-                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                    ? 'bg-blue-50 text-blue-700'
+                    : 'text-gray-600 hover:bg-gray-50'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -54,19 +54,19 @@ export default function CmsShell({ children }: { children: React.ReactNode }) {
             );
           })}
         </nav>
-        <div className="p-3 border-t border-gray-100 dark:border-gray-800 space-y-1">
+        <div className="p-3 border-t border-gray-100 space-y-1">
           <a
             href="/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-500 hover:bg-gray-50 transition-colors"
           >
             <ExternalLink className="w-4 h-4" />
             View site
           </a>
           <button
             onClick={logout}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-500 hover:bg-gray-50 transition-colors"
           >
             <LogOut className="w-4 h-4" />
             Log out

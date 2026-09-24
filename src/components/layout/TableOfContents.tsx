@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { List } from 'lucide-react';
 
 interface TocItem {
   id: string;
@@ -24,7 +23,7 @@ export default function TableOfContents({ items, children }: TableOfContentsProp
           setActiveId(visible[0].target.id);
         }
       },
-      { rootMargin: '-80px 0px -60% 0px', threshold: 0.1 }
+      { rootMargin: '-90px 0px -60% 0px', threshold: 0.1 }
     );
 
     items.forEach((item) => {
@@ -38,33 +37,35 @@ export default function TableOfContents({ items, children }: TableOfContentsProp
   if (items.length < 2) return null;
 
   return (
-    <nav className="hidden xl:block w-56 shrink-0">
-      <div className="sticky top-20">
-        <div className="flex items-center gap-2 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">
-          <List className="w-3.5 h-3.5" />
-          On this page
-        </div>
+    <nav className="hidden xl:block w-60 shrink-0" aria-label="On this page">
+      <div className="sticky top-24">
+        <p className="font-display text-lg font-semibold text-ink mb-3">On this page</p>
         {/* Long TOCs scroll within this cap (scrollbar hidden) so the whole
             sidebar — including anything below the list — fits the viewport. */}
-        <ul className={`no-scrollbar space-y-1 border-l-2 border-gray-100 dark:border-gray-800 overflow-y-auto ${children ? 'max-h-[45vh]' : 'max-h-[calc(100vh-9rem)]'}`}>
-          {items.map((item) => (
-            <li key={item.id}>
-              <a
-                href={`#${item.id}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }}
-                className={`block pl-3 py-1 text-sm transition-colors border-l-2 -ml-0.5 ${
-                  activeId === item.id
-                    ? 'border-blue-600 text-blue-700 dark:text-blue-400 font-medium'
-                    : 'border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
-                }`}
-              >
-                {item.title}
-              </a>
-            </li>
-          ))}
+        <ul className={`no-scrollbar space-y-0.5 overflow-y-auto ${children ? 'max-h-[45vh]' : 'max-h-[calc(100vh-9rem)]'}`}>
+          {items.map((item) => {
+            const active = activeId === item.id;
+            return (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                  aria-current={active ? 'location' : undefined}
+                  className={`flex items-start gap-2.5 rounded-xl px-3 py-2 text-sm leading-snug transition-colors ${
+                    active
+                      ? 'bg-crimson-soft text-crimson-ink font-extrabold'
+                      : 'text-muted font-semibold hover:text-ink hover:bg-canvas'
+                  }`}
+                >
+                  <span className={`mt-[7px] w-1.5 h-1.5 rounded-full shrink-0 ${active ? 'bg-crimson' : 'bg-line-2'}`} />
+                  {item.title}
+                </a>
+              </li>
+            );
+          })}
         </ul>
         {children}
       </div>

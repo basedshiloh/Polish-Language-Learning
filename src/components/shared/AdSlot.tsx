@@ -17,7 +17,7 @@ export default function AdSlot({ slot }: { slot: AdSlotData | undefined }) {
 
   return (
     <div className="no-print my-6 flex flex-col items-center">
-      <span className="self-center text-[9px] uppercase tracking-widest text-gray-300 dark:text-gray-600 mb-1">Advertisement</span>
+      <span className="self-center text-[10px] font-extrabold uppercase tracking-[0.14em] text-faint mb-1.5">Advertisement</span>
 
       {slot.type === 'image' && slot.image_url ? (
         <a href={slot.link_url || '#'} target="_blank" rel="noopener noreferrer sponsored" className="block max-w-full">
@@ -26,7 +26,7 @@ export default function AdSlot({ slot }: { slot: AdSlotData | undefined }) {
             alt={slot.label || 'Advertisement'}
             width={w}
             height={h}
-            className="rounded-lg max-w-full h-auto"
+            className="rounded-xl max-w-full h-auto"
           />
         </a>
       ) : slot.type === 'html' && slot.html ? (
@@ -35,10 +35,10 @@ export default function AdSlot({ slot }: { slot: AdSlotData | undefined }) {
         <Link
           href="/contact#advertise"
           style={{ maxWidth: w, aspectRatio: `${w} / ${h}` }}
-          className="w-full flex flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/50 hover:border-blue-300 dark:hover:border-blue-700 transition-colors p-4"
+          className="group w-full flex flex-col items-center justify-center gap-1 rounded-2xl border-2 border-dashed border-line-2 bg-canvas hover:border-cobalt hover:bg-cobalt-soft transition-colors p-4 text-center"
         >
-          <span className="text-sm font-medium text-gray-400 dark:text-gray-500">Your ad here · {slot.size}</span>
-          <span className="text-xs text-blue-500 dark:text-blue-400">Advertise on PolishPal → Contact us</span>
+          <span className="text-sm font-bold text-muted">Your ad here · {slot.size}</span>
+          <span className="text-xs font-extrabold text-cobalt-ink">Advertise on PolishPal → Contact us</span>
         </Link>
       )}
     </div>

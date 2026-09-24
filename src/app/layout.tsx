@@ -1,15 +1,34 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Fredoka, Nunito } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import LayoutShell from "@/components/layout/LayoutShell";
 import JsonLd, { websiteSchema, courseSchema, organizationSchema } from "@/components/seo/JsonLd";
 import CookieConsent from "@/components/shared/CookieConsent";
 
-const inter = Inter({
+const fredoka = Fredoka({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-inter",
+  weight: ["500", "600", "700"],
+  variable: "--font-heading",
+  display: "swap",
 });
+
+const nunito = Nunito({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const DIRECTION_CONTRACT = `<!--
+THESIS: PolishPal as a friendly language app, not a SaaS landing page: tactile tiles, pressed buttons, a lesson path. Refuses the generic indigo hero-plus-card layout.
+OWN-WORLD: White ground, Polish-crimson brand, Lowicz wycinanki accents (emerald, sun, cobalt, fuchsia, orange, violet, teal) coding categories; 2px tiles with a 4px bottom edge; uppercase 3D buttons; Fredoka headings, Nunito body; papercut flower motif.
+STORY: A reader from Google gets a comfortable article with Polish words marked in crimson, and every post ends with an obvious way into lesson 1.
+FIRST VIEWPORT: Home: headline and two pressed buttons left; a phrase card with working speak buttons over a papercut flower right.
+FORM: Owner-pinned canon (Duolingo/Busuu feel), wycinanki-coloured. Seed key bcdd8b6b rolled, overridden by the brief.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+-->`;
 
 const SITE_URL = "https://www.polishpal.pl";
 
@@ -75,17 +94,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`} suppressHydrationWarning>
+    <html lang="en" className={`${fredoka.variable} ${nunito.variable} h-full antialiased`}>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: `
-          (function() {
-            try {
-              var t = localStorage.getItem('polish-pal-theme');
-              var dark = t === 'dark' || (!t || t === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches;
-              if (dark) document.documentElement.classList.add('dark');
-            } catch(e) {}
-          })();
-        `}} />
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
         <JsonLd data={courseSchema()} />
@@ -97,7 +107,8 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
       </head>
-      <body className="min-h-full bg-slate-50 dark:bg-slate-950 font-sans text-gray-900 dark:text-gray-100">
+      <body className="min-h-full bg-paper font-sans text-ink-2">
+        <div hidden aria-hidden="true" dangerouslySetInnerHTML={{ __html: DIRECTION_CONTRACT }} />
         <LayoutShell>{children}</LayoutShell>
         <CookieConsent />
       </body>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, type FormEvent } from 'react';
-import { MessageSquare, Send, User, Reply, X } from 'lucide-react';
+import { MessageSquare, Send, User, Reply, X, AlertCircle } from 'lucide-react';
 import { getComments, addComment, containsUrl, type Comment } from '@/lib/supabase';
 
 interface CommentSectionProps {
@@ -20,6 +20,23 @@ function timeAgo(dateStr: string): string {
 
 function stripUrls(text: string): string {
   return text.replace(/(?:https?:\/\/|www\.)[^\s]+/gi, '[link removed]');
+}
+
+const AVATAR_TONES = [
+  'bg-crimson-soft text-crimson-ink',
+  'bg-cobalt-soft text-cobalt-ink',
+  'bg-emerald-soft text-emerald-ink',
+  'bg-sun-soft text-sun-ink',
+  'bg-violet-soft text-violet-ink',
+  'bg-orange-soft text-orange-ink',
+  'bg-teal-soft text-teal-ink',
+  'bg-fuchsia-soft text-fuchsia-ink',
+];
+
+function avatarTone(name: string): string {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) % 1000003;
+  return AVATAR_TONES[h % AVATAR_TONES.length];
 }
 
 function buildThread(comments: Comment[]): { roots: Comment[]; replies: Map<string, Comment[]> } {
@@ -53,27 +70,27 @@ function CommentBubble({
   depth?: number;
 }) {
   return (
-    <div className={depth > 0 ? 'ml-8 border-l-2 border-gray-100 dark:border-gray-800 pl-4' : ''}>
-      <div className="flex gap-3 py-2">
-        <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center shrink-0">
-          <span className="text-xs font-bold text-gray-500 dark:text-gray-400">
+    <div className={depth > 0 ? 'ml-5 sm:ml-6 border-l-2 border-line pl-4 sm:pl-5' : ''}>
+      <div className="flex gap-3 py-3">
+        <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${avatarTone(comment.author_name)}`}>
+          <span className="font-display text-base font-bold">
             {comment.author_name.charAt(0).toUpperCase()}
           </span>
         </div>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">{comment.author_name}</span>
-            <span className="text-xs text-gray-400 dark:text-gray-500">{timeAgo(comment.created_at)}</span>
+          <div className="flex flex-wrap items-baseline gap-x-2">
+            <span className="text-[15px] font-extrabold text-ink">{comment.author_name}</span>
+            <span className="text-xs font-semibold text-faint">{timeAgo(comment.created_at)}</span>
           </div>
-          <p className="text-sm text-gray-700 dark:text-gray-300 mt-1 whitespace-pre-line break-words">
+          <p className="text-[15px] leading-relaxed text-ink-2 mt-1 whitespace-pre-line break-words">
             {stripUrls(comment.content)}
           </p>
           {depth < 2 && (
             <button
               onClick={() => onReply(comment)}
-              className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500 hover:text-blue-500 dark:hover:text-blue-400 mt-1 transition-colors"
+              className="inline-flex items-center gap-1 -ml-2 mt-1 px-2 py-1 rounded-lg text-xs font-extrabold uppercase tracking-[0.06em] text-muted hover:text-cobalt-ink hover:bg-cobalt-soft transition-colors"
             >
-              <Reply className="w-3 h-3" />
+              <Reply className="w-3.5 h-3.5" strokeWidth={2.5} />
               Reply
             </button>
           )}
@@ -152,44 +169,46 @@ export default function CommentSection({ pageId, pageType }: CommentSectionProps
   const { roots, replies } = buildThread(comments);
 
   return (
-    <div className="no-print mt-10 border-t border-gray-200 dark:border-gray-800 pt-8">
-      <div className="flex items-center gap-2 mb-6">
-        <MessageSquare className="w-5 h-5 text-blue-600" />
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+    <div className="no-print mt-12 border-t-2 border-line pt-10">
+      <div className="flex items-center gap-3 mb-6">
+        <span className="icon-badge w-10 h-10 rounded-xl bg-cobalt-soft text-cobalt-ink">
+          <MessageSquare className="w-5 h-5" strokeWidth={2.4} />
+        </span>
+        <h3 className="text-2xl font-bold">
           Comments {comments.length > 0 && `(${comments.length})`}
         </h3>
       </div>
 
       {/* Comment form */}
       <form onSubmit={handleSubmit} className="mb-8">
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-4">
+        <div className="tile p-4 sm:p-5">
           {replyTo && (
-            <div className="flex items-center justify-between mb-3 px-3 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-              <div className="flex items-center gap-2 text-xs text-blue-600 dark:text-blue-400 min-w-0">
-                <Reply className="w-3.5 h-3.5 shrink-0" />
-                <span>Replying to <strong>{replyTo.author_name}</strong></span>
-                <span className="text-blue-400 dark:text-blue-500 truncate">&mdash; {replyTo.content.slice(0, 60)}{replyTo.content.length > 60 ? '...' : ''}</span>
+            <div className="pp-pop flex items-center justify-between gap-2 mb-3 pl-3 pr-1.5 py-2 bg-cobalt-soft rounded-xl">
+              <div className="flex items-center gap-2 text-sm text-cobalt-ink min-w-0">
+                <Reply className="w-4 h-4 shrink-0" strokeWidth={2.5} />
+                <span className="shrink-0">Replying to <strong className="font-extrabold">{replyTo.author_name}</strong></span>
+                <span className="opacity-70 truncate">&mdash; {replyTo.content.slice(0, 60)}{replyTo.content.length > 60 ? '...' : ''}</span>
               </div>
               <button
                 type="button"
                 onClick={() => setReplyTo(null)}
-                className="p-0.5 text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors shrink-0"
+                aria-label="Cancel reply"
+                className="w-7 h-7 flex items-center justify-center rounded-lg text-cobalt-ink hover:bg-paper transition-colors shrink-0"
               >
-                <X className="w-3.5 h-3.5" />
+                <X className="w-4 h-4" strokeWidth={2.5} />
               </button>
             </div>
           )}
-          <div className="flex gap-3 mb-3">
-            <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center shrink-0">
-              <User className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-            </div>
+          <div className="relative mb-3">
+            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted pointer-events-none" strokeWidth={2.5} />
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Your name"
+              aria-label="Your name"
               maxLength={50}
-              className="flex-1 text-sm bg-transparent outline-none text-gray-900 dark:text-gray-100 placeholder:text-gray-400"
+              className="w-full h-12 rounded-2xl border-2 border-line bg-canvas pl-11 pr-4 text-[15px] font-semibold text-ink outline-none focus:border-cobalt focus:bg-paper transition-colors placeholder:text-faint"
             />
           </div>
           <textarea
@@ -198,19 +217,25 @@ export default function CommentSection({ pageId, pageType }: CommentSectionProps
             placeholder={replyTo ? `Reply to ${replyTo.author_name}...` : 'Share your thoughts, ask a question, or leave a tip for other learners...'}
             rows={3}
             maxLength={2000}
-            className="w-full text-sm bg-gray-50 dark:bg-gray-800 rounded-lg p-3 outline-none resize-none text-gray-900 dark:text-gray-100 placeholder:text-gray-400 border border-gray-100 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-600 transition-colors"
+            aria-label="Comment"
+            className="w-full rounded-2xl border-2 border-line bg-canvas px-4 py-3 text-[15px] font-semibold leading-relaxed text-ink outline-none resize-none focus:border-cobalt focus:bg-paper transition-colors placeholder:text-faint"
           />
-          {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
-          <div className="flex items-center justify-between mt-2">
-            <span className="text-xs text-gray-400 dark:text-gray-500">
+          {error && (
+            <p className="pp-pop flex items-start gap-2 text-sm font-bold text-crimson-ink bg-crimson-soft rounded-xl px-3 py-2 mt-2" role="alert">
+              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" strokeWidth={2.5} />
+              {error}
+            </p>
+          )}
+          <div className="flex items-center justify-between gap-3 mt-3">
+            <span className="text-xs font-bold text-faint tabular-nums">
               {content.length}/2000
             </span>
             <button
               type="submit"
               disabled={submitting || !content.trim() || !name.trim()}
-              className="flex items-center gap-1.5 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              className="btn btn-primary btn-sm"
             >
-              <Send className="w-3.5 h-3.5" />
+              <Send className="w-4 h-4" strokeWidth={2.5} />
               {submitting ? 'Posting...' : replyTo ? 'Reply' : 'Post'}
             </button>
           </div>
@@ -222,16 +247,16 @@ export default function CommentSection({ pageId, pageType }: CommentSectionProps
         <div className="space-y-4">
           {[1, 2].map((i) => (
             <div key={i} className="animate-pulse flex gap-3">
-              <div className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full" />
-              <div className="flex-1 space-y-2">
-                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-24" />
-                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full" />
+              <div className="w-10 h-10 bg-canvas rounded-full" />
+              <div className="flex-1 space-y-2 pt-1">
+                <div className="h-3 bg-canvas rounded-full w-24" />
+                <div className="h-3 bg-canvas rounded-full w-full" />
               </div>
             </div>
           ))}
         </div>
       ) : roots.length > 0 ? (
-        <div className="space-y-1">
+        <div className="divide-y-2 divide-line">
           {roots.map((c) => (
             <CommentBubble
               key={c.id}
@@ -243,9 +268,14 @@ export default function CommentSection({ pageId, pageType }: CommentSectionProps
           ))}
         </div>
       ) : (
-        <p className="text-sm text-gray-400 dark:text-gray-500 text-center py-4">
-          No comments yet. Be the first to share your thoughts!
-        </p>
+        <div className="rounded-3xl bg-canvas px-6 py-8 text-center">
+          <span className="icon-badge w-12 h-12 rounded-2xl bg-paper text-cobalt-ink mx-auto mb-3">
+            <MessageSquare className="w-6 h-6" strokeWidth={2.4} />
+          </span>
+          <p className="text-[15px] font-bold text-muted">
+            No comments yet. Be the first to share your thoughts!
+          </p>
+        </div>
       )}
     </div>
   );

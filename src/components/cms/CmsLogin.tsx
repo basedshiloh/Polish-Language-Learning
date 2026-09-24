@@ -30,11 +30,11 @@ export default function CmsLogin() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-8 w-full max-w-sm">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-xl border border-gray-200 p-8 w-full max-w-sm">
         <div className="flex items-center gap-2 mb-6">
           <Shield className="w-5 h-5 text-blue-600" />
-          <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">PolishPal CMS</h1>
+          <h1 className="text-lg font-semibold text-gray-900">PolishPal CMS</h1>
         </div>
         <input
           type="text"
@@ -43,7 +43,7 @@ export default function CmsLogin() {
           onKeyDown={(e) => e.key === 'Enter' && submit()}
           placeholder="Username"
           autoComplete="username"
-          className="w-full mb-2 px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-blue-400 dark:focus:border-blue-600 transition-colors"
+          className="w-full mb-2 px-4 py-2.5 rounded-lg border border-gray-200 bg-gray-50 text-gray-900 text-sm outline-none focus:border-blue-400 transition-colors"
           autoFocus
         />
         <input
@@ -53,7 +53,7 @@ export default function CmsLogin() {
           onKeyDown={(e) => e.key === 'Enter' && submit()}
           placeholder="Password"
           autoComplete="current-password"
-          className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-blue-400 dark:focus:border-blue-600 transition-colors"
+          className="w-full px-4 py-2.5 rounded-lg border border-gray-200 bg-gray-50 text-gray-900 text-sm outline-none focus:border-blue-400 transition-colors"
         />
         {error && <p className="text-xs text-red-500 mt-2">{error}</p>}
         <button

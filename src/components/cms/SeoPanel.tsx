@@ -15,8 +15,8 @@ export default function SeoPanel(props: SeoInput) {
         <div className={`w-16 h-16 rounded-full border-4 ${ring} flex items-center justify-center`}>
           <span className={`text-lg font-bold ${color}`}>{score}</span>
         </div>
-        <div className="text-sm text-gray-600 dark:text-gray-400">
-          <p className="font-semibold text-gray-900 dark:text-gray-100">SEO score</p>
+        <div className="text-sm text-gray-600">
+          <p className="font-semibold text-gray-900">SEO score</p>
           <p>{wordCount} words · {density.toFixed(2)}% keyword density</p>
         </div>
       </div>
@@ -30,8 +30,8 @@ export default function SeoPanel(props: SeoInput) {
               <X className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
             )}
             <div>
-              <span className={c.passed ? 'text-gray-700 dark:text-gray-300' : 'text-gray-900 dark:text-gray-100'}>{c.label}</span>
-              {!c.passed && <p className="text-xs text-gray-400 dark:text-gray-500">{c.hint}</p>}
+              <span className={c.passed ? 'text-gray-700' : 'text-gray-900'}>{c.label}</span>
+              {!c.passed && <p className="text-xs text-gray-400">{c.hint}</p>}
             </div>
           </li>
         ))}

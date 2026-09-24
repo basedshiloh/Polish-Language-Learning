@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
-import { CheckCircle2, XCircle } from 'lucide-react';
+import { useState, useId, type FormEvent } from 'react';
+import { CheckCircle2, XCircle, Lightbulb } from 'lucide-react';
 import { FillInBlankQuestion } from '@/lib/types';
 
 interface FillInBlankProps {
@@ -17,6 +17,7 @@ export default function FillInBlank({ question, onAnswer }: FillInBlankProps) {
   const [input, setInput] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const inputId = useId();
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -32,60 +33,58 @@ export default function FillInBlank({ question, onAnswer }: FillInBlankProps) {
 
   return (
     <div>
-      <p className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{question.prompt}</p>
+      <label htmlFor={inputId} className="block font-display text-2xl md:text-3xl font-semibold text-ink leading-snug mb-4">
+        {question.prompt}
+      </label>
       {question.hint && !submitted && (
-        <p className="text-sm text-gray-400 dark:text-gray-500 mb-4">Hint: {question.hint}</p>
+        <p className="chip bg-sun-soft text-sun-ink mb-5 whitespace-normal">
+          <Lightbulb className="w-3.5 h-3.5 shrink-0" strokeWidth={2.6} aria-hidden="true" />
+          Hint: {question.hint}
+        </p>
       )}
 
-      <form onSubmit={handleSubmit} className="mb-4">
-        <div className="flex gap-3">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            disabled={submitted}
-            placeholder="Type your answer..."
-            className={`flex-1 px-4 py-3 rounded-lg border-2 text-sm outline-none transition-colors ${
-              submitted
-                ? isCorrect
-                  ? 'border-green-500 bg-green-50'
-                  : 'border-red-400 bg-red-50'
-                : 'border-gray-200 focus:border-blue-500'
-            }`}
-            autoComplete="off"
-            autoCapitalize="off"
-          />
+      <form onSubmit={handleSubmit}>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <div className="relative flex-1">
+            <input
+              id={inputId}
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              disabled={submitted}
+              placeholder="Type your answer..."
+              aria-invalid={submitted && !isCorrect ? true : undefined}
+              className={`w-full h-14 rounded-2xl border-2 px-4 pr-12 text-lg font-bold outline-none transition-colors placeholder:text-faint placeholder:font-semibold ${
+                submitted
+                  ? isCorrect
+                    ? 'border-emerald bg-emerald-soft text-emerald-ink'
+                    : 'border-crimson bg-crimson-soft text-crimson-ink line-through decoration-2'
+                  : 'border-line bg-canvas text-ink focus:border-cobalt focus:bg-paper'
+              }`}
+              autoComplete="off"
+              autoCapitalize="off"
+            />
+            {submitted && (
+              <span className="absolute right-4 top-1/2 -translate-y-1/2">
+                {isCorrect ? (
+                  <CheckCircle2 className="w-6 h-6 text-emerald" strokeWidth={2.4} aria-label="Correct" />
+                ) : (
+                  <XCircle className="w-6 h-6 text-crimson" strokeWidth={2.4} aria-label="Incorrect" />
+                )}
+              </span>
+            )}
+          </div>
           {!submitted && (
             <button
               type="submit"
               disabled={!input.trim()}
-              className="bg-blue-600 text-white px-6 py-2.5 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="btn btn-green h-14 sm:min-w-36"
             >
               Check
             </button>
           )}
         </div>
       </form>
-
-      {submitted && (
-        <div className={`flex items-start gap-2 p-3 rounded-lg text-sm ${
-          isCorrect ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
-        }`}>
-          {isCorrect ? (
-            <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
-          ) : (
-            <XCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
-          )}
-          <div>
-            {isCorrect ? (
-              <p>Correct!</p>
-            ) : (
-              <p>The correct answer is: <strong className="text-blue-800 dark:text-blue-300">{question.correctAnswer}</strong></p>
-            )}
-            {question.explanation && <p className="mt-1 opacity-80">{question.explanation}</p>}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

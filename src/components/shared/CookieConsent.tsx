@@ -25,17 +25,19 @@ export function saveConsent(state: ConsentState) {
   window.dispatchEvent(new CustomEvent('cookieConsentUpdate', { detail: state }));
 }
 
-function Toggle({ value, onChange }: { value: boolean; onChange: (v: boolean) => void }) {
+function Toggle({ value, onChange, label }: { value: boolean; onChange: (v: boolean) => void; label?: string }) {
   return (
     <button
+      type="button"
       role="switch"
       aria-checked={value}
+      aria-label={label}
       onClick={() => onChange(!value)}
-      className={`relative shrink-0 w-10 h-5 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 ${
-        value ? 'bg-blue-600' : 'bg-gray-200 dark:bg-gray-700'
+      className={`relative shrink-0 w-12 h-7 rounded-full transition-colors duration-200 ${
+        value ? 'bg-emerald' : 'bg-line-2'
       }`}
     >
-      <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 ${value ? 'translate-x-5' : 'translate-x-0'}`} />
+      <span className={`absolute top-1 left-1 w-5 h-5 bg-paper rounded-full shadow-[0_2px_0_rgba(30,33,50,0.18)] transition-transform duration-200 ${value ? 'translate-x-5' : 'translate-x-0'}`} />
     </button>
   );
 }
@@ -79,74 +81,81 @@ export default function CookieConsent() {
   if (!show) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 no-print">
-      <div className="max-w-2xl mx-auto bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 p-5 md:p-6">
+    <div
+      role="dialog"
+      aria-modal="false"
+      aria-labelledby="cookie-consent-title"
+      className="no-print fixed z-[60] inset-x-0 bottom-0 sm:inset-x-auto sm:left-4 sm:bottom-4 md:left-6 md:bottom-6 sm:w-[420px] sm:max-w-[calc(100vw-2rem)]"
+    >
+      <div className="pp-pop bg-paper border-2 border-line border-b-0 sm:border-b-4 rounded-t-3xl sm:rounded-[20px] shadow-[0_-12px_40px_-16px_rgba(30,33,50,0.3)] sm:shadow-[0_18px_40px_-18px_rgba(30,33,50,0.35)] p-5 max-h-[85vh] overflow-y-auto">
 
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <Cookie className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
-            <h2 className="text-sm font-bold text-gray-900 dark:text-gray-100">Cookie Preferences</h2>
+        <div className="flex items-start gap-3 mb-3">
+          <span className="icon-badge w-10 h-10 rounded-xl bg-sun-soft text-sun-ink">
+            <Cookie className="w-5 h-5" strokeWidth={2.4} />
+          </span>
+          <div className="flex-1 min-w-0 pt-2">
+            <h2 id="cookie-consent-title" className="text-lg font-semibold leading-tight">Cookie Preferences</h2>
           </div>
-          <button onClick={rejectAll} aria-label="Dismiss" className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-            <X className="w-4 h-4" />
+          <button onClick={rejectAll} aria-label="Dismiss" className="w-8 h-8 -mr-1 -mt-1 flex items-center justify-center rounded-lg text-muted hover:text-ink hover:bg-canvas transition-colors">
+            <X className="w-4 h-4" strokeWidth={2.5} />
           </button>
         </div>
 
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+        <p className="text-sm text-ink-2 leading-relaxed mb-4">
           We use cookies to improve your experience and serve ads on blog pages.{' '}
-          <Link href="/gdpr" className="text-blue-600 dark:text-blue-400 hover:underline">Cookie & GDPR Policy</Link>
+          <Link href="/gdpr" className="font-bold text-cobalt-ink underline decoration-2 underline-offset-2 decoration-cobalt/30 hover:decoration-cobalt">Cookie & GDPR Policy</Link>
         </p>
 
         {expanded && (
-          <div className="mb-5 divide-y divide-gray-100 dark:divide-gray-800 border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden">
+          <div className="mb-4 divide-y-2 divide-line border-2 border-line rounded-2xl overflow-hidden">
 
-            <div className="flex items-start justify-between gap-4 p-4">
-              <div>
-                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-1.5">
-                  <Shield className="w-3.5 h-3.5 text-green-500" /> Essential
+            <div className="flex items-start justify-between gap-4 p-3.5">
+              <div className="min-w-0">
+                <p className="text-sm font-extrabold text-ink flex items-center gap-1.5">
+                  <Shield className="w-4 h-4 text-emerald shrink-0" strokeWidth={2.5} /> Essential
                 </p>
-                <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5 max-w-sm">Required for the site to function (theme preference, CMS session). Cannot be disabled.</p>
+                <p className="text-xs text-muted mt-1 leading-relaxed">Required for the site to function (theme preference, CMS session). Cannot be disabled.</p>
               </div>
-              <span className="shrink-0 text-xs font-semibold text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded-full">Always on</span>
+              <span className="chip shrink-0 bg-emerald-soft text-emerald-ink">Always on</span>
             </div>
 
-            <div className="flex items-start justify-between gap-4 p-4">
-              <div>
-                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-1.5">
-                  <BarChart2 className="w-3.5 h-3.5 text-blue-500" /> Analytics — Umami
+            <div className="flex items-start justify-between gap-4 p-3.5">
+              <div className="min-w-0">
+                <p className="text-sm font-extrabold text-ink flex items-center gap-1.5">
+                  <BarChart2 className="w-4 h-4 text-cobalt shrink-0" strokeWidth={2.5} /> Analytics — Umami
                 </p>
-                <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5 max-w-sm">Cookie-free, privacy-first page-view stats. No personal data stored or shared.</p>
+                <p className="text-xs text-muted mt-1 leading-relaxed">Cookie-free, privacy-first page-view stats. No personal data stored or shared.</p>
               </div>
-              <Toggle value={analytics} onChange={setAnalytics} />
+              <Toggle value={analytics} onChange={setAnalytics} label="Analytics — Umami" />
             </div>
 
-            <div className="flex items-start justify-between gap-4 p-4">
-              <div>
-                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-1.5">
-                  <Megaphone className="w-3.5 h-3.5 text-amber-500" /> Advertising — Google AdSense
+            <div className="flex items-start justify-between gap-4 p-3.5">
+              <div className="min-w-0">
+                <p className="text-sm font-extrabold text-ink flex items-center gap-1.5">
+                  <Megaphone className="w-4 h-4 text-orange shrink-0" strokeWidth={2.5} /> Advertising — Google AdSense
                 </p>
-                <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5 max-w-sm">Personalised ads on blog pages. Uses cookies to show relevant advertisements.</p>
+                <p className="text-xs text-muted mt-1 leading-relaxed">Personalised ads on blog pages. Uses cookies to show relevant advertisements.</p>
               </div>
-              <Toggle value={advertising} onChange={setAdvertising} />
+              <Toggle value={advertising} onChange={setAdvertising} label="Advertising — Google AdSense" />
             </div>
           </div>
         )}
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {expanded ? (
-            <button onClick={savePreferences} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition-colors">
+            <button onClick={savePreferences} className="btn btn-primary btn-sm grow">
               Save Preferences
             </button>
           ) : (
-            <button onClick={acceptAll} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition-colors">
+            <button onClick={acceptAll} className="btn btn-primary btn-sm grow">
               Accept All
             </button>
           )}
-          <button onClick={rejectAll} className="px-4 py-2 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 text-sm font-semibold rounded-xl transition-colors">
+          <button onClick={rejectAll} className="btn btn-secondary btn-sm grow">
             Reject Non-Essential
           </button>
           {!expanded && (
-            <button onClick={() => setExpanded(true)} className="px-4 py-2 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+            <button onClick={() => setExpanded(true)} className="w-full sm:w-auto mt-1 px-1 py-1.5 text-sm font-bold text-muted hover:text-ink underline-offset-4 decoration-2 hover:underline transition-colors">
               Manage Preferences
             </button>
           )}

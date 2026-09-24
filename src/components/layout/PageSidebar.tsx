@@ -1,12 +1,21 @@
 export default function PageSidebar({ children }: { children: React.ReactNode }) {
   return (
     <aside className="hidden xl:block w-64 shrink-0">
-      <div className="sticky top-8 space-y-4">
+      <div className="sticky top-24 space-y-4">
         {children}
       </div>
     </aside>
   );
 }
+
+// Accent names are legacy; they map to the Wycinanki palette
+// (blue → cobalt, purple → violet, green → emerald, amber → sun).
+const accents = {
+  blue: 'bg-cobalt',
+  purple: 'bg-violet',
+  green: 'bg-emerald',
+  amber: 'bg-sun',
+};
 
 export function SidebarCard({
   title,
@@ -17,16 +26,12 @@ export function SidebarCard({
   children: React.ReactNode;
   accent?: 'blue' | 'purple' | 'green' | 'amber';
 }) {
-  const accents = {
-    blue: 'border-t-blue-500',
-    purple: 'border-t-purple-500',
-    green: 'border-t-green-500',
-    amber: 'border-t-amber-500',
-  };
-
   return (
-    <div className={`bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 border-t-2 ${accents[accent]} p-4`}>
-      <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 dark:text-gray-300 mb-3">{title}</h3>
+    <div className="tile p-5">
+      <h3 className="flex items-center gap-2 text-base font-semibold text-ink mb-3">
+        <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${accents[accent]}`} aria-hidden="true" />
+        {title}
+      </h3>
       {children}
     </div>
   );
