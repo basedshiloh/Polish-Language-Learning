@@ -26,14 +26,14 @@ export default function LinkGenius({
     <div className="space-y-3">
       <div className="flex items-center gap-2">
         <Link2 className="w-4 h-4 text-blue-600" />
-        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">Link Genius</p>
+        <p className="text-sm font-semibold text-gray-900">Link Genius</p>
       </div>
-      <p className="text-xs text-gray-400 dark:text-gray-500">
+      <p className="text-xs text-gray-400">
         Internal-link suggestions based on phrases in your draft. Click to insert.
       </p>
 
       {suggestions.length === 0 ? (
-        <p className="text-sm text-gray-400 dark:text-gray-500 py-4 text-center">
+        <p className="text-sm text-gray-400 py-4 text-center">
           No suggestions yet — write more content mentioning Polish topics.
         </p>
       ) : (
@@ -41,18 +41,18 @@ export default function LinkGenius({
           {suggestions.map((s, i) => {
             const Icon = typeIcon[s.type];
             return (
-              <li key={i} className="flex items-center justify-between gap-2 p-2.5 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
+              <li key={i} className="flex items-center justify-between gap-2 p-2.5 rounded-lg border border-gray-200 bg-white">
                 <div className="min-w-0">
-                  <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+                  <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wide text-gray-400">
                     <Icon className="w-3 h-3" /> {s.type}
                     {s.isPillar && (
-                      <span className="px-1 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">★ Pillar</span>
+                      <span className="px-1 py-0.5 rounded bg-amber-100 text-amber-700">★ Pillar</span>
                     )}
                   </div>
-                  <p className="text-sm text-gray-900 dark:text-gray-100 truncate">
+                  <p className="text-sm text-gray-900 truncate">
                     Link <span className="font-medium">&ldquo;{s.phrase}&rdquo;</span>
                   </p>
-                  <p className="text-xs text-gray-400 dark:text-gray-500 truncate">{s.url}</p>
+                  <p className="text-xs text-gray-400 truncate">{s.url}</p>
                 </div>
                 <button
                   type="button"

@@ -1,33 +1,54 @@
 import { Lightbulb, AlertTriangle, Info } from 'lucide-react';
 import { GrammarSection, TableColor } from '@/lib/types';
-import GrammarTableView from './GrammarTableView';
+import GrammarTableView, { decorate } from './GrammarTableView';
 import FrequencyScale from './FrequencyScale';
 import SpeakButton from '@/components/shared/SpeakButton';
 
-const compColors: Record<TableColor, { bg: string; border: string; title: string; chip: string }> = {
-  blue: { bg: 'bg-blue-50 dark:bg-blue-950/40', border: 'border-blue-200 dark:border-blue-800', title: 'text-blue-800 dark:text-blue-300', chip: 'bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300' },
-  pink: { bg: 'bg-pink-50 dark:bg-pink-950/40', border: 'border-pink-200 dark:border-pink-800', title: 'text-pink-800 dark:text-pink-300', chip: 'bg-pink-100 dark:bg-pink-900/60 text-pink-700 dark:text-pink-300' },
-  green: { bg: 'bg-green-50 dark:bg-green-950/40', border: 'border-green-200 dark:border-green-800', title: 'text-green-800 dark:text-green-300', chip: 'bg-green-100 dark:bg-green-900/60 text-green-700 dark:text-green-300' },
-  amber: { bg: 'bg-amber-50 dark:bg-amber-950/40', border: 'border-amber-200 dark:border-amber-800', title: 'text-amber-800 dark:text-amber-300', chip: 'bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300' },
-  purple: { bg: 'bg-purple-50 dark:bg-purple-950/40', border: 'border-purple-200 dark:border-purple-800', title: 'text-purple-800 dark:text-purple-300', chip: 'bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300' },
-  gray: { bg: 'bg-gray-50 dark:bg-gray-800', border: 'border-gray-200 dark:border-gray-700', title: 'text-gray-800 dark:text-gray-200', chip: 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300' },
+// Data colours → Wycinanki palette (blue = masc, pink = fem, green = neut, amber = sun).
+const compColors: Record<TableColor, { head: string; title: string; chip: string; dot: string }> = {
+  blue: { head: 'bg-cobalt-soft', title: 'text-cobalt-ink', chip: 'bg-cobalt text-white', dot: 'bg-cobalt' },
+  pink: { head: 'bg-fuchsia-soft', title: 'text-fuchsia-ink', chip: 'bg-fuchsia text-white', dot: 'bg-fuchsia' },
+  green: { head: 'bg-emerald-soft', title: 'text-emerald-ink', chip: 'bg-emerald text-white', dot: 'bg-emerald' },
+  amber: { head: 'bg-sun-soft', title: 'text-sun-ink', chip: 'bg-sun text-ink', dot: 'bg-sun' },
+  purple: { head: 'bg-violet-soft', title: 'text-violet-ink', chip: 'bg-violet text-white', dot: 'bg-violet' },
+  gray: { head: 'bg-canvas', title: 'text-ink', chip: 'bg-ink-2 text-white', dot: 'bg-muted' },
 };
 
 const noteStyles = {
-  tip: { icon: Lightbulb, wrap: 'bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800', text: 'text-amber-900 dark:text-amber-200', iconColor: 'text-amber-600 dark:text-amber-400' },
-  warning: { icon: AlertTriangle, wrap: 'bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-800', text: 'text-red-900 dark:text-red-200', iconColor: 'text-red-500 dark:text-red-400' },
-  info: { icon: Info, wrap: 'bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800', text: 'text-blue-900 dark:text-blue-200', iconColor: 'text-blue-600 dark:text-blue-400' },
+  tip: {
+    icon: Lightbulb,
+    label: 'Tip',
+    wrap: 'bg-sun-soft',
+    badge: 'bg-sun text-ink',
+    labelColor: 'text-sun-ink',
+  },
+  warning: {
+    icon: AlertTriangle,
+    label: 'Watch out',
+    wrap: 'bg-crimson-soft',
+    badge: 'bg-crimson text-white',
+    labelColor: 'text-crimson-ink',
+  },
+  info: {
+    icon: Info,
+    label: 'Good to know',
+    wrap: 'bg-cobalt-soft',
+    badge: 'bg-cobalt text-white',
+    labelColor: 'text-cobalt-ink',
+  },
 };
 
 export default function GrammarSectionView({ section }: { section: GrammarSection }) {
   return (
     <div>
       {section.title && (
-        <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-3">{section.title}</h3>
+        <h3 className="mb-4 text-2xl font-semibold leading-tight md:text-[1.7rem]">{section.title}</h3>
       )}
 
       {section.type === 'text' && section.text && (
-        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">{section.text}</p>
+        <p className="max-w-3xl whitespace-pre-line text-[17px] leading-relaxed text-ink-2">
+          {decorate(section.text)}
+        </p>
       )}
 
       {section.type === 'table' && section.table && (
@@ -35,18 +56,25 @@ export default function GrammarSectionView({ section }: { section: GrammarSectio
       )}
 
       {section.type === 'examples' && section.examples && (
-        <div className="space-y-2">
+        <ul className="overflow-hidden rounded-2xl border-2 border-line bg-paper">
           {section.examples.map((ex, i) => (
-            <div key={i} className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 bg-gray-50 dark:bg-gray-800 rounded-lg px-4 py-2.5">
-              <div className="flex items-center gap-1 sm:min-w-[45%]">
-                <span className="font-semibold text-blue-800 dark:text-blue-300">{ex.polish}</span>
+            <li
+              key={i}
+              className="flex flex-col gap-1 border-t border-line px-4 py-3.5 first:border-t-0 sm:flex-row sm:items-center sm:gap-4"
+            >
+              <div className="flex items-center gap-1.5 sm:w-[46%] sm:shrink-0">
+                <span lang="pl" className="polish-text text-[17px] leading-snug">{ex.polish}</span>
                 <SpeakButton text={ex.polish} />
               </div>
-              <span className="text-gray-600 dark:text-gray-400 text-sm flex-1">{ex.english}</span>
-              {ex.note && <span className="text-xs text-gray-400 dark:text-gray-500 italic shrink-0">{ex.note}</span>}
-            </div>
+              <span className="flex-1 text-[15px] text-ink-2">{ex.english}</span>
+              {ex.note && (
+                <span className="chip self-start whitespace-normal bg-canvas text-muted sm:self-center">
+                  {decorate(ex.note, { endings: false })}
+                </span>
+              )}
+            </li>
           ))}
-        </div>
+        </ul>
       )}
 
       {section.type === 'frequency' && section.frequency && (
@@ -54,27 +82,34 @@ export default function GrammarSectionView({ section }: { section: GrammarSectio
       )}
 
       {section.type === 'comparison' && section.comparison && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {section.comparison.map((item, i) => {
             const c = compColors[item.color];
             return (
-              <div key={i} className={`rounded-xl border ${c.border} ${c.bg} p-4`}>
-                <h4 className={`text-lg font-bold ${c.title}`}>{item.title}</h4>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">{item.subtitle}</p>
-                <span className={`inline-block text-xs font-medium px-2 py-1 rounded-md ${c.chip} mb-3`}>
-                  {item.structure}
-                </span>
-                <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">{item.usage}</p>
-                <div className="space-y-1.5">
-                  {item.examples.map((ex, j) => (
-                    <div key={j} className="text-sm">
-                      <div className="flex items-center gap-1">
-                        <span className="font-semibold text-gray-800 dark:text-gray-200">{ex.polish}</span>
-                        <SpeakButton text={ex.polish} />
-                      </div>
-                      <span className="block text-xs text-gray-500 dark:text-gray-400">{ex.english}</span>
-                    </div>
-                  ))}
+              <div key={i} className="tile flex flex-col overflow-hidden">
+                <div className={`px-5 pb-4 pt-5 ${c.head}`}>
+                  <h4 lang="pl" className={`text-3xl font-bold tracking-tight ${c.title}`}>{item.title}</h4>
+                  <p className="mt-0.5 text-sm font-bold text-ink-2">{item.subtitle}</p>
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  <span className={`self-start rounded-xl px-2.5 py-1.5 text-xs font-extrabold ${c.chip}`}>
+                    {item.structure}
+                  </span>
+                  <p className="mt-3 text-[15px] leading-relaxed text-ink-2">{item.usage}</p>
+                  <ul className="mt-4 space-y-3 border-t-2 border-dashed border-line pt-4">
+                    {item.examples.map((ex, j) => (
+                      <li key={j} className="flex gap-2.5">
+                        <span className={`mt-2 h-2 w-2 shrink-0 rounded-full ${c.dot}`} aria-hidden="true" />
+                        <span className="min-w-0">
+                          <span className="flex items-center gap-1">
+                            <span lang="pl" className="polish-text">{ex.polish}</span>
+                            <SpeakButton text={ex.polish} />
+                          </span>
+                          <span className="block text-sm text-muted">{ex.english}</span>
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             );
@@ -86,9 +121,16 @@ export default function GrammarSectionView({ section }: { section: GrammarSectio
         const style = noteStyles[section.noteType || 'tip'];
         const NoteIcon = style.icon;
         return (
-          <div className={`flex items-start gap-3 rounded-lg border p-4 ${style.wrap}`}>
-            <NoteIcon className={`w-5 h-5 shrink-0 mt-0.5 ${style.iconColor}`} />
-            <p className={`text-sm leading-relaxed ${style.text} whitespace-pre-line`}>{section.note}</p>
+          <div className={`flex items-start gap-3.5 rounded-2xl p-4 md:p-5 ${style.wrap}`}>
+            <span className={`icon-badge h-10 w-10 rounded-xl ${style.badge}`}>
+              <NoteIcon className="h-5 w-5" strokeWidth={2.4} aria-hidden="true" />
+            </span>
+            <div className="min-w-0 pt-0.5">
+              <p className={`text-sm font-extrabold ${style.labelColor}`}>{style.label}</p>
+              <p className="mt-1 whitespace-pre-line text-[15px] leading-relaxed text-ink-2">
+                {decorate(section.note, { endings: false })}
+              </p>
+            </div>
           </div>
         );
       })()}

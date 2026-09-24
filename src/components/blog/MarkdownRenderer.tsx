@@ -11,37 +11,26 @@ import { slugify } from '@/lib/utils';
 function InternalCard({ href, children }: { href: string; children: React.ReactNode }) {
   const isLesson = href.startsWith('/lessons/');
   const Icon = isLesson ? BookOpen : Table2;
-  const label = isLesson ? 'Lesson' : 'Grammar';
+  const label = isLesson ? 'Free lesson' : 'Grammar reference';
 
   return (
     <Link
       href={href}
-      className={`group flex items-center gap-4 my-4 p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl hover:shadow-md transition-all no-underline ${
-        isLesson
-          ? 'hover:border-blue-300 dark:hover:border-blue-700'
-          : 'hover:border-purple-300 dark:hover:border-purple-700'
-      }`}
+      className="group tile tile-link flex items-center gap-4 my-6 p-4 pr-5 no-underline"
     >
-      <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
-        isLesson
-          ? 'bg-blue-100 dark:bg-blue-900/40'
-          : 'bg-purple-100 dark:bg-purple-900/40'
-      }`}>
-        <Icon className={`w-5 h-5 ${
-          isLesson ? 'text-blue-600 dark:text-blue-400' : 'text-purple-600 dark:text-purple-400'
-        }`} />
-      </div>
-      <div className="flex-1 min-w-0">
-        <span className={`text-[10px] font-semibold uppercase tracking-wider ${
-          isLesson ? 'text-blue-600 dark:text-blue-400' : 'text-purple-600 dark:text-purple-400'
-        }`}>
-          {label}
-        </span>
-        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
+      <span title={label} aria-hidden="true" className={`icon-badge w-12 h-12 ${isLesson ? 'bg-crimson-soft text-crimson-ink' : 'bg-violet-soft text-violet-ink'}`}>
+        <Icon className="w-6 h-6" strokeWidth={2.4} />
+      </span>
+      <span className="flex-1 min-w-0">
+        <span className="block text-[16px] font-extrabold text-ink leading-snug">
           {children}
-        </p>
-      </div>
-      <ArrowRight className="w-4 h-4 text-gray-300 dark:text-gray-600 group-hover:text-blue-500 transition-colors shrink-0" />
+        </span>
+      </span>
+      <span
+        className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-white transition-transform group-hover:translate-x-0.5 ${isLesson ? 'bg-crimson shadow-[0_3px_0_var(--color-crimson-edge)]' : 'bg-violet shadow-[0_3px_0_var(--color-violet-edge)]'}`}
+      >
+        <ArrowRight className="w-5 h-5" strokeWidth={3} />
+      </span>
     </Link>
   );
 }
@@ -55,13 +44,13 @@ export default function MarkdownRenderer({ content }: { content: string }) {
         h2: ({ children }) => (
           <h2
             id={slugify(String(children))}
-            className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-10 mb-4 scroll-mt-8"
+            className="font-display text-[1.65rem] md:text-[1.9rem] font-semibold leading-tight text-ink mt-14 mb-5 scroll-mt-24 text-balance"
           >
             {children}
           </h2>
         ),
         h3: ({ children }) => (
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mt-6 mb-3">{children}</h3>
+          <h3 className="font-display text-[1.3rem] md:text-[1.4rem] font-semibold leading-snug text-ink mt-10 mb-3">{children}</h3>
         ),
         p: ({ children, node }) => {
           const child = node?.children;
@@ -71,24 +60,27 @@ export default function MarkdownRenderer({ content }: { content: string }) {
               return <>{children}</>;
             }
           }
-          return <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">{children}</p>;
+          // Images render as <figure>, which is invalid inside <p> (hydration error) — use a div.
+          const hasImage = child?.some((c) => c.type === 'element' && c.tagName === 'img');
+          const Tag = hasImage ? 'div' : 'p';
+          return <Tag className="text-[1.0625rem] md:text-[1.15rem] leading-[1.8] text-ink-2 mb-6">{children}</Tag>;
         },
         ul: ({ children }) => (
-          <ul className="list-disc space-y-1 text-gray-700 dark:text-gray-300 mb-4 ml-6">{children}</ul>
+          <ul className="list-disc marker:text-crimson space-y-2 text-[1.0625rem] md:text-[1.15rem] leading-[1.75] text-ink-2 mb-6 pl-6">{children}</ul>
         ),
         ol: ({ children }) => (
-          <ol className="list-decimal space-y-1 text-gray-700 dark:text-gray-300 mb-4 ml-6">{children}</ol>
+          <ol className="list-decimal marker:font-extrabold marker:text-crimson-ink space-y-2 text-[1.0625rem] md:text-[1.15rem] leading-[1.75] text-ink-2 mb-6 pl-6">{children}</ol>
         ),
-        li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+        li: ({ children }) => <li className="pl-1.5">{children}</li>,
         blockquote: ({ children }) => (
-          <blockquote className="border-l-4 border-blue-400 dark:border-blue-600 pl-4 py-2 my-4 bg-blue-50/50 dark:bg-blue-950/30 rounded-r-lg">
+          <blockquote className="my-8 rounded-3xl bg-sun-soft px-6 py-5 md:px-7 md:py-6 text-ink [&>p:last-child]:mb-0 [&>p]:text-ink">
             {children}
           </blockquote>
         ),
         code: ({ className, children }) => {
           if (!className) {
             return (
-              <code className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-sm font-mono text-pink-600 dark:text-pink-400">
+              <code className="px-1.5 py-0.5 bg-canvas rounded-md text-[0.9em] font-mono font-semibold text-crimson-ink">
                 {children}
               </code>
             );
@@ -98,22 +90,22 @@ export default function MarkdownRenderer({ content }: { content: string }) {
           );
         },
         pre: ({ children }) => (
-          <pre className="bg-gray-900 dark:bg-gray-950 text-gray-100 rounded-lg p-4 overflow-x-auto mb-4 text-sm">
+          <pre className="bg-ink text-white rounded-2xl p-5 overflow-x-auto mb-6 text-sm">
             {children}
           </pre>
         ),
         table: ({ children }) => (
-          <div className="overflow-x-auto mb-4">
-            <table className="w-full text-sm border-collapse">{children}</table>
+          <div className="overflow-x-auto my-8 rounded-2xl border-2 border-line">
+            <table className="w-full text-[15px] border-collapse">{children}</table>
           </div>
         ),
         th: ({ children }) => (
-          <th className="bg-gray-100 dark:bg-gray-800 px-3 py-2 text-left font-semibold text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700">
+          <th className="bg-canvas px-4 py-3 text-left font-extrabold text-ink border-b-2 border-line whitespace-nowrap">
             {children}
           </th>
         ),
         td: ({ children }) => (
-          <td className="px-3 py-2 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+          <td className="px-4 py-3 text-ink-2 border-t border-line align-top">
             {children}
           </td>
         ),
@@ -135,34 +127,40 @@ export default function MarkdownRenderer({ content }: { content: string }) {
               title={cleanTitle}
               target={isExternal ? '_blank' : undefined}
               rel={isExternal ? (nofollow ? 'noopener noreferrer nofollow' : 'noopener noreferrer') : undefined}
-              className="text-blue-600 dark:text-blue-400 hover:underline"
+              className="font-bold text-crimson-ink underline decoration-2 decoration-crimson/30 underline-offset-[5px] hover:decoration-crimson transition-colors"
             >
               {children}
             </a>
           );
         },
         img: ({ src, alt }) => (
-          <figure className="my-6">
+          <figure className="my-10">
             {typeof src === 'string' && src.startsWith('/') ? (
               <Image
                 src={src}
                 alt={alt || ''}
                 width={896}
                 height={504}
-                className="rounded-lg w-full h-auto"
+                className="rounded-3xl w-full h-auto"
                 loading="lazy"
-                sizes="(max-width: 1024px) 100vw, 896px"
+                sizes="(max-width: 1024px) 100vw, 720px"
               />
             ) : (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={src} alt={alt || ''} className="rounded-lg w-full" loading="lazy" />
+              <img src={src} alt={alt || ''} width={896} height={504} className="rounded-3xl w-full h-auto aspect-[16/9] object-cover bg-canvas" loading="lazy" />
             )}
-            {alt && <figcaption className="text-center text-xs text-gray-400 dark:text-gray-500 mt-2">{alt}</figcaption>}
+            {alt && <figcaption className="text-center text-sm font-semibold text-muted mt-3 px-4">{alt}</figcaption>}
           </figure>
         ),
-        hr: () => <hr className="my-8 border-gray-200 dark:border-gray-800" />,
+        hr: () => (
+          <div className="flex items-center justify-center gap-2.5 my-12" aria-hidden="true">
+            <span className="w-2.5 h-2.5 rounded-full bg-crimson" />
+            <span className="w-2.5 h-2.5 rounded-full bg-sun" />
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald" />
+          </div>
+        ),
         strong: ({ children }) => (
-          <strong className="font-semibold text-gray-900 dark:text-gray-100">{children}</strong>
+          <strong className="font-extrabold text-ink">{children}</strong>
         ),
       }}
     >

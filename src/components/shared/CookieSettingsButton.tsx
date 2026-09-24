@@ -1,10 +1,17 @@
 'use client';
 
-export default function CookieSettingsButton() {
+// Default look inherits the surrounding text colour (it sits in the dark
+// crimson footer bar). Pass `className` to replace the default look, e.g.
+// `btn btn-secondary btn-sm` on the GDPR page.
+const DEFAULT_LOOK =
+  'text-sm text-current opacity-90 hover:opacity-100 hover:underline underline-offset-4 decoration-2 transition-opacity';
+
+export default function CookieSettingsButton({ className }: { className?: string }) {
   return (
     <button
+      type="button"
       onClick={() => window.dispatchEvent(new Event('openCookieSettings'))}
-      className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors text-left"
+      className={`text-left ${className ?? DEFAULT_LOOK}`}
     >
       Cookie Settings
     </button>

@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-25T12:00:00Z",
+  "title": "Design System: PolishPal",
+  "extensions": {
+    "colorMeta": {
+      "crimson": { "role": "primary", "displayName": "Polish Crimson", "canonical": "#d91f3b", "tonalRamp": ["#6a0e1b", "#8e1224", "#b5162d", "#d91f3b", "#e8304b", "#f5536c", "#ffbac5", "#fff0f2"] },
+      "crimson-ink": { "role": "primary", "displayName": "Crimson Ink", "canonical": "#a3142b" },
+      "crimson-edge": { "role": "primary", "displayName": "Crimson Edge", "canonical": "#a3142b" },
+      "crimson-soft": { "role": "primary", "displayName": "Blush Tint", "canonical": "#ffe8ec" },
+      "crimson-deep": { "role": "primary", "displayName": "Deep Crimson", "canonical": "#b5162d" },
+      "emerald": { "role": "secondary", "displayName": "Meadow Emerald", "canonical": "#15803d", "tonalRamp": ["#001003", "#002d12", "#004e25", "#017139", "#0e9950", "#49bf74", "#73e799", "#c6ffd5"] },
+      "emerald-ink": { "role": "secondary", "displayName": "Emerald Ink", "canonical": "#11703b" },
+      "emerald-edge": { "role": "secondary", "displayName": "Emerald Edge", "canonical": "#0e6130" },
+      "emerald-soft": { "role": "secondary", "displayName": "Emerald Tint", "canonical": "#e2f6ea" },
+      "sun": { "role": "secondary", "displayName": "Sunflower", "canonical": "#ffc21a", "tonalRamp": ["#120900", "#302100", "#523c01", "#775803", "#a27900", "#cf9c01", "#fdc014", "#ffedc8"] },
+      "sun-ink": { "role": "secondary", "displayName": "Sun Ink", "canonical": "#7a5600" },
+      "sun-edge": { "role": "secondary", "displayName": "Sun Edge", "canonical": "#d99e00" },
+      "sun-soft": { "role": "secondary", "displayName": "Sun Tint", "canonical": "#fff4cc" },
+      "cobalt": { "role": "secondary", "displayName": "Cobalt", "canonical": "#2f5bea", "tonalRamp": ["#010037", "#050078", "#0d1fb1", "#2249d7", "#4272fe", "#7aa1fe", "#b3cafe", "#e7efff"] },
+      "cobalt-ink": { "role": "secondary", "displayName": "Cobalt Ink", "canonical": "#1b3aa8" },
+      "cobalt-edge": { "role": "secondary", "displayName": "Cobalt Edge", "canonical": "#1f43b8" },
+      "cobalt-soft": { "role": "secondary", "displayName": "Cobalt Tint", "canonical": "#e7edff" },
+      "fuchsia": { "role": "secondary", "displayName": "Łowicz Fuchsia", "canonical": "#d6338a", "tonalRamp": ["#1e000e", "#470028", "#760046", "#a80267", "#d7348b", "#fe64af", "#ffafd0", "#fee7f0"] },
+      "fuchsia-ink": { "role": "secondary", "displayName": "Fuchsia Ink", "canonical": "#9b1b5f" },
+      "fuchsia-edge": { "role": "secondary", "displayName": "Fuchsia Edge", "canonical": "#a8246a" },
+      "fuchsia-soft": { "role": "secondary", "displayName": "Fuchsia Tint", "canonical": "#fce6f1" },
+      "orange": { "role": "secondary", "displayName": "Folk Orange", "canonical": "#f2711c", "tonalRamp": ["#1b0300", "#3f1600", "#692a00", "#974000", "#cb5901", "#fc7a2a", "#feb895", "#ffeae0"] },
+      "orange-ink": { "role": "secondary", "displayName": "Orange Ink", "canonical": "#a6470a" },
+      "orange-edge": { "role": "secondary", "displayName": "Orange Edge", "canonical": "#c25610" },
+      "orange-soft": { "role": "secondary", "displayName": "Orange Tint", "canonical": "#ffede0" },
+      "violet": { "role": "secondary", "displayName": "Papercut Violet", "canonical": "#7c4ddb", "tonalRamp": ["#10002c", "#2c0061", "#4c009e", "#6935c3", "#8a5dec", "#ab8eff", "#cdc0ff", "#efecff"] },
+      "violet-ink": { "role": "secondary", "displayName": "Violet Ink", "canonical": "#5227a8" },
+      "violet-edge": { "role": "secondary", "displayName": "Violet Edge", "canonical": "#5f35b5" },
+      "violet-soft": { "role": "secondary", "displayName": "Violet Tint", "canonical": "#efe8fd" },
+      "teal": { "role": "secondary", "displayName": "Vistula Teal", "canonical": "#0e9e9a", "tonalRamp": ["#000f0e", "#002b29", "#024a48", "#006c69", "#03938f", "#3ebab5", "#6be1dc", "#b5fffb"] },
+      "teal-ink": { "role": "secondary", "displayName": "Teal Ink", "canonical": "#0a6b68" },
+      "teal-edge": { "role": "secondary", "displayName": "Teal Edge", "canonical": "#0b7b78" },
+      "teal-soft": { "role": "secondary", "displayName": "Teal Tint", "canonical": "#ddf5f3" },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#1e2132", "tonalRamp": ["#080a19", "#1e2132", "#3a3f52", "#585c70", "#6b7084", "#9ba0b2", "#d3d7e2", "#f6f7fa"] },
+      "ink-2": { "role": "neutral", "displayName": "Ink 2", "canonical": "#3a3f52" },
+      "muted": { "role": "neutral", "displayName": "Muted Slate", "canonical": "#6b7084" },
+      "faint": { "role": "neutral", "displayName": "Faint Slate (decoration only)", "canonical": "#9ba0b2" },
+      "line": { "role": "neutral", "displayName": "Line", "canonical": "#e5e7ee" },
+      "line-2": { "role": "neutral", "displayName": "Line 2", "canonical": "#d3d7e2" },
+      "canvas": { "role": "neutral", "displayName": "Canvas", "canonical": "#f6f7fa" },
+      "paper": { "role": "neutral", "displayName": "Paper", "canonical": "#ffffff" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Home hero and blog index h1 only. 2.9rem, 3.75rem from 640px, 4.6rem from 1024px." },
+      "headline": { "displayName": "Headline", "purpose": "Landing-page section headings. 1.875rem mobile to 2.6rem." },
+      "article-title": { "displayName": "Article Title", "purpose": "Blog post h1. 2.1rem, 2.6rem, 3rem." },
+      "article-heading": { "displayName": "Article Heading", "purpose": "In-article h2, 1.65rem to 1.9rem, 56px above." },
+      "title": { "displayName": "Title", "purpose": "Card and tile titles, quiz prompts." },
+      "title-compact": { "displayName": "Title Compact", "purpose": "Titles in compact list rows and menus." },
+      "body-article": { "displayName": "Body Article", "purpose": "Article paragraphs in the 680px column, ink-2." },
+      "body": { "displayName": "Body", "purpose": "Excerpts, descriptions, FAQ answers." },
+      "polish-word": { "displayName": "Polish Word", "purpose": "Every Polish word: weight 700, crimson-ink, inherits size." },
+      "label-button": { "displayName": "Button Label", "purpose": "All buttons, UPPERCASE." },
+      "label-nav": { "displayName": "Nav Label", "purpose": "Top-nav triggers, drawer section toggles, stat captions, UPPERCASE." },
+      "label-chip": { "displayName": "Chip Label", "purpose": "Chips and pills, sentence case." }
+    },
+    "shadows": [
+      { "name": "press-edge", "value": "0 4px 0 var(--edge)", "purpose": "Solid 3D bottom of every button, node and sticker; 3px on small buttons and speak buttons, 6px on 72px path nodes. --edge is the colour's -edge token." },
+      { "name": "pressed", "value": "0 0 0 var(--edge)", "purpose": "Active state of a press edge, paired with translateY(edge height)." },
+      { "name": "float-panel", "value": "0 18px 40px -18px rgba(30,33,50,0.25)", "purpose": "Dropdown menus and search results (0.3 to 0.35 alpha variants)." },
+      { "name": "float-card", "value": "0 24px 50px -24px rgba(30,33,50,0.35)", "purpose": "The hero phrase card over the papercut flower." }
+    ],
+    "motion": [
+      { "name": "press", "value": "90ms ease", "purpose": "Button press: transform and box-shadow." },
+      { "name": "hover", "value": "150ms ease", "purpose": "Tile lift, border and colour changes." },
+      { "name": "pp-pop", "value": "320ms cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Dropdowns and modal entering: scale 0.96 to 1 with fade." },
+      { "name": "pp-float", "value": "6s ease-in-out infinite", "purpose": "Gentle 6px bob on stickers (Cześć!, Start here)." },
+      { "name": "image-zoom", "value": "500ms", "purpose": "Card image scale 1.03 to 1.04 on hover." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" },
+      { "name": "2xl", "value": "1536px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Crimson pressed slab; the one main action, usually into the course.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Start learning free</button>",
+      "css": ".ds-btn { --edge: var(--color-line-2, #d3d7e2); display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.8rem 1.4rem; border-radius: 16px; border: 2px solid transparent; font-family: var(--font-body, 'Nunito'), ui-rounded, system-ui, sans-serif; font-weight: 800; font-size: 0.9rem; line-height: 1.2; letter-spacing: 0.06em; text-transform: uppercase; box-shadow: 0 4px 0 var(--edge); transition: transform 90ms ease, box-shadow 90ms ease, background-color 150ms ease, filter 150ms ease; cursor: pointer; } .ds-btn-primary { --edge: var(--color-crimson-edge, #a3142b); background: var(--color-crimson, #d91f3b); color: #fff; } .ds-btn:hover { filter: brightness(1.05); } .ds-btn:active { transform: translateY(4px); box-shadow: 0 0 0 var(--edge); } .ds-btn:focus-visible { outline: 3px solid var(--color-cobalt, #2f5bea); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Paper slab with a grey edge; the quieter companion to a primary.",
+      "html": "<button class=\"ds-btn2\">Read the blog</button>",
+      "css": ".ds-btn2 { display: inline-flex; align-items: center; justify-content: center; padding: 0.8rem 1.4rem; border-radius: 16px; border: 2px solid var(--color-line-2, #d3d7e2); background: var(--color-paper, #fff); color: var(--color-ink, #1e2132); font-family: var(--font-body, 'Nunito'), ui-rounded, system-ui, sans-serif; font-weight: 800; font-size: 0.9rem; line-height: 1.2; letter-spacing: 0.06em; text-transform: uppercase; box-shadow: 0 4px 0 var(--color-line-2, #d3d7e2); transition: transform 90ms ease, box-shadow 90ms ease, background-color 150ms ease; cursor: pointer; } .ds-btn2:hover { background: var(--color-canvas, #f6f7fa); } .ds-btn2:active { transform: translateY(4px); box-shadow: 0 0 0 var(--color-line-2, #d3d7e2); } .ds-btn2:focus-visible { outline: 3px solid var(--color-cobalt, #2f5bea); outline-offset: 2px; }"
+    },
+    {
+      "name": "Post Tile",
+      "kind": "card",
+      "refersTo": "tile",
+      "description": "Bordered tile with a 4px bottom edge; blog card with category chip.",
+      "html": "<a class=\"ds-tile\" href=\"#\"><div class=\"ds-tile-img\"></div><div class=\"ds-tile-body\"><span class=\"ds-tile-chip\">Culture</span><h3 class=\"ds-tile-title\">Wigilia: the Polish Christmas Eve supper</h3><p class=\"ds-tile-ex\">Twelve dishes, an empty chair and the first star.</p><p class=\"ds-tile-meta\">Dec 12, 2025 · 6 min read</p></div></a>",
+      "css": ".ds-tile { display: flex; flex-direction: column; max-width: 340px; overflow: hidden; text-decoration: none; background: var(--color-paper, #fff); border: 2px solid var(--color-line, #e5e7ee); border-bottom-width: 4px; border-radius: 20px; transition: transform 150ms ease, border-color 150ms ease; } .ds-tile:hover { transform: translateY(-2px); border-color: var(--color-line-2, #d3d7e2); } .ds-tile:active { transform: translateY(1px); } .ds-tile:focus-visible { outline: 3px solid var(--color-cobalt, #2f5bea); outline-offset: 2px; } .ds-tile:hover .ds-tile-title { color: var(--color-crimson-ink, #a3142b); } .ds-tile-img { aspect-ratio: 16/10; background: var(--color-line, #e5e7ee); } .ds-tile-body { padding: 20px; font-family: var(--font-body, 'Nunito'), ui-rounded, system-ui, sans-serif; } .ds-tile-chip { display: inline-flex; padding: 0.3rem 0.75rem; border-radius: 999px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em; background: var(--color-orange-soft, #ffede0); color: var(--color-orange-ink, #a6470a); margin-bottom: 12px; } .ds-tile-title { margin: 0; font-family: var(--font-heading, 'Fredoka'), var(--font-body, 'Nunito'), sans-serif; font-weight: 600; font-size: 1.2rem; line-height: 1.375; color: var(--color-ink, #1e2132); transition: color 150ms ease; } .ds-tile-ex { margin: 8px 0 0; font-size: 15px; line-height: 1.625; color: var(--color-muted, #6b7084); } .ds-tile-meta { margin: 16px 0 0; font-size: 12px; font-weight: 700; color: var(--color-muted, #6b7084); }"
+    },
+    {
+      "name": "Category Chip",
+      "kind": "chip",
+      "refersTo": "chip-category",
+      "description": "Round pill in a category's soft tint with its ink text.",
+      "html": "<span class=\"ds-chip ds-chip-orange\">Culture</span> <span class=\"ds-chip ds-chip-violet\">Grammar Deep Dive</span> <span class=\"ds-chip ds-chip-emerald\">Vocabulary</span>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.3rem 0.75rem; border-radius: 999px; font-family: var(--font-body, 'Nunito'), ui-rounded, system-ui, sans-serif; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em; line-height: 1.3; white-space: nowrap; transition: filter 150ms ease; } .ds-chip:hover { filter: brightness(0.95); } .ds-chip-orange { background: var(--color-orange-soft, #ffede0); color: var(--color-orange-ink, #a6470a); } .ds-chip-violet { background: var(--color-violet-soft, #efe8fd); color: var(--color-violet-ink, #5227a8); } .ds-chip-emerald { background: var(--color-emerald-soft, #e2f6ea); color: var(--color-emerald-ink, #11703b); }"
+    },
+    {
+      "name": "Search Input",
+      "kind": "input",
+      "refersTo": "input-search",
+      "description": "56px canvas field that turns paper with a cobalt border on focus.",
+      "html": "<label class=\"ds-search\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg><input type=\"search\" placeholder=\"Search lessons, grammar, articles\" /></label>",
+      "css": ".ds-search { position: relative; display: block; max-width: 520px; color: var(--color-muted, #6b7084); } .ds-search svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); pointer-events: none; } .ds-search input { width: 100%; height: 56px; padding: 0 48px; background: var(--color-canvas, #f6f7fa); border: 2px solid var(--color-line, #e5e7ee); border-radius: 16px; font-family: var(--font-body, 'Nunito'), ui-rounded, system-ui, sans-serif; font-size: 1rem; font-weight: 600; color: var(--color-ink, #1e2132); outline: none; transition: border-color 150ms ease, background-color 150ms ease; } .ds-search input::placeholder { color: var(--color-muted, #6b7084); font-weight: 600; } .ds-search input:focus { border-color: var(--color-cobalt, #2f5bea); background: var(--color-paper, #fff); }"
+    },
+    {
+      "name": "Top Nav Triggers",
+      "kind": "nav",
+      "refersTo": "nav-trigger",
+      "description": "Uppercase menu triggers; blush when open or current.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-logo\">Polish<b>Pal</b></span><button class=\"ds-nav-item ds-nav-active\">Learn</button><button class=\"ds-nav-item\">Blog</button><button class=\"ds-nav-item\">About</button></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 4px; height: 68px; padding: 0 16px; background: rgba(255,255,255,0.95); border-bottom: 2px solid var(--color-line, #e5e7ee); } .ds-logo { font-family: var(--font-heading, 'Fredoka'), sans-serif; font-weight: 600; font-size: 22px; color: var(--color-ink, #1e2132); margin-right: 12px; } .ds-logo b { font-weight: 600; color: var(--color-crimson, #d91f3b); } .ds-nav-item { padding: 8px 14px; border: 0; border-radius: 12px; background: transparent; font-family: var(--font-body, 'Nunito'), ui-rounded, system-ui, sans-serif; font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #6b7084); cursor: pointer; transition: color 150ms ease, background-color 150ms ease; } .ds-nav-item:hover { color: var(--color-ink, #1e2132); background: var(--color-canvas, #f6f7fa); } .ds-nav-item:focus-visible { outline: 3px solid var(--color-cobalt, #2f5bea); outline-offset: 2px; } .ds-nav-active, .ds-nav-active:hover { color: var(--color-crimson-ink, #a3142b); background: var(--color-crimson-soft, #ffe8ec); }"
+    },
+    {
+      "name": "Speak Button",
+      "kind": "custom",
+      "refersTo": "speak-button",
+      "description": "Round cobalt pronunciation button beside a Polish phrase.",
+      "html": "<div class=\"ds-phrase\"><button class=\"ds-speak\" aria-label=\"Listen: Dzień dobry\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z\"/><path d=\"M16 9a5 5 0 0 1 0 6\"/><path d=\"M19.364 18.364a9 9 0 0 0 0-12.728\"/></svg></button><span class=\"ds-pl\">Dzień dobry</span><span class=\"ds-en\">Good morning</span></div>",
+      "css": ".ds-phrase { display: flex; align-items: center; gap: 12px; max-width: 360px; font-family: var(--font-body, 'Nunito'), ui-rounded, system-ui, sans-serif; } .ds-speak { width: 32px; height: 32px; margin-bottom: 3px; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 999px; background: var(--color-cobalt-soft, #e7edff); color: var(--color-cobalt-ink, #1b3aa8); box-shadow: 0 3px 0 color-mix(in oklab, var(--color-cobalt, #2f5bea) 35%, var(--color-cobalt-soft, #e7edff)); cursor: pointer; transition: transform 100ms, box-shadow 100ms, background-color 100ms; } .ds-speak:hover { background: color-mix(in oklab, var(--color-cobalt, #2f5bea) 14%, white); } .ds-speak:active { transform: translateY(3px); box-shadow: none; background: var(--color-cobalt, #2f5bea); color: #fff; } .ds-speak:focus-visible { outline: 3px solid var(--color-cobalt, #2f5bea); outline-offset: 2px; } .ds-pl { font-weight: 700; font-size: 17px; color: var(--color-crimson-ink, #a3142b); } .ds-en { margin-left: auto; font-size: 14px; font-weight: 600; color: var(--color-muted, #6b7084); }"
+    },
+    {
+      "name": "Lesson Path Node",
+      "kind": "custom",
+      "refersTo": "path-node",
+      "description": "72px round lesson stepping stone with a 6px press edge.",
+      "html": "<a class=\"ds-node-wrap\" href=\"#\"><span class=\"ds-node\">2</span><span class=\"ds-node-title\">Numbers 1 to 20</span><span class=\"ds-node-meta\">A0 · 20 min</span></a>",
+      "css": ".ds-node-wrap { display: inline-flex; flex-direction: column; align-items: center; text-decoration: none; font-family: var(--font-body, 'Nunito'), ui-rounded, system-ui, sans-serif; } .ds-node { width: 72px; height: 72px; display: flex; align-items: center; justify-content: center; border-radius: 999px; background: var(--color-crimson, #d91f3b); color: #fff; font-family: var(--font-heading, 'Fredoka'), sans-serif; font-size: 1.5rem; font-weight: 600; box-shadow: 0 6px 0 var(--color-crimson-edge, #a3142b); transition: transform 100ms ease; } .ds-node-wrap:hover .ds-node { transform: translateY(-2px); } .ds-node-wrap:active .ds-node { transform: translateY(6px); box-shadow: 0 0 0 var(--color-crimson-edge, #a3142b); } .ds-node-wrap:focus-visible { outline: 3px solid var(--color-cobalt, #2f5bea); outline-offset: 4px; border-radius: 12px; } .ds-node-title { margin-top: 12px; font-size: 15px; font-weight: 800; color: var(--color-ink, #1e2132); } .ds-node-wrap:hover .ds-node-title { color: var(--color-crimson-ink, #a3142b); } .ds-node-meta { margin-top: 2px; font-size: 12px; font-weight: 700; color: var(--color-muted, #6b7084); }"
+    },
+    {
+      "name": "Internal Lesson Card",
+      "kind": "card",
+      "refersTo": "tile",
+      "description": "In-article link to a lesson or grammar page, rendered as a pressable tile.",
+      "html": "<a class=\"ds-ilc\" href=\"#\"><span class=\"ds-ilc-badge\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 7v14\"/><path d=\"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z\"/></svg></span><span class=\"ds-ilc-text\">Lesson 1: Greetings and first words</span><span class=\"ds-ilc-arrow\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></a>",
+      "css": ".ds-ilc { display: flex; align-items: center; gap: 16px; max-width: 560px; padding: 16px 20px 16px 16px; text-decoration: none; background: var(--color-paper, #fff); border: 2px solid var(--color-line, #e5e7ee); border-bottom-width: 4px; border-radius: 20px; font-family: var(--font-body, 'Nunito'), ui-rounded, system-ui, sans-serif; transition: transform 150ms ease, border-color 150ms ease; } .ds-ilc:hover { transform: translateY(-2px); border-color: var(--color-line-2, #d3d7e2); } .ds-ilc:active { transform: translateY(1px); } .ds-ilc:focus-visible { outline: 3px solid var(--color-cobalt, #2f5bea); outline-offset: 2px; } .ds-ilc-badge { width: 48px; height: 48px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 14px; background: var(--color-crimson-soft, #ffe8ec); color: var(--color-crimson-ink, #a3142b); } .ds-ilc-text { flex: 1; font-size: 16px; font-weight: 800; line-height: 1.375; color: var(--color-ink, #1e2132); } .ds-ilc-arrow { width: 40px; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 999px; background: var(--color-crimson, #d91f3b); color: #fff; box-shadow: 0 3px 0 var(--color-crimson-edge, #a3142b); transition: transform 150ms ease; } .ds-ilc:hover .ds-ilc-arrow { transform: translateX(2px); }"
+    },
+    {
+      "name": "TL;DR Summary",
+      "kind": "custom",
+      "refersTo": "callout-summary",
+      "description": "Emerald-tint summary callout with round check bullets; no side stripe.",
+      "html": "<aside class=\"ds-tldr\"><p class=\"ds-tldr-h\">TL;DR</p><ul><li><span class=\"ds-tldr-check\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 6 9 17l-5-5\"/></svg></span>Wigilia is the main Christmas meal in Poland.</li><li><span class=\"ds-tldr-check\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 6 9 17l-5-5\"/></svg></span>Supper starts when the first star appears.</li></ul></aside>",
+      "css": ".ds-tldr { max-width: 560px; padding: 24px 28px; border-radius: 24px; background: var(--color-emerald-soft, #e2f6ea); font-family: var(--font-body, 'Nunito'), ui-rounded, system-ui, sans-serif; } .ds-tldr-h { margin: 0 0 16px; font-family: var(--font-heading, 'Fredoka'), sans-serif; font-size: 1.25rem; font-weight: 600; color: var(--color-emerald-ink, #11703b); } .ds-tldr ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; } .ds-tldr li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; font-weight: 600; line-height: 1.625; color: var(--color-ink, #1e2132); } .ds-tldr-check { width: 24px; height: 24px; margin-top: 2px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 999px; background: var(--color-emerald, #15803d); color: #fff; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Papercut Lesson Book",
+    "overview": "PolishPal is a language app, not a SaaS landing page. Everything you can touch is a physical object: tiles sit on a thick bottom edge, buttons are chunky uppercase slabs that visibly press into the page, and the course is drawn as a path of round coloured stepping stones. The colour comes from Łowicz wycinanki (folk papercuts): a Polish-crimson brand on a white ground, with emerald, sun, cobalt, fuchsia, orange, violet and teal as the papercut accents. A symmetrical papercut flower, drawn in those exact colours, is the one decorative motif, and a scalloped paper edge separates major bands.\n\nDensity is relaxed and friendly, never dashboard-tight. Headings are round and warm (Fredoka), body copy is soft and very readable (Nunito), and the blog article is a calm 680px reading column where the only loud things are Polish words in crimson and the end-of-post invitation into lesson 1. Colour codes meaning (blog categories, course levels, quiz states); it is never sprinkled for decoration outside the papercut flower.\n\nThe system rejects the generic indigo hero-plus-card-grid layout and its electric-indigo palette; that indigo scale survives only inside the Polaris CMS.",
+    "keyCharacteristics": [
+      "White paper ground, near-black blue ink (never pure black text).",
+      "Tactile depth from solid, unblurred bottom edges; pressing removes the edge.",
+      "2px-bordered tiles with a 4px bottom edge, 20px corners.",
+      "Every category and level owns one papercut hue, used as a soft tint + ink text pair.",
+      "Polish words always bold and crimson-ink.",
+      "Light mode only. There is no dark theme and no `dark:` utility anywhere."
+    ],
+    "rules": [
+      { "name": "The Crimson Means Polish Rule", "body": "Bold crimson-ink text is reserved for Polish words (and article links). If a Polish word appears anywhere, in a table, a phrase card or a paragraph, it gets weight 700 and crimson-ink; nothing else in running text gets that treatment.", "section": "colors" },
+      { "name": "The Soft-and-Ink Pair Rule", "body": "Text on an accent tint is always that same hue's ink shade (violet-ink on violet-soft, sun-ink on sun-soft). Never white on a tint, never grey on a tint.", "section": "colors" },
+      { "name": "The One Hue, One Meaning Rule", "body": "A category or level keeps its hue everywhere it appears (chip, dot, diamond, node). Don't borrow a category's colour to decorate an unrelated element. The papercut flower is the one place all hues appear together.", "section": "colors" },
+      { "name": "The Indigo Quarantine Rule", "body": "The legacy `blue-*` indigo scale (#242EF7 family) is reserved for the Polaris CMS. It never appears on a public page.", "section": "colors" },
+      { "name": "The Two Voices Rule", "body": "Fredoka is for headings and big numerals only; Nunito carries everything else, including buttons and labels. Base h1 to h4 inherit Fredoka, ink colour and -0.01em from the base layer.", "section": "typography" },
+      { "name": "The Shouting Is For Pressing Rule", "body": "Uppercase with wide tracking belongs to things you press or open (buttons, nav triggers) and tiny stat captions. Headings, chips and body are never uppercase.", "section": "typography" },
+      { "name": "The Heading Weight Rule", "body": "Headings sit at Fredoka 600. Weight 700 is for numerals in round nodes.", "section": "typography" },
+      { "name": "The Reading Column Rule", "body": "Article text never runs wider than 680px, and nothing (sidebars, ads) sits inside that column's width.", "section": "layout" },
+      { "name": "The Edge Rule", "body": "If it presses, it has a solid bottom edge in its own darker shade, and pressing consumes the edge. No blurred shadow ever stands in for a press edge.", "section": "elevation" },
+      { "name": "The Blur Is For Floating Rule", "body": "Diffuse shadows mark overlays and the one hero card that hovers over the flower. Tiles at rest are flat with a border.", "section": "elevation" }
+    ],
+    "dos": [
+      "**Do** mark every Polish word bold (700) in crimson-ink, and pair heard phrases with a speak button.",
+      "**Do** give anything pressable a solid bottom edge in its own `-edge` shade, and let :active consume it (translateY by the edge height, 90ms).",
+      "**Do** build containers as tiles: paper, 2px line border, 4px bottom border, 20px corners.",
+      "**Do** colour text on a tint with the same hue's `-ink` shade.",
+      "**Do** end every blog post with an obvious way into lesson 1.",
+      "**Do** keep article text in the 680px column at 1.8 line-height.",
+      "**Do** keep base element styles (html, body, headings, selection, focus) inside `@layer base` so utilities can override them.",
+      "**Do** respect reduced motion: the global rule collapses animations and transitions, and the accessibility panel can pause them."
+    ],
+    "donts": [
+      "**Don't** add dark mode or any `dark:` utility; PolishPal is light mode only.",
+      "**Don't** use the legacy `blue-*` indigo scale outside the Polaris CMS.",
+      "**Don't** use faint for text; it is for icons and decoration only (2.6:1 on white).",
+      "**Don't** put eyebrow or kicker labels above headings.",
+      "**Don't** put coloured side borders thicker than 1px on callouts; callouts are tinted fills with rounded corners.",
+      "**Don't** set white text below 24px (or 18.66px bold) on teal, orange or sun; they fail AA with white (3.29, 2.94 and under 2:1). Emerald (#15803d) passes at 5.0:1. Orange and sun path nodes use ink numerals.",
+      "**Don't** replace a press edge with a blurred drop shadow, or put blurred shadows on tiles at rest.",
+      "**Don't** make headings, chips or body text uppercase; uppercase is for buttons and nav triggers.",
+      "**Don't** use a category's hue to decorate something outside that category.",
+      "**Don't** imply sign-up, accounts or payment anywhere in the UI."
+    ]
+  }
+}

@@ -43,87 +43,101 @@ const channels = [
   },
 ];
 
-const colorMap: Record<string, { bg: string; text: string; border: string }> = {
-  red: { bg: 'bg-red-100 dark:bg-red-900/30', text: 'text-red-600 dark:text-red-400', border: 'hover:border-red-200 dark:hover:border-red-800' },
-  amber: { bg: 'bg-amber-100 dark:bg-amber-900/30', text: 'text-amber-600 dark:text-amber-400', border: 'hover:border-amber-200 dark:hover:border-amber-800' },
-  blue: { bg: 'bg-blue-100 dark:bg-blue-900/30', text: 'text-blue-600 dark:text-blue-400', border: 'hover:border-blue-200 dark:hover:border-blue-800' },
-  green: { bg: 'bg-green-100 dark:bg-green-900/30', text: 'text-green-600 dark:text-green-400', border: 'hover:border-green-200 dark:hover:border-green-800' },
+const colorMap: Record<string, { badge: string; text: string }> = {
+  red: { badge: 'bg-crimson-soft text-crimson-ink', text: 'text-crimson-ink' },
+  amber: { badge: 'bg-sun-soft text-sun-ink', text: 'text-sun-ink' },
+  blue: { badge: 'bg-cobalt-soft text-cobalt-ink', text: 'text-cobalt-ink' },
+  green: { badge: 'bg-emerald-soft text-emerald-ink', text: 'text-emerald-ink' },
 };
 
 export default function ContactPage() {
   return (
-    <div className="p-6 md:p-10">
-      <div className="max-w-3xl mx-auto">
-        <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 mb-6 transition-colors">
-          <ArrowLeft className="w-4 h-4" />
-          Back to Home
-        </Link>
+    <div>
+      <div className="bg-canvas border-b-2 border-line">
+        <div className="container-pp py-12 md:py-16">
+          <div className="max-w-3xl mx-auto">
+            <Link href="/" className="inline-flex items-center gap-1.5 text-sm font-bold text-muted hover:text-ink mb-8 transition-colors">
+              <ArrowLeft className="w-4 h-4" strokeWidth={2.5} />
+              Back to Home
+            </Link>
 
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Contact</h1>
-        <p className="text-gray-500 dark:text-gray-400 mb-8">
-          PolishPal is an open-source project. The best way to reach us is through GitHub — every report, suggestion,
-          and question helps make this resource better for everyone.
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-          {channels.map((ch) => {
-            const c = colorMap[ch.color];
-            const Icon = ch.icon;
-            return (
-              <a
-                key={ch.title}
-                href={ch.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-5 hover:shadow-md transition-all ${c.border}`}
-              >
-                <div className={`w-10 h-10 rounded-lg ${c.bg} flex items-center justify-center mb-3`}>
-                  <Icon className={`w-5 h-5 ${c.text}`} />
-                </div>
-                <h2 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">{ch.title}</h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">{ch.description}</p>
-                <span className={`inline-flex items-center gap-1.5 text-sm font-medium ${c.text}`}>
-                  {ch.label}
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </span>
-              </a>
-            );
-          })}
+            <h1 className="text-4xl md:text-5xl font-bold">Contact</h1>
+            <p className="text-muted text-lg mt-4">
+              PolishPal is an open-source project. The best way to reach us is through GitHub — every report, suggestion,
+              and question helps make this resource better for everyone.
+            </p>
+          </div>
         </div>
+      </div>
 
-        {/* Advertising & sponsorship — the ad-slot placeholders link here */}
-        <section id="advertise" className="mb-10 bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900 rounded-2xl p-6 scroll-mt-8">
-          <div className="flex items-center gap-2 mb-2">
-            <Megaphone className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-            <h2 className="font-semibold text-gray-900 dark:text-gray-100">Advertising &amp; Sponsorship</h2>
+      <div className="container-pp py-12 md:py-16">
+        <div className="max-w-3xl mx-auto space-y-12">
+          <div className="tile divide-y-2 divide-line overflow-hidden">
+            {channels.map((ch) => {
+              const c = colorMap[ch.color];
+              const Icon = ch.icon;
+              return (
+                <a
+                  key={ch.title}
+                  href={ch.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-start gap-4 p-5 md:p-6 hover:bg-canvas transition-colors"
+                >
+                  <span className={`icon-badge ${c.badge}`}>
+                    <Icon className="w-5 h-5" strokeWidth={2.4} />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <h2 className="text-xl font-semibold leading-tight">{ch.title}</h2>
+                    <p className="text-base text-muted mt-1">{ch.description}</p>
+                    <span className={`inline-flex items-center gap-1.5 mt-3 text-sm font-extrabold uppercase tracking-[0.06em] ${c.text} group-hover:gap-2.5 transition-all`}>
+                      {ch.label}
+                      <ExternalLink className="w-3.5 h-3.5" strokeWidth={2.6} />
+                    </span>
+                  </div>
+                </a>
+              );
+            })}
           </div>
-          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            Want to advertise on PolishPal or sponsor the project? We offer banner slots on the blog and inside
-            articles (728×90 and 300×250), sponsored content, and partnership options. Reach a growing audience
-            of Polish learners — email us and we&apos;ll get back to you with details.
-          </p>
-          <a
-            href="mailto:0xshilloh@gmail.com?subject=PolishPal%20Advertising%20Inquiry"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors"
-          >
-            <Mail className="w-4 h-4" />
-            0xshilloh@gmail.com
-          </a>
-        </section>
 
-        <section className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6">
-          <h2 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">Why GitHub?</h2>
-          <div className="space-y-3 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-            <p>
-              As an open-source project, we use GitHub for all communication because it keeps everything transparent
-              and traceable. Anyone can see reported issues, track their resolution, and contribute fixes.
-            </p>
-            <p>
-              If you&apos;re not familiar with GitHub, don&apos;t worry — you can also leave a comment on any lesson
-              or blog post page directly on the website, and we&apos;ll see it through our moderation dashboard.
-            </p>
-          </div>
-        </section>
+          {/* Advertising & sponsorship — the ad-slot placeholders link here */}
+          <section id="advertise" className="rounded-3xl bg-cobalt-soft p-6 md:p-8 scroll-mt-24">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
+              <span className="icon-badge bg-cobalt text-white">
+                <Megaphone className="w-6 h-6" strokeWidth={2.4} />
+              </span>
+              <div className="min-w-0">
+                <h2 className="text-2xl font-bold leading-tight mb-3">Advertising &amp; Sponsorship</h2>
+                <p className="text-[17px] text-ink-2 leading-relaxed mb-6">
+                  Want to advertise on PolishPal or sponsor the project? We offer banner slots on the blog and inside
+                  articles (728×90 and 300×250), sponsored content, and partnership options. Reach a growing audience
+                  of Polish learners — email us and we&apos;ll get back to you with details.
+                </p>
+                <a
+                  href="mailto:0xshilloh@gmail.com?subject=PolishPal%20Advertising%20Inquiry"
+                  className="btn btn-cobalt normal-case tracking-normal max-w-full"
+                >
+                  <Mail className="w-4 h-4 shrink-0" strokeWidth={2.5} />
+                  <span className="truncate">0xshilloh@gmail.com</span>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <section className="rounded-3xl bg-canvas p-6 md:p-8">
+            <h2 className="text-2xl font-bold leading-tight mb-4">Why GitHub?</h2>
+            <div className="space-y-4 text-[17px] text-ink-2 leading-relaxed">
+              <p>
+                As an open-source project, we use GitHub for all communication because it keeps everything transparent
+                and traceable. Anyone can see reported issues, track their resolution, and contribute fixes.
+              </p>
+              <p>
+                If you&apos;re not familiar with GitHub, don&apos;t worry — you can also leave a comment on any lesson
+                or blog post page directly on the website, and we&apos;ll see it through our moderation dashboard.
+              </p>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   );

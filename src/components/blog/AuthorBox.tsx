@@ -18,28 +18,28 @@ export default function AuthorBox({
     : null;
 
   return (
-    <div className="flex items-center gap-4 py-4">
-      <div className="w-12 h-12 rounded-full bg-white border border-gray-100 dark:border-gray-700 flex items-center justify-center shrink-0 overflow-hidden">
+    <div className="flex items-center gap-3.5 py-2">
+      <div className="w-12 h-12 rounded-2xl bg-paper border-2 border-line flex items-center justify-center shrink-0 overflow-hidden">
         {author.avatar ? (
-          <Image src={author.avatar} alt={author.name} width={48} height={48} className="w-9 h-9 object-contain" />
+          <Image src={author.avatar} alt="" width={48} height={48} className="w-8 h-8 object-contain rounded-lg" />
         ) : (
-          <span className="text-lg font-bold text-blue-600 dark:text-blue-400">{author.name.charAt(0)}</span>
+          <span className="font-display text-xl font-semibold text-crimson">{author.name.charAt(0)}</span>
         )}
       </div>
-      <div>
-        <p className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{author.name}</p>
-        <p className="text-xs text-gray-500 dark:text-gray-400">{author.bio}</p>
-        <div className="flex items-center gap-2 mt-1 text-xs text-gray-400 dark:text-gray-500 flex-wrap">
+      <div className="min-w-0">
+        <p className="font-extrabold text-ink text-[15px] leading-tight">{author.name}</p>
+        {author.bio && <p className="text-sm text-muted leading-snug mt-0.5">{author.bio}</p>}
+        <p className="flex items-center gap-x-2 gap-y-0.5 mt-1 text-sm font-semibold text-muted flex-wrap">
           <time dateTime={date}>{formatted}</time>
-          <span>·</span>
+          <span aria-hidden="true">·</span>
           <span>{readingTime} min read</span>
           {updated && (
             <>
-              <span>·</span>
+              <span aria-hidden="true">·</span>
               <span>Updated {updated}</span>
             </>
           )}
-        </div>
+        </p>
       </div>
     </div>
   );

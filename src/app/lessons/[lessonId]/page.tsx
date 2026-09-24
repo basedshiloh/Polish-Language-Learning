@@ -3,10 +3,13 @@
 import { use } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle2, Clock, Brain, BookOpen, Info, RotateCcw } from 'lucide-react';
+import {
+  ArrowLeft, ArrowRight, CheckCircle2, Clock, Brain, BookOpen, Landmark,
+  MessagesSquare, MessageCircle, RotateCcw, PartyPopper, Flag,
+} from 'lucide-react';
 import { lessons } from '@/data/lessons';
 import { useProgress } from '@/hooks/useProgress';
-import Badge from '@/components/shared/Badge';
+import { levelTone } from '@/components/lessons/LessonCard';
 import VocabularyTable from '@/components/lessons/VocabularyTable';
 import GrammarBlock from '@/components/lessons/GrammarBlock';
 import DialogueBlock from '@/components/lessons/DialogueBlock';
@@ -15,6 +18,15 @@ import TableOfContents from '@/components/layout/TableOfContents';
 import StarRating from '@/components/shared/StarRating';
 import ShareBox from '@/components/shared/ShareBox';
 import CommentSection from '@/components/shared/CommentSection';
+import type { ContentBlockType } from '@/lib/types';
+
+const blockStyle: Record<ContentBlockType, { icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; tone: string }> = {
+  vocabulary: { icon: BookOpen, tone: 'bg-crimson-soft text-crimson-ink' },
+  grammar: { icon: Brain, tone: 'bg-violet-soft text-violet-ink' },
+  dialogue: { icon: MessagesSquare, tone: 'bg-cobalt-soft text-cobalt-ink' },
+  phrases: { icon: MessageCircle, tone: 'bg-teal-soft text-teal-ink' },
+  'cultural-note': { icon: Landmark, tone: 'bg-paper text-orange-ink' },
+};
 
 export default function LessonPage({ params }: { params: Promise<{ lessonId: string }> }) {
   const { lessonId } = use(params);
@@ -24,6 +36,12 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
   if (!lesson) notFound();
 
   const completed = mounted ? getLessonStatus(lesson.id) : false;
+  const tone = levelTone[lesson.level];
+
+  const ordered = [...lessons].sort((a, b) => a.order - b.order);
+  const index = ordered.findIndex((l) => l.id === lesson.id);
+  const prevLesson = index > 0 ? ordered[index - 1] : undefined;
+  const nextLesson = index >= 0 && index < ordered.length - 1 ? ordered[index + 1] : undefined;
 
   const tocItems = lesson.content.map((block, i) => ({
     id: `section-${i}`,
@@ -31,101 +49,151 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
   }));
 
   return (
-    <div className="p-6 md:p-10">
-      <div className="flex gap-8">
-        <div className="flex-1 min-w-0 max-w-4xl">
+    <div className="container-pp py-8 md:py-12">
+      <div className="flex justify-center gap-10">
+        <div className="flex-1 min-w-0 max-w-3xl">
           <Link
             href="/lessons"
-            className="no-print inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 mb-6 transition-colors"
+            className="no-print inline-flex items-center gap-1.5 text-sm font-extrabold text-muted hover:text-crimson-ink mb-8 transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4" strokeWidth={2.6} />
             Back to Lessons
           </Link>
 
-          <div className="mb-8">
-            <div className="flex items-center gap-3 mb-2">
-              <Badge variant={lesson.level === 'A0' ? 'blue' : 'green'}>{lesson.level}</Badge>
-              <div className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500">
-                <Clock className="w-3.5 h-3.5" />
+          {/* Lesson header */}
+          <header className="mb-10">
+            <div className="flex flex-wrap items-center gap-2 mb-4">
+              <span className={`chip ${tone.chip}`}>{lesson.level}</span>
+              <span className="chip bg-canvas text-ink-2">Lesson {lesson.order} of {ordered.length}</span>
+              <span className="chip bg-canvas text-muted">
+                <Clock className="w-3.5 h-3.5" strokeWidth={2.6} />
                 ~{lesson.estimatedMinutes} min
-              </div>
+              </span>
               {completed && (
-                <div className="flex items-center gap-1 text-xs text-green-600">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
+                <span className="chip bg-emerald-soft text-emerald-ink">
+                  <CheckCircle2 className="w-3.5 h-3.5" strokeWidth={2.6} />
                   Completed
-                </div>
+                </span>
               )}
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">{lesson.title}</h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-1">{lesson.description}</p>
-            <div className="mt-3">
+            <h1 className="text-4xl md:text-5xl font-bold leading-[1.1]">{lesson.title}</h1>
+            <p className="text-lg text-muted mt-3">{lesson.description}</p>
+            <div className="mt-4">
               <StarRating itemId={lesson.id} itemType="lesson" />
+            </div>
+          </header>
+
+          <div className="space-y-6 md:space-y-8">
+            {lesson.content.map((block, i) => {
+              const { icon: Icon, tone: blockTone } = blockStyle[block.type];
+              const isNote = block.type === 'cultural-note';
+              return (
+                <section
+                  key={i}
+                  id={`section-${i}`}
+                  className={`scroll-mt-24 p-5 md:p-7 ${isNote ? 'rounded-3xl bg-orange-soft' : 'tile'}`}
+                >
+                  <div className="flex items-center gap-3 mb-5">
+                    <span className={`icon-badge ${blockTone}`}>
+                      <Icon className="w-5 h-5" strokeWidth={2.4} />
+                    </span>
+                    <h2 className={`text-xl md:text-2xl font-semibold ${isNote ? 'text-orange-ink' : ''}`}>{block.title}</h2>
+                  </div>
+
+                  {block.type === 'vocabulary' && block.vocabulary && (
+                    <VocabularyTable items={block.vocabulary} />
+                  )}
+                  {block.type === 'grammar' && block.grammar && (
+                    <GrammarBlock points={block.grammar} />
+                  )}
+                  {block.type === 'dialogue' && block.dialogue && (
+                    <DialogueBlock lines={block.dialogue} />
+                  )}
+                  {block.type === 'phrases' && block.phrases && (
+                    <PhraseList phrases={block.phrases} />
+                  )}
+                  {block.type === 'cultural-note' && block.culturalNote && (
+                    <p className="text-ink-2 text-[17px] leading-relaxed">{block.culturalNote}</p>
+                  )}
+                </section>
+              );
+            })}
+          </div>
+
+          {/* Finish line: completion + quiz */}
+          <div
+            className={`no-print mt-10 rounded-3xl p-5 md:p-7 flex flex-col md:flex-row md:items-center gap-5 ${
+              completed ? 'bg-emerald-soft' : 'bg-canvas'
+            }`}
+          >
+            <div className="flex items-center gap-3 flex-1 min-w-0">
+              <span className={`icon-badge ${completed ? 'bg-emerald text-white' : 'bg-paper text-crimson-ink'}`}>
+                {completed ? <PartyPopper className="w-5 h-5" strokeWidth={2.4} /> : <Flag className="w-5 h-5" strokeWidth={2.4} />}
+              </span>
+              <p className={`font-display text-lg font-semibold leading-snug ${completed ? 'text-emerald-ink' : 'text-ink'}`}>
+                {completed ? 'Nice work, this lesson is complete.' : 'Finished this lesson? Mark it complete to track your progress.'}
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              {!completed ? (
+                <button
+                  type="button"
+                  onClick={() => markLessonComplete(lesson.id)}
+                  className="btn btn-green w-full sm:w-auto"
+                >
+                  <CheckCircle2 className="w-5 h-5" strokeWidth={2.6} />
+                  Mark as Complete
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => unmarkLessonComplete(lesson.id)}
+                  className="btn btn-secondary w-full sm:w-auto"
+                >
+                  <RotateCcw className="w-5 h-5" strokeWidth={2.6} />
+                  Mark as Not Complete
+                </button>
+              )}
+              {lesson.relatedQuizId && (
+                <Link
+                  href={`/quizzes/${lesson.relatedQuizId}`}
+                  className="btn btn-primary w-full sm:w-auto"
+                >
+                  <Brain className="w-5 h-5" strokeWidth={2.6} />
+                  Take the Quiz
+                </Link>
+              )}
             </div>
           </div>
 
-          <div className="space-y-8">
-            {lesson.content.map((block, i) => (
-              <section key={i} id={`section-${i}`} className="bg-white dark:bg-gray-900 rounded-xl p-5 md:p-6 border border-gray-100 dark:border-gray-800 scroll-mt-8">
-                <div className="flex items-center gap-2 mb-4">
-                  {block.type === 'vocabulary' && <BookOpen className="w-5 h-5 text-blue-600" />}
-                  {block.type === 'grammar' && <Brain className="w-5 h-5 text-blue-600" />}
-                  {block.type === 'dialogue' && <BookOpen className="w-5 h-5 text-purple-600" />}
-                  {block.type === 'phrases' && <BookOpen className="w-5 h-5 text-green-600" />}
-                  {block.type === 'cultural-note' && <Info className="w-5 h-5 text-amber-600" />}
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{block.title}</h2>
-                </div>
-
-                {block.type === 'vocabulary' && block.vocabulary && (
-                  <VocabularyTable items={block.vocabulary} />
-                )}
-                {block.type === 'grammar' && block.grammar && (
-                  <GrammarBlock points={block.grammar} />
-                )}
-                {block.type === 'dialogue' && block.dialogue && (
-                  <DialogueBlock lines={block.dialogue} />
-                )}
-                {block.type === 'phrases' && block.phrases && (
-                  <PhraseList phrases={block.phrases} />
-                )}
-                {block.type === 'cultural-note' && block.culturalNote && (
-                  <div className="bg-amber-50 dark:bg-amber-950/30 rounded-lg p-4 border border-amber-100 dark:border-amber-900">
-                    <p className="text-sm text-amber-900 dark:text-amber-200 leading-relaxed">{block.culturalNote}</p>
-                  </div>
-                )}
-              </section>
-            ))}
-          </div>
+          {/* Previous / next lesson */}
+          {(prevLesson || nextLesson) && (
+            <nav aria-label="Lesson navigation" className="no-print mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {prevLesson && (
+                <Link href={`/lessons/${prevLesson.id}`} className="tile tile-link group flex items-center gap-3 p-4">
+                  <ArrowLeft className="w-5 h-5 text-muted shrink-0 group-hover:text-crimson-ink transition-colors" strokeWidth={2.6} />
+                  <span className="min-w-0">
+                    <span className="block text-xs font-extrabold text-muted">Previous · Lesson {prevLesson.order}</span>
+                    <span className="block font-bold text-ink truncate">{prevLesson.title}</span>
+                  </span>
+                </Link>
+              )}
+              {nextLesson && (
+                <Link
+                  href={`/lessons/${nextLesson.id}`}
+                  className="tile tile-link group flex items-center justify-end gap-3 p-4 text-right sm:col-start-2"
+                >
+                  <span className="min-w-0">
+                    <span className="block text-xs font-extrabold text-muted">Next · Lesson {nextLesson.order}</span>
+                    <span className="block font-bold text-ink truncate">{nextLesson.title}</span>
+                  </span>
+                  <ArrowRight className="w-5 h-5 text-muted shrink-0 group-hover:text-crimson-ink transition-colors" strokeWidth={2.6} />
+                </Link>
+              )}
+            </nav>
+          )}
 
           <ShareBox title={lesson.title} label="lesson" />
-
-          <div className="no-print mt-8 flex flex-col sm:flex-row gap-3">
-            {!completed ? (
-              <button
-                onClick={() => markLessonComplete(lesson.id)}
-                className="flex items-center justify-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
-              >
-                <CheckCircle2 className="w-5 h-5" />
-                Mark as Complete
-              </button>
-            ) : (
-              <button
-                onClick={() => unmarkLessonComplete(lesson.id)}
-                className="flex items-center justify-center gap-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-200 transition-colors"
-              >
-                <RotateCcw className="w-5 h-5" />
-                Mark as Not Complete
-              </button>
-            )}
-            {lesson.relatedQuizId && (
-              <Link
-                href={`/quizzes/${lesson.relatedQuizId}`}
-                className="flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-              >
-                <Brain className="w-5 h-5" />
-                Take the Quiz
-              </Link>
-            )}
-          </div>
 
           <CommentSection pageId={`lesson-${lesson.id}`} pageType="lesson" />
         </div>

@@ -1,53 +1,59 @@
 import { FrequencyItem } from '@/lib/types';
 import SpeakButton from '@/components/shared/SpeakButton';
 
-// Color-grade the bar from green (always) through amber to red (never).
+// Colour-grade the meter from emerald (always) through sun to crimson (never).
 function barColor(percent: number): string {
-  if (percent >= 85) return 'bg-green-500';
-  if (percent >= 65) return 'bg-emerald-500';
-  if (percent >= 40) return 'bg-amber-500';
-  if (percent >= 20) return 'bg-orange-500';
-  return 'bg-red-400';
+  if (percent >= 85) return 'bg-emerald';
+  if (percent >= 65) return 'bg-teal';
+  if (percent >= 40) return 'bg-sun';
+  if (percent >= 20) return 'bg-orange';
+  return 'bg-crimson';
 }
 
 export default function FrequencyScale({ items }: { items: FrequencyItem[] }) {
   return (
-    <div className="space-y-3">
+    <div className="rounded-2xl border-2 border-line bg-paper p-4 md:p-5">
       {/* scale labels */}
-      <div className="flex justify-between text-xs text-gray-400 dark:text-gray-500 px-1">
+      <div className="mb-3 flex justify-between pr-[3.75rem] text-xs font-extrabold text-muted sm:pl-44">
         <span>0% — never</span>
         <span>always — 100%</span>
       </div>
 
-      {items.map((item, i) => (
-        <div key={i} className="flex items-center gap-3">
-          <div className="w-32 sm:w-40 shrink-0">
-            <div className="flex items-center gap-1">
-              <p className="font-semibold text-blue-800 dark:text-blue-300 text-sm leading-tight">{item.polish}</p>
-              <SpeakButton text={item.polish} />
+      <ul className="space-y-4">
+        {items.map((item, i) => (
+          <li key={i} className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+            <div className="sm:w-40 sm:shrink-0">
+              <div className="flex items-center gap-1">
+                <p lang="pl" className="polish-text text-[17px] leading-tight">{item.polish}</p>
+                <SpeakButton text={item.polish} />
+              </div>
+              <p className="text-sm font-semibold text-ink-2">
+                {item.english}
+                {item.pronunciation && (
+                  <span className="pronunciation-text ml-1.5 text-xs">/{item.pronunciation}/</span>
+                )}
+              </p>
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-400">{item.english}</p>
-            {item.pronunciation && (
-              <p className="text-[11px] italic text-gray-400 dark:text-gray-500">/{item.pronunciation}/</p>
-            )}
-          </div>
-          <div className="flex-1 h-6 bg-gray-100 rounded-full overflow-hidden relative">
-            <div
-              className={`h-full rounded-full ${barColor(item.percent)} transition-all duration-500 flex items-center justify-end`}
-              style={{ width: `${Math.max(item.percent, 4)}%` }}
-            >
-              {item.percent >= 15 && (
-                <span className="text-[10px] font-semibold text-white pr-2">{item.percent}%</span>
-              )}
-            </div>
-            {item.percent < 15 && (
-              <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-gray-400 dark:text-gray-500">
+
+            <div className="flex flex-1 items-center gap-3">
+              {/* Chunky meter: grey track, colour fill with a 3D bottom edge and a glossy highlight */}
+              <div className="relative h-6 flex-1 rounded-full bg-line" aria-hidden="true">
+                <div
+                  className={`relative h-full overflow-hidden rounded-full shadow-[inset_0_-4px_0_rgba(0,0,0,0.14)] transition-all duration-500 ${barColor(item.percent)}`}
+                  style={{ width: `${Math.max(item.percent, 4)}%` }}
+                >
+                  {item.percent >= 15 && (
+                    <span className="absolute inset-x-2.5 top-1.5 h-1.5 rounded-full bg-white/35" />
+                  )}
+                </div>
+              </div>
+              <span className="w-12 shrink-0 text-right text-sm font-extrabold tabular-nums text-ink">
                 {item.percent}%
               </span>
-            )}
-          </div>
-        </div>
-      ))}
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

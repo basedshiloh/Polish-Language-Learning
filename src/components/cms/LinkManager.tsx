@@ -76,24 +76,24 @@ export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
       <div className="max-w-4xl">
         <div className="flex items-center gap-2 mb-1">
           <Link2 className="w-5 h-5 text-blue-600" />
-          <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">Link Manager</h1>
+          <h1 className="text-xl font-bold text-gray-900">Link Manager</h1>
         </div>
-        <p className="text-sm text-gray-400 dark:text-gray-500 mb-6">
+        <p className="text-sm text-gray-400 mb-6">
           Audit links across the site. <strong>Outbound</strong> = links going out from a page (watch duplicates for stuffing).
           <strong> Inbound</strong> = how many pages link to it (0 = orphan page).
         </p>
 
         {/* View toggle */}
-        <div className="inline-flex rounded-lg border border-gray-200 dark:border-gray-800 p-0.5 mb-5">
+        <div className="inline-flex rounded-lg border border-gray-200 p-0.5 mb-5">
           <button
             onClick={() => { setView('out'); setExpanded(null); }}
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-colors ${view === 'out' ? 'bg-blue-600 text-white font-medium' : 'text-gray-500 dark:text-gray-400'}`}
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-colors ${view === 'out' ? 'bg-blue-600 text-white font-medium' : 'text-gray-500'}`}
           >
             <ArrowUpRight className="w-4 h-4" /> Outbound
           </button>
           <button
             onClick={() => { setView('in'); setExpanded(null); }}
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-colors ${view === 'in' ? 'bg-blue-600 text-white font-medium' : 'text-gray-500 dark:text-gray-400'}`}
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-colors ${view === 'in' ? 'bg-blue-600 text-white font-medium' : 'text-gray-500'}`}
           >
             <ArrowDownLeft className="w-4 h-4" /> Inbound
           </button>
@@ -101,36 +101,36 @@ export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
 
         {/* Totals */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-          <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-4">
-            <p className="text-xs text-gray-400 dark:text-gray-500">Internal (out)</p>
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <p className="text-xs text-gray-400">Internal (out)</p>
             <p className="text-2xl font-bold text-blue-600">{totals.internal}</p>
           </div>
-          <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-4">
-            <p className="text-xs text-gray-400 dark:text-gray-500">External (out)</p>
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <p className="text-xs text-gray-400">External (out)</p>
             <p className="text-2xl font-bold text-purple-600">{totals.external}</p>
           </div>
-          <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-4">
-            <p className="text-xs text-gray-400 dark:text-gray-500">Duplicates</p>
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <p className="text-xs text-gray-400">Duplicates</p>
             <p className={`text-2xl font-bold ${totals.dupes > 0 ? 'text-amber-600' : 'text-green-600'}`}>{totals.dupes}</p>
           </div>
-          <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-4">
-            <p className="text-xs text-gray-400 dark:text-gray-500">Orphan pages</p>
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <p className="text-xs text-gray-400">Orphan pages</p>
             <p className={`text-2xl font-bold ${totals.orphans > 0 ? 'text-amber-600' : 'text-green-600'}`}>{totals.orphans}</p>
           </div>
         </div>
 
         {/* Search */}
         <div className="relative mb-4">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500 pointer-events-none" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
           <input
             type="search"
             value={search}
             onChange={(e) => { setSearch(e.target.value); setExpanded(null); }}
             placeholder="Search by title or URL…"
-            className="w-full pl-9 pr-4 py-2 text-sm bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg outline-none text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:border-blue-400 dark:focus:border-blue-600 transition-colors"
+            className="w-full pl-9 pr-4 py-2 text-sm bg-white border border-gray-200 rounded-lg outline-none text-gray-900 placeholder:text-gray-400 focus:border-blue-400 transition-colors"
           />
           {search && (
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 dark:text-gray-500">
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400">
               {rows.length} result{rows.length !== 1 ? 's' : ''}
             </span>
           )}
@@ -145,8 +145,8 @@ export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
                 onClick={() => setFilter(f)}
                 className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
                   filter === f
-                    ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-medium'
-                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    ? 'bg-blue-100 text-blue-700 font-medium'
+                    : 'text-gray-500 hover:bg-gray-100'
                 }`}
               >
                 {f === 'all' ? 'All' : `${f}s`}
@@ -156,7 +156,7 @@ export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value as Sort)}
-            className="text-sm bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-3 py-1.5 outline-none text-gray-700 dark:text-gray-300"
+            className="text-sm bg-white border border-gray-200 rounded-lg px-3 py-1.5 outline-none text-gray-700"
           >
             <option value="most">Most links</option>
             <option value="least">Fewest links</option>
@@ -172,27 +172,27 @@ export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
             const inCount = inboundCount(a);
             const sources = inbound.get(norm(a.url)) || [];
             return (
-              <div key={a.url} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden">
+              <div key={a.url} className="bg-white border border-gray-200 rounded-lg overflow-hidden">
                 <button
                   onClick={() => setExpanded(isOpen ? null : a.url)}
-                  className="w-full flex items-center gap-3 p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                  className="w-full flex items-center gap-3 p-3 text-left hover:bg-gray-50 transition-colors"
                 >
                   {isOpen ? <ChevronDown className="w-4 h-4 text-gray-400 shrink-0" /> : <ChevronRight className="w-4 h-4 text-gray-400 shrink-0" />}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">{a.kind}</span>
+                      <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-400">{a.kind}</span>
                       {view === 'out' && hasDupes && (
-                        <span className="flex items-center gap-1 text-[10px] font-medium text-amber-600 dark:text-amber-400">
+                        <span className="flex items-center gap-1 text-[10px] font-medium text-amber-600">
                           <AlertTriangle className="w-3 h-3" /> {a.duplicates.length} duplicate{a.duplicates.length > 1 ? 's' : ''}
                         </span>
                       )}
                       {view === 'in' && inCount === 0 && (
-                        <span className="flex items-center gap-1 text-[10px] font-medium text-amber-600 dark:text-amber-400">
+                        <span className="flex items-center gap-1 text-[10px] font-medium text-amber-600">
                           <AlertTriangle className="w-3 h-3" /> orphan
                         </span>
                       )}
                     </div>
-                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{a.title}</p>
+                    <p className="text-sm font-medium text-gray-900 truncate">{a.title}</p>
                   </div>
                   <div className="flex items-center gap-3 shrink-0 text-xs">
                     {view === 'out' ? (
@@ -207,38 +207,38 @@ export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
                 </button>
 
                 {isOpen && (
-                  <div className="border-t border-gray-100 dark:border-gray-800 p-3 space-y-3">
+                  <div className="border-t border-gray-100 p-3 space-y-3">
                     {view === 'out' ? (
                       <>
                         {a.duplicates.length > 0 && (
-                          <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900 rounded-lg p-2.5">
-                            <p className="text-xs font-medium text-amber-800 dark:text-amber-300 mb-1 flex items-center gap-1">
+                          <div className="bg-amber-50 border border-amber-100 rounded-lg p-2.5">
+                            <p className="text-xs font-medium text-amber-800 mb-1 flex items-center gap-1">
                               <AlertTriangle className="w-3.5 h-3.5" /> Repeated links (consider reducing)
                             </p>
-                            <ul className="text-xs text-amber-700 dark:text-amber-400 space-y-0.5">
+                            <ul className="text-xs text-amber-700 space-y-0.5">
                               {a.duplicates.map((d) => (<li key={d.url}>{d.url} <span className="font-semibold">×{d.count}</span></li>))}
                             </ul>
                           </div>
                         )}
                         {a.links.length === 0 ? (
-                          <p className="text-xs text-gray-400 dark:text-gray-500 py-2">No outgoing links.</p>
+                          <p className="text-xs text-gray-400 py-2">No outgoing links.</p>
                         ) : (
                           <ul className="space-y-1.5">
                             {a.links.map((l, i) => {
                               const dup = a.duplicates.some((d) => d.url === l.url.replace(/\/$/, '').toLowerCase());
                               return (
                                 <li key={i} className="flex items-center gap-2 text-sm">
-                                  <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full shrink-0 ${l.type === 'internal' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' : 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400'}`}>
+                                  <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full shrink-0 ${l.type === 'internal' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700'}`}>
                                     {l.type === 'internal' ? 'INT' : 'EXT'}
                                   </span>
                                   {l.type === 'external' && l.rel && (
-                                    <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full shrink-0 ${l.rel === 'dofollow' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' : 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400'}`}>
+                                    <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full shrink-0 ${l.rel === 'dofollow' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'}`}>
                                       {l.rel}
                                     </span>
                                   )}
-                                  <span className="text-gray-700 dark:text-gray-300 truncate max-w-[35%]" title={l.anchor}>{l.anchor}</span>
-                                  <span className="text-gray-300 dark:text-gray-600">→</span>
-                                  <span className={`truncate ${dup ? 'text-amber-600 dark:text-amber-400 font-medium' : 'text-gray-400 dark:text-gray-500'}`} title={l.url}>{l.url}</span>
+                                  <span className="text-gray-700 truncate max-w-[35%]" title={l.anchor}>{l.anchor}</span>
+                                  <span className="text-gray-300">→</span>
+                                  <span className={`truncate ${dup ? 'text-amber-600 font-medium' : 'text-gray-400'}`} title={l.url}>{l.url}</span>
                                 </li>
                               );
                             })}
@@ -247,7 +247,7 @@ export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
                       </>
                     ) : (
                       sources.length === 0 ? (
-                        <p className="text-xs text-amber-600 dark:text-amber-400 py-2 flex items-center gap-1">
+                        <p className="text-xs text-amber-600 py-2 flex items-center gap-1">
                           <AlertTriangle className="w-3.5 h-3.5" /> No pages link here. Add internal links to this page to fix the orphan.
                         </p>
                       ) : (
@@ -255,13 +255,13 @@ export default function LinkManager({ audits }: { audits: LinkAudit[] }) {
                           {sources.map((s, i) => (
                             <li key={i} className="text-sm">
                               <div className="flex items-center gap-2">
-                                <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500 shrink-0 w-14">{s.kind}</span>
-                                <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 truncate max-w-[55%]" title={s.title}>{s.title}</a>
+                                <span className="text-[10px] font-semibold uppercase tracking-wide text-gray-400 shrink-0 w-14">{s.kind}</span>
+                                <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-blue-600 truncate max-w-[55%]" title={s.title}>{s.title}</a>
                               </div>
                               <div className="flex items-center gap-2 pl-16 mt-0.5">
-                                <span className="text-[10px] text-gray-400 dark:text-gray-500 uppercase tracking-wide shrink-0">anchor</span>
-                                <span className="px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-xs font-medium truncate" title={s.anchor}>{s.anchor}</span>
-                                <span className="text-gray-300 dark:text-gray-600 text-xs truncate" title={s.url}>{s.url}</span>
+                                <span className="text-[10px] text-gray-400 uppercase tracking-wide shrink-0">anchor</span>
+                                <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-xs font-medium truncate" title={s.anchor}>{s.anchor}</span>
+                                <span className="text-gray-300 text-xs truncate" title={s.url}>{s.url}</span>
                               </div>
                             </li>
                           ))}
