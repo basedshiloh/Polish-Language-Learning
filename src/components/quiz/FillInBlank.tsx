@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useId, type FormEvent } from 'react';
+import { useState, useId, useRef, type FormEvent } from 'react';
 import { CheckCircle2, XCircle, Lightbulb } from 'lucide-react';
 import { FillInBlankQuestion } from '@/lib/types';
 
@@ -8,6 +8,9 @@ interface FillInBlankProps {
   question: FillInBlankQuestion;
   onAnswer: (correct: boolean, answer: string) => void;
 }
+
+// Tap-to-insert letters for learners without a Polish keyboard.
+const POLISH_LETTERS = ['ą', 'ć', 'ę', 'ł', 'ń', 'ó', 'ś', 'ź', 'ż'];
 
 function normalize(s: string): string {
   return s.trim().toLowerCase();
@@ -18,6 +21,19 @@ export default function FillInBlank({ question, onAnswer }: FillInBlankProps) {
   const [submitted, setSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const inputId = useId();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  function insertLetter(letter: string) {
+    const el = inputRef.current;
+    const start = el?.selectionStart ?? input.length;
+    const end = el?.selectionEnd ?? input.length;
+    const next = input.slice(0, start) + letter + input.slice(end);
+    setInput(next);
+    requestAnimationFrame(() => {
+      el?.focus();
+      el?.setSelectionRange(start + letter.length, start + letter.length);
+    });
+  }
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -47,6 +63,7 @@ export default function FillInBlank({ question, onAnswer }: FillInBlankProps) {
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
             <input
+              ref={inputRef}
               id={inputId}
               type="text"
               value={input}
@@ -84,6 +101,21 @@ export default function FillInBlank({ question, onAnswer }: FillInBlankProps) {
             </button>
           )}
         </div>
+        {!submitted && (
+          <div className="mt-3 flex flex-wrap gap-1.5" role="group" aria-label="Insert Polish letters">
+            {POLISH_LETTERS.map((letter) => (
+              <button
+                key={letter}
+                type="button"
+                onClick={() => insertLetter(letter)}
+                className="w-10 h-10 rounded-xl border-2 border-b-4 border-line bg-paper font-display text-lg font-semibold text-ink hover:border-line-2 active:translate-y-0.5 active:border-b-2 transition-transform"
+                aria-label={`Insert ${letter}`}
+              >
+                {letter}
+              </button>
+            ))}
+          </div>
+        )}
       </form>
     </div>
   );

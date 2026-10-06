@@ -59,7 +59,9 @@ export default function Matching({ question, onAnswer }: MatchingProps) {
   function handleRightClick(item: IndexedItem) {
     if (done || selectedLeft === null || matchedRight.has(item.index)) return;
 
-    if (selectedLeft === item.index) {
+    // Compare by label, not position: pairs may share a right-hand label
+    // (e.g. two "Masculine" nouns), and either tile is a correct match.
+    if (question.pairs[selectedLeft].right === question.pairs[item.index].right) {
       setMatchedLeft((prev) => new Set(prev).add(selectedLeft));
       setMatchedRight((prev) => new Set(prev).add(item.index));
       setSelectedLeft(null);

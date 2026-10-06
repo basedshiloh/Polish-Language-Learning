@@ -42,7 +42,7 @@ export const grammarTopics: GrammarTopic[] = [
             ['ends in -i', 'FEMININE', 'pani, gospodyni'],
             ['ends in a consonant', 'FEMININE', 'noc, kolej, twarz, sól'],
             ['ends in -ść', 'FEMININE', 'miłość, radość, złość'],
-            ['ends in -um', 'NEUTER (never changes form)', 'muzeum, liceum, gimnazjum'],
+            ['ends in -um', 'NEUTER (no endings in the singular)', 'muzeum, liceum, gimnazjum'],
           ],
         },
       },
@@ -224,7 +224,7 @@ export const grammarTopics: GrammarTopic[] = [
             ['Masculine / Neuter', '-ym  (after k,g → -im)', 'dobrym studentem\nwysokim Polakiem', 'Jakim?'],
             ['Feminine', '-ą', 'mądrą kobietą\npiękną blondynką', 'Jaką?'],
           ],
-          footnote: 'Adjective always goes BEFORE the noun: "On jest inteligentnym studentem."',
+          footnote: 'A descriptive adjective usually goes BEFORE the noun: "On jest inteligentnym studentem." Classifying adjectives come after it: "język polski".',
         },
       },
       {
@@ -346,7 +346,7 @@ export const grammarTopics: GrammarTopic[] = [
           rows: [
             ['Mam rower.', 'Nie mam roweru.'],
             ['Mam czas.', 'Nie mam czasu.'],
-            ['Jest chleb.', 'Nie ma chleba.'],
+            ['Jest chleb. (Nominative)', 'Nie ma chleba.'],
             ['Lubię kawę.', 'Nie lubię kawy.'],
           ],
         },
@@ -407,7 +407,7 @@ export const grammarTopics: GrammarTopic[] = [
       {
         type: 'note',
         noteType: 'warning',
-        note: 'After być, a noun goes into the INSTRUMENTAL case, not the dictionary form:\n"Jestem student" ✗  →  "Jestem studentem" ✓',
+        note: 'After być, a noun goes into the INSTRUMENTAL case, not the dictionary form:\n"Jestem student" ✗  →  "Jestem studentem" ✓\nException: after "to" the noun stays in the Nominative: "To jest student."',
       },
       {
         type: 'examples',
@@ -585,7 +585,7 @@ export const grammarTopics: GrammarTopic[] = [
           headers: ['Time', 'Polish', 'Pronunciation'],
           highlightFirstCol: true,
           rows: [
-            ['1:00', '(jest) pierwsza', 'PYERV-shah'],
+            ['1:00', '(jest) pierwsza', 'PYERF-shah'],
             ['2:00', 'druga', 'DROO-gah'],
             ['3:00', 'trzecia', 'TSHEH-chah'],
             ['4:00', 'czwarta', 'CHFAR-tah'],
@@ -678,7 +678,10 @@ export const grammarTopics: GrammarTopic[] = [
             ['60', 'sześćdziesiąt', '400', 'czterysta'],
             ['70', 'siedemdziesiąt', '500', 'pięćset'],
             ['80', 'osiemdziesiąt', '600', 'sześćset'],
-            ['90', 'dziewięćdziesiąt', '1000', 'tysiąc'],
+            ['90', 'dziewięćdziesiąt', '700', 'siedemset'],
+            ['', '', '800', 'osiemset'],
+            ['', '', '900', 'dziewięćset'],
+            ['', '', '1000', 'tysiąc'],
           ],
         },
       },
@@ -790,8 +793,8 @@ export const grammarTopics: GrammarTopic[] = [
           headers: ['Case', 'ja', 'ty', 'on', 'ona', 'my', 'wy', 'oni/one'],
           highlightFirstCol: true,
           rows: [
-            ['Nominative (subject)', 'ja', 'ty', 'on', 'ona', 'my', 'wy', 'oni'],
-            ['Accusative (Kogo?)', 'mnie', 'cię', 'go', 'ją', 'nas', 'was', 'ich'],
+            ['Nominative (subject)', 'ja', 'ty', 'on', 'ona', 'my', 'wy', 'oni / one'],
+            ['Accusative (Kogo?)', 'mnie', 'cię', 'go', 'ją', 'nas', 'was', 'ich / je'],
             ['Instrumental (z kim?)', 'mną', 'tobą', 'nim', 'nią', 'nami', 'wami', 'nimi'],
             ['Genitive (Kogo?)', 'mnie', 'ciebie', 'go', 'jej', 'nas', 'was', 'ich'],
           ],
@@ -895,8 +898,8 @@ export const grammarTopics: GrammarTopic[] = [
           headers: ['Amount', 'Form', 'Example'],
           rows: [
             ['1', 'złoty', 'jeden złoty'],
-            ['2, 3, 4', 'złote', 'trzy złote'],
-            ['5 and up', 'złotych', 'dwadzieścia złotych'],
+            ['2–4, 22–24, 32–34… (not 12–14)', 'złote', 'trzy złote, dwadzieścia dwa złote'],
+            ['5–21, 25–31, 35–41…', 'złotych', 'dwadzieścia złotych'],
           ],
           footnote: 'Grosze work the same: 2 grosze, 5 groszy. (1 złoty = 100 groszy)',
         },
