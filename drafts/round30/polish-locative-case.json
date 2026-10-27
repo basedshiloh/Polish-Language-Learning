@@ -1,0 +1,35 @@
+{
+  "slug": "polish-locative-case",
+  "title": "Polish Locative Case: Endings, Rules and Examples",
+  "excerpt": "The Polish locative case (miejscownik) always follows w, na, o, przy or po. Learn the endings, consonant changes, pronouns and city names.",
+  "metaDescription": "The Polish locative case (miejscownik) always follows w, na, o, przy or po. Learn the endings, consonant changes, pronouns and city names, with practice.",
+  "focusKeyword": "polish locative case",
+  "category": "grammar-deep-dive",
+  "tags": ["polish locative case", "miejscownik", "polish locative case endings", "polish cases", "polish grammar", "polish prepositions"],
+  "summary": [
+    "The Polish locative case (miejscownik) only ever appears after a preposition: w, na, o, przy or po.",
+    "In the singular, hard stems take -e with a consonant change (stół → stole, miasto → mieście), while k/g/ch and soft stems take -u (park → parku, hotel → hotelu).",
+    "Feminine nouns take -e, -i or -y, with k → c and g → dz before -e (Polska → w Polsce, noga → na nodze), and the plural is -ach for every gender.",
+    "Adjectives end in -ym/-im, -ej or -ych/-ich, and pronouns become o mnie, o tobie, o nim, o niej, o nas, o was, o nich."
+  ],
+  "featuredImage": "/blog/polish-locative-case-featured.webp",
+  "featuredImageAlt": "Kraków's Main Market Square at dusk with St. Mary's Basilica and the Cloth Hall, illustrating the Polish locative case: w Krakowie",
+  "authorName": "PolishPal Contributor",
+  "authorBio": "PolishPal Contributor writes about Polish culture, history, and language for learners and the Polish diaspora.",
+  "intent": "informational",
+  "sources": [
+    "https://en.wiktionary.org/wiki/st%C3%B3%C5%82",
+    "https://en.wiktionary.org/wiki/o",
+    "https://en.wiktionary.org/wiki/po",
+    "https://en.wiktionary.org/wiki/przy",
+    "https://en.wiktionary.org/wiki/na",
+    "https://en.wiktionary.org/wiki/w",
+    "Wiktionary declension tables (en.wiktionary.org API, locative rows) checked for about 110 words, including: miasto, Kraków, ręka, noga, kot, dom, park, syn, pan, brat, student, samochód, las, teatr, biuro, lotnisko, jabłko, morze, pole, mieszkanie, hotel, pokój, koń, Poznań, Wrocław, Gdańsk, Paryż, Praga, Polska, Łódź, Zakopane, Białystok, Wiedeń, obiad, świat, kościół, tydzień, dzień, ojciec, pies, ogród, mąż, miesiąc, lato, auto, jezioro, muzeum, imię, dziecko, kawa, szkoła, mama, siostra, woda, gazeta, książka, apteka, droga, mucha, poczta, ulica, praca, noc, kuchnia, babcia, restauracja, wieś, miłość, tata, kolega, mężczyzna, Niemcy, Włochy, Węgry, Czechy, Katowice, Tatry, ludzie, oko, góra, państwo, pani, sklep, okno, kino, Warszawa, Gdynia, Bydgoszcz, Rzeszów, Kielce, Londyn, Rzym, Ameryka, Europa, Francja, Anglia, lekarz, kraj, gwiazda, Bóg, człowiek, plaża, łóżko, drzewo, śniadanie, rynek, dworzec, Kraków; pronouns ja, ty, on, ona, my, wy, oni, siebie",
+    "https://pixabay.com/photos/krakow-town-square-city-4439925/",
+    "https://pixabay.com/photos/wroclaw-rynek-large-ring-3504314/",
+    "https://www.pexels.com/photo/a-stove-in-a-kitchen-with-a-table-and-chairs-27307266/",
+    "https://www.pexels.com/photo/photo-of-women-talking-to-each-other-4051137/",
+    "Site data: src/data/grammar.ts (polish-cities: Szczecin, Lublin, Toruń, Zakopane locatives; cases-overview) and src/data/lessons.ts (daily-routine-time: o + locative for clock time)"
+  ],
+  "factNotes": "Not checked individually on Wiktionary but standard, so left in: Lublin and Szczecin locatives (taken from the site's own polish-cities page), historia → o historii, film → o filmie, Marek → o Marku, wakacje → o wakacjach, kanapa → na kanapie, centrum → w centrum, the dative 'kotu', and 'w Chicago / w Toronto' (indeclinable, hedged with 'usually'). Wiktionary also lists archaic or regional 'domie' and 'synie', so the article says only that the standard forms are w domu and o synu. Removed a folk etymology of Białystok ('white slope') because I could not verify it. Removed 'teachers hear most often' and 'most common slip' style claims. Wrocław photo: the Pixabay tags say 'wroclaw rynek', but the caption stays generic ('a square in Wrocław's old town'). The kitchen photo's location is unknown, and the caption does not claim it is Polish."
+}
