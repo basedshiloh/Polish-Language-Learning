@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { revalidatePath } from 'next/cache';
+import { revalidateBlog, submitToIndexNow } from '@/lib/blog-publish';
 import { adminClient, getPublishedPosts } from '@/lib/posts';
 import { isAuthorizedRequest } from '@/lib/cms-access';
 import { analyzeSeo } from '@/lib/seo-analysis';
@@ -14,28 +14,6 @@ const INTENTS = ['informational', 'commercial', 'transactional', 'navigational']
 function normIntent(v: unknown): string {
   const s = String(v || 'informational');
   return INTENTS.includes(s) ? s : 'informational';
-}
-
-function revalidateBlog(slug?: string) {
-  revalidatePath('/blog');
-  revalidatePath('/sitemap.xml');
-  if (slug) revalidatePath(`/blog/${slug}`);
-}
-
-function submitToIndexNow(slug: string) {
-  const key = process.env.INDEXNOW_KEY;
-  if (!key) return;
-  const url = `https://www.polishpal.pl/blog/${slug}`;
-  void fetch('https://api.indexnow.org/indexnow', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json; charset=utf-8' },
-    body: JSON.stringify({
-      host: 'www.polishpal.pl',
-      key,
-      keyLocation: `https://www.polishpal.pl/${key}.txt`,
-      urlList: [url],
-    }),
-  }).catch(() => {});
 }
 
 export async function POST(req: NextRequest) {
