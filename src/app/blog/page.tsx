@@ -12,6 +12,8 @@ import AdSlot from '@/components/shared/AdSlot';
 
 export const revalidate = 3600;
 
+const CULTURE_SLIDER_MAX = 12;
+
 interface Props {
   searchParams: Promise<{ page?: string; category?: string }>;
 }
@@ -292,8 +294,12 @@ export default async function BlogPage({ searchParams }: Props) {
 
   const hero = all[0];
   const moreStories = all.slice(1, 6);
+  // Capped: the slider used to render every culture post (46 cards and
+  // growing), which kept /blog near the 400 KB HTML budget. The slider links
+  // to the full culture archive.
   const culturePosts = all
     .filter((p) => p.categories.includes('culture'))
+    .slice(0, CULTURE_SLIDER_MAX)
     .map(({ slug, title, date, featuredImage, featuredImageAlt }) => ({ slug, title, date, featuredImage, featuredImageAlt }));
 
   const catOrder: BlogCategory[] = ['grammar-deep-dive', 'learning-tips', 'music', 'memes-pop-culture', 'arts', 'vocabulary', 'pronunciation'];
