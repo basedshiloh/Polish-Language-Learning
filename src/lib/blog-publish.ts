@@ -1,9 +1,13 @@
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
+import { POSTS_TAG } from '@/lib/posts';
 
 // Shared by the CMS API and the scheduled-publishing cron so both publish the same way.
 
 export function revalidateBlog(slug?: string) {
+  // Expire the cached listing immediately so a publish shows on /blog at once.
+  revalidateTag(POSTS_TAG, { expire: 0 });
   revalidatePath('/blog');
+  revalidatePath('/blog/rss.xml');
   revalidatePath('/sitemap.xml');
   if (slug) revalidatePath(`/blog/${slug}`);
 }

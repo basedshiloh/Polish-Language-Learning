@@ -39,10 +39,13 @@ const noteStyles = {
 };
 
 export default function GrammarSectionView({ section }: { section: GrammarSection }) {
+  // Sections sit under the page H1, so their title is an H2. Comparison cards
+  // are one level below the section title, or H2 when the section has none.
+  const ItemHeading = section.title ? 'h3' : 'h2';
   return (
     <div>
       {section.title && (
-        <h3 className="mb-4 text-2xl font-semibold leading-tight md:text-[1.7rem]">{section.title}</h3>
+        <h2 className="mb-4 text-2xl font-semibold leading-tight md:text-[1.7rem]">{section.title}</h2>
       )}
 
       {section.type === 'text' && section.text && (
@@ -88,7 +91,7 @@ export default function GrammarSectionView({ section }: { section: GrammarSectio
             return (
               <div key={i} className="tile flex flex-col overflow-hidden">
                 <div className={`px-5 pb-4 pt-5 ${c.head}`}>
-                  <h4 lang="pl" className={`text-3xl font-bold tracking-tight ${c.title}`}>{item.title}</h4>
+                  <ItemHeading lang="pl" className={`text-3xl font-bold tracking-tight ${c.title}`}>{item.title}</ItemHeading>
                   <p className="mt-0.5 text-sm font-bold text-ink-2">{item.subtitle}</p>
                 </div>
                 <div className="flex flex-1 flex-col p-5">

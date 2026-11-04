@@ -5,12 +5,71 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { grammarTopics } from '@/data/grammar';
+import { lessons } from '@/data/lessons';
+import { quizzes } from '@/data/quizzes';
 import GrammarSectionView from '@/components/grammar/GrammarSectionView';
 import { categoryStyles, GrammarIcon } from '@/components/grammar/GrammarCard';
 import TableOfContents from '@/components/layout/TableOfContents';
 import StarRating from '@/components/shared/StarRating';
 import ShareBox from '@/components/shared/ShareBox';
 import CommentSection from '@/components/shared/CommentSection';
+
+// Which lessons teach each grammar topic (checked against the lesson content).
+// znac-wiedziec-umiec has no dedicated lesson yet, so it shows no block.
+const PRACTICE_LESSONS: Record<string, string[]> = {
+  'noun-gender': ['nominative-gender'],
+  'cases-overview': ['nominative-gender', 'accusative-case', 'instrumental-case', 'genitive-case'],
+  accusative: ['accusative-case'],
+  instrumental: ['instrumental-case'],
+  genitive: ['genitive-case'],
+  byc: ['pronouns-byc'],
+  'three-conjugations': ['conjugation-am-asz', 'conjugation-e-isz', 'conjugation-uje'],
+  'telling-time': ['daily-routine-time'],
+  'numbers-reference': ['numbers-counting'],
+  'polish-cities': ['introductions', 'conjugation-am-asz'],
+  pronouns: ['pronouns-byc', 'family-possessives'],
+  'shopping-money': ['shopping-clothing'],
+  'frequency-adverbs': ['hobbies-free-time'],
+  'questions-answers': ['introductions'],
+};
+
+function PracticeBlock({ topicId }: { topicId: string }) {
+  const items = (PRACTICE_LESSONS[topicId] ?? [])
+    .map((id) => lessons.find((l) => l.id === id))
+    .filter((l): l is NonNullable<typeof l> => !!l)
+    .map((lesson) => ({ lesson, quiz: quizzes.find((q) => q.id === lesson.relatedQuizId) }));
+  if (items.length === 0) return null;
+
+  return (
+    <section aria-labelledby="practise-topic" className="no-print mt-12">
+      <h2 id="practise-topic" className="mb-4 text-2xl font-semibold leading-tight md:text-[1.7rem]">
+        Practise this topic
+      </h2>
+      <ul className="space-y-3">
+        {items.map(({ lesson, quiz }) => (
+          <li key={lesson.id} className="tile p-5">
+            <p className="text-xs font-extrabold uppercase tracking-[0.08em] text-muted">
+              Lesson {lesson.order} · {lesson.level} · about {lesson.estimatedMinutes} min
+            </p>
+            <Link href={`/lessons/${lesson.id}`} className="mt-1 inline-block text-lg font-extrabold text-ink hover:text-crimson-ink">
+              {lesson.title}
+            </Link>
+            <p className="mt-1 text-base leading-relaxed text-ink-2">{lesson.description}</p>
+            {quiz && (
+              <p className="mt-2 text-base text-ink-2">
+                Then test yourself:{' '}
+                <Link href={`/quizzes/${quiz.id}`} className="font-bold text-cobalt-ink underline decoration-2 underline-offset-4 decoration-cobalt/30 hover:decoration-cobalt">
+                  {quiz.title}
+                </Link>{' '}
+                ({quiz.questions.length} questions)
+              </p>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
 
 export default function GrammarTopicPage({ params }: { params: Promise<{ topicId: string }> }) {
   const { topicId } = use(params);
@@ -80,6 +139,8 @@ export default function GrammarTopicPage({ params }: { params: Promise<{ topicId
                 );
               })}
             </div>
+
+            <PracticeBlock topicId={topic.id} />
 
             <ShareBox title={topic.title} label="topic" />
 

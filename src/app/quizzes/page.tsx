@@ -105,9 +105,9 @@ export default function QuizzesPage() {
                         </div>
                       </div>
 
-                      <h3 className="text-xl font-semibold leading-snug mb-1.5 group-hover:text-crimson-ink transition-colors">
+                      <h2 className="text-xl font-semibold leading-snug mb-1.5 group-hover:text-crimson-ink transition-colors">
                         {quiz.title}
-                      </h3>
+                      </h2>
                       <p className="text-sm text-muted mb-4">{quiz.description}</p>
                       {lesson && (
                         <p className="text-xs font-bold text-muted mb-4">Lesson: {lesson.title}</p>

@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { ArrowLeft, ShieldCheck, Check } from 'lucide-react';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Cookie Policy',
-  description: 'PolishPal does not use cookies for tracking or advertising. We only use localStorage for your preferences and progress.',
-  alternates: { canonical: '/cookies' },
-  robots: { index: true, follow: true },
-};
+  description:
+    'PolishPal does not use cookies for tracking or advertising. We only use localStorage for your preferences and progress.',
+  path: '/cookies',
+});
 
 const h2 = 'text-2xl md:text-[1.75rem] font-bold leading-tight mb-4';
 const link = 'font-bold text-cobalt-ink underline decoration-2 underline-offset-4 decoration-cobalt/30 hover:decoration-cobalt transition-colors';

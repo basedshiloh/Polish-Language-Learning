@@ -9,14 +9,16 @@ import { grammarTopics } from '@/data/grammar';
 import JsonLd from '@/components/seo/JsonLd';
 import SpeakButton from '@/components/shared/SpeakButton';
 import Wycinanka from '@/components/shared/Wycinanka';
+import { pageMetadata } from '@/lib/seo';
 
 export const revalidate = 3600;
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: 'PolishPal — Learn Polish Free | A0 to A1 Course',
   description: 'Free Polish language course from absolute beginner (A0) to elementary (A1). Structured lessons, grammar tables, quizzes — no sign-up required.',
-  alternates: { canonical: 'https://www.polishpal.pl' },
-};
+  // Absolute so the canonical stays exactly as before (no trailing slash).
+  path: 'https://www.polishpal.pl',
+});
 
 const faqSchema = {
   '@context': 'https://schema.org',

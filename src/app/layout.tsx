@@ -5,6 +5,7 @@ import "./globals.css";
 import LayoutShell from "@/components/layout/LayoutShell";
 import JsonLd, { websiteSchema, courseSchema, organizationSchema } from "@/components/seo/JsonLd";
 import CookieConsent from "@/components/shared/CookieConsent";
+import { RSS_ALTERNATE } from "@/lib/seo";
 
 const fredoka = Fredoka({
   subsets: ["latin", "latin-ext"],
@@ -54,8 +55,9 @@ export const metadata: Metadata = {
       { url: "/favicon.ico", sizes: "any" },
       { url: "/logo.svg", type: "image/svg+xml" },
     ],
-    apple: "/logo.svg",
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
+  manifest: "/manifest.webmanifest",
   robots: {
     index: true,
     follow: true,
@@ -65,7 +67,6 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     alternateLocale: "pl_PL",
-    url: SITE_URL,
     siteName: "PolishPal",
     title: "PolishPal — Learn Polish Free | A0 to A1 Course",
     description:
@@ -80,7 +81,7 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
   },
   alternates: {
-    canonical: SITE_URL,
+    types: RSS_ALTERNATE,
   },
   other: {
     "google-site-verification": "",

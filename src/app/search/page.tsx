@@ -164,18 +164,20 @@ function SearchResults() {
 
 export default function SearchPage() {
   return (
+    // The fallback is what the server sends (useSearchParams bails out of SSR),
+    // so it carries the real H1 rather than a skeleton bar.
     <Suspense fallback={
-      <div className="animate-pulse">
+      <div>
         <div className="bg-canvas border-b-2 border-line">
           <div className="container-pp py-12 md:py-16">
             <div className="max-w-3xl mx-auto">
-              <div className="h-11 bg-line rounded-2xl w-72 max-w-full mb-4" />
-              <div className="h-5 bg-line rounded-full w-56" />
+              <h1 className="text-4xl md:text-5xl font-bold">Search Results</h1>
+              <div className="h-5 bg-line rounded-full w-56 mt-4 animate-pulse" />
             </div>
           </div>
         </div>
         <div className="container-pp py-10 md:py-14">
-          <div className="max-w-3xl mx-auto space-y-3">
+          <div className="max-w-3xl mx-auto space-y-3 animate-pulse">
             {[1, 2, 3].map((i) => <div key={i} className="h-20 bg-canvas rounded-2xl" />)}
           </div>
         </div>

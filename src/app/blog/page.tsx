@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Clock } from 'lucide-react';
 import { blogCategoryStyles } from '@/data/blog';
-import { getPaginatedPosts, getPublishedPosts, getHighlightedPosts } from '@/lib/posts';
+import { getPaginatedPosts, getPostListing, getHighlightedPosts } from '@/lib/posts';
 import { getAdSlots } from '@/lib/ads';
 import type { BlogCategory, Post } from '@/lib/types';
 import BlogCard from '@/components/blog/BlogCard';
@@ -285,14 +285,16 @@ export default async function BlogPage({ searchParams }: Props) {
 
   // ── Magazine front page ───────────────────────────────────────────────────
   const [all, highlighted, ads] = await Promise.all([
-    getPublishedPosts(),
+    getPostListing(),
     getHighlightedPosts(),
     getAdSlots(['blog-top', 'blog-sidebar-left', 'blog-sidebar-right']),
   ]);
 
   const hero = all[0];
   const moreStories = all.slice(1, 6);
-  const culturePosts = all.filter((p) => p.categories.includes('culture'));
+  const culturePosts = all
+    .filter((p) => p.categories.includes('culture'))
+    .map(({ slug, title, date, featuredImage, featuredImageAlt }) => ({ slug, title, date, featuredImage, featuredImageAlt }));
 
   const catOrder: BlogCategory[] = ['grammar-deep-dive', 'learning-tips', 'music', 'memes-pop-culture', 'arts', 'vocabulary', 'pronunciation'];
   const byCategory: Partial<Record<BlogCategory, Post[]>> = {};

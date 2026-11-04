@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { grammarTopics } from '@/data/grammar';
+import { pageMetadata, composeDescription, TITLE_MAX } from '@/lib/seo';
 import JsonLd, { articleSchema, breadcrumbSchema } from '@/components/seo/JsonLd';
 
 interface Props {
@@ -12,21 +13,24 @@ export async function generateMetadata({ params }: { params: Promise<{ topicId: 
   const topic = grammarTopics.find((t) => t.id === topicId);
   if (!topic) return {};
 
-  const title = `${topic.title}${topic.polishTitle ? ` (${topic.polishTitle})` : ''} — Polish Grammar`;
-  const description = `${topic.description} Visual tables, examples with pronunciation, and tips for Polish learners at A0-A1 level.`;
+  // Keep the Polish name in the title only while the whole title stays short enough.
+  const withPolish = `${topic.title}${topic.polishTitle ? ` (${topic.polishTitle})` : ''} — Polish Grammar`;
+  const title = withPolish.length <= TITLE_MAX ? withPolish : `${topic.title} — Polish Grammar`;
 
-  return {
+  return pageMetadata({
     title,
-    description,
-    openGraph: {
-      title: `${title} | PolishPal`,
-      description,
-      url: `/grammar/${topic.id}`,
-      type: 'article',
-    },
-    twitter: { title, description },
-    alternates: { canonical: `/grammar/${topic.id}` },
-  };
+    description: composeDescription(
+      topic.description,
+      [
+        'Polish grammar tables with examples and audio for A0-A1 learners.',
+        'Tables and examples with audio for A0-A1 learners.',
+        'Tables and examples for A0-A1.',
+        'A0-A1 tables.',
+      ],
+    ),
+    path: `/grammar/${topic.id}`,
+    type: 'article',
+  });
 }
 
 export default async function GrammarTopicLayout({ params, children }: Props) {

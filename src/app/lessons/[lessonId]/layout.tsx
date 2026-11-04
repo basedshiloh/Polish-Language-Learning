@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { lessons } from '@/data/lessons';
+import { quizzes } from '@/data/quizzes';
+import { pageMetadata, composeDescription } from '@/lib/seo';
 import JsonLd, { articleSchema, breadcrumbSchema } from '@/components/seo/JsonLd';
 
 interface Props {
@@ -12,21 +14,23 @@ export async function generateMetadata({ params }: { params: Promise<{ lessonId:
   const lesson = lessons.find((l) => l.id === lessonId);
   if (!lesson) return {};
 
-  const title = `${lesson.title} — Polish ${lesson.level} Lesson`;
-  const description = `${lesson.description} Includes vocabulary with pronunciation, grammar explanations, dialogues, and practice phrases. Level: ${lesson.level}, ~${lesson.estimatedMinutes} minutes.`;
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title: `${title} | PolishPal`,
-      description,
-      url: `/lessons/${lesson.id}`,
-      type: 'article',
-    },
-    twitter: { title, description },
-    alternates: { canonical: `/lessons/${lesson.id}` },
-  };
+  const parts = lesson.content.some((b) => b.type === 'dialogue') ? 'vocabulary and dialogues' : 'vocabulary and example phrases';
+  const quiz = lesson.relatedQuizId ? quizzes.find((q) => q.id === lesson.relatedQuizId) : undefined;
+  return pageMetadata({
+    title: `${lesson.title} — Polish ${lesson.level} Lesson`,
+    description: composeDescription(
+      lesson.description,
+      [
+        `Free Polish ${lesson.level} lesson with audio pronunciation, ${parts}, about ${lesson.estimatedMinutes} minutes.`,
+        `Free Polish ${lesson.level} lesson with audio, ${parts}.`,
+        `Free ${lesson.level} lesson with audio pronunciation.`,
+        `Free ${lesson.level} lesson with audio.`,
+      ],
+      quiz && ['Ends with a practice quiz.'],
+    ),
+    path: `/lessons/${lesson.id}`,
+    type: 'article',
+  });
 }
 
 export default async function LessonLayout({ params, children }: Props) {

@@ -22,7 +22,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/changelog`, lastModified: now, changeFrequency: 'weekly', priority: 0.5 },
     { url: `${BASE}/privacy`, lastModified: now, changeFrequency: 'monthly', priority: 0.3 },
     { url: `${BASE}/cookies`, lastModified: now, changeFrequency: 'monthly', priority: 0.3 },
-    { url: `${BASE}/search`, lastModified: now, changeFrequency: 'monthly', priority: 0.4 },
+    { url: `${BASE}/gdpr`, lastModified: now, changeFrequency: 'monthly', priority: 0.3 },
+    { url: `${BASE}/terms`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE}/disclosure`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    // /search is noindex (internal results), so it stays out of the sitemap.
   ];
 
   const lessonPages: MetadataRoute.Sitemap = lessons.map((l) => ({

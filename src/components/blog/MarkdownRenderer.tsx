@@ -35,12 +35,24 @@ function InternalCard({ href, children }: { href: string; children: React.ReactN
   );
 }
 
+// The post template renders the title as the page's only <h1>. Some bodies
+// still open with "# Title" (against docs/agent-mistakes-to-avoid.md #4), which
+// produced a second <h1>. Drop that leading line; any other "# " heading is
+// rendered as an <h2> below.
+function stripLeadingH1(md: string): string {
+  return md.replace(/^\s*#[ \t]+[^\n]*\n+/, '');
+}
+
 export default function MarkdownRenderer({ content }: { content: string }) {
+  const h2Class = 'font-display text-[1.65rem] md:text-[1.9rem] font-semibold leading-tight text-ink mt-14 mb-5 scroll-mt-24 text-balance';
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeRaw]}
       components={{
+        h1: ({ children }) => (
+          <h2 id={slugify(String(children))} className={h2Class}>{children}</h2>
+        ),
         h2: ({ children }) => (
           <h2
             id={slugify(String(children))}
@@ -164,7 +176,7 @@ export default function MarkdownRenderer({ content }: { content: string }) {
         ),
       }}
     >
-      {content}
+      {stripLeadingH1(content)}
     </ReactMarkdown>
   );
 }

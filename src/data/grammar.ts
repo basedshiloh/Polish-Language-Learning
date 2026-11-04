@@ -105,6 +105,11 @@ export const grammarTopics: GrammarTopic[] = [
         note: 'A reliable trick: the VERB tells you which case to use.\n• być → Narzędnik (Jestem nauczycielem)\n• mieć / lubić → Biernik (Mam brata)\n• nie ma / nie mam → Dopełniacz (Nie ma chleba)\n• interesować się → Narzędnik (Interesuję się sportem)',
       },
       {
+        type: 'text',
+        title: 'The Other Three Cases',
+        text: 'Polish has seven cases in total. After A1 you will meet the remaining three:\n• Celownik (Dative) answers Komu? Czemu? and marks the person who receives something: Daję bratu książkę (I give my brother a book).\n• Miejscownik (Locative) answers O kim? O czym? and only appears after prepositions such as w, na, o and przy: Mieszkam w Krakowie (I live in Kraków).\n• Wołacz (Vocative) is used to address someone directly: Anno! Panie profesorze!',
+      },
+      {
         type: 'examples',
         title: 'Same noun, four cases',
         examples: [
@@ -383,6 +388,10 @@ export const grammarTopics: GrammarTopic[] = [
     order: 6,
     sections: [
       {
+        type: 'text',
+        text: 'Być (to be) is irregular: its present-tense forms follow none of the three regular conjugation patterns, so they are learned as a set. You use it to say who or what someone is, where they are from and how they feel. The past tense is built on był- (byłem or byłam, był, była) and the future on będ- (będę, będziesz, będzie).',
+      },
+      {
         type: 'table',
         title: 'Być — Present Tense',
         table: {
@@ -648,6 +657,10 @@ export const grammarTopics: GrammarTopic[] = [
     order: 10,
     sections: [
       {
+        type: 'text',
+        text: 'Polish numbers decide the form of the noun you count. One takes the singular (jeden rok). Numbers ending in 2, 3 or 4, except 12 to 14, take the nominative plural (dwa lata, dwadzieścia trzy lata). Everything else, including 5 to 21, takes the genitive plural (pięć lat, dwanaście lat, dwadzieścia jeden lat).',
+      },
+      {
         type: 'table',
         title: '1 – 20',
         table: {
@@ -785,6 +798,10 @@ export const grammarTopics: GrammarTopic[] = [
     icon: 'users',
     order: 12,
     sections: [
+      {
+        type: 'text',
+        text: 'Polish pronouns decline like nouns, so "I" can be ja, mnie or mną depending on its job in the sentence. Some pronouns also have a short and a long form: the short forms (cię, go, mu) are the default, and the long forms (ciebie, jego, jemu) are used for emphasis or at the start of a sentence. After a preposition, third-person forms gain an n-: z nim, dla niego, o niej.',
+      },
       {
         type: 'table',
         title: 'Personal Pronouns by Case',

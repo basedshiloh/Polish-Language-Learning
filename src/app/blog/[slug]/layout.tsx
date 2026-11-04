@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getPostBySlug, getPublishedPosts } from '@/lib/posts';
 import JsonLd, { breadcrumbSchema } from '@/components/seo/JsonLd';
+import { pageMetadata } from '@/lib/seo';
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -15,28 +16,19 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const post = await getPostBySlug(slug);
   if (!post) return {};
 
-  return {
+  return pageMetadata({
     title: post.title,
     description: post.metaDescription || post.excerpt,
-    openGraph: {
-      title: `${post.title} | PolishPal`,
-      description: post.excerpt,
-      url: `/blog/${post.slug}`,
-      type: 'article',
+    path: `/blog/${post.slug}`,
+    type: 'article',
+    images: [{ url: post.featuredImage, width: 1200, height: 630, alt: post.featuredImageAlt }],
+    article: {
       publishedTime: post.date,
       modifiedTime: post.updatedDate || post.date,
       authors: [post.author.name],
       tags: post.tags,
-      images: [{ url: post.featuredImage, width: 1200, height: 630, alt: post.featuredImageAlt }],
     },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.title,
-      description: post.excerpt,
-      images: [post.featuredImage],
-    },
-    alternates: { canonical: `/blog/${post.slug}` },
-  };
+  });
 }
 
 export async function generateStaticParams() {

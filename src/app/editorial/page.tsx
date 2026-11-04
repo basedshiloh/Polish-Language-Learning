@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle2, Users, BookOpen, RefreshCw, AlertTriangle } from 'lucide-react';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Editorial Policy',
-  description: 'How PolishPal ensures content accuracy: our review process, sources, contributor guidelines, and commitment to corrections.',
-  alternates: { canonical: '/editorial' },
-};
+  description:
+    'How PolishPal ensures content accuracy: our review process, sources, contributor guidelines, and commitment to corrections.',
+  path: '/editorial',
+});
 
 const h2 = 'text-2xl md:text-[1.75rem] font-bold leading-tight';
 const link = 'font-bold text-cobalt-ink underline decoration-2 underline-offset-4 decoration-cobalt/30 hover:decoration-cobalt transition-colors';

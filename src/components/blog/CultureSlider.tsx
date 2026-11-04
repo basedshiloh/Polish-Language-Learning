@@ -13,7 +13,11 @@ function fmtDate(d: string) {
 const arrowBtn =
   'w-11 h-11 rounded-full bg-paper text-orange-ink flex items-center justify-center shadow-[0_3px_0_var(--color-orange-edge)] active:translate-y-[3px] active:shadow-none transition-transform';
 
-export default function CultureSlider({ posts }: { posts: Post[] }) {
+// Only the card fields cross the client boundary; whole Post objects bloated
+// the /blog RSC payload.
+export type CultureSlide = Pick<Post, 'slug' | 'title' | 'date' | 'featuredImage' | 'featuredImageAlt'>;
+
+export default function CultureSlider({ posts }: { posts: CultureSlide[] }) {
   const ref = useRef<HTMLDivElement>(null);
 
   function scroll(dir: 'left' | 'right') {

@@ -1,22 +1,13 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import JsonLd, { breadcrumbSchema, faqSchema } from '@/components/seo/JsonLd';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Polish Grammar Reference — Tables & Visual Guides',
   description:
-    'In-depth Polish grammar reference with color-coded tables: noun gender (M/F/N), all 4 cases, 3 conjugation patterns, znać vs wiedzieć vs umieć, telling time, and more.',
-  openGraph: {
-    title: 'Polish Grammar Reference — Tables & Visual Guides | PolishPal',
-    description:
-      '15 grammar topics with visual tables covering noun gender, cases (Nominative, Accusative, Instrumental, Genitive), conjugations, time, cities, and frequency adverbs.',
-    url: '/grammar',
-  },
-  twitter: {
-    title: 'Polish Grammar Reference | PolishPal',
-    description: 'Visual grammar tables for Polish A0-A1: cases, conjugations, gender, time, and more.',
-  },
-  alternates: { canonical: '/grammar' },
-};
+    'Polish grammar reference with color-coded tables: noun gender, the four core cases, three conjugations, znać vs wiedzieć vs umieć, telling time and more.',
+  path: '/grammar',
+});
 
 export default function GrammarLayout({ children }: { children: React.ReactNode }) {
   return (

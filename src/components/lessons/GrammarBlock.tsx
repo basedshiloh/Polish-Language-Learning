@@ -11,7 +11,7 @@ export default function GrammarBlock({ points }: GrammarBlockProps) {
     <div className="space-y-5">
       {points.map((point, i) => (
         <div key={i} className="rounded-2xl bg-violet-soft p-5 md:p-6">
-          <h4 className="text-lg font-semibold text-violet-ink mb-2">{point.title}</h4>
+          <h3 className="text-lg font-semibold text-violet-ink mb-2">{point.title}</h3>
           <p className="text-ink-2 mb-4 leading-relaxed">{point.explanation}</p>
 
           <div className="space-y-2">

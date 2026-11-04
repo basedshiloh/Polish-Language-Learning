@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { ArrowLeft, ExternalLink, MessageSquare, Bug, Lightbulb, BookOpen, Megaphone, Mail } from 'lucide-react';
 
-export const metadata: Metadata = {
-  title: 'Contact',
-  description: 'Get in touch with PolishPal — report bugs, suggest improvements, or ask questions via GitHub Issues.',
-  alternates: { canonical: '/contact' },
-};
+export const metadata: Metadata = pageMetadata({
+  title: 'Contact Us: Report a Mistake or Suggest a Lesson',
+  description:
+    'Contact PolishPal to report a bug or a wrong translation, suggest a new lesson or feature, ask a question on GitHub Issues, or ask about advertising.',
+  path: '/contact',
+});
 
 const channels = [
   {

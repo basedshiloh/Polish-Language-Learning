@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
-export const metadata: Metadata = {
-  title: 'Changelog',
-  description: 'A history of content updates, corrections, and new features on PolishPal.',
-  alternates: { canonical: '/changelog' },
-};
+export const metadata: Metadata = pageMetadata({
+  title: 'Changelog: New Lessons, Fixes and Site Updates',
+  description:
+    'A dated history of PolishPal updates: new lessons and features, content corrections, design changes and fixes to the free A0 to A1 Polish course.',
+  path: '/changelog',
+});
 
 interface ChangelogEntry {
   date: string;

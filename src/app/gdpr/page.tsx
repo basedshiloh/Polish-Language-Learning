@@ -1,13 +1,15 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { ArrowLeft, Cookie } from 'lucide-react';
 import CookieSettingsButton from '@/components/shared/CookieSettingsButton';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'GDPR & Cookie Policy',
-  description: 'How PolishPal handles your data and which cookies we use — and how to manage your preferences.',
-  alternates: { canonical: '/gdpr' },
-};
+  description:
+    'How PolishPal handles your data: cookie-free Umami analytics, Google AdSense on blog pages only with your consent, and how to change your cookie choices.',
+  path: '/gdpr',
+});
 
 const h2 = 'text-2xl md:text-[1.75rem] font-bold leading-tight mb-4';
 const link = 'font-bold text-cobalt-ink underline decoration-2 underline-offset-4 decoration-cobalt/30 hover:decoration-cobalt transition-colors';

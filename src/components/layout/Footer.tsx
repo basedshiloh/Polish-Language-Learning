@@ -21,6 +21,8 @@ const COMPANY_LINKS = [
   { label: 'Editorial Policy', href: '/editorial' },
   { label: 'Privacy Policy', href: '/privacy' },
   { label: 'GDPR & Cookie Policy', href: '/gdpr' },
+  { label: 'Terms of Use', href: '/terms' },
+  { label: 'Ads & Affiliate Disclosure', href: '/disclosure' },
 ];
 
 const linkCls = 'text-[15px] font-semibold text-white/85 hover:text-white transition-colors';
