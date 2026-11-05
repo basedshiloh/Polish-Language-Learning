@@ -6,11 +6,21 @@ import { ArrowLeft, ExternalLink, MessageSquare, Bug, Lightbulb, BookOpen, Megap
 export const metadata: Metadata = pageMetadata({
   title: 'Contact Us: Report a Mistake or Suggest a Lesson',
   description:
-    'Contact PolishPal to report a bug or a wrong translation, suggest a new lesson or feature, ask a question on GitHub Issues, or ask about advertising.',
+    'Contact PolishPal: email support@polishpal.pl, report a bug or wrong translation, suggest a lesson, ask a question on GitHub, or ask about advertising.',
   path: '/contact',
 });
 
+const SUPPORT_EMAIL = 'support@polishpal.pl';
+
 const channels = [
+  {
+    icon: Mail,
+    title: 'Email Us',
+    description: 'Questions about the site, your progress, or anything else? Write to us and a real person will reply.',
+    href: `mailto:${SUPPORT_EMAIL}`,
+    label: SUPPORT_EMAIL,
+    color: 'red',
+  },
   {
     icon: Bug,
     title: 'Report a Bug or Mistake',
@@ -65,8 +75,10 @@ export default function ContactPage() {
 
             <h1 className="text-4xl md:text-5xl font-bold">Contact</h1>
             <p className="text-muted text-lg mt-4">
-              PolishPal is an open-source project. The best way to reach us is through GitHub — every report, suggestion,
-              and question helps make this resource better for everyone.
+              Email us at{' '}
+              <a href={`mailto:${SUPPORT_EMAIL}`} className="font-bold text-crimson-ink underline decoration-2 underline-offset-4">{SUPPORT_EMAIL}</a>,
+              or use GitHub: PolishPal is open source, and every public report, suggestion and question helps make it
+              better for everyone.
             </p>
           </div>
         </div>
@@ -78,12 +90,13 @@ export default function ContactPage() {
             {channels.map((ch) => {
               const c = colorMap[ch.color];
               const Icon = ch.icon;
+              const isMail = ch.href.startsWith('mailto:');
               return (
                 <a
                   key={ch.title}
                   href={ch.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={isMail ? undefined : '_blank'}
+                  rel={isMail ? undefined : 'noopener noreferrer'}
                   className="group flex items-start gap-4 p-5 md:p-6 hover:bg-canvas transition-colors"
                 >
                   <span className={`icon-badge ${c.badge}`}>
@@ -93,8 +106,8 @@ export default function ContactPage() {
                     <h2 className="text-xl font-semibold leading-tight">{ch.title}</h2>
                     <p className="text-base text-muted mt-1">{ch.description}</p>
                     <span className={`inline-flex items-center gap-1.5 mt-3 text-sm font-extrabold uppercase tracking-[0.06em] ${c.text} group-hover:gap-2.5 transition-all`}>
-                      {ch.label}
-                      <ExternalLink className="w-3.5 h-3.5" strokeWidth={2.6} />
+                      <span className={isMail ? 'normal-case tracking-normal' : undefined}>{ch.label}</span>
+                      {!isMail && <ExternalLink className="w-3.5 h-3.5" strokeWidth={2.6} />}
                     </span>
                   </div>
                 </a>
@@ -116,11 +129,11 @@ export default function ContactPage() {
                   of Polish learners — email us and we&apos;ll get back to you with details.
                 </p>
                 <a
-                  href="mailto:0xshilloh@gmail.com?subject=PolishPal%20Advertising%20Inquiry"
+                  href={`mailto:${SUPPORT_EMAIL}?subject=PolishPal%20Advertising%20Inquiry`}
                   className="btn btn-cobalt normal-case tracking-normal max-w-full"
                 >
                   <Mail className="w-4 h-4 shrink-0" strokeWidth={2.5} />
-                  <span className="truncate">0xshilloh@gmail.com</span>
+                  <span className="truncate">{SUPPORT_EMAIL}</span>
                 </a>
               </div>
             </div>
@@ -130,12 +143,13 @@ export default function ContactPage() {
             <h2 className="text-2xl font-bold leading-tight mb-4">Why GitHub?</h2>
             <div className="space-y-4 text-[17px] text-ink-2 leading-relaxed">
               <p>
-                As an open-source project, we use GitHub for all communication because it keeps everything transparent
-                and traceable. Anyone can see reported issues, track their resolution, and contribute fixes.
+                As an open-source project, we use GitHub for public reports and suggestions because it keeps everything
+                transparent and traceable. Anyone can see reported issues, track their resolution, and contribute fixes.
               </p>
               <p>
-                If you&apos;re not familiar with GitHub, don&apos;t worry — you can also leave a comment on any lesson
-                or blog post page directly on the website, and we&apos;ll see it through our moderation dashboard.
+                If you&apos;re not familiar with GitHub, don&apos;t worry: email{' '}
+                <a href={`mailto:${SUPPORT_EMAIL}`} className="font-bold text-crimson-ink underline decoration-2 underline-offset-4">{SUPPORT_EMAIL}</a>,
+                or leave a comment on any lesson or blog post, and we&apos;ll see it through our moderation dashboard.
               </p>
             </div>
           </section>
