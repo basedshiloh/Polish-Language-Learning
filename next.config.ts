@@ -16,8 +16,16 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  // Share-card fonts are read from disk by the /og route at request time too.
-  outputFileTracingIncludes: { '/og/[kind]/[slug]': ['./src/assets/og/**'] },
+  // The /og route renders cards at request time too (new posts, some crawlers):
+  // it reads its fonts from disk, and sharp needs its native libvips .so, which
+  // the tracer missed ("libvips-cpp.so.8.18.3: cannot open shared object file").
+  outputFileTracingIncludes: {
+    '/og/[kind]/[slug]': [
+      './src/assets/og/**',
+      './node_modules/@img/sharp-linux-x64/**/*',
+      './node_modules/@img/sharp-libvips-linux-x64/**/*',
+    ],
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200],
