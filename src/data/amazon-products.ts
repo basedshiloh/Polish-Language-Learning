@@ -65,6 +65,11 @@ export const amazonProducts: Record<string, AmazonProduct> = {
     note: 'Translated by Danusia Stok',
     image: '/blog/amazon-0316029181.webp',
   },
+  '1452110557': {
+    title: 'From a Polish Country House Kitchen',
+    author: 'Anne Applebaum & Danielle Crittenden',
+    note: '90 recipes for Polish home cooking',
+  },
 };
 
 export function amazonAsin(href: string): string | null {
