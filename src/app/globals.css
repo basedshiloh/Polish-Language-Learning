@@ -3,6 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
+  --color-crimson: #D91F3B;
   /* Brand blue scale centered on #242EF7 — recolors every blue-* class sitewide */
   --color-blue-50: #F0F1FE;
   --color-blue-100: #E1E3FD;
@@ -31,6 +32,18 @@
   --color-accent-600: #d97706;
   --color-correct: #22c55e;
   --color-incorrect: #ef4444;
+}
+
+@font-face {
+  font-family: 'PolishPal Fredoka';
+  src: url('/fonts/fredoka-latin.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+.brand-wordmark {
+  font-family: 'PolishPal Fredoka', sans-serif;
 }
 
 body {

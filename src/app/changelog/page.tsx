@@ -23,6 +23,13 @@ const typeStyles = {
 
 const changelog: ChangelogEntry[] = [
   {
+    date: 'November 5, 2026',
+    version: '3.0.1',
+    changes: [
+      { type: 'changed', text: 'New PolishPal logo — a crimson papercut tulip inspired by Polish wycinanki, with refreshed favicons, app icons, and social sharing artwork' },
+    ],
+  },
+  {
     date: 'July 17, 2026',
     version: '3.0.0',
     changes: [

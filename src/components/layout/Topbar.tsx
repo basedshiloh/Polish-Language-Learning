@@ -109,8 +109,8 @@ export default function Topbar() {
 
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 shrink-0 mr-2">
-              <Image src="/logo.svg" alt="PolishPal" width={32} height={32} className="rounded-lg" priority />
-              <span className="font-bold text-[17px] text-gray-900 dark:text-gray-100">PolishPal</span>
+              <Image src="/logo.svg" alt="" width={36} height={36} className="shrink-0 dark:brightness-0 dark:invert" priority />
+              <span className="brand-wordmark font-semibold text-[22px] text-[#1E2132] dark:text-gray-100">Polish<span className="text-crimson">Pal</span></span>
             </Link>
 
             {/* Desktop nav */}
@@ -340,8 +340,8 @@ export default function Topbar() {
       >
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-gray-800">
           <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2">
-            <Image src="/logo.svg" alt="PolishPal" width={28} height={28} className="rounded-lg" />
-            <span className="font-bold text-gray-900 dark:text-gray-100">PolishPal</span>
+            <Image src="/logo.svg" alt="" width={36} height={36} className="shrink-0 dark:brightness-0 dark:invert" />
+            <span className="brand-wordmark font-semibold text-[22px] text-[#1E2132] dark:text-gray-100">Polish<span className="text-crimson">Pal</span></span>
           </Link>
           <div className="flex items-center gap-1">
             <button

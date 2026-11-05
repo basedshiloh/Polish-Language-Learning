@@ -29,8 +29,8 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <Image src="/logo.svg" alt="PolishPal" width={32} height={32} className="rounded-lg" />
-              <span className="font-bold text-gray-900 dark:text-gray-100 text-base">PolishPal</span>
+              <Image src="/logo.svg" alt="" width={36} height={36} className="shrink-0 dark:brightness-0 dark:invert" />
+              <span className="brand-wordmark font-semibold text-[22px] text-[#1E2132] dark:text-gray-100">Polish<span className="text-crimson">Pal</span></span>
             </Link>
             <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-xs">
               Free Polish language course from A0 to A1 — based on real university materials. No sign-up required.

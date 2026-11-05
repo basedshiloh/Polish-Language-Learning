@@ -1,8 +1,10 @@
-// Run from the repo root: node design/logo-concepts/render.cjs
+// Run from the repo root: node design/logo-concepts/render.mjs
 // Requires Playwright and its Chromium installation; does not install packages.
-const { chromium } = require('playwright');
-const { resolve, join } = require('node:path');
-const { pathToFileURL } = require('node:url');
+import { chromium } from 'playwright';
+import { resolve, join, dirname } from 'node:path';
+import { pathToFileURL, fileURLToPath } from 'node:url';
+
+const directory = dirname(fileURLToPath(import.meta.url));
 
 async function main() {
   const browser = await chromium.launch({ headless: true });
@@ -14,7 +16,7 @@ async function main() {
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     page.on('requestfailed', request => errors.push(request.url()));
-    await page.goto(pathToFileURL(join(__dirname, 'index.html')).href);
+    await page.goto(pathToFileURL(join(directory, 'index.html')).href);
     await page.evaluate(() => document.fonts.ready);
     const state = await page.evaluate(() => ({
       fontFacesLoaded: [...document.fonts].every(font => font.status === 'loaded'),
@@ -28,13 +30,13 @@ async function main() {
         state.samples !== 12 || !state.sizes) {
       throw new Error(JSON.stringify({ errors, state }));
     }
-    await page.screenshot({ path: join(__dirname, 'preview.png'), fullPage: true });
+    await page.screenshot({ path: join(directory, 'preview.png'), fullPage: true });
     for (const key of ['a', 'b', 'c']) {
-      await page.goto(pathToFileURL(resolve(__dirname, `concept-${key}.svg`)).href);
+      await page.goto(pathToFileURL(resolve(directory, `concept-${key}.svg`)).href);
       await page.setViewportSize({ width: 512, height: 512 });
-      await page.screenshot({ path: join(__dirname, `proof-${key}-512.png`) });
+      await page.screenshot({ path: join(directory, `proof-${key}-512.png`) });
       await page.setViewportSize({ width: 16, height: 16 });
-      await page.screenshot({ path: join(__dirname, `proof-${key}-16.png`) });
+      await page.screenshot({ path: join(directory, `proof-${key}-16.png`) });
     }
     console.log('Saved preview.png and actual-size Chromium proofs.');
   } finally {
