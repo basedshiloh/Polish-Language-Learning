@@ -2,18 +2,22 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'PolishPal — Learn Polish free',
+    name: 'PolishPal: Learn Polish Free',
     short_name: 'PolishPal',
-    description: 'Free Polish lessons, grammar, quizzes, and pronunciation from A0 to A1.',
+    description:
+      'Free interactive Polish course from A0 to A1: lessons, grammar tables, quizzes and pronunciation.',
     start_url: '/',
+    scope: '/',
     display: 'standalone',
-    background_color: '#FFFFFF',
-    theme_color: '#D91F3B',
+    background_color: '#ffffff',
+    theme_color: '#d91f3b',
+    lang: 'en',
     icons: [
       { src: '/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
       { src: '/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
       { src: '/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'maskable' },
       { src: '/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+      { src: '/logo.svg', sizes: 'any', type: 'image/svg+xml' },
     ],
   };
 }

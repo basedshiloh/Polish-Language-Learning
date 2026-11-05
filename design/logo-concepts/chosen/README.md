@@ -4,7 +4,7 @@ The selected concept A is a flat, single-ink tulip inspired by wycinanki. The pr
 
 The mark’s furthest visible pixel lies 180.7px from its center, inside the 204.8px radius of the central 80%-diameter maskable safe circle. App icons use an opaque white background; the favicon uses a tighter 384-unit viewBox around the same silhouette to keep its crown, stem, and leaves visible at 16px. Each ICO frame is rendered at its native size, without downsampling from a larger frame.
 
-The header, footer, and mobile drawer use a 36px mark with a 22px Fredoka semibold live wordmark. The mark reverses to white in dark mode. The Fredoka Latin subset and its license are self-hosted. The rest of the older blue site styling is outside this logo change.
+The header and mobile drawer use the crimson 36px mark with the site's live 22px Fredoka semibold “Polish**Pal**” wordmark (loaded through `next/font`). The footer sits on crimson, so it uses `logo-white.svg` at 36px with an all-white wordmark. The redesigned site is light-only, so there is no dark-mode variant to switch to.
 
 The OG composition retains the previous large-left-mark/right-hand-wordmark arrangement, with the exact tagline “Learn Polish free” and the domain. Its flat crimson field and dark bottom edge use the requested palette. Fredoka 600 and Nunito 700/600 are rendered directly from the bundled font files.
 
@@ -24,7 +24,7 @@ When Chromium is unavailable, the installed Sharp SVG renderer can generate the 
 node scripts/generate-brand-assets.mjs --sharp
 ```
 
-Pillow assembles the independently rasterized 16/32/48px ICO frames, typesets the OG image, and opens every PNG and ICO frame to verify dimensions and opacity. The committed raster assets were generated with Sharp because Chromium could not launch in the sandbox. `asset-proof.png` is a raster review sheet, not an application screenshot.
+Pillow assembles the independently rasterized 16/32/48px ICO frames, typesets the OG image, and opens every PNG and ICO frame to verify dimensions and opacity. The committed raster assets were generated with Sharp. `asset-proof.png` is a raster review sheet, not an application screenshot; the real browser captures are in `screenshots/`.
 
 For browser captures, after a production build and `npx next start`:
 
@@ -33,19 +33,24 @@ node design/logo-concepts/render.mjs
 node scripts/screenshot-brand.mjs
 ```
 
-The latter captures the header and footer at 1280px/390px and the 390px mobile drawer, in both light and dark modes. It checks the header mark’s size and horizontal overflow; the mobile menu must stay hidden at desktop width.
+The latter captures the header and footer at 1280px/390px and the 390px mobile drawer. It asserts that the header, footer and drawer marks render at 36×36, that there is no horizontal overflow, and that the mobile menu stays hidden at desktop width.
 
-## Verification in this environment
+## Verification (2026-11-05)
 
-- `npx tsc --noEmit`: passed, including generated production route types.
-- `npx eslint`: passed with 20 existing warnings. Two existing unescaped quotes in CMS helper text were escaped so the requested full lint run could pass; visible text is unchanged.
-- Native-size raster checks: all three Phase 1 concepts at five sizes and four color treatments passed (60 checks).
-- Every final PNG and ICO frame opened in Pillow at the expected size. App and Apple icons are opaque; ICO frames preserve transparency.
-- `npx next build`: blocked by fetching the existing Inter font from Google Fonts because network/DNS is unavailable.
-- Supplemental Turbopack build with cached Inter fonts: blocked by sandbox permissions for its internal port binding.
-- Supplemental `npx next build --webpack`, with `NEXT_FONT_GOOGLE_MOCKED_RESPONSES` pointing to a temporary local response containing the exact seven Inter font files from the existing checkout’s build cache: passed, compiling and generating all 52 static pages. The font response fixture is outside the repository and is not a production code change. This does not substitute for the requested default build in an unrestricted environment.
-- The generated homepage HTML contains all three logo references, live split wordmarks, the Apple icon, the manifest link, and the crimson theme color. The generated manifest declares both icon sizes for `any` and `maskable` use.
-- `npx next start --port 3000`: denied permission to bind `0.0.0.0:3000`. Chromium also fails its macOS MachPortRendezvousServer registration. Consequently the requested browser screenshots, including Phase 1 `preview.png`, remain pending.
-- GitHub DNS is unavailable, so publishing the branch and opening the PR require a network-enabled environment. The PR description is prepared in `PR.md`. Do not merge; Vercel preview failure is expected per the task brief.
+Run in the logo worktree after merging current `origin/main` into `brand/new-logo` (code conflicts resolved toward main, with the logo changes re-applied) and a clean `npm ci`:
+
+- `npx tsc --noEmit`: passed.
+- `npx eslint`: 0 errors, 18 warnings, none introduced by this change.
+- `npx next build`: passed with normal network access (Turbopack, Google Fonts fetched, 161 static pages).
+- `node design/logo-concepts/render.mjs`: passed; wrote `../preview.png` and the Chromium 16/512px proofs.
+- `npx next start --port 3000` + `node scripts/screenshot-brand.mjs`: passed. All three 36px marks decode at 36×36, with no overflow at 1280/390px, and the menu button is hidden at 1280px. Captures are in `screenshots/`.
+- Served HTML: `theme-color` `#D91F3B`, `.ico` + SVG favicon, 180px Apple icon, manifest with 192/512 PNGs for `any` and `maskable`.
+- Pillow: the 192/512/180 icons and the OG image are opaque at their exact sizes and contain `#D91F3B`; the ICO has exactly 16/32/48 frames with transparency.
+
+![Header 1280](screenshots/header-1280-light.png)
+![Header 390](screenshots/header-390-light.png)
+![Mobile drawer 390](screenshots/mobile-menu-390-light.png)
+![Footer 1280](screenshots/footer-1280-light.png)
+![Footer 390](screenshots/footer-390-light.png)
 
 Existing `/logo.svg` URLs in JSON-LD Organization/publisher metadata and contributor avatars automatically resolve to the new master. No blog images, `public/blog/*`, blog content, or environment files are included in the change.

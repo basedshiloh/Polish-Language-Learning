@@ -69,7 +69,7 @@ export default function StarRating({ itemId, itemType }: StarRatingProps) {
 
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-      <div className="flex items-center gap-0.5">
+      <div className="flex items-center gap-0.5" role="group" aria-label={`Rate this ${itemType}`}>
         {[1, 2, 3, 4, 5].map((star) => (
           <button
             key={star}
@@ -77,20 +77,22 @@ export default function StarRating({ itemId, itemType }: StarRatingProps) {
             onMouseEnter={() => !hasRated && setHover(star)}
             onMouseLeave={() => setHover(0)}
             disabled={hasRated || submitting}
-            className={`p-0.5 transition-transform ${hasRated ? 'cursor-default' : 'hover:scale-110'}`}
+            className={`p-1 rounded-lg transition-transform ${hasRated ? 'cursor-default' : 'hover:scale-115 active:scale-95'}`}
             title={hasRated ? `You rated ${myRating}/5` : `Rate ${star} star${star > 1 ? 's' : ''}`}
+            aria-label={hasRated ? `You rated ${myRating} out of 5` : `Rate ${star} star${star > 1 ? 's' : ''}`}
           >
             <Star
-              className={`w-5 h-5 transition-colors ${
+              strokeWidth={2.2}
+              className={`w-6 h-6 transition-colors ${
                 star <= (hover || myRating)
-                  ? 'fill-amber-400 text-amber-400'
-                  : 'text-gray-300 dark:text-gray-600'
+                  ? 'fill-sun text-sun-edge'
+                  : 'text-line-2'
               }`}
             />
           </button>
         ))}
       </div>
-      <div className="flex items-center gap-2 text-xs text-gray-400 dark:text-gray-500">
+      <div className="flex items-center gap-2 text-xs font-bold text-muted">
         {hasRated && <span>You rated {myRating}/5</span>}
         {totalVotes > 0 && (
           <span>

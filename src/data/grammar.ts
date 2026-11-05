@@ -42,7 +42,7 @@ export const grammarTopics: GrammarTopic[] = [
             ['ends in -i', 'FEMININE', 'pani, gospodyni'],
             ['ends in a consonant', 'FEMININE', 'noc, kolej, twarz, sól'],
             ['ends in -ść', 'FEMININE', 'miłość, radość, złość'],
-            ['ends in -um', 'NEUTER (never changes form)', 'muzeum, liceum, gimnazjum'],
+            ['ends in -um', 'NEUTER (no endings in the singular)', 'muzeum, liceum, gimnazjum'],
           ],
         },
       },
@@ -103,6 +103,11 @@ export const grammarTopics: GrammarTopic[] = [
         type: 'note',
         noteType: 'tip',
         note: 'A reliable trick: the VERB tells you which case to use.\n• być → Narzędnik (Jestem nauczycielem)\n• mieć / lubić → Biernik (Mam brata)\n• nie ma / nie mam → Dopełniacz (Nie ma chleba)\n• interesować się → Narzędnik (Interesuję się sportem)',
+      },
+      {
+        type: 'text',
+        title: 'The Other Three Cases',
+        text: 'Polish has seven cases in total. After A1 you will meet the remaining three:\n• Celownik (Dative) answers Komu? Czemu? and marks the person who receives something: Daję bratu książkę (I give my brother a book).\n• Miejscownik (Locative) answers O kim? O czym? and only appears after prepositions such as w, na, o and przy: Mieszkam w Krakowie (I live in Kraków).\n• Wołacz (Vocative) is used to address someone directly: Anno! Panie profesorze!',
       },
       {
         type: 'examples',
@@ -224,7 +229,7 @@ export const grammarTopics: GrammarTopic[] = [
             ['Masculine / Neuter', '-ym  (after k,g → -im)', 'dobrym studentem\nwysokim Polakiem', 'Jakim?'],
             ['Feminine', '-ą', 'mądrą kobietą\npiękną blondynką', 'Jaką?'],
           ],
-          footnote: 'Adjective always goes BEFORE the noun: "On jest inteligentnym studentem."',
+          footnote: 'A descriptive adjective usually goes BEFORE the noun: "On jest inteligentnym studentem." Classifying adjectives come after it: "język polski".',
         },
       },
       {
@@ -346,7 +351,7 @@ export const grammarTopics: GrammarTopic[] = [
           rows: [
             ['Mam rower.', 'Nie mam roweru.'],
             ['Mam czas.', 'Nie mam czasu.'],
-            ['Jest chleb.', 'Nie ma chleba.'],
+            ['Jest chleb. (Nominative)', 'Nie ma chleba.'],
             ['Lubię kawę.', 'Nie lubię kawy.'],
           ],
         },
@@ -383,6 +388,10 @@ export const grammarTopics: GrammarTopic[] = [
     order: 6,
     sections: [
       {
+        type: 'text',
+        text: 'Być (to be) is irregular: its present-tense forms follow none of the three regular conjugation patterns, so they are learned as a set. You use it to say who or what someone is, where they are from and how they feel. The past tense is built on był- (byłem or byłam, był, była) and the future on będ- (będę, będziesz, będzie).',
+      },
+      {
         type: 'table',
         title: 'Być — Present Tense',
         table: {
@@ -407,7 +416,7 @@ export const grammarTopics: GrammarTopic[] = [
       {
         type: 'note',
         noteType: 'warning',
-        note: 'After być, a noun goes into the INSTRUMENTAL case, not the dictionary form:\n"Jestem student" ✗  →  "Jestem studentem" ✓',
+        note: 'After być, a noun goes into the INSTRUMENTAL case, not the dictionary form:\n"Jestem student" ✗  →  "Jestem studentem" ✓\nException: after "to" the noun stays in the Nominative: "To jest student."',
       },
       {
         type: 'examples',
@@ -585,7 +594,7 @@ export const grammarTopics: GrammarTopic[] = [
           headers: ['Time', 'Polish', 'Pronunciation'],
           highlightFirstCol: true,
           rows: [
-            ['1:00', '(jest) pierwsza', 'PYERV-shah'],
+            ['1:00', '(jest) pierwsza', 'PYERF-shah'],
             ['2:00', 'druga', 'DROO-gah'],
             ['3:00', 'trzecia', 'TSHEH-chah'],
             ['4:00', 'czwarta', 'CHFAR-tah'],
@@ -648,6 +657,10 @@ export const grammarTopics: GrammarTopic[] = [
     order: 10,
     sections: [
       {
+        type: 'text',
+        text: 'Polish numbers decide the form of the noun you count. One takes the singular (jeden rok). Numbers ending in 2, 3 or 4, except 12 to 14, take the nominative plural (dwa lata, dwadzieścia trzy lata). Everything else, including 5 to 21, takes the genitive plural (pięć lat, dwanaście lat, dwadzieścia jeden lat).',
+      },
+      {
         type: 'table',
         title: '1 – 20',
         table: {
@@ -678,7 +691,10 @@ export const grammarTopics: GrammarTopic[] = [
             ['60', 'sześćdziesiąt', '400', 'czterysta'],
             ['70', 'siedemdziesiąt', '500', 'pięćset'],
             ['80', 'osiemdziesiąt', '600', 'sześćset'],
-            ['90', 'dziewięćdziesiąt', '1000', 'tysiąc'],
+            ['90', 'dziewięćdziesiąt', '700', 'siedemset'],
+            ['', '', '800', 'osiemset'],
+            ['', '', '900', 'dziewięćset'],
+            ['', '', '1000', 'tysiąc'],
           ],
         },
       },
@@ -783,6 +799,10 @@ export const grammarTopics: GrammarTopic[] = [
     order: 12,
     sections: [
       {
+        type: 'text',
+        text: 'Polish pronouns decline like nouns, so "I" can be ja, mnie or mną depending on its job in the sentence. Some pronouns also have a short and a long form: the short forms (cię, go, mu) are the default, and the long forms (ciebie, jego, jemu) are used for emphasis or at the start of a sentence. After a preposition, third-person forms gain an n-: z nim, dla niego, o niej.',
+      },
+      {
         type: 'table',
         title: 'Personal Pronouns by Case',
         table: {
@@ -790,8 +810,8 @@ export const grammarTopics: GrammarTopic[] = [
           headers: ['Case', 'ja', 'ty', 'on', 'ona', 'my', 'wy', 'oni/one'],
           highlightFirstCol: true,
           rows: [
-            ['Nominative (subject)', 'ja', 'ty', 'on', 'ona', 'my', 'wy', 'oni'],
-            ['Accusative (Kogo?)', 'mnie', 'cię', 'go', 'ją', 'nas', 'was', 'ich'],
+            ['Nominative (subject)', 'ja', 'ty', 'on', 'ona', 'my', 'wy', 'oni / one'],
+            ['Accusative (Kogo?)', 'mnie', 'cię', 'go', 'ją', 'nas', 'was', 'ich / je'],
             ['Instrumental (z kim?)', 'mną', 'tobą', 'nim', 'nią', 'nami', 'wami', 'nimi'],
             ['Genitive (Kogo?)', 'mnie', 'ciebie', 'go', 'jej', 'nas', 'was', 'ich'],
           ],
@@ -895,8 +915,8 @@ export const grammarTopics: GrammarTopic[] = [
           headers: ['Amount', 'Form', 'Example'],
           rows: [
             ['1', 'złoty', 'jeden złoty'],
-            ['2, 3, 4', 'złote', 'trzy złote'],
-            ['5 and up', 'złotych', 'dwadzieścia złotych'],
+            ['2–4, 22–24, 32–34… (not 12–14)', 'złote', 'trzy złote, dwadzieścia dwa złote'],
+            ['5–21, 25–31, 35–41…', 'złotych', 'dwadzieścia złotych'],
           ],
           footnote: 'Grosze work the same: 2 grosze, 5 groszy. (1 złoty = 100 groszy)',
         },

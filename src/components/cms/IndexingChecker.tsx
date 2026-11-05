@@ -45,16 +45,16 @@ function fmtDate(iso: string) {
 function VerdictBadge({ verdict, small }: { verdict: Verdict; small?: boolean }) {
   const sz = small ? 'w-3.5 h-3.5' : 'w-4 h-4';
   if (verdict === 'PASS')
-    return <span className="flex items-center gap-1 text-green-600 dark:text-green-400 font-semibold text-xs"><CheckCircle2 className={sz} /> Indexed</span>;
+    return <span className="flex items-center gap-1 text-green-600 font-semibold text-xs"><CheckCircle2 className={sz} /> Indexed</span>;
   if (verdict === 'FAIL')
-    return <span className="flex items-center gap-1 text-red-500 dark:text-red-400 font-semibold text-xs"><XCircle className={sz} /> Not indexed</span>;
+    return <span className="flex items-center gap-1 text-red-500 font-semibold text-xs"><XCircle className={sz} /> Not indexed</span>;
   if (verdict === 'NEUTRAL')
-    return <span className="flex items-center gap-1 text-amber-500 dark:text-amber-400 font-semibold text-xs"><AlertCircle className={sz} /> Unknown</span>;
+    return <span className="flex items-center gap-1 text-amber-500 font-semibold text-xs"><AlertCircle className={sz} /> Unknown</span>;
   if (verdict === 'error')
-    return <span className="flex items-center gap-1 text-orange-500 dark:text-orange-400 font-semibold text-xs"><AlertCircle className={sz} /> Error</span>;
+    return <span className="flex items-center gap-1 text-orange-500 font-semibold text-xs"><AlertCircle className={sz} /> Error</span>;
   if (verdict === 'pending')
-    return <span className="flex items-center gap-1 text-blue-500 dark:text-blue-400 font-semibold text-xs"><RefreshCw className={`${sz} animate-spin`} /> Checking…</span>;
-  return <span className="flex items-center gap-1 text-gray-300 dark:text-gray-600 text-xs"><Clock className={sz} /> —</span>;
+    return <span className="flex items-center gap-1 text-blue-500 font-semibold text-xs"><RefreshCw className={`${sz} animate-spin`} /> Checking…</span>;
+  return <span className="flex items-center gap-1 text-gray-300 text-xs"><Clock className={sz} /> —</span>;
 }
 
 export default function IndexingChecker({ blogSlugs, configured }: Props) {
@@ -116,21 +116,21 @@ export default function IndexingChecker({ blogSlugs, configured }: Props) {
       <div className="p-6 md:p-10 max-w-2xl">
         <div className="flex items-center gap-2 mb-6">
           <Search className="w-5 h-5 text-blue-600" />
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Indexing Checker</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Indexing Checker</h1>
         </div>
-        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-6">
-          <p className="font-semibold text-amber-800 dark:text-amber-300 mb-4">Setup required</p>
-          <p className="text-sm text-amber-700 dark:text-amber-400 mb-4">
+        <div className="bg-amber-50 border border-amber-200 rounded-xl p-6">
+          <p className="font-semibold text-amber-800 mb-4">Setup required</p>
+          <p className="text-sm text-amber-700 mb-4">
             This feature uses the <strong>Google Search Console URL Inspection API</strong>. You need a service account with access to your Search Console property.
           </p>
-          <ol className="text-sm text-amber-700 dark:text-amber-400 space-y-2 list-decimal list-inside">
+          <ol className="text-sm text-amber-700 space-y-2 list-decimal list-inside">
             <li>Go to <strong>Google Cloud Console</strong> → IAM &amp; Admin → Service Accounts</li>
             <li>Create a new service account (no roles needed at project level)</li>
             <li>Create a JSON key for it and download it</li>
             <li>Go to <strong>Google Search Console</strong> → Settings → Users and permissions</li>
             <li>Add the service account email as a <strong>Full user</strong> or <strong>Owner</strong></li>
-            <li>Add the JSON content as <code className="bg-amber-100 dark:bg-amber-900/50 px-1 rounded">GOOGLE_SERVICE_ACCOUNT_JSON</code> in Vercel environment variables</li>
-            <li>Optionally set <code className="bg-amber-100 dark:bg-amber-900/50 px-1 rounded">GOOGLE_SEARCH_CONSOLE_SITE_URL</code> if your property is a domain property (e.g. <code>sc-domain:polishpal.pl</code>)</li>
+            <li>Add the JSON content as <code className="bg-amber-100 px-1 rounded">GOOGLE_SERVICE_ACCOUNT_JSON</code> in Vercel environment variables</li>
+            <li>Optionally set <code className="bg-amber-100 px-1 rounded">GOOGLE_SEARCH_CONSOLE_SITE_URL</code> if your property is a domain property (e.g. <code>sc-domain:polishpal.pl</code>)</li>
             <li>Redeploy — the checker will be ready</li>
           </ol>
         </div>
@@ -145,9 +145,9 @@ export default function IndexingChecker({ blogSlugs, configured }: Props) {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Search className="w-5 h-5 text-blue-600" />
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Indexing Checker</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Indexing Checker</h1>
           </div>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-gray-500">
             Check which pages Google has indexed via the Search Console URL Inspection API.
           </p>
         </div>
@@ -164,13 +164,13 @@ export default function IndexingChecker({ blogSlugs, configured }: Props) {
       {/* Progress bar */}
       {progress && (
         <div className="mb-6">
-          <div className="h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+          <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
             <div
               className="h-full bg-blue-600 transition-all duration-300 rounded-full"
               style={{ width: `${(progress.done / progress.total) * 100}%` }}
             />
           </div>
-          <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">{progress.done} of {progress.total} checked</p>
+          <p className="text-xs text-gray-400 mt-1">{progress.done} of {progress.total} checked</p>
         </div>
       )}
 
@@ -178,22 +178,22 @@ export default function IndexingChecker({ blogSlugs, configured }: Props) {
       {Object.values(results).length > 0 && (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
-            { label: 'Indexed', count: counts.indexed, color: 'text-green-600 dark:text-green-400', verdict: 'PASS' as Verdict },
-            { label: 'Not indexed', count: counts.notIndexed, color: 'text-red-500 dark:text-red-400', verdict: 'FAIL' as Verdict },
-            { label: 'Unknown', count: counts.unknown, color: 'text-amber-500 dark:text-amber-400', verdict: 'NEUTRAL' as Verdict },
-            { label: 'Error', count: counts.error, color: 'text-orange-500 dark:text-orange-400', verdict: 'error' as Verdict },
+            { label: 'Indexed', count: counts.indexed, color: 'text-green-600', verdict: 'PASS' as Verdict },
+            { label: 'Not indexed', count: counts.notIndexed, color: 'text-red-500', verdict: 'FAIL' as Verdict },
+            { label: 'Unknown', count: counts.unknown, color: 'text-amber-500', verdict: 'NEUTRAL' as Verdict },
+            { label: 'Error', count: counts.error, color: 'text-orange-500', verdict: 'error' as Verdict },
           ].map(({ label, count, color, verdict }) => (
             <button
               key={label}
               onClick={() => setFilterVerdict(filterVerdict === verdict ? 'all' : verdict)}
               className={`rounded-xl p-3 text-left border transition-colors ${
                 filterVerdict === verdict
-                  ? 'border-blue-400 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/20'
-                  : 'border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 hover:border-gray-200 dark:hover:border-gray-700'
+                  ? 'border-blue-400 bg-blue-50'
+                  : 'border-gray-100 bg-white hover:border-gray-200'
               }`}
             >
               <p className={`text-2xl font-black ${color}`}>{count}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{label}</p>
+              <p className="text-xs text-gray-500 mt-0.5">{label}</p>
             </button>
           ))}
         </div>
@@ -202,10 +202,10 @@ export default function IndexingChecker({ blogSlugs, configured }: Props) {
       {/* Filter row */}
       {filterVerdict !== 'all' && (
         <div className="flex items-center gap-2 mb-4">
-          <span className="text-xs text-gray-500 dark:text-gray-400">Filtered:</span>
+          <span className="text-xs text-gray-500">Filtered:</span>
           <button
             onClick={() => setFilterVerdict('all')}
-            className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
+            className="text-xs text-blue-600 hover:underline"
           >
             Show all →
           </button>
@@ -213,8 +213,8 @@ export default function IndexingChecker({ blogSlugs, configured }: Props) {
       )}
 
       {/* URL list */}
-      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden">
-        <div className="divide-y divide-gray-50 dark:divide-gray-800">
+      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        <div className="divide-y divide-gray-50">
           {visible.map((entry) => {
             const result = results[entry.url];
             const isExpanded = expanded[entry.url];
@@ -226,14 +226,14 @@ export default function IndexingChecker({ blogSlugs, configured }: Props) {
                   {/* Type badge */}
                   <span className={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded shrink-0 ${
                     entry.type === 'post'
-                      ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400'
-                      : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400'
+                      ? 'bg-amber-100 text-amber-700'
+                      : 'bg-gray-100 text-gray-500'
                   }`}>
                     {entry.type}
                   </span>
 
                   {/* URL */}
-                  <span className="text-sm text-gray-700 dark:text-gray-300 font-mono truncate flex-1 min-w-0">
+                  <span className="text-sm text-gray-700 font-mono truncate flex-1 min-w-0">
                     {entry.url.replace('https://www.polishpal.pl', '')}
                   </span>
 
@@ -249,7 +249,7 @@ export default function IndexingChecker({ blogSlugs, configured }: Props) {
                       onClick={() => checkOne(entry.url)}
                       disabled={scanning || result?.verdict === 'pending'}
                       title="Re-check this URL"
-                      className="p-1.5 rounded-lg text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors disabled:opacity-30"
+                      className="p-1.5 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-gray-50 transition-colors disabled:opacity-30"
                     >
                       <RefreshCw className="w-3.5 h-3.5" />
                     </button>
@@ -263,7 +263,7 @@ export default function IndexingChecker({ blogSlugs, configured }: Props) {
                         });
                       }}
                       title="Submit to IndexNow"
-                      className="p-1.5 rounded-lg text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                      className="p-1.5 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-gray-50 transition-colors"
                     >
                       <Zap className="w-3.5 h-3.5" />
                     </button>
@@ -273,7 +273,7 @@ export default function IndexingChecker({ blogSlugs, configured }: Props) {
                       target="_blank"
                       rel="noopener noreferrer"
                       title="Check on Google"
-                      className="p-1.5 rounded-lg text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                      className="p-1.5 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-gray-50 transition-colors"
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
@@ -281,7 +281,7 @@ export default function IndexingChecker({ blogSlugs, configured }: Props) {
                     {hasDetail && (
                       <button
                         onClick={() => setExpanded((p) => ({ ...p, [entry.url]: !p[entry.url] }))}
-                        className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                        className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-colors"
                       >
                         {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                       </button>
@@ -291,27 +291,27 @@ export default function IndexingChecker({ blogSlugs, configured }: Props) {
 
                 {/* Expanded detail row */}
                 {isExpanded && result && (
-                  <div className="px-4 pb-3 pt-0 bg-gray-50/50 dark:bg-gray-800/30 border-t border-gray-50 dark:border-gray-800">
+                  <div className="px-4 pb-3 pt-0 bg-gray-50/50 border-t border-gray-50">
                     {result.error ? (
-                      <p className="text-xs text-orange-600 dark:text-orange-400">{result.error}</p>
+                      <p className="text-xs text-orange-600">{result.error}</p>
                     ) : (
                       <dl className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-1 text-xs">
                         {result.coverageState && (
                           <>
-                            <dt className="text-gray-400 dark:text-gray-500">Coverage</dt>
-                            <dd className="text-gray-700 dark:text-gray-300 col-span-1 sm:col-span-2">{result.coverageState}</dd>
+                            <dt className="text-gray-400">Coverage</dt>
+                            <dd className="text-gray-700 col-span-1 sm:col-span-2">{result.coverageState}</dd>
                           </>
                         )}
                         {result.lastCrawlTime && (
                           <>
-                            <dt className="text-gray-400 dark:text-gray-500">Last crawled</dt>
-                            <dd className="text-gray-700 dark:text-gray-300 col-span-1 sm:col-span-2">{fmtDate(result.lastCrawlTime)}</dd>
+                            <dt className="text-gray-400">Last crawled</dt>
+                            <dd className="text-gray-700 col-span-1 sm:col-span-2">{fmtDate(result.lastCrawlTime)}</dd>
                           </>
                         )}
                         {result.googleCanonical && (
                           <>
-                            <dt className="text-gray-400 dark:text-gray-500">Google canonical</dt>
-                            <dd className="text-gray-700 dark:text-gray-300 col-span-1 sm:col-span-2 truncate font-mono">{result.googleCanonical}</dd>
+                            <dt className="text-gray-400">Google canonical</dt>
+                            <dd className="text-gray-700 col-span-1 sm:col-span-2 truncate font-mono">{result.googleCanonical}</dd>
                           </>
                         )}
                       </dl>
@@ -324,7 +324,7 @@ export default function IndexingChecker({ blogSlugs, configured }: Props) {
         </div>
       </div>
 
-      <p className="text-xs text-gray-400 dark:text-gray-500 mt-4">
+      <p className="text-xs text-gray-400 mt-4">
         Data from Google Search Console URL Inspection API · Rate-limited to ~3 checks/sec
       </p>
     </div>

@@ -20,20 +20,17 @@ export default function BlogPagination({
     return qs ? `/blog?${qs}` : '/blog';
   }
 
+  const pageCls = 'w-11 h-11 flex items-center justify-center rounded-2xl text-[15px] font-extrabold transition-colors';
+
   return (
-    <nav className="flex items-center justify-center gap-2 mt-10" aria-label="Blog pagination">
+    <nav className="flex flex-wrap items-center justify-center gap-2 mt-12" aria-label="Blog pagination">
       {currentPage > 1 ? (
-        <Link
-          href={href(currentPage - 1)}
-          className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-        >
-          <ChevronLeft className="w-4 h-4" />
-          Prev
+        <Link href={href(currentPage - 1)} className="btn btn-secondary btn-sm" aria-label="Previous page">
+          <ChevronLeft className="w-4 h-4" strokeWidth={3} /> Prev
         </Link>
       ) : (
-        <span className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-300 dark:text-gray-600">
-          <ChevronLeft className="w-4 h-4" />
-          Prev
+        <span className="btn btn-secondary btn-sm" aria-disabled="true">
+          <ChevronLeft className="w-4 h-4" strokeWidth={3} /> Prev
         </span>
       )}
 
@@ -41,10 +38,11 @@ export default function BlogPagination({
         <Link
           key={page}
           href={href(page)}
-          className={`w-10 h-10 flex items-center justify-center text-sm font-medium rounded-lg transition-colors ${
+          aria-current={page === currentPage ? 'page' : undefined}
+          className={`${pageCls} ${
             page === currentPage
-              ? 'bg-blue-600 text-white'
-              : 'text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800'
+              ? 'bg-crimson text-white shadow-[0_3px_0_var(--color-crimson-edge)]'
+              : 'text-ink-2 hover:bg-canvas'
           }`}
         >
           {page}
@@ -52,17 +50,12 @@ export default function BlogPagination({
       ))}
 
       {currentPage < totalPages ? (
-        <Link
-          href={href(currentPage + 1)}
-          className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-        >
-          Next
-          <ChevronRight className="w-4 h-4" />
+        <Link href={href(currentPage + 1)} className="btn btn-secondary btn-sm" aria-label="Next page">
+          Next <ChevronRight className="w-4 h-4" strokeWidth={3} />
         </Link>
       ) : (
-        <span className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-300 dark:text-gray-600">
-          Next
-          <ChevronRight className="w-4 h-4" />
+        <span className="btn btn-secondary btn-sm" aria-disabled="true">
+          Next <ChevronRight className="w-4 h-4" strokeWidth={3} />
         </span>
       )}
     </nav>

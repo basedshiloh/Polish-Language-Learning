@@ -26,18 +26,29 @@ export default function MultipleChoice({ question, onAnswer }: MultipleChoicePro
 
   return (
     <div>
-      <p className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">{question.prompt}</p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+      <p className="font-display text-2xl md:text-3xl font-semibold text-ink leading-snug mb-6">{question.prompt}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6" role="group" aria-label="Answer options">
         {question.options.map((option, i) => {
-          let style = 'border-gray-200 dark:border-gray-700 hover:border-blue-300 bg-white dark:bg-gray-800';
-          if (selected === i && !submitted) {
-            style = 'border-blue-500 bg-blue-50 ring-2 ring-blue-200';
+          const isCorrectOption = submitted && i === question.correctIndex;
+          const isWrongPick = submitted && selected === i && i !== question.correctIndex;
+          const isSelected = selected === i && !submitted;
+
+          let style = 'border-line bg-paper text-ink hover:border-line-2 hover:bg-canvas active:translate-y-0.5';
+          let keyStyle = 'border-line-2 text-muted';
+          if (isSelected) {
+            style = 'border-cobalt bg-cobalt-soft text-cobalt-ink';
+            keyStyle = 'border-cobalt bg-cobalt text-white';
           }
-          if (submitted && i === question.correctIndex) {
-            style = 'border-green-500 bg-green-50';
+          if (submitted && !isCorrectOption && !isWrongPick) {
+            style = 'border-line bg-paper text-muted opacity-60';
           }
-          if (submitted && selected === i && i !== question.correctIndex) {
-            style = 'border-red-400 bg-red-50';
+          if (isCorrectOption) {
+            style = 'border-emerald bg-emerald-soft text-emerald-ink';
+            keyStyle = 'border-emerald bg-emerald text-white';
+          }
+          if (isWrongPick) {
+            style = 'border-crimson bg-crimson-soft text-crimson-ink';
+            keyStyle = 'border-crimson bg-crimson text-white';
           }
 
           return (
@@ -45,17 +56,18 @@ export default function MultipleChoice({ question, onAnswer }: MultipleChoicePro
               key={i}
               onClick={() => handleSelect(i)}
               disabled={submitted}
-              className={`flex items-center gap-3 p-4 rounded-lg border-2 text-left text-sm transition-all ${style}`}
+              aria-pressed={selected === i}
+              className={`tile flex items-center gap-3 min-h-16 px-4 py-3.5 text-left text-base font-bold transition-[transform,background-color,border-color] duration-100 disabled:cursor-default ${style}`}
             >
-              <span className="w-7 h-7 rounded-full border-2 border-current flex items-center justify-center text-xs font-bold shrink-0">
+              <span className={`w-8 h-8 rounded-xl border-2 flex items-center justify-center text-sm font-extrabold shrink-0 ${keyStyle}`}>
                 {String.fromCharCode(65 + i)}
               </span>
               <span className="flex-1">{option}</span>
-              {submitted && i === question.correctIndex && (
-                <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />
+              {isCorrectOption && (
+                <CheckCircle2 className="w-6 h-6 text-emerald shrink-0" strokeWidth={2.4} aria-label="Correct answer" />
               )}
-              {submitted && selected === i && i !== question.correctIndex && (
-                <XCircle className="w-5 h-5 text-red-500 shrink-0" />
+              {isWrongPick && (
+                <XCircle className="w-6 h-6 text-crimson shrink-0" strokeWidth={2.4} aria-label="Your answer — incorrect" />
               )}
             </button>
           );
@@ -66,18 +78,10 @@ export default function MultipleChoice({ question, onAnswer }: MultipleChoicePro
         <button
           onClick={handleSubmit}
           disabled={selected === null}
-          className="bg-blue-600 text-white px-6 py-2.5 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="btn btn-green w-full sm:w-auto sm:min-w-48"
         >
           Check Answer
         </button>
-      )}
-
-      {submitted && question.explanation && (
-        <div className={`mt-3 p-3 rounded-lg text-sm ${
-          selected === question.correctIndex ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
-        }`}>
-          {question.explanation}
-        </div>
       )}
     </div>
   );

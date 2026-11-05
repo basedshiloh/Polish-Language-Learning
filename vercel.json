@@ -1,8 +1,13 @@
 {
+  "regions": ["arn1"],
   "crons": [
     {
       "path": "/api/cron/backup",
       "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/cron/publish-scheduled",
+      "schedule": "0 7 * * *"
     }
   ]
 }

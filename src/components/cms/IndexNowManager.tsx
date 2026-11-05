@@ -15,11 +15,11 @@ interface Props {
 }
 
 const TYPE_STYLES: Record<UrlEntry['type'], { bg: string; text: string; darkBg: string; darkText: string }> = {
-  blog:    { bg: 'bg-amber-100',  text: 'text-amber-700',  darkBg: 'dark:bg-amber-900/30',  darkText: 'dark:text-amber-400' },
-  lesson:  { bg: 'bg-blue-100',   text: 'text-blue-700',   darkBg: 'dark:bg-blue-900/30',   darkText: 'dark:text-blue-400' },
-  grammar: { bg: 'bg-purple-100', text: 'text-purple-700', darkBg: 'dark:bg-purple-900/30', darkText: 'dark:text-purple-400' },
-  quiz:    { bg: 'bg-green-100',  text: 'text-green-700',  darkBg: 'dark:bg-green-900/30',  darkText: 'dark:text-green-400' },
-  page:    { bg: 'bg-gray-100',   text: 'text-gray-700',   darkBg: 'dark:bg-gray-800',      darkText: 'dark:text-gray-400' },
+  blog:    { bg: 'bg-amber-100',  text: 'text-amber-700',  darkBg: '',  darkText: '' },
+  lesson:  { bg: 'bg-blue-100',   text: 'text-blue-700',   darkBg: '',   darkText: '' },
+  grammar: { bg: 'bg-purple-100', text: 'text-purple-700', darkBg: '', darkText: '' },
+  quiz:    { bg: 'bg-green-100',  text: 'text-green-700',  darkBg: '',  darkText: '' },
+  page:    { bg: 'bg-gray-100',   text: 'text-gray-700',   darkBg: '',      darkText: '' },
 };
 
 const STATIC_PAGES: UrlEntry[] = [
@@ -104,9 +104,9 @@ export default function IndexNowManager({ blogSlugs, indexNowKey }: Props) {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Zap className="w-5 h-5 text-blue-600" />
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">IndexNow</h1>
+            <h1 className="text-2xl font-bold text-gray-900">IndexNow</h1>
           </div>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-gray-500">
             Instantly notify Bing, Yandex, and other search engines about new or updated content.
           </p>
         </div>
@@ -121,25 +121,25 @@ export default function IndexNowManager({ blogSlugs, indexNowKey }: Props) {
       </div>
 
       {/* Key info card */}
-      <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-4 mb-6">
+      <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-6">
         <div className="flex items-center gap-2 mb-3">
           <Info className="w-4 h-4 text-gray-400" />
-          <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Setup</span>
+          <span className="text-sm font-semibold text-gray-700">Setup</span>
         </div>
         <div className="grid sm:grid-cols-2 gap-3 text-sm">
           <div>
-            <p className="text-xs text-gray-400 dark:text-gray-500 mb-1 uppercase tracking-wide font-medium">API Key</p>
-            <code className="text-xs bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded px-2 py-1 font-mono text-gray-800 dark:text-gray-200 break-all">
+            <p className="text-xs text-gray-400 mb-1 uppercase tracking-wide font-medium">API Key</p>
+            <code className="text-xs bg-white border border-gray-200 rounded px-2 py-1 font-mono text-gray-800 break-all">
               {indexNowKey}
             </code>
           </div>
           <div>
-            <p className="text-xs text-gray-400 dark:text-gray-500 mb-1 uppercase tracking-wide font-medium">Key File</p>
+            <p className="text-xs text-gray-400 mb-1 uppercase tracking-wide font-medium">Key File</p>
             <a
               href={keyFileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1 break-all"
+              className="text-xs text-blue-600 hover:underline inline-flex items-center gap-1 break-all"
             >
               {keyFileUrl} <ExternalLink className="w-3 h-3 shrink-0" />
             </a>
@@ -151,24 +151,24 @@ export default function IndexNowManager({ blogSlugs, indexNowKey }: Props) {
       {result && (
         <div className={`flex items-start gap-3 p-4 rounded-xl mb-6 ${
           result.ok
-            ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
-            : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'
+            ? 'bg-green-50 border border-green-200'
+            : 'bg-red-50 border border-red-200'
         }`}>
           {result.ok
-            ? <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 shrink-0 mt-0.5" />
-            : <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />}
+            ? <CheckCircle className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
+            : <AlertTriangle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />}
           <div>
             {result.ok ? (
               <>
-                <p className="text-sm font-semibold text-green-800 dark:text-green-300">
+                <p className="text-sm font-semibold text-green-800">
                   {result.submitted} URL{result.submitted !== 1 ? 's' : ''} submitted successfully (HTTP {result.status})
                 </p>
-                <p className="text-xs text-green-600 dark:text-green-500 mt-0.5">
+                <p className="text-xs text-green-600 mt-0.5">
                   Bing, Yandex, and participating engines will crawl these URLs shortly.
                 </p>
               </>
             ) : (
-              <p className="text-sm font-semibold text-red-800 dark:text-red-300">{result.error || 'Submission failed'}</p>
+              <p className="text-sm font-semibold text-red-800">{result.error || 'Submission failed'}</p>
             )}
           </div>
         </div>
@@ -180,7 +180,7 @@ export default function IndexNowManager({ blogSlugs, indexNowKey }: Props) {
           <button
             onClick={() => setFilterType('all')}
             className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
-              filterType === 'all' ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+              filterType === 'all' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
             All ({allEntries.length})
@@ -194,7 +194,7 @@ export default function IndexNowManager({ blogSlugs, indexNowKey }: Props) {
                 key={t}
                 onClick={() => setFilterType(filterType === t ? 'all' : t)}
                 className={`px-3 py-1.5 text-xs font-semibold rounded-lg capitalize transition-colors ${
-                  filterType === t ? `${s.bg} ${s.text} ${s.darkBg} ${s.darkText}` : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+                  filterType === t ? `${s.bg} ${s.text} ${s.darkBg} ${s.darkText}` : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
                 {t} ({count})
@@ -204,7 +204,7 @@ export default function IndexNowManager({ blogSlugs, indexNowKey }: Props) {
         </div>
         <button
           onClick={toggleAll}
-          className="flex items-center gap-1.5 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          className="flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-blue-600 transition-colors"
         >
           {allVisibleSelected ? <CheckSquare className="w-4 h-4" /> : <Square className="w-4 h-4" />}
           {allVisibleSelected ? 'Deselect all' : 'Select all'}
@@ -212,15 +212,15 @@ export default function IndexNowManager({ blogSlugs, indexNowKey }: Props) {
       </div>
 
       {/* URL list */}
-      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden">
-        <div className="divide-y divide-gray-50 dark:divide-gray-800">
+      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        <div className="divide-y divide-gray-50">
           {visible.map((entry) => {
             const isSelected = selected.has(entry.url);
             const s = TYPE_STYLES[entry.type];
             return (
               <label
                 key={entry.url}
-                className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-50 transition-colors"
               >
                 <input
                   type="checkbox"
@@ -231,7 +231,7 @@ export default function IndexNowManager({ blogSlugs, indexNowKey }: Props) {
                 <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full shrink-0 ${s.bg} ${s.text} ${s.darkBg} ${s.darkText}`}>
                   {entry.type}
                 </span>
-                <span className="text-sm text-gray-700 dark:text-gray-300 font-mono truncate flex-1">
+                <span className="text-sm text-gray-700 font-mono truncate flex-1">
                   {entry.url}
                 </span>
                 <a
@@ -239,7 +239,7 @@ export default function IndexNowManager({ blogSlugs, indexNowKey }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="text-gray-300 dark:text-gray-600 hover:text-blue-500 shrink-0"
+                  className="text-gray-300 hover:text-blue-500 shrink-0"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
@@ -249,7 +249,7 @@ export default function IndexNowManager({ blogSlugs, indexNowKey }: Props) {
         </div>
       </div>
 
-      <p className="text-xs text-gray-400 dark:text-gray-500 mt-4">
+      <p className="text-xs text-gray-400 mt-4">
         {selected.size} of {allEntries.length} URLs selected · New and updated posts are submitted automatically on publish
       </p>
     </div>

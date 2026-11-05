@@ -29,35 +29,39 @@ function StepControl({
   onChange,
 }: {
   label: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
   value: number;
   min: number;
   max: number;
   onChange: (v: number) => void;
 }) {
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-2">
-        <Icon className="w-4 h-4 text-blue-500" />
-        <span className="text-sm text-gray-700 dark:text-gray-300">{label}</span>
+    <div className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-2xl bg-canvas">
+      <div className="flex items-center gap-2.5 min-w-0">
+        <span className="icon-badge w-8 h-8 rounded-lg bg-cobalt-soft text-cobalt-ink">
+          <Icon className="w-4 h-4" strokeWidth={2.4} />
+        </span>
+        <span className="text-sm font-bold text-ink">{label}</span>
       </div>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 shrink-0">
         <button
           onClick={() => onChange(Math.max(min, value - 1))}
           disabled={value <= min}
-          className="w-7 h-7 rounded-md flex items-center justify-center bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-30 transition-colors"
+          aria-label={`Decrease ${label}`}
+          className="w-8 h-8 rounded-full flex items-center justify-center bg-paper border-2 border-line-2 text-ink shadow-[0_2px_0_var(--color-line-2)] active:translate-y-0.5 active:shadow-none disabled:opacity-30 disabled:active:translate-y-0 transition-transform"
         >
-          <Minus className="w-3.5 h-3.5" />
+          <Minus className="w-3.5 h-3.5" strokeWidth={3} />
         </button>
-        <span className="w-8 text-center text-xs font-semibold text-gray-800 dark:text-gray-200">
+        <span className="w-8 text-center text-sm font-extrabold text-ink tabular-nums" aria-live="polite">
           {value > 0 ? `+${value}` : value}
         </span>
         <button
           onClick={() => onChange(Math.min(max, value + 1))}
           disabled={value >= max}
-          className="w-7 h-7 rounded-md flex items-center justify-center bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-30 transition-colors"
+          aria-label={`Increase ${label}`}
+          className="w-8 h-8 rounded-full flex items-center justify-center bg-paper border-2 border-line-2 text-ink shadow-[0_2px_0_var(--color-line-2)] active:translate-y-0.5 active:shadow-none disabled:opacity-30 disabled:active:translate-y-0 transition-transform"
         >
-          <Plus className="w-3.5 h-3.5" />
+          <Plus className="w-3.5 h-3.5" strokeWidth={3} />
         </button>
       </div>
     </div>
@@ -71,25 +75,27 @@ function ToggleOption({
   onChange,
 }: {
   label: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
   active: boolean;
   onChange: (v: boolean) => void;
 }) {
   return (
     <button
       onClick={() => onChange(!active)}
-      className={`flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-sm transition-colors ${
-        active
-          ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-medium'
-          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+      aria-pressed={active}
+      className={`flex items-center gap-2.5 w-full px-3 py-2.5 rounded-2xl text-sm font-bold text-left transition-colors ${
+        active ? 'bg-cobalt-soft text-cobalt-ink' : 'text-ink hover:bg-canvas'
       }`}
     >
-      <Icon className={`w-4 h-4 ${active ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400 dark:text-gray-500'}`} />
-      <span className="flex-1 text-left">{label}</span>
-      <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
-        active ? 'bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-300' : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
-      }`}>
-        {active ? 'ON' : 'OFF'}
+      <span className={`icon-badge w-8 h-8 rounded-lg transition-colors ${active ? 'bg-cobalt text-white' : 'bg-canvas text-muted'}`}>
+        <Icon className="w-4 h-4" strokeWidth={2.4} />
+      </span>
+      <span className="flex-1">{label}</span>
+      <span
+        aria-hidden="true"
+        className={`relative shrink-0 w-10 h-6 rounded-full transition-colors duration-200 ${active ? 'bg-cobalt' : 'bg-line-2'}`}
+      >
+        <span className={`absolute top-1 left-1 w-4 h-4 bg-paper rounded-full transition-transform duration-200 ${active ? 'translate-x-4' : 'translate-x-0'}`} />
       </span>
     </button>
   );
@@ -133,51 +139,57 @@ export default function AccessibilityPanel() {
       <button
         onClick={() => setOpen(!open)}
         title="Accessibility adjustments (Alt+A)"
+        aria-label={open ? 'Close accessibility panel' : 'Open accessibility panel'}
+        aria-expanded={open}
         data-a11y-keep="true"
-        className={`no-print fixed z-50 w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all ${
+        className={`no-print fixed z-50 bottom-4 right-4 md:bottom-6 md:right-6 w-14 h-14 rounded-full flex items-center justify-center transition-[transform,box-shadow,background-color] duration-100 active:translate-y-1 ${
           open
-            ? 'bottom-6 right-6 bg-gray-200 dark:bg-gray-700'
-            : 'bottom-24 md:bottom-6 right-4 md:right-6 bg-blue-600 hover:bg-blue-700 hover:scale-110'
+            ? 'bg-paper border-2 border-line-2 text-ink shadow-[0_4px_0_var(--color-line-2)] active:shadow-none'
+            : 'bg-cobalt text-white shadow-[0_4px_0_var(--color-cobalt-edge)] hover:brightness-110 active:shadow-none'
         }`}
       >
         {open ? (
-          <X className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+          <X className="w-6 h-6" strokeWidth={2.6} />
         ) : (
-          <Accessibility className="w-6 h-6 text-white" data-a11y-keep="true" />
+          <Accessibility className="w-7 h-7" strokeWidth={2.2} data-a11y-keep="true" />
         )}
         {isModified && !open && (
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-amber-500 rounded-full border-2 border-white dark:border-gray-900" />
+          <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-sun rounded-full border-2 border-paper" aria-hidden="true" />
         )}
       </button>
 
       {/* Panel */}
       {open && (
-        <div className="fixed bottom-24 md:bottom-20 right-4 md:right-6 z-50 w-80 max-h-[80vh] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+        <div
+          role="dialog"
+          aria-label="Accessibility"
+          className="no-print pp-pop origin-bottom-right fixed bottom-[5.5rem] right-4 md:bottom-24 md:right-6 z-50 w-[22rem] max-w-[calc(100vw-2rem)] max-h-[min(80vh,640px)] tile shadow-[0_18px_40px_-18px_rgba(30,33,50,0.35)] overflow-hidden flex flex-col"
+        >
           {/* Header */}
-          <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Accessibility className="w-5 h-5 text-blue-600" data-a11y-keep="true" />
-              <h2 className="text-sm font-bold text-gray-900 dark:text-gray-100">Accessibility</h2>
+          <div className="px-4 py-3.5 border-b-2 border-line flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <span className="icon-badge w-9 h-9 rounded-xl bg-cobalt text-white">
+                <Accessibility className="w-5 h-5" strokeWidth={2.4} data-a11y-keep="true" />
+              </span>
+              <h2 className="text-lg font-semibold">Accessibility</h2>
             </div>
             {isModified && (
               <button
                 onClick={reset}
-                className="flex items-center gap-1 text-xs text-gray-400 hover:text-red-500 transition-colors"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-extrabold uppercase tracking-[0.06em] text-crimson-ink hover:bg-crimson-soft transition-colors"
               >
-                <RotateCcw className="w-3 h-3" />
+                <RotateCcw className="w-3.5 h-3.5" strokeWidth={2.6} />
                 Reset all
               </button>
             )}
           </div>
 
           {/* Content */}
-          <div className="overflow-y-auto p-4 space-y-5">
+          <div className="overflow-y-auto p-3 space-y-5">
             {/* Text adjustments */}
             <div>
-              <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">
-                Text Adjustments
-              </h3>
-              <div className="space-y-3">
+              <h3 className="px-1 mb-2 leading-none"><span className="font-sans text-xs font-extrabold text-muted uppercase tracking-[0.1em]">Text Adjustments</span></h3>
+              <div className="space-y-1.5">
                 <StepControl
                   label="Font Size"
                   icon={ALargeSmall}
@@ -213,9 +225,7 @@ export default function AccessibilityPanel() {
 
             {/* Visual adjustments */}
             <div>
-              <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">
-                Visual Adjustments
-              </h3>
+              <h3 className="px-1 mb-2 leading-none"><span className="font-sans text-xs font-extrabold text-muted uppercase tracking-[0.1em]">Visual Adjustments</span></h3>
               <div className="space-y-1">
                 <ToggleOption
                   label="High Contrast"
@@ -246,9 +256,7 @@ export default function AccessibilityPanel() {
 
             {/* Navigation aids */}
             <div>
-              <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">
-                Navigation Aids
-              </h3>
+              <h3 className="px-1 mb-2 leading-none"><span className="font-sans text-xs font-extrabold text-muted uppercase tracking-[0.1em]">Navigation Aids</span></h3>
               <div className="space-y-1">
                 <ToggleOption
                   label="Big Cursor"
@@ -273,9 +281,9 @@ export default function AccessibilityPanel() {
           </div>
 
           {/* Footer */}
-          <div className="px-4 py-2.5 border-t border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
-            <p className="text-[10px] text-gray-400 dark:text-gray-500 text-center">
-              Press <kbd className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-[9px] font-mono">Alt+A</kbd> to toggle this panel
+          <div className="px-4 py-2.5 border-t-2 border-line bg-canvas">
+            <p className="text-[11px] font-semibold text-muted text-center">
+              Press <kbd className="px-1.5 py-0.5 bg-paper border border-line-2 rounded-md text-[10px] font-bold text-ink-2">Alt+A</kbd> to toggle this panel
             </p>
           </div>
         </div>

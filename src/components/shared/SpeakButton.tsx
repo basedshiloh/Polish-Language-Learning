@@ -61,18 +61,23 @@ export default function SpeakButton({ text, size = 'sm' }: SpeakButtonProps) {
   if (!supported) return null;
 
   const sizeClasses = size === 'sm'
-    ? 'w-6 h-6 p-1'
-    : 'w-8 h-8 p-1.5';
+    ? 'w-8 h-8 [&>svg]:w-4 [&>svg]:h-4'
+    : 'w-10 h-10 [&>svg]:w-5 [&>svg]:h-5';
+
+  // Round tactile key: soft cobalt face on a 3px cobalt edge that presses in on :active.
+  const tone = speaking
+    ? 'bg-cobalt text-white shadow-[0_3px_0_var(--color-cobalt-edge)] animate-pulse'
+    : 'bg-cobalt-soft text-cobalt-ink shadow-[0_3px_0_color-mix(in_oklab,var(--color-cobalt)_35%,var(--color-cobalt-soft))] hover:bg-[color-mix(in_oklab,var(--color-cobalt)_14%,white)]';
 
   return (
     <button
+      type="button"
       onClick={speak}
       title="Listen to pronunciation"
-      className={`${sizeClasses} rounded-md text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors shrink-0 ${
-        speaking ? 'text-blue-600 bg-blue-50 animate-pulse' : ''
-      }`}
+      aria-label={`Listen to pronunciation: ${text}`}
+      className={`${sizeClasses} ${tone} inline-flex items-center justify-center rounded-full shrink-0 mb-[3px] transition-[transform,box-shadow,background-color] duration-100 active:translate-y-[3px] active:shadow-none`}
     >
-      <Volume2 className="w-full h-full" />
+      <Volume2 strokeWidth={2.6} aria-hidden="true" />
     </button>
   );
 }

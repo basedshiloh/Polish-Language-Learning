@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { Phrase } from '@/lib/types';
 import SpeakButton from '@/components/shared/SpeakButton';
 
@@ -13,49 +13,56 @@ export default function PhraseList({ phrases }: PhraseListProps) {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   return (
-    <div className="space-y-2">
-      {phrases.map((phrase, i) => (
-        <div
-          key={i}
-          className="w-full text-left bg-white dark:bg-gray-900 rounded-lg p-4 border border-gray-100 dark:border-gray-800 hover:border-blue-200 dark:hover:border-blue-800 transition-all"
-        >
+    <div className="space-y-2.5">
+      {phrases.map((phrase, i) => {
+        const expanded = expandedIndex === i;
+        return (
           <div
-            className="flex items-center justify-between gap-2 cursor-pointer"
-            role="button"
-            tabIndex={0}
-            onClick={() => setExpandedIndex(expandedIndex === i ? null : i)}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setExpandedIndex(expandedIndex === i ? null : i); } }}
+            key={i}
+            className={`w-full text-left rounded-2xl border-2 px-4 py-3 transition-colors ${
+              expanded ? 'border-teal/40 bg-teal-soft/50' : 'border-line bg-paper hover:border-line-2'
+            }`}
           >
-            <div className="flex items-center gap-1 flex-1 min-w-0">
-              <span className="font-semibold text-blue-800 dark:text-blue-300">{phrase.polish}</span>
-              <span
-                onClick={(e) => e.stopPropagation()}
-                onKeyDown={(e) => e.stopPropagation()}
-              >
-                <SpeakButton text={phrase.polish} />
-              </span>
-              {phrase.category && (
-                <span className="ml-1 text-xs text-gray-400 dark:text-gray-500 bg-gray-50 px-2 py-0.5 rounded-full shrink-0">
-                  {phrase.category}
+            <div
+              className="flex items-center justify-between gap-3 cursor-pointer"
+              role="button"
+              tabIndex={0}
+              aria-expanded={expanded}
+              onClick={() => setExpandedIndex(expanded ? null : i)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setExpandedIndex(expanded ? null : i); } }}
+            >
+              <div className="flex items-center gap-2.5 flex-1 min-w-0 flex-wrap">
+                <span
+                  onClick={(e) => e.stopPropagation()}
+                  onKeyDown={(e) => e.stopPropagation()}
+                  className="inline-flex"
+                >
+                  <SpeakButton text={phrase.polish} />
                 </span>
-              )}
+                <span className="polish-text text-base">{phrase.polish}</span>
+                {phrase.category && (
+                  <span className="chip bg-canvas text-muted shrink-0">
+                    {phrase.category}
+                  </span>
+                )}
+              </div>
+              <ChevronDown
+                className={`w-5 h-5 text-muted shrink-0 transition-transform duration-150 ${expanded ? 'rotate-180' : ''}`}
+                strokeWidth={2.6}
+                aria-hidden="true"
+              />
             </div>
-            {expandedIndex === i ? (
-              <ChevronUp className="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0" />
-            ) : (
-              <ChevronDown className="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0" />
+            {expanded && (
+              <div className="mt-3 pt-3 border-t-2 border-line/70 pl-[42px] pp-pop">
+                <p className="text-ink-2">{phrase.english}</p>
+                {phrase.pronunciation && (
+                  <p className="pronunciation-text mt-1">/{phrase.pronunciation}/</p>
+                )}
+              </div>
             )}
           </div>
-          {expandedIndex === i && (
-            <div className="mt-2 pt-2 border-t border-gray-50">
-              <p className="text-gray-600 dark:text-gray-400 text-sm">{phrase.english}</p>
-              {phrase.pronunciation && (
-                <p className="text-xs italic text-gray-400 dark:text-gray-500 mt-1">/{phrase.pronunciation}/</p>
-              )}
-            </div>
-          )}
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

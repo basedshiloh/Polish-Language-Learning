@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { unstable_cache } from 'next/cache';
 import type { Post, BlogCategory } from '@/lib/types';
 import { blogAuthors, blogCategoryStyles } from '@/data/blog';
 
@@ -83,7 +84,7 @@ export function rowToPost(r: PostRow): Post {
     category,
     categories,
     author: { name: r.author_name, bio: r.author_bio, avatar: avatarByName[r.author_name] },
-    content: r.content,
+    content: r.content ?? '',
     featuredImage: r.featured_image,
     featuredImageAlt: r.featured_image_alt,
     summary: toStringArray(r.summary),
@@ -101,6 +102,35 @@ export function rowToPost(r: PostRow): Post {
 }
 
 const SELECT = '*';
+
+// Every column except the markdown body. Listing pages (/blog, pagination,
+// highlighted rails) never render the body, and selecting it made /blog pull
+// every article in full on each request.
+const LIST_SELECT =
+  'id,slug,title,excerpt,meta_description,focus_keyword,category,categories,author_name,author_bio,' +
+  'featured_image,featured_image_alt,summary,tags,reading_time,status,intent,is_pillar,pillar_id,' +
+  'seo_score,is_highlighted,published_at,created_at,updated_at';
+
+/** Cache tag for published-post listings; revalidateBlog() expires it on publish. */
+export const POSTS_TAG = 'posts';
+
+/**
+ * Published posts without their bodies, newest first. Cached because /blog is
+ * rendered per request (it reads ?page and ?category), which otherwise meant a
+ * full Supabase round trip on every view.
+ */
+export const getPostListing = unstable_cache(
+  async (): Promise<Post[]> => {
+    const { data } = await publicClient()
+      .from('posts')
+      .select(LIST_SELECT)
+      .eq('status', 'published')
+      .order('published_at', { ascending: false });
+    return (data || []).map((r) => rowToPost(r as unknown as PostRow));
+  },
+  ['posts-listing-v1'],
+  { tags: [POSTS_TAG], revalidate: 3600 },
+);
 
 export async function getPublishedPosts(): Promise<Post[]> {
   const { data } = await publicClient()
@@ -134,7 +164,7 @@ export async function getRelatedPosts(slug: string, category: string, limit = 3)
 }
 
 export async function getPaginatedPosts(page: number, perPage = 9, category?: string) {
-  let all = await getPublishedPosts();
+  let all = await getPostListing();
   const activeCategory = category && category in blogCategoryStyles ? category : undefined;
   if (activeCategory) all = all.filter((p) => p.categories.includes(activeCategory as BlogCategory));
   const totalPages = Math.ceil(all.length / perPage);
@@ -150,13 +180,7 @@ export async function getPaginatedPosts(page: number, perPage = 9, category?: st
 }
 
 export async function getHighlightedPosts(): Promise<Post[]> {
-  const { data } = await publicClient()
-    .from('posts')
-    .select(SELECT)
-    .eq('status', 'published')
-    .eq('is_highlighted', true)
-    .order('published_at', { ascending: false });
-  return (data || []).map((r) => rowToPost(r as PostRow));
+  return (await getPostListing()).filter((p) => p.isHighlighted);
 }
 
 // ── Admin (service role) ──────────────────────────────────

@@ -184,6 +184,33 @@ The canonical, fuller rule set is the **`seo-content-rankmath`** skill (kept in 
 maintainer's skills, e.g. `~/Downloads/SKILL-rankmath.md`). Apply it when writing; this
 guide is the PolishPal-specific adaptation.
 
+**Amazon affiliate links (Associates tag `polishpal-20`)**
+- Link a book or product with a plain amazon.com URL, ideally the short product form:
+  `[Solaris by Stanisław Lem](https://www.amazon.com/dp/0156027607)`. Do **not** add
+  `?tag=` yourself: `MarkdownRenderer` adds `tag=polishpal-20` and
+  `rel="sponsored nofollow"` to every amazon.com link (`src/lib/affiliate.ts`).
+- Only amazon.com earns. Don't link amazon.co.uk/.de/.pl expecting commission.
+- The post page shows the Amazon Associates disclosure above the article automatically
+  when the body contains an Amazon link. Don't write your own disclosure line.
+- **Product cards (preferred).** Put the Amazon link alone in its own paragraph and it
+  renders as a clickable card with cover, title, author and a "View on Amazon" button:
+
+  ```markdown
+  [Madame Curie: A Biography](https://www.amazon.com/dp/0306810387)
+  ```
+
+  Place it right after the paragraph that talks about the book, not in a list at the end.
+  Card details and covers come from `src/data/amazon-products.ts` (add a new ASIN there,
+  with a self-hosted cover at `public/blog/amazon-<asin>.webp` from Open Library, never
+  an image copied from Amazon). An unknown ASIN still renders, titled with the link text.
+  An Amazon link inside a sentence stays a normal inline link. Don't link the same product
+  both inline and as a card.
+- Link only things the article is genuinely about (the novel, the poetry collection, the
+  textbook), at most once per product, and never more than a handful per post. Amazon
+  links don't count toward the 1–2 external links.
+- Never put prices, star ratings or "in stock" claims in the text (Amazon's rules forbid
+  showing them unless they come live from its API).
+
 ---
 
 ## 4. Self-check before publishing

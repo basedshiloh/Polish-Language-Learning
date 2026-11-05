@@ -5,9 +5,9 @@ export default function RelatedPosts({ posts }: { posts: Post[] }) {
   if (posts.length === 0) return null;
 
   return (
-    <section className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
-      <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">Related Articles</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <section className="mt-16">
+      <h2 className="font-display text-2xl md:text-3xl font-semibold text-ink mb-6">Keep reading</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
         {posts.map((post) => (
           <BlogCard key={post.slug} post={post} />
         ))}

@@ -61,10 +61,10 @@ export default function ShareBox({ title, label = 'page' }: ShareBoxProps) {
   const enc = encodeURIComponent;
 
   const socials = [
-    { name: 'Facebook', icon: <FacebookIcon />, href: `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}`, hover: 'hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2]' },
-    { name: 'X', icon: <XIcon />, href: `https://twitter.com/intent/tweet?url=${enc(url)}&text=${enc(text)}`, hover: 'hover:bg-black hover:text-white hover:border-black' },
-    { name: 'Bluesky', icon: <BlueskyIcon />, href: `https://bsky.app/intent/compose?text=${enc(text + ' ' + url)}`, hover: 'hover:bg-[#0085FF] hover:text-white hover:border-[#0085FF]' },
-    { name: 'Reddit', icon: <RedditIcon />, href: `https://www.reddit.com/submit?url=${enc(url)}&title=${enc(title)}`, hover: 'hover:bg-[#FF4500] hover:text-white hover:border-[#FF4500]' },
+    { name: 'Facebook', icon: <FacebookIcon />, href: `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}`, hover: 'hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] hover:shadow-[0_3px_0_#1360c4]' },
+    { name: 'X', icon: <XIcon />, href: `https://twitter.com/intent/tweet?url=${enc(url)}&text=${enc(text)}`, hover: 'hover:bg-black hover:text-white hover:border-black hover:shadow-[0_3px_0_#3a3f52]' },
+    { name: 'Bluesky', icon: <BlueskyIcon />, href: `https://bsky.app/intent/compose?text=${enc(text + ' ' + url)}`, hover: 'hover:bg-[#0085FF] hover:text-white hover:border-[#0085FF] hover:shadow-[0_3px_0_#006acc]' },
+    { name: 'Reddit', icon: <RedditIcon />, href: `https://www.reddit.com/submit?url=${enc(url)}&title=${enc(title)}`, hover: 'hover:bg-[#FF4500] hover:text-white hover:border-[#FF4500] hover:shadow-[0_3px_0_#cc3700]' },
   ];
 
   function copyLink() {
@@ -84,15 +84,20 @@ export default function ShareBox({ title, label = 'page' }: ShareBoxProps) {
     window.print();
   }
 
+  const roundBtn =
+    'w-11 h-11 flex items-center justify-center rounded-full bg-paper border-2 border-line-2 text-ink-2 shadow-[0_3px_0_var(--color-line-2)] active:translate-y-[3px] active:shadow-none transition-[transform,box-shadow,background-color,color,border-color] duration-100';
+
   return (
-    <div className="no-print bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-4 my-8">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div className="no-print tile p-5 md:p-6 my-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
         <div>
-          <div className="flex items-center gap-2 mb-3">
-            <Share2 className="w-4 h-4 text-blue-600" />
-            <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">Share this {label}</span>
+          <div className="flex items-center gap-2.5 mb-3.5">
+            <span className="icon-badge w-8 h-8 rounded-lg bg-cobalt-soft text-cobalt-ink">
+              <Share2 className="w-4 h-4" strokeWidth={2.5} />
+            </span>
+            <span className="font-display text-lg font-semibold text-ink">Share this {label}</span>
           </div>
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2.5 flex-wrap">
             {socials.map((s) => (
               <a
                 key={s.name}
@@ -101,7 +106,7 @@ export default function ShareBox({ title, label = 'page' }: ShareBoxProps) {
                 rel="noopener noreferrer"
                 title={`Share on ${s.name}`}
                 aria-label={`Share on ${s.name}`}
-                className={`w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 transition-colors ${s.hover}`}
+                className={`${roundBtn} ${s.hover}`}
               >
                 {s.icon}
               </a>
@@ -110,31 +115,31 @@ export default function ShareBox({ title, label = 'page' }: ShareBoxProps) {
               onClick={shareInstagram}
               title="Copy link for Instagram"
               aria-label="Copy link for Instagram"
-              className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:bg-[#E4405F] hover:text-white hover:border-[#E4405F] transition-colors"
+              className={`${roundBtn} hover:bg-[#E4405F] hover:text-white hover:border-[#E4405F] hover:shadow-[0_3px_0_#b8304a]`}
             >
-              {igCopied ? <Check className="w-[18px] h-[18px]" /> : <InstagramIcon />}
+              {igCopied ? <Check className="w-[18px] h-[18px]" strokeWidth={3} /> : <InstagramIcon />}
             </button>
             <button
               onClick={copyLink}
               title="Copy link"
               aria-label="Copy link"
-              className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors"
+              className={`${roundBtn} ${copied ? 'bg-emerald text-white border-emerald shadow-[0_3px_0_var(--color-emerald-edge)]' : 'hover:bg-cobalt hover:text-white hover:border-cobalt hover:shadow-[0_3px_0_var(--color-cobalt-edge)]'}`}
             >
-              {copied ? <Check className="w-[18px] h-[18px]" /> : <Link2 className="w-[18px] h-[18px]" />}
+              {copied ? <Check className="w-[18px] h-[18px]" strokeWidth={3} /> : <Link2 className="w-[18px] h-[18px]" strokeWidth={2.5} />}
             </button>
           </div>
         </div>
 
         <button
           onClick={downloadPdf}
-          className="flex items-center justify-center gap-2 bg-gray-900 dark:bg-gray-800 text-white dark:text-gray-100 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-700 transition-colors shrink-0"
+          className="btn btn-secondary btn-sm shrink-0 self-start sm:self-center"
         >
-          <Download className="w-4 h-4" />
+          <Download className="w-4 h-4" strokeWidth={2.5} />
           Download PDF
         </button>
       </div>
       {igCopied && (
-        <p className="text-xs text-gray-400 dark:text-gray-500 mt-3">
+        <p className="pp-pop text-sm font-semibold text-emerald-ink bg-emerald-soft rounded-xl px-3 py-2 mt-4" role="status">
           Link copied! Paste it into your Instagram story or bio.
         </p>
       )}

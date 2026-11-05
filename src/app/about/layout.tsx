@@ -1,17 +1,13 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import JsonLd, { breadcrumbSchema } from '@/components/seo/JsonLd';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'About — The Story Behind PolishPal',
   description:
     'PolishPal started as a personal study tool for a Polish language exam and grew into a free, open-source resource for everyone learning Polish.',
-  openGraph: {
-    title: 'About PolishPal — Why This Website Exists',
-    description: 'A personal project born from exam prep, built with love for Polish culture. Free and open-source.',
-    url: '/about',
-  },
-  alternates: { canonical: '/about' },
-};
+  path: '/about',
+});
 
 export default function AboutLayout({ children }: { children: React.ReactNode }) {
   return (

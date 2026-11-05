@@ -11,60 +11,62 @@ interface VocabularyTableProps {
 
 export default function VocabularyTable({ items }: VocabularyTableProps) {
   const [showTranslations, setShowTranslations] = useState(true);
+  const hasPronunciation = items.some((v) => v.pronunciation);
 
   return (
     <div>
       <div className="flex justify-end mb-3">
         <button
+          type="button"
           onClick={() => setShowTranslations(!showTranslations)}
-          className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 hover:text-blue-600 transition-colors"
+          className="btn btn-secondary btn-sm"
         >
-          {showTranslations ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+          {showTranslations ? <EyeOff className="w-4 h-4" strokeWidth={2.6} /> : <Eye className="w-4 h-4" strokeWidth={2.6} />}
           {showTranslations ? 'Hide translations' : 'Show translations'}
         </button>
       </div>
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
+      <div className="overflow-x-auto rounded-2xl border-2 border-line">
+        <table className="w-full text-[15px]">
           <thead>
-            <tr className="border-b border-gray-200 dark:border-gray-700">
-              <th className="text-left py-2 px-3 font-semibold text-gray-700 dark:text-gray-300">Polish</th>
-              {items.some((v) => v.pronunciation) && (
-                <th className="text-left py-2 px-3 font-semibold text-gray-700 dark:text-gray-300 hidden sm:table-cell">Pronunciation</th>
+            <tr className="bg-canvas text-ink">
+              <th className="text-left px-4 py-3 font-extrabold">Polish</th>
+              {hasPronunciation && (
+                <th className="text-left px-4 py-3 font-extrabold hidden sm:table-cell">Pronunciation</th>
               )}
-              <th className="text-left py-2 px-3 font-semibold text-gray-700 dark:text-gray-300">English</th>
+              <th className="text-left px-4 py-3 font-extrabold">English</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y-2 divide-line">
             {items.map((item, i) => (
-              <tr key={i} className="border-b border-gray-50 dark:border-gray-800 hover:bg-blue-50/50 dark:hover:bg-blue-950/30 transition-colors">
-                <td className="py-3 px-3">
-                  <div className="flex items-center gap-1">
-                    <span className="font-semibold text-blue-800 dark:text-blue-300">{item.polish}</span>
+              <tr key={i} className="align-top hover:bg-canvas/60 transition-colors">
+                <td className="px-4 py-3">
+                  <div className="flex items-center gap-2.5">
                     <SpeakButton text={item.polish} />
+                    <span className="polish-text text-base">{item.polish}</span>
                   </div>
                   {item.pronunciation && (
-                    <span className="block sm:hidden text-xs italic text-gray-400 dark:text-gray-500 mt-0.5">
+                    <span className="pronunciation-text block sm:hidden mt-1 pl-[42px]">
                       /{item.pronunciation}/
                     </span>
                   )}
                 </td>
-                {items.some((v) => v.pronunciation) && (
-                  <td className="py-3 px-3 text-xs italic text-gray-400 dark:text-gray-500 hidden sm:table-cell">
-                    /{item.pronunciation}/
+                {hasPronunciation && (
+                  <td className="px-4 py-3 hidden sm:table-cell">
+                    <span className="pronunciation-text leading-8">/{item.pronunciation}/</span>
                   </td>
                 )}
-                <td className="py-3 px-3 text-gray-600 dark:text-gray-400">
+                <td className="px-4 py-3 text-ink-2">
                   {showTranslations ? (
                     <>
-                      {item.english}
+                      <span className="leading-8">{item.english}</span>
                       {item.example && (
-                        <span className="block text-xs text-gray-400 dark:text-gray-500 mt-1">
-                          {item.example} — {item.exampleTranslation}
+                        <span className="block text-sm text-muted mt-0.5">
+                          <span className="font-bold text-crimson-ink">{item.example}</span> — {item.exampleTranslation}
                         </span>
                       )}
                     </>
                   ) : (
-                    <span className="text-gray-300 italic">hidden</span>
+                    <span className="chip bg-canvas text-muted mt-1.5">hidden</span>
                   )}
                 </td>
               </tr>

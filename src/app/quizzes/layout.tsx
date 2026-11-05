@@ -1,21 +1,13 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import JsonLd, { breadcrumbSchema } from '@/components/seo/JsonLd';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Polish Quizzes — Test Your Knowledge',
   description:
-    'Take 16 interactive Polish language quizzes covering greetings, grammar cases, conjugations, food vocabulary, and more. Multiple choice, fill-in-the-blank, and matching exercises.',
-  openGraph: {
-    title: 'Polish Quizzes — Test Your Knowledge | PolishPal',
-    description: '16 interactive quizzes to test your Polish. Multiple choice, fill-in-the-blank, and matching exercises with instant feedback.',
-    url: '/quizzes',
-  },
-  twitter: {
-    title: 'Polish Language Quizzes | PolishPal',
-    description: 'Test your Polish with 16 quizzes — greetings, cases, conjugations, food, time, and more.',
-  },
-  alternates: { canonical: '/quizzes' },
-};
+    'Take 16 free interactive Polish quizzes on greetings, grammar cases, conjugations and food vocabulary, with multiple choice, fill-in and matching questions.',
+  path: '/quizzes',
+});
 
 export default function QuizzesLayout({ children }: { children: React.ReactNode }) {
   return (

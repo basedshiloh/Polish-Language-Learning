@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Home, BookOpen, Table2, Brain, Newspaper, ArrowRight, Compass } from 'lucide-react';
+import { Home, BookOpen, Table2, Brain, Newspaper, ArrowRight } from 'lucide-react';
+import Wycinanka from '@/components/shared/Wycinanka';
 
 export const metadata: Metadata = {
   title: 'Page Not Found',
@@ -8,66 +9,56 @@ export const metadata: Metadata = {
 };
 
 const links = [
-  { href: '/', label: 'Dashboard', desc: 'Back to the start', icon: Home, color: 'blue' },
-  { href: '/lessons', label: 'Lessons', desc: '16 structured lessons', icon: BookOpen, color: 'blue' },
-  { href: '/grammar', label: 'Grammar', desc: 'Visual reference tables', icon: Table2, color: 'purple' },
-  { href: '/quizzes', label: 'Quizzes', desc: 'Test your knowledge', icon: Brain, color: 'green' },
-  { href: '/blog', label: 'Blog', desc: 'Tips & deep dives', icon: Newspaper, color: 'blue' },
+  { href: '/lessons', label: 'Lessons', desc: '16 structured lessons', icon: BookOpen, tone: 'bg-crimson-soft text-crimson-ink' },
+  { href: '/grammar', label: 'Grammar', desc: 'Visual reference tables', icon: Table2, tone: 'bg-violet-soft text-violet-ink' },
+  { href: '/quizzes', label: 'Quizzes', desc: 'Test your knowledge', icon: Brain, tone: 'bg-emerald-soft text-emerald-ink' },
+  { href: '/blog', label: 'Blog', desc: 'Tips & deep dives', icon: Newspaper, tone: 'bg-orange-soft text-orange-ink' },
 ];
-
-const colorMap: Record<string, { bg: string; text: string; border: string }> = {
-  blue: { bg: 'bg-blue-100 dark:bg-blue-900/40', text: 'text-blue-600 dark:text-blue-400', border: 'hover:border-blue-200 dark:hover:border-blue-800' },
-  purple: { bg: 'bg-purple-100 dark:bg-purple-900/40', text: 'text-purple-600 dark:text-purple-400', border: 'hover:border-purple-200 dark:hover:border-purple-800' },
-  green: { bg: 'bg-green-100 dark:bg-green-900/40', text: 'text-green-600 dark:text-green-400', border: 'hover:border-green-200 dark:hover:border-green-800' },
-};
 
 export default function NotFound() {
   return (
-    <div className="p-6 md:p-10">
-      <div className="max-w-2xl mx-auto text-center py-10">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-100 dark:bg-blue-900/40 mb-6">
-          <Compass className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-        </div>
-
-        <p className="text-6xl md:text-7xl font-bold bg-gradient-to-br from-blue-500 to-indigo-600 bg-clip-text text-transparent">
-          404
+    <div className="container-pp py-12 md:py-20">
+      <div className="max-w-2xl mx-auto text-center">
+        <p className="font-display font-bold text-ink leading-none">
+          <span className="sr-only">404</span>
+          <span aria-hidden="true" className="inline-flex items-center justify-center gap-1 sm:gap-2 text-[7rem] sm:text-[9rem] md:text-[10rem] tracking-tight">
+            <span className="text-crimson">4</span>
+            <Wycinanka withStem={false} className="w-[6.5rem] sm:w-[8.5rem] md:w-[9.5rem] h-auto pp-float [--r:-8deg]" />
+            <span className="text-crimson">4</span>
+          </span>
         </p>
-        <h1 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100 mt-2">
+        <h1 className="text-3xl md:text-4xl font-bold mt-4">
           Strona nie znaleziona
         </h1>
-        <p className="text-gray-500 dark:text-gray-400 mt-1">
-          Page not found — this link took a wrong turn. <span className="whitespace-nowrap">Nic nie szkodzi!</span> (No worries!)
+        <p className="text-muted text-lg mt-3 max-w-lg mx-auto">
+          Page not found — this link took a wrong turn. <span className="whitespace-nowrap polish-text">Nic nie szkodzi!</span> (No worries!)
           Let&apos;s get you back on track.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-8 text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-10 text-left">
           {links.map((l) => {
-            const c = colorMap[l.color];
             const Icon = l.icon;
             return (
               <Link
                 key={l.href}
                 href={l.href}
-                className={`group flex items-center gap-3 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl p-4 hover:shadow-md transition-all ${c.border}`}
+                className="group tile tile-link flex items-center gap-4 p-4"
               >
-                <div className={`w-10 h-10 rounded-lg ${c.bg} flex items-center justify-center shrink-0`}>
-                  <Icon className={`w-5 h-5 ${c.text}`} />
-                </div>
-                <div className="min-w-0">
-                  <p className="font-medium text-gray-900 dark:text-gray-100">{l.label}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{l.desc}</p>
-                </div>
-                <ArrowRight className="w-4 h-4 text-gray-300 dark:text-gray-600 group-hover:text-blue-500 transition-colors ml-auto shrink-0" />
+                <span className={`icon-badge ${l.tone}`}>
+                  <Icon className="w-5 h-5" strokeWidth={2.4} />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-base font-extrabold text-ink leading-tight">{l.label}</span>
+                  <span className="block text-sm text-muted truncate mt-0.5">{l.desc}</span>
+                </span>
+                <ArrowRight className="w-5 h-5 text-muted group-hover:text-ink group-hover:translate-x-0.5 transition-all ml-auto shrink-0" strokeWidth={2.5} />
               </Link>
             );
           })}
         </div>
 
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 mt-8 bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors"
-        >
-          <Home className="w-4 h-4" />
+        <Link href="/" className="btn btn-primary btn-lg mt-10">
+          <Home className="w-5 h-5" strokeWidth={2.5} />
           Back to Home
         </Link>
       </div>

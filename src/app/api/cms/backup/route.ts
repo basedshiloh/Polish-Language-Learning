@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
+import { revalidateBlog } from '@/lib/blog-publish';
 import { adminClient } from '@/lib/posts';
 import { isAuthorizedRequest } from '@/lib/cms-access';
 import { saveBackup, listBackups, downloadBackup } from '@/lib/backup';
@@ -50,8 +51,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: errors.join('; ') }, { status: 500 });
     }
 
-    revalidatePath('/blog');
-    revalidatePath('/sitemap.xml');
+    revalidateBlog();
     for (const post of posts) {
       const slug = (post as Record<string, string>).slug;
       if (slug) revalidatePath(`/blog/${slug}`);
