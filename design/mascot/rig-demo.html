@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Żubek — offline animation rig</title><style>
+@font-face{font-family:Fredoka;src:url('../logo-concepts/fonts/fredoka-latin.woff2') format('woff2');font-weight:300 700;font-display:swap}
+@font-face{font-family:Nunito;src:url('../logo-concepts/fonts/nunito-latin.woff2') format('woff2');font-weight:200 1000;font-display:swap}
+*{box-sizing:border-box}body{margin:0;background:#F6F7FA;color:#1E2132;font-family:Nunito,sans-serif}main{max-width:1500px;margin:auto;padding:32px 24px 60px}h1,h2,h3{font-family:Fredoka,sans-serif;font-weight:600}h1{font-size:38px;line-height:1.15;margin:0 0 16px}h2{font-size:24px;margin:0}h3{font-size:17px;margin:0}p{line-height:1.6}header{max-width:900px;margin-bottom:28px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.pose-card,.panel{background:#FFFFFF;border:2px solid #1E2132;border-bottom-width:4px;border-radius:20px;overflow:hidden}.pose-heading{padding:20px}.pose-heading p{font-size:14px;margin-bottom:0}.sample{padding:18px 12px;border-top:2px solid #1E2132}.paper{background:#FFFFFF}.canvas{background:#F6F7FA}.crimson{background:#D91F3B;color:#FFFFFF}.sample img{display:block}.hero-size{margin:12px auto;text-align:center;width:320px}.hero-size img{width:320px;height:384px}.mini-sizes{display:flex;align-items:end;justify-content:space-around;height:228px;gap:6px}.size{text-align:center;font-size:12px;font-weight:800}.size img{margin:0 auto 8px}.stage{display:flex;align-items:center;justify-content:center;min-height:500px;border:2px solid #1E2132;border-radius:20px}.stage>svg{display:block;width:320px;height:384px;overflow:visible}.controls{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}button,select{font:800 14px Nunito,sans-serif;color:#1E2132;border:2px solid #1E2132;border-bottom-width:4px;border-radius:12px;padding:10px 14px;background:#FFFFFF}button{cursor:pointer}button:active{transform:translateY(2px);border-bottom-width:2px}button:disabled,select:disabled{opacity:.5;cursor:default}button:focus-visible,select:focus-visible{outline:3px solid #2F5BEA;outline-offset:3px}.panel{padding:24px}.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}code{font-size:13px;overflow-wrap:anywhere}.contract{font-size:14px}.contract li{margin:10px 0;line-height:1.5}.status{min-height:48px}.note{font-size:13px}a{color:#A3142B}.anchor-dot{display:none}.show-pivots .anchor-dot{display:inline}.no-motion{font-weight:800}@media(max-width:1150px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:780px){.grid,.demo-grid{grid-template-columns:1fr}main{padding:24px 12px}.pose-card{max-width:480px;width:100%;margin:auto}.panel{padding:18px}.stage{min-height:450px}}@media(prefers-reduced-motion:reduce){button:active{transform:none}}
+</style></head><body><main>
+
+<header><h1>Try Żubek’s puppet rig.</h1><p>Plain Web Animations API, local SVG and fonts. No packages, network requests, GSAP or site integration. The buttons exercise the declared part pivots and expression states.</p><p><a href="poses.html">All twelve poses</a> · <a href="model-sheet.svg">Part names and proportions</a></p></header><div class="demo-grid"><section class="panel"><label for="pose">Pose </label><select id="pose">
+<option value="hello">Hello</option>
+<option value="speak">Speak</option>
+<option value="teach">Teach</option>
+<option value="read">Read</option>
+<option value="think">Think</option>
+<option value="celebrate">Celebrate</option>
+<option value="oops">Oops</option>
+<option value="confused">Confused</option>
+<option value="sleep">Sleep</option>
+<option value="cards">Cards</option>
+<option value="trophy">Trophy</option>
+<option value="travel">Travel</option>
+</select><div class="controls" aria-label="Preview background"><button type="button" data-background="paper">White</button><button type="button" data-background="canvas">Canvas</button><button type="button" data-background="crimson">Crimson</button></div><div id="stage" class="stage canvas"></div><p id="status" class="status" role="status" aria-live="polite">Ready.</p><div class="controls" aria-label="Rig actions"><button type="button" data-action="blink">Blink</button><button type="button" data-action="talk">Talk</button><button type="button" data-action="wave">Wave</button><button type="button" data-action="tilt">Tilt head</button><button type="button" data-action="hop">Hop</button><button type="button" data-action="happy">Happy eyes</button><button type="button" data-action="reset">Reset</button></div><p class="note">Reduced motion is respected. With that setting enabled, expression swaps remain available; wave, tilt and hop stay still. There is no automatic or repeating idle motion.</p></section><section class="panel contract"><h2>Rig contract</h2><ul><li>Each rotating part declares <code>data-pivot="x y"</code> in SVG user units. Core pivots are identical across all poses.</li><li><code>data-rig="character"</code> contains the complete puppet; the shadow is its sibling. Hop this wrapper, keeping the shadow on the ground.</li><li><code>data-part="head"</code> owns both eyes, both lids, and the mouth. Tilt it to move the whole face together.</li><li>Eyes expose <code>data-state="open|happy"</code>; lids have their own groups. Change visibility, without scaling to zero.</li><li>The mouth exposes exactly one visible <code>closed</code>, <code>open-s</code> or <code>open-l</code> group at a time. Timing here is illustrative, not audio lip-sync.</li><li>The prop pivot follows the item’s grip or board anchor. The manifest records its per-pose value.</li></ul><h3>Current part pivots</h3><pre id="pivots"></pre><p class="note">Reset restores this pose’s own defaults. This is an art/rig demonstration; Claude will add product animation and audio timing later.</p></section></div>
+<template id="template-hello"><svg xmlns="http://www.w3.org/2000/svg" id="zubek-hello" viewBox="0 0 400 480" role="img" aria-label="Żubek waves hello." data-ground="448" data-default-eyes="open" data-default-mouth="closed" fill="none" stroke="#1E2132" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+<g id="zubek-hello-shadow" data-part="shadow" data-pivot="200 454" visibility="visible">
+<ellipse cx="201" cy="454" rx="83" ry="5" fill="#1E2132" stroke="none" opacity="0.12"/>
+</g>
+<g id="zubek-hello-character" data-rig="character" data-pivot="200 448">
+<g id="zubek-hello-stance" data-rig="stance">
+<g id="zubek-hello-leg-l" data-part="leg-l" data-pivot="160 359">
+<path d="M139 353 183 356 177 430H128Z" fill="#FFC21A"/><path d="M130 407H180L177 444H126Z" fill="#1E2132"/>
+</g><g id="zubek-hello-leg-r" data-part="leg-r" data-pivot="248 357">
+<path d="M225 353 270 348 281 430H232Z" fill="#FFC21A"/><path d="M229 407H278L284 444H233Z" fill="#1E2132"/>
+</g><g id="zubek-hello-body" data-part="body" data-pivot="200 330">
+<path d="M135 245C111 271 112 320 124 353 133 381 164 393 207 391 249 393 280 375 285 346 292 308 282 268 261 248Z" fill="#FFC21A"/>
+</g><g id="zubek-hello-head" data-part="head" data-pivot="201 270">
+<path d="M139 135Q108 149 88 128L77 114Q111 101 142 114Z" fill="#FFC21A"/><path d="M260 135Q291 149 313 126L324 112Q287 100 258 115Z" fill="#FFC21A"/><path d="M139 126C105 127 94 101 105 70Q84 81 85 104C85 131 106 151 139 152Z" fill="#FFFFFF"/><path d="M260 126C294 126 306 101 295 70Q316 81 315 104C315 131 294 151 260 152Z" fill="#FFFFFF"/><path d="M142 114 155 94 177 103 199 88 221 103 245 96 258 115C284 128 294 151 291 185L301 204 285 218 288 240 269 244 255 264 236 260 215 282H183L163 261 144 265 130 244 112 241 115 221 101 205 111 188C104 151 116 128 142 114Z" fill="#FFC21A"/><g id="zubek-hello-eye-l" data-part="eye-l" data-pivot="160 170">
+<g id="zubek-hello-eye-l-open" data-state="open" visibility="visible"><ellipse cx="160" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-hello-eye-l-happy" data-state="happy" visibility="hidden"><path d="M150 173Q160 155 170 173" fill="none"/></g>
+</g><g id="zubek-hello-lid-l" data-part="lid-l" data-pivot="160 170" visibility="hidden">
+<path d="M150 170Q160 181 170 170" fill="none"/>
+</g><g id="zubek-hello-eye-r" data-part="eye-r" data-pivot="240 170">
+<g id="zubek-hello-eye-r-open" data-state="open" visibility="visible"><ellipse cx="240" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-hello-eye-r-happy" data-state="happy" visibility="hidden"><path d="M230 173Q240 155 250 173" fill="none"/></g>
+</g><g id="zubek-hello-lid-r" data-part="lid-r" data-pivot="240 170" visibility="hidden">
+<path d="M230 170Q240 181 250 170" fill="none"/>
+</g><path d="M158 204Q199 190 241 204C266 213 270 244 250 258 231 269 170 269 149 257 128 245 132 215 158 204Z" fill="#1E2132"/><ellipse cx="170" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><ellipse cx="230" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><g id="zubek-hello-mouth" data-part="mouth" data-pivot="200 246">
+<g id="zubek-hello-mouth-closed" data-state="closed" visibility="visible"><path d="M183 240Q200 253 217 240L215 246Q200 260 185 246Z" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-hello-mouth-open-s" data-state="open-s" visibility="hidden"><ellipse cx="200" cy="246" rx="10" ry="8" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-hello-mouth-open-l" data-state="open-l" visibility="hidden"><ellipse cx="200" cy="245" rx="17" ry="14" fill="#FFFFFF" stroke="none"/></g>
+</g>
+</g><g id="zubek-hello-accessory" data-part="accessory" data-pivot="203 308">
+<path d="M161 285Q200 303 242 283L246 303Q202 326 157 305Z" fill="#D91F3B"/><path d="M203 292 218 308 203 324 188 308Z" fill="#FFFFFF"/>
+</g><g id="zubek-hello-prop" data-part="prop" data-pivot="200 335">
+
+</g><g id="zubek-hello-arm-l" data-part="arm-l" data-pivot="139 263">
+<path d="M143 277Q119 299 99 277L70 237 50 201Q44 185 57 179L78 169Q91 165 99 178L104 204 126 233 149 248Z" fill="#FFC21A"/><path d="M50 201Q44 185 57 179L78 169Q91 165 99 178L104 204 76 221Z" fill="#1E2132"/>
+</g><g id="zubek-hello-arm-r" data-part="arm-r" data-pivot="269 276">
+<path d="M269 260Q310 273 313 321L307 355Q285 368 273 348L277 317 256 297Z" fill="#FFC21A"/><path d="M279 327 311 331 307 354Q285 368 273 348Z" fill="#1E2132"/>
+</g>
+</g>
+</g>
+</svg>
+</template>
+<template id="template-speak"><svg xmlns="http://www.w3.org/2000/svg" id="zubek-speak" viewBox="0 0 400 480" role="img" aria-label="Żubek speaks with sound arcs." data-ground="448" data-default-eyes="open" data-default-mouth="closed" fill="none" stroke="#1E2132" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+<g id="zubek-speak-shadow" data-part="shadow" data-pivot="200 454" visibility="visible">
+<ellipse cx="201" cy="454" rx="83" ry="5" fill="#1E2132" stroke="none" opacity="0.12"/>
+</g>
+<g id="zubek-speak-character" data-rig="character" data-pivot="200 448">
+<g id="zubek-speak-stance" data-rig="stance">
+<g id="zubek-speak-leg-l" data-part="leg-l" data-pivot="160 359">
+<path d="M139 353 183 356 177 430H128Z" fill="#FFC21A"/><path d="M130 407H180L177 444H126Z" fill="#1E2132"/>
+</g><g id="zubek-speak-leg-r" data-part="leg-r" data-pivot="248 357">
+<path d="M225 353 270 348 281 430H232Z" fill="#FFC21A"/><path d="M229 407H278L284 444H233Z" fill="#1E2132"/>
+</g><g id="zubek-speak-body" data-part="body" data-pivot="200 330">
+<path d="M135 245C111 271 112 320 124 353 133 381 164 393 207 391 249 393 280 375 285 346 292 308 282 268 261 248Z" fill="#FFC21A"/>
+</g><g id="zubek-speak-head" data-part="head" data-pivot="201 270">
+<path d="M139 135Q108 149 88 128L77 114Q111 101 142 114Z" fill="#FFC21A"/><path d="M260 135Q291 149 313 126L324 112Q287 100 258 115Z" fill="#FFC21A"/><path d="M139 126C105 127 94 101 105 70Q84 81 85 104C85 131 106 151 139 152Z" fill="#FFFFFF"/><path d="M260 126C294 126 306 101 295 70Q316 81 315 104C315 131 294 151 260 152Z" fill="#FFFFFF"/><path d="M142 114 155 94 177 103 199 88 221 103 245 96 258 115C284 128 294 151 291 185L301 204 285 218 288 240 269 244 255 264 236 260 215 282H183L163 261 144 265 130 244 112 241 115 221 101 205 111 188C104 151 116 128 142 114Z" fill="#FFC21A"/><g id="zubek-speak-eye-l" data-part="eye-l" data-pivot="160 170">
+<g id="zubek-speak-eye-l-open" data-state="open" visibility="visible"><ellipse cx="160" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-speak-eye-l-happy" data-state="happy" visibility="hidden"><path d="M150 173Q160 155 170 173" fill="none"/></g>
+</g><g id="zubek-speak-lid-l" data-part="lid-l" data-pivot="160 170" visibility="hidden">
+<path d="M150 170Q160 181 170 170" fill="none"/>
+</g><g id="zubek-speak-eye-r" data-part="eye-r" data-pivot="240 170">
+<g id="zubek-speak-eye-r-open" data-state="open" visibility="visible"><ellipse cx="240" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-speak-eye-r-happy" data-state="happy" visibility="hidden"><path d="M230 173Q240 155 250 173" fill="none"/></g>
+</g><g id="zubek-speak-lid-r" data-part="lid-r" data-pivot="240 170" visibility="hidden">
+<path d="M230 170Q240 181 250 170" fill="none"/>
+</g><path d="M158 204Q199 190 241 204C266 213 270 244 250 258 231 269 170 269 149 257 128 245 132 215 158 204Z" fill="#1E2132"/><ellipse cx="170" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><ellipse cx="230" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><g id="zubek-speak-mouth" data-part="mouth" data-pivot="200 246">
+<g id="zubek-speak-mouth-closed" data-state="closed" visibility="visible"><path d="M183 240Q200 253 217 240L215 246Q200 260 185 246Z" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-speak-mouth-open-s" data-state="open-s" visibility="hidden"><ellipse cx="200" cy="246" rx="10" ry="8" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-speak-mouth-open-l" data-state="open-l" visibility="hidden"><ellipse cx="200" cy="245" rx="17" ry="14" fill="#FFFFFF" stroke="none"/></g>
+</g>
+</g><g id="zubek-speak-accessory" data-part="accessory" data-pivot="203 308">
+<path d="M161 285Q200 303 242 283L246 303Q202 326 157 305Z" fill="#D91F3B"/><path d="M203 292 218 308 203 324 188 308Z" fill="#FFFFFF"/>
+</g><g id="zubek-speak-prop" data-part="prop" data-pivot="335 182">
+<path d="M335 169Q349 182 335 195 M349 156Q375 182 349 208" fill="none"/>
+</g><g id="zubek-speak-arm-l" data-part="arm-l" data-pivot="139 263">
+<path d="M144 264Q121 248 103 273L79 265 66 246Q56 238 48 249L45 271 63 289 99 307Q124 316 151 286Z" fill="#FFC21A"/><path d="M79 265 66 246Q56 238 48 249L45 271 63 289 86 294Z" fill="#1E2132"/>
+</g><g id="zubek-speak-arm-r" data-part="arm-r" data-pivot="269 276">
+<path d="M269 260Q310 273 313 321L307 355Q285 368 273 348L277 317 256 297Z" fill="#FFC21A"/><path d="M279 327 311 331 307 354Q285 368 273 348Z" fill="#1E2132"/>
+</g>
+</g>
+</g>
+</svg>
+</template>
+<template id="template-teach"><svg xmlns="http://www.w3.org/2000/svg" id="zubek-teach" viewBox="0 0 400 480" role="img" aria-label="Żubek points to a lesson board." data-ground="448" data-default-eyes="open" data-default-mouth="closed" fill="none" stroke="#1E2132" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+<g id="zubek-teach-shadow" data-part="shadow" data-pivot="200 454" visibility="visible">
+<ellipse cx="201" cy="454" rx="83" ry="5" fill="#1E2132" stroke="none" opacity="0.12"/>
+</g>
+<g id="zubek-teach-character" data-rig="character" data-pivot="200 448">
+<g id="zubek-teach-stance" data-rig="stance">
+<g id="zubek-teach-leg-l" data-part="leg-l" data-pivot="160 359">
+<path d="M139 353 183 356 177 430H128Z" fill="#FFC21A"/><path d="M130 407H180L177 444H126Z" fill="#1E2132"/>
+</g><g id="zubek-teach-leg-r" data-part="leg-r" data-pivot="248 357">
+<path d="M225 353 270 348 281 430H232Z" fill="#FFC21A"/><path d="M229 407H278L284 444H233Z" fill="#1E2132"/>
+</g><g id="zubek-teach-body" data-part="body" data-pivot="200 330">
+<path d="M135 245C111 271 112 320 124 353 133 381 164 393 207 391 249 393 280 375 285 346 292 308 282 268 261 248Z" fill="#FFC21A"/>
+</g><g id="zubek-teach-head" data-part="head" data-pivot="201 270">
+<path d="M139 135Q108 149 88 128L77 114Q111 101 142 114Z" fill="#FFC21A"/><path d="M260 135Q291 149 313 126L324 112Q287 100 258 115Z" fill="#FFC21A"/><path d="M139 126C105 127 94 101 105 70Q84 81 85 104C85 131 106 151 139 152Z" fill="#FFFFFF"/><path d="M260 126C294 126 306 101 295 70Q316 81 315 104C315 131 294 151 260 152Z" fill="#FFFFFF"/><path d="M142 114 155 94 177 103 199 88 221 103 245 96 258 115C284 128 294 151 291 185L301 204 285 218 288 240 269 244 255 264 236 260 215 282H183L163 261 144 265 130 244 112 241 115 221 101 205 111 188C104 151 116 128 142 114Z" fill="#FFC21A"/><g id="zubek-teach-eye-l" data-part="eye-l" data-pivot="160 170">
+<g id="zubek-teach-eye-l-open" data-state="open" visibility="visible"><ellipse cx="160" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-teach-eye-l-happy" data-state="happy" visibility="hidden"><path d="M150 173Q160 155 170 173" fill="none"/></g>
+</g><g id="zubek-teach-lid-l" data-part="lid-l" data-pivot="160 170" visibility="hidden">
+<path d="M150 170Q160 181 170 170" fill="none"/>
+</g><g id="zubek-teach-eye-r" data-part="eye-r" data-pivot="240 170">
+<g id="zubek-teach-eye-r-open" data-state="open" visibility="visible"><ellipse cx="240" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-teach-eye-r-happy" data-state="happy" visibility="hidden"><path d="M230 173Q240 155 250 173" fill="none"/></g>
+</g><g id="zubek-teach-lid-r" data-part="lid-r" data-pivot="240 170" visibility="hidden">
+<path d="M230 170Q240 181 250 170" fill="none"/>
+</g><path d="M158 204Q199 190 241 204C266 213 270 244 250 258 231 269 170 269 149 257 128 245 132 215 158 204Z" fill="#1E2132"/><ellipse cx="170" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><ellipse cx="230" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><g id="zubek-teach-mouth" data-part="mouth" data-pivot="200 246">
+<g id="zubek-teach-mouth-closed" data-state="closed" visibility="visible"><path d="M183 240Q200 253 217 240L215 246Q200 260 185 246Z" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-teach-mouth-open-s" data-state="open-s" visibility="hidden"><ellipse cx="200" cy="246" rx="10" ry="8" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-teach-mouth-open-l" data-state="open-l" visibility="hidden"><ellipse cx="200" cy="245" rx="17" ry="14" fill="#FFFFFF" stroke="none"/></g>
+</g>
+</g><g id="zubek-teach-accessory" data-part="accessory" data-pivot="203 308">
+<path d="M161 285Q200 303 242 283L246 303Q202 326 157 305Z" fill="#D91F3B"/><path d="M203 292 218 308 203 324 188 308Z" fill="#FFFFFF"/>
+</g><g id="zubek-teach-prop" data-part="prop" data-pivot="316 288">
+<path d="M331 369V414M312 414H351" fill="none"/><path d="M292 269H378Q386 269 386 279V366Q386 376 376 376H294Q284 376 284 366V279Q284 269 292 269Z" fill="#FFFFFF"/><path d="M302 312H339V320H302Z M302 335H365V343H302Z" fill="#D91F3B" stroke="none"/><ellipse cx="362" cy="316" rx="7" ry="7" fill="#FFC21A"/>
+</g><g id="zubek-teach-arm-l" data-part="arm-l" data-pivot="139 263">
+<path d="M139 260Q101 271 99 317L105 353Q128 365 141 346L135 315 154 291Z" fill="#FFC21A"/><path d="M101 326 136 322 141 346Q128 365 105 353Z" fill="#1E2132"/>
+</g><g id="zubek-teach-arm-r" data-part="arm-r" data-pivot="269 276">
+<path d="M265 261Q281 257 294 275L316 283 337 277Q350 276 351 287L346 302 314 307 285 302 260 285Z" fill="#FFC21A"/><path d="M316 283 337 277Q350 276 351 287L346 302 314 307 308 292Z" fill="#1E2132"/>
+</g>
+</g>
+</g>
+</svg>
+</template>
+<template id="template-read"><svg xmlns="http://www.w3.org/2000/svg" id="zubek-read" viewBox="0 0 400 480" role="img" aria-label="Żubek holds an open book." data-ground="448" data-default-eyes="open" data-default-mouth="closed" fill="none" stroke="#1E2132" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+<g id="zubek-read-shadow" data-part="shadow" data-pivot="200 454" visibility="visible">
+<ellipse cx="201" cy="454" rx="83" ry="5" fill="#1E2132" stroke="none" opacity="0.12"/>
+</g>
+<g id="zubek-read-character" data-rig="character" data-pivot="200 448">
+<g id="zubek-read-stance" data-rig="stance">
+<g id="zubek-read-leg-l" data-part="leg-l" data-pivot="160 359">
+<path d="M139 353 183 356 177 430H128Z" fill="#FFC21A"/><path d="M130 407H180L177 444H126Z" fill="#1E2132"/>
+</g><g id="zubek-read-leg-r" data-part="leg-r" data-pivot="248 357">
+<path d="M225 353 270 348 281 430H232Z" fill="#FFC21A"/><path d="M229 407H278L284 444H233Z" fill="#1E2132"/>
+</g><g id="zubek-read-body" data-part="body" data-pivot="200 330">
+<path d="M135 245C111 271 112 320 124 353 133 381 164 393 207 391 249 393 280 375 285 346 292 308 282 268 261 248Z" fill="#FFC21A"/>
+</g><g id="zubek-read-head" data-part="head" data-pivot="201 270">
+<path d="M139 135Q108 149 88 128L77 114Q111 101 142 114Z" fill="#FFC21A"/><path d="M260 135Q291 149 313 126L324 112Q287 100 258 115Z" fill="#FFC21A"/><path d="M139 126C105 127 94 101 105 70Q84 81 85 104C85 131 106 151 139 152Z" fill="#FFFFFF"/><path d="M260 126C294 126 306 101 295 70Q316 81 315 104C315 131 294 151 260 152Z" fill="#FFFFFF"/><path d="M142 114 155 94 177 103 199 88 221 103 245 96 258 115C284 128 294 151 291 185L301 204 285 218 288 240 269 244 255 264 236 260 215 282H183L163 261 144 265 130 244 112 241 115 221 101 205 111 188C104 151 116 128 142 114Z" fill="#FFC21A"/><g id="zubek-read-eye-l" data-part="eye-l" data-pivot="160 170">
+<g id="zubek-read-eye-l-open" data-state="open" visibility="visible"><ellipse cx="160" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-read-eye-l-happy" data-state="happy" visibility="hidden"><path d="M150 173Q160 155 170 173" fill="none"/></g>
+</g><g id="zubek-read-lid-l" data-part="lid-l" data-pivot="160 170" visibility="hidden">
+<path d="M150 170Q160 181 170 170" fill="none"/>
+</g><g id="zubek-read-eye-r" data-part="eye-r" data-pivot="240 170">
+<g id="zubek-read-eye-r-open" data-state="open" visibility="visible"><ellipse cx="240" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-read-eye-r-happy" data-state="happy" visibility="hidden"><path d="M230 173Q240 155 250 173" fill="none"/></g>
+</g><g id="zubek-read-lid-r" data-part="lid-r" data-pivot="240 170" visibility="hidden">
+<path d="M230 170Q240 181 250 170" fill="none"/>
+</g><path d="M158 204Q199 190 241 204C266 213 270 244 250 258 231 269 170 269 149 257 128 245 132 215 158 204Z" fill="#1E2132"/><ellipse cx="170" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><ellipse cx="230" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><g id="zubek-read-mouth" data-part="mouth" data-pivot="200 246">
+<g id="zubek-read-mouth-closed" data-state="closed" visibility="visible"><path d="M183 240Q200 253 217 240L215 246Q200 260 185 246Z" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-read-mouth-open-s" data-state="open-s" visibility="hidden"><ellipse cx="200" cy="246" rx="10" ry="8" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-read-mouth-open-l" data-state="open-l" visibility="hidden"><ellipse cx="200" cy="245" rx="17" ry="14" fill="#FFFFFF" stroke="none"/></g>
+</g>
+</g><g id="zubek-read-accessory" data-part="accessory" data-pivot="203 308">
+<path d="M161 285Q200 303 242 283L246 303Q202 326 157 305Z" fill="#D91F3B"/><path d="M203 292 218 308 203 324 188 308Z" fill="#FFFFFF"/>
+</g><g id="zubek-read-prop" data-part="prop" data-pivot="200 344">
+<path d="M200 317Q153 296 105 308V377Q156 367 200 391Z" fill="#FFFFFF"/><path d="M200 317Q247 296 295 308V377Q245 367 200 391Z" fill="#FFFFFF"/><path d="M200 320V391 M125 329Q157 326 179 336 M125 350Q157 347 179 357 M221 336Q248 326 276 329 M221 357Q248 347 276 350" fill="none"/>
+</g><g id="zubek-read-arm-l" data-part="arm-l" data-pivot="139 263">
+<path d="M144 264Q117 268 113 294L111 323Q116 346 138 342L169 330 166 308 142 312 151 281Z" fill="#FFC21A"/><path d="M142 312 166 308 169 330 138 342Q124 342 122 327Z" fill="#1E2132"/>
+</g><g id="zubek-read-arm-r" data-part="arm-r" data-pivot="269 276">
+<path d="M264 264Q289 269 295 294L298 322Q293 344 270 341L239 329 243 307 269 311 256 281Z" fill="#FFC21A"/><path d="M269 311 243 307 239 329 270 341Q284 342 287 326Z" fill="#1E2132"/>
+</g>
+</g>
+</g>
+</svg>
+</template>
+<template id="template-think"><svg xmlns="http://www.w3.org/2000/svg" id="zubek-think" viewBox="0 0 400 480" role="img" aria-label="Żubek rests a hoof by the chin." data-ground="448" data-default-eyes="open" data-default-mouth="closed" fill="none" stroke="#1E2132" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+<g id="zubek-think-shadow" data-part="shadow" data-pivot="200 454" visibility="visible">
+<ellipse cx="201" cy="454" rx="83" ry="5" fill="#1E2132" stroke="none" opacity="0.12"/>
+</g>
+<g id="zubek-think-character" data-rig="character" data-pivot="200 448">
+<g id="zubek-think-stance" data-rig="stance">
+<g id="zubek-think-leg-l" data-part="leg-l" data-pivot="160 359">
+<path d="M139 353 183 356 177 430H128Z" fill="#FFC21A"/><path d="M130 407H180L177 444H126Z" fill="#1E2132"/>
+</g><g id="zubek-think-leg-r" data-part="leg-r" data-pivot="248 357">
+<path d="M225 353 270 348 281 430H232Z" fill="#FFC21A"/><path d="M229 407H278L284 444H233Z" fill="#1E2132"/>
+</g><g id="zubek-think-body" data-part="body" data-pivot="200 330">
+<path d="M135 245C111 271 112 320 124 353 133 381 164 393 207 391 249 393 280 375 285 346 292 308 282 268 261 248Z" fill="#FFC21A"/>
+</g><g id="zubek-think-head" data-part="head" data-pivot="201 270">
+<path d="M139 135Q108 149 88 128L77 114Q111 101 142 114Z" fill="#FFC21A"/><path d="M260 135Q291 149 313 126L324 112Q287 100 258 115Z" fill="#FFC21A"/><path d="M139 126C105 127 94 101 105 70Q84 81 85 104C85 131 106 151 139 152Z" fill="#FFFFFF"/><path d="M260 126C294 126 306 101 295 70Q316 81 315 104C315 131 294 151 260 152Z" fill="#FFFFFF"/><path d="M142 114 155 94 177 103 199 88 221 103 245 96 258 115C284 128 294 151 291 185L301 204 285 218 288 240 269 244 255 264 236 260 215 282H183L163 261 144 265 130 244 112 241 115 221 101 205 111 188C104 151 116 128 142 114Z" fill="#FFC21A"/><g id="zubek-think-eye-l" data-part="eye-l" data-pivot="160 170">
+<g id="zubek-think-eye-l-open" data-state="open" visibility="visible"><ellipse cx="160" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-think-eye-l-happy" data-state="happy" visibility="hidden"><path d="M150 173Q160 155 170 173" fill="none"/></g>
+</g><g id="zubek-think-lid-l" data-part="lid-l" data-pivot="160 170" visibility="hidden">
+<path d="M150 170Q160 181 170 170" fill="none"/>
+</g><g id="zubek-think-eye-r" data-part="eye-r" data-pivot="240 170">
+<g id="zubek-think-eye-r-open" data-state="open" visibility="visible"><ellipse cx="240" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-think-eye-r-happy" data-state="happy" visibility="hidden"><path d="M230 173Q240 155 250 173" fill="none"/></g>
+</g><g id="zubek-think-lid-r" data-part="lid-r" data-pivot="240 170" visibility="hidden">
+<path d="M230 170Q240 181 250 170" fill="none"/>
+</g><path d="M148 148Q160 136 174 144 M227 146Q241 139 252 148" fill="none"/><path d="M158 204Q199 190 241 204C266 213 270 244 250 258 231 269 170 269 149 257 128 245 132 215 158 204Z" fill="#1E2132"/><ellipse cx="170" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><ellipse cx="230" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><g id="zubek-think-mouth" data-part="mouth" data-pivot="200 246">
+<g id="zubek-think-mouth-closed" data-state="closed" visibility="visible"><path d="M183 240Q200 253 217 240L215 246Q200 260 185 246Z" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-think-mouth-open-s" data-state="open-s" visibility="hidden"><ellipse cx="200" cy="246" rx="10" ry="8" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-think-mouth-open-l" data-state="open-l" visibility="hidden"><ellipse cx="200" cy="245" rx="17" ry="14" fill="#FFFFFF" stroke="none"/></g>
+</g>
+</g><g id="zubek-think-accessory" data-part="accessory" data-pivot="203 308">
+<path d="M161 285Q200 303 242 283L246 303Q202 326 157 305Z" fill="#D91F3B"/><path d="M203 292 218 308 203 324 188 308Z" fill="#FFFFFF"/>
+</g><g id="zubek-think-prop" data-part="prop" data-pivot="200 335">
+
+</g><g id="zubek-think-arm-l" data-part="arm-l" data-pivot="139 263">
+<path d="M142 264Q117 267 117 295 119 324 149 324L188 295 200 276 181 261 165 279 148 290 151 278Z" fill="#FFC21A"/><path d="M165 279 181 261 200 276 188 295 175 304 155 291Z" fill="#1E2132"/>
+</g><g id="zubek-think-arm-r" data-part="arm-r" data-pivot="269 276">
+<path d="M269 260Q310 273 313 321L307 355Q285 368 273 348L277 317 256 297Z" fill="#FFC21A"/><path d="M279 327 311 331 307 354Q285 368 273 348Z" fill="#1E2132"/>
+</g>
+</g>
+</g>
+</svg>
+</template>
+<template id="template-celebrate"><svg xmlns="http://www.w3.org/2000/svg" id="zubek-celebrate" viewBox="0 0 400 480" role="img" aria-label="Żubek jumps with confetti." data-ground="448" data-default-eyes="happy" data-default-mouth="closed" fill="none" stroke="#1E2132" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+<g id="zubek-celebrate-shadow" data-part="shadow" data-pivot="200 454" visibility="visible">
+<ellipse cx="201" cy="454" rx="83" ry="5" fill="#1E2132" stroke="none" opacity="0.12"/>
+</g>
+<g id="zubek-celebrate-character" data-rig="character" data-pivot="200 448">
+<g id="zubek-celebrate-stance" data-rig="stance">
+<g id="zubek-celebrate-leg-l" data-part="leg-l" data-pivot="160 359">
+<path d="M141 352 183 358 178 387 148 398 139 420 100 415 111 383 140 373Z" fill="#FFC21A"/><path d="M110 397 147 402 139 426 96 418Z" fill="#1E2132"/>
+</g><g id="zubek-celebrate-leg-r" data-part="leg-r" data-pivot="248 357">
+<path d="M226 353 268 352 264 378 294 394 304 418 266 427 250 402 219 388Z" fill="#FFC21A"/><path d="M264 406 299 399 312 425 272 435Z" fill="#1E2132"/>
+</g><g id="zubek-celebrate-body" data-part="body" data-pivot="200 330">
+<path d="M135 245C111 271 112 320 124 353 133 381 164 393 207 391 249 393 280 375 285 346 292 308 282 268 261 248Z" fill="#FFC21A"/>
+</g><g id="zubek-celebrate-head" data-part="head" data-pivot="201 270">
+<path d="M139 135Q108 149 88 128L77 114Q111 101 142 114Z" fill="#FFC21A"/><path d="M260 135Q291 149 313 126L324 112Q287 100 258 115Z" fill="#FFC21A"/><path d="M139 126C105 127 94 101 105 70Q84 81 85 104C85 131 106 151 139 152Z" fill="#FFFFFF"/><path d="M260 126C294 126 306 101 295 70Q316 81 315 104C315 131 294 151 260 152Z" fill="#FFFFFF"/><path d="M142 114 155 94 177 103 199 88 221 103 245 96 258 115C284 128 294 151 291 185L301 204 285 218 288 240 269 244 255 264 236 260 215 282H183L163 261 144 265 130 244 112 241 115 221 101 205 111 188C104 151 116 128 142 114Z" fill="#FFC21A"/><g id="zubek-celebrate-eye-l" data-part="eye-l" data-pivot="160 170">
+<g id="zubek-celebrate-eye-l-open" data-state="open" visibility="hidden"><ellipse cx="160" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-celebrate-eye-l-happy" data-state="happy" visibility="visible"><path d="M150 173Q160 155 170 173" fill="none"/></g>
+</g><g id="zubek-celebrate-lid-l" data-part="lid-l" data-pivot="160 170" visibility="hidden">
+<path d="M150 170Q160 181 170 170" fill="none"/>
+</g><g id="zubek-celebrate-eye-r" data-part="eye-r" data-pivot="240 170">
+<g id="zubek-celebrate-eye-r-open" data-state="open" visibility="hidden"><ellipse cx="240" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-celebrate-eye-r-happy" data-state="happy" visibility="visible"><path d="M230 173Q240 155 250 173" fill="none"/></g>
+</g><g id="zubek-celebrate-lid-r" data-part="lid-r" data-pivot="240 170" visibility="hidden">
+<path d="M230 170Q240 181 250 170" fill="none"/>
+</g><path d="M158 204Q199 190 241 204C266 213 270 244 250 258 231 269 170 269 149 257 128 245 132 215 158 204Z" fill="#1E2132"/><ellipse cx="170" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><ellipse cx="230" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><g id="zubek-celebrate-mouth" data-part="mouth" data-pivot="200 246">
+<g id="zubek-celebrate-mouth-closed" data-state="closed" visibility="visible"><path d="M183 240Q200 253 217 240L215 246Q200 260 185 246Z" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-celebrate-mouth-open-s" data-state="open-s" visibility="hidden"><ellipse cx="200" cy="246" rx="10" ry="8" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-celebrate-mouth-open-l" data-state="open-l" visibility="hidden"><ellipse cx="200" cy="245" rx="17" ry="14" fill="#FFFFFF" stroke="none"/></g>
+</g>
+</g><g id="zubek-celebrate-accessory" data-part="accessory" data-pivot="203 308">
+<path d="M161 285Q200 303 242 283L246 303Q202 326 157 305Z" fill="#D91F3B"/><path d="M203 292 218 308 203 324 188 308Z" fill="#FFFFFF"/>
+</g><g id="zubek-celebrate-prop" data-part="prop" data-pivot="200 180">
+<path d="M42 102 53 82 67 94 56 114Z" fill="#D91F3B"/><path d="M184 65 198 55 208 70 194 80Z" fill="#2F5BEA"/><path d="M348 90 358 69 372 81 363 101Z" fill="#15803D"/><path d="M344 284 355 279 363 295 351 302Z" fill="#D6338A"/><path d="M45 328 62 320 70 335 52 343Z" fill="#2F5BEA"/>
+</g><g id="zubek-celebrate-arm-l" data-part="arm-l" data-pivot="139 263">
+<path d="M143 277Q119 299 99 277L70 237 50 201Q44 185 57 179L78 169Q91 165 99 178L104 204 126 233 149 248Z" fill="#FFC21A"/><path d="M50 201Q44 185 57 179L78 169Q91 165 99 178L104 204 76 221Z" fill="#1E2132"/>
+</g><g id="zubek-celebrate-arm-r" data-part="arm-r" data-pivot="269 276">
+<path d="M262 280Q285 301 309 278L339 235 359 195Q365 180 352 174L332 166Q320 162 313 176L307 202 284 234 257 252Z" fill="#FFC21A"/><path d="M339 235 359 195Q365 180 352 174L332 166Q320 162 313 176L307 202 329 220Z" fill="#1E2132"/>
+</g>
+</g>
+</g>
+</svg>
+</template>
+<template id="template-oops"><svg xmlns="http://www.w3.org/2000/svg" id="zubek-oops" viewBox="0 0 400 480" role="img" aria-label="Żubek gives an encouraging shrug." data-ground="448" data-default-eyes="open" data-default-mouth="closed" fill="none" stroke="#1E2132" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+<g id="zubek-oops-shadow" data-part="shadow" data-pivot="200 454" visibility="visible">
+<ellipse cx="201" cy="454" rx="83" ry="5" fill="#1E2132" stroke="none" opacity="0.12"/>
+</g>
+<g id="zubek-oops-character" data-rig="character" data-pivot="200 448">
+<g id="zubek-oops-stance" data-rig="stance">
+<g id="zubek-oops-leg-l" data-part="leg-l" data-pivot="160 359">
+<path d="M139 353 183 356 177 430H128Z" fill="#FFC21A"/><path d="M130 407H180L177 444H126Z" fill="#1E2132"/>
+</g><g id="zubek-oops-leg-r" data-part="leg-r" data-pivot="248 357">
+<path d="M225 353 270 348 281 430H232Z" fill="#FFC21A"/><path d="M229 407H278L284 444H233Z" fill="#1E2132"/>
+</g><g id="zubek-oops-body" data-part="body" data-pivot="200 330">
+<path d="M135 245C111 271 112 320 124 353 133 381 164 393 207 391 249 393 280 375 285 346 292 308 282 268 261 248Z" fill="#FFC21A"/>
+</g><g id="zubek-oops-head" data-part="head" data-pivot="201 270">
+<path d="M139 135Q108 149 88 128L77 114Q111 101 142 114Z" fill="#FFC21A"/><path d="M260 135Q291 149 313 126L324 112Q287 100 258 115Z" fill="#FFC21A"/><path d="M139 126C105 127 94 101 105 70Q84 81 85 104C85 131 106 151 139 152Z" fill="#FFFFFF"/><path d="M260 126C294 126 306 101 295 70Q316 81 315 104C315 131 294 151 260 152Z" fill="#FFFFFF"/><path d="M142 114 155 94 177 103 199 88 221 103 245 96 258 115C284 128 294 151 291 185L301 204 285 218 288 240 269 244 255 264 236 260 215 282H183L163 261 144 265 130 244 112 241 115 221 101 205 111 188C104 151 116 128 142 114Z" fill="#FFC21A"/><g id="zubek-oops-eye-l" data-part="eye-l" data-pivot="160 170">
+<g id="zubek-oops-eye-l-open" data-state="open" visibility="visible"><ellipse cx="160" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-oops-eye-l-happy" data-state="happy" visibility="hidden"><path d="M150 173Q160 155 170 173" fill="none"/></g>
+</g><g id="zubek-oops-lid-l" data-part="lid-l" data-pivot="160 170" visibility="hidden">
+<path d="M150 170Q160 181 170 170" fill="none"/>
+</g><g id="zubek-oops-eye-r" data-part="eye-r" data-pivot="240 170">
+<g id="zubek-oops-eye-r-open" data-state="open" visibility="visible"><ellipse cx="240" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-oops-eye-r-happy" data-state="happy" visibility="hidden"><path d="M230 173Q240 155 250 173" fill="none"/></g>
+</g><g id="zubek-oops-lid-r" data-part="lid-r" data-pivot="240 170" visibility="hidden">
+<path d="M230 170Q240 181 250 170" fill="none"/>
+</g><path d="M148 148Q160 136 174 144 M227 146Q241 139 252 148" fill="none"/><path d="M158 204Q199 190 241 204C266 213 270 244 250 258 231 269 170 269 149 257 128 245 132 215 158 204Z" fill="#1E2132"/><ellipse cx="170" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><ellipse cx="230" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><g id="zubek-oops-mouth" data-part="mouth" data-pivot="200 246">
+<g id="zubek-oops-mouth-closed" data-state="closed" visibility="visible"><path d="M183 240Q200 253 217 240L215 246Q200 260 185 246Z" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-oops-mouth-open-s" data-state="open-s" visibility="hidden"><ellipse cx="200" cy="246" rx="10" ry="8" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-oops-mouth-open-l" data-state="open-l" visibility="hidden"><ellipse cx="200" cy="245" rx="17" ry="14" fill="#FFFFFF" stroke="none"/></g>
+</g>
+</g><g id="zubek-oops-accessory" data-part="accessory" data-pivot="203 308">
+<path d="M161 285Q200 303 242 283L246 303Q202 326 157 305Z" fill="#D91F3B"/><path d="M203 292 218 308 203 324 188 308Z" fill="#FFFFFF"/>
+</g><g id="zubek-oops-prop" data-part="prop" data-pivot="200 335">
+
+</g><g id="zubek-oops-arm-l" data-part="arm-l" data-pivot="139 263">
+<path d="M144 264Q121 248 103 273L79 265 66 246Q56 238 48 249L45 271 63 289 99 307Q124 316 151 286Z" fill="#FFC21A"/><path d="M79 265 66 246Q56 238 48 249L45 271 63 289 86 294Z" fill="#1E2132"/>
+</g><g id="zubek-oops-arm-r" data-part="arm-r" data-pivot="269 276">
+<path d="M265 265Q283 249 299 273L325 264 337 246Q347 237 355 249L358 271 340 290 305 307Q280 316 257 289Z" fill="#FFC21A"/><path d="M325 264 337 246Q347 237 355 249L358 271 340 290 316 294Z" fill="#1E2132"/>
+</g>
+</g>
+</g>
+</svg>
+</template>
+<template id="template-confused"><svg xmlns="http://www.w3.org/2000/svg" id="zubek-confused" viewBox="0 0 400 480" role="img" aria-label="Żubek wonders beside a question mark." data-ground="448" data-default-eyes="open" data-default-mouth="closed" fill="none" stroke="#1E2132" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+<g id="zubek-confused-shadow" data-part="shadow" data-pivot="200 454" visibility="visible">
+<ellipse cx="201" cy="454" rx="83" ry="5" fill="#1E2132" stroke="none" opacity="0.12"/>
+</g>
+<g id="zubek-confused-character" data-rig="character" data-pivot="200 448">
+<g id="zubek-confused-stance" data-rig="stance">
+<g id="zubek-confused-leg-l" data-part="leg-l" data-pivot="160 359">
+<path d="M139 353 183 356 177 430H128Z" fill="#FFC21A"/><path d="M130 407H180L177 444H126Z" fill="#1E2132"/>
+</g><g id="zubek-confused-leg-r" data-part="leg-r" data-pivot="248 357">
+<path d="M225 353 270 348 281 430H232Z" fill="#FFC21A"/><path d="M229 407H278L284 444H233Z" fill="#1E2132"/>
+</g><g id="zubek-confused-body" data-part="body" data-pivot="200 330">
+<path d="M135 245C111 271 112 320 124 353 133 381 164 393 207 391 249 393 280 375 285 346 292 308 282 268 261 248Z" fill="#FFC21A"/>
+</g><g id="zubek-confused-head" data-part="head" data-pivot="201 270">
+<path d="M139 135Q108 149 88 128L77 114Q111 101 142 114Z" fill="#FFC21A"/><path d="M260 135Q291 149 313 126L324 112Q287 100 258 115Z" fill="#FFC21A"/><path d="M139 126C105 127 94 101 105 70Q84 81 85 104C85 131 106 151 139 152Z" fill="#FFFFFF"/><path d="M260 126C294 126 306 101 295 70Q316 81 315 104C315 131 294 151 260 152Z" fill="#FFFFFF"/><path d="M142 114 155 94 177 103 199 88 221 103 245 96 258 115C284 128 294 151 291 185L301 204 285 218 288 240 269 244 255 264 236 260 215 282H183L163 261 144 265 130 244 112 241 115 221 101 205 111 188C104 151 116 128 142 114Z" fill="#FFC21A"/><g id="zubek-confused-eye-l" data-part="eye-l" data-pivot="160 170">
+<g id="zubek-confused-eye-l-open" data-state="open" visibility="visible"><ellipse cx="160" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-confused-eye-l-happy" data-state="happy" visibility="hidden"><path d="M150 173Q160 155 170 173" fill="none"/></g>
+</g><g id="zubek-confused-lid-l" data-part="lid-l" data-pivot="160 170" visibility="hidden">
+<path d="M150 170Q160 181 170 170" fill="none"/>
+</g><g id="zubek-confused-eye-r" data-part="eye-r" data-pivot="240 170">
+<g id="zubek-confused-eye-r-open" data-state="open" visibility="visible"><ellipse cx="240" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-confused-eye-r-happy" data-state="happy" visibility="hidden"><path d="M230 173Q240 155 250 173" fill="none"/></g>
+</g><g id="zubek-confused-lid-r" data-part="lid-r" data-pivot="240 170" visibility="hidden">
+<path d="M230 170Q240 181 250 170" fill="none"/>
+</g><path d="M148 148Q160 136 174 144 M227 146Q241 139 252 148" fill="none"/><path d="M158 204Q199 190 241 204C266 213 270 244 250 258 231 269 170 269 149 257 128 245 132 215 158 204Z" fill="#1E2132"/><ellipse cx="170" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><ellipse cx="230" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><g id="zubek-confused-mouth" data-part="mouth" data-pivot="200 246">
+<g id="zubek-confused-mouth-closed" data-state="closed" visibility="visible"><path d="M183 240Q200 253 217 240L215 246Q200 260 185 246Z" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-confused-mouth-open-s" data-state="open-s" visibility="hidden"><ellipse cx="200" cy="246" rx="10" ry="8" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-confused-mouth-open-l" data-state="open-l" visibility="hidden"><ellipse cx="200" cy="245" rx="17" ry="14" fill="#FFFFFF" stroke="none"/></g>
+</g>
+</g><g id="zubek-confused-accessory" data-part="accessory" data-pivot="203 308">
+<path d="M161 285Q200 303 242 283L246 303Q202 326 157 305Z" fill="#D91F3B"/><path d="M203 292 218 308 203 324 188 308Z" fill="#FFFFFF"/>
+</g><g id="zubek-confused-prop" data-part="prop" data-pivot="354 102">
+<path d="M333 87Q334 65 354 65 378 65 378 87 378 103 359 110L354 119" fill="none"/><ellipse cx="354" cy="141" rx="5" ry="5" fill="#1E2132" stroke="none"/>
+</g><g id="zubek-confused-arm-l" data-part="arm-l" data-pivot="139 263">
+<path d="M144 264Q121 248 103 273L79 265 66 246Q56 238 48 249L45 271 63 289 99 307Q124 316 151 286Z" fill="#FFC21A"/><path d="M79 265 66 246Q56 238 48 249L45 271 63 289 86 294Z" fill="#1E2132"/>
+</g><g id="zubek-confused-arm-r" data-part="arm-r" data-pivot="269 276">
+<path d="M265 265Q283 249 299 273L325 264 337 246Q347 237 355 249L358 271 340 290 305 307Q280 316 257 289Z" fill="#FFC21A"/><path d="M325 264 337 246Q347 237 355 249L358 271 340 290 316 294Z" fill="#1E2132"/>
+</g>
+</g>
+</g>
+</svg>
+</template>
+<template id="template-sleep"><svg xmlns="http://www.w3.org/2000/svg" id="zubek-sleep" viewBox="0 0 400 480" role="img" aria-label="Żubek dozes with folded arms." data-ground="448" data-default-eyes="closed" data-default-mouth="closed" fill="none" stroke="#1E2132" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+<g id="zubek-sleep-shadow" data-part="shadow" data-pivot="200 454" visibility="visible">
+<ellipse cx="201" cy="454" rx="83" ry="5" fill="#1E2132" stroke="none" opacity="0.12"/>
+</g>
+<g id="zubek-sleep-character" data-rig="character" data-pivot="200 448">
+<g id="zubek-sleep-stance" data-rig="stance">
+<g id="zubek-sleep-leg-l" data-part="leg-l" data-pivot="160 359">
+<path d="M139 353 183 356 177 430H128Z" fill="#FFC21A"/><path d="M130 407H180L177 444H126Z" fill="#1E2132"/>
+</g><g id="zubek-sleep-leg-r" data-part="leg-r" data-pivot="248 357">
+<path d="M225 353 270 348 281 430H232Z" fill="#FFC21A"/><path d="M229 407H278L284 444H233Z" fill="#1E2132"/>
+</g><g id="zubek-sleep-body" data-part="body" data-pivot="200 330">
+<path d="M135 245C111 271 112 320 124 353 133 381 164 393 207 391 249 393 280 375 285 346 292 308 282 268 261 248Z" fill="#FFC21A"/>
+</g><g id="zubek-sleep-head" data-part="head" data-pivot="201 270">
+<path d="M139 135Q108 149 88 128L77 114Q111 101 142 114Z" fill="#FFC21A"/><path d="M260 135Q291 149 313 126L324 112Q287 100 258 115Z" fill="#FFC21A"/><path d="M139 126C105 127 94 101 105 70Q84 81 85 104C85 131 106 151 139 152Z" fill="#FFFFFF"/><path d="M260 126C294 126 306 101 295 70Q316 81 315 104C315 131 294 151 260 152Z" fill="#FFFFFF"/><path d="M142 114 155 94 177 103 199 88 221 103 245 96 258 115C284 128 294 151 291 185L301 204 285 218 288 240 269 244 255 264 236 260 215 282H183L163 261 144 265 130 244 112 241 115 221 101 205 111 188C104 151 116 128 142 114Z" fill="#FFC21A"/><g id="zubek-sleep-eye-l" data-part="eye-l" data-pivot="160 170">
+<g id="zubek-sleep-eye-l-open" data-state="open" visibility="hidden"><ellipse cx="160" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-sleep-eye-l-happy" data-state="happy" visibility="hidden"><path d="M150 173Q160 155 170 173" fill="none"/></g>
+</g><g id="zubek-sleep-lid-l" data-part="lid-l" data-pivot="160 170" visibility="visible">
+<path d="M150 170Q160 181 170 170" fill="none"/>
+</g><g id="zubek-sleep-eye-r" data-part="eye-r" data-pivot="240 170">
+<g id="zubek-sleep-eye-r-open" data-state="open" visibility="hidden"><ellipse cx="240" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-sleep-eye-r-happy" data-state="happy" visibility="hidden"><path d="M230 173Q240 155 250 173" fill="none"/></g>
+</g><g id="zubek-sleep-lid-r" data-part="lid-r" data-pivot="240 170" visibility="visible">
+<path d="M230 170Q240 181 250 170" fill="none"/>
+</g><path d="M158 204Q199 190 241 204C266 213 270 244 250 258 231 269 170 269 149 257 128 245 132 215 158 204Z" fill="#1E2132"/><ellipse cx="170" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><ellipse cx="230" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><g id="zubek-sleep-mouth" data-part="mouth" data-pivot="200 246">
+<g id="zubek-sleep-mouth-closed" data-state="closed" visibility="visible"><path d="M183 240Q200 253 217 240L215 246Q200 260 185 246Z" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-sleep-mouth-open-s" data-state="open-s" visibility="hidden"><ellipse cx="200" cy="246" rx="10" ry="8" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-sleep-mouth-open-l" data-state="open-l" visibility="hidden"><ellipse cx="200" cy="245" rx="17" ry="14" fill="#FFFFFF" stroke="none"/></g>
+</g>
+</g><g id="zubek-sleep-accessory" data-part="accessory" data-pivot="203 308">
+<path d="M161 285Q200 303 242 283L246 303Q202 326 157 305Z" fill="#D91F3B"/><path d="M203 292 218 308 203 324 188 308Z" fill="#FFFFFF"/>
+</g><g id="zubek-sleep-prop" data-part="prop" data-pivot="350 108">
+<path d="M360 74C328 74 316 109 335 130 348 144 368 139 378 125 351 127 340 98 360 74Z" fill="#2F5BEA"/><path d="M318 166 323 156 328 166 338 171 328 176 323 186 318 176 308 171Z" fill="#FFC21A"/>
+</g><g id="zubek-sleep-arm-l" data-part="arm-l" data-pivot="139 263">
+<path d="M142 264Q115 267 116 292 116 313 141 324L212 344 228 326 208 309 153 294 154 278Z" fill="#FFC21A"/><path d="M208 309 228 326 212 344 185 336 188 314Z" fill="#1E2132"/>
+</g><g id="zubek-sleep-arm-r" data-part="arm-r" data-pivot="269 276">
+<path d="M267 264Q290 270 288 295 285 315 261 326L192 344 175 327 195 309 254 294 252 279Z" fill="#FFC21A"/><path d="M195 309 175 327 192 344 220 337 216 315Z" fill="#1E2132"/>
+</g>
+</g>
+</g>
+</svg>
+</template>
+<template id="template-cards"><svg xmlns="http://www.w3.org/2000/svg" id="zubek-cards" viewBox="0 0 400 480" role="img" aria-label="Żubek holds vocabulary cards." data-ground="448" data-default-eyes="open" data-default-mouth="closed" fill="none" stroke="#1E2132" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+<g id="zubek-cards-shadow" data-part="shadow" data-pivot="200 454" visibility="visible">
+<ellipse cx="201" cy="454" rx="83" ry="5" fill="#1E2132" stroke="none" opacity="0.12"/>
+</g>
+<g id="zubek-cards-character" data-rig="character" data-pivot="200 448">
+<g id="zubek-cards-stance" data-rig="stance">
+<g id="zubek-cards-leg-l" data-part="leg-l" data-pivot="160 359">
+<path d="M139 353 183 356 177 430H128Z" fill="#FFC21A"/><path d="M130 407H180L177 444H126Z" fill="#1E2132"/>
+</g><g id="zubek-cards-leg-r" data-part="leg-r" data-pivot="248 357">
+<path d="M225 353 270 348 281 430H232Z" fill="#FFC21A"/><path d="M229 407H278L284 444H233Z" fill="#1E2132"/>
+</g><g id="zubek-cards-body" data-part="body" data-pivot="200 330">
+<path d="M135 245C111 271 112 320 124 353 133 381 164 393 207 391 249 393 280 375 285 346 292 308 282 268 261 248Z" fill="#FFC21A"/>
+</g><g id="zubek-cards-head" data-part="head" data-pivot="201 270">
+<path d="M139 135Q108 149 88 128L77 114Q111 101 142 114Z" fill="#FFC21A"/><path d="M260 135Q291 149 313 126L324 112Q287 100 258 115Z" fill="#FFC21A"/><path d="M139 126C105 127 94 101 105 70Q84 81 85 104C85 131 106 151 139 152Z" fill="#FFFFFF"/><path d="M260 126C294 126 306 101 295 70Q316 81 315 104C315 131 294 151 260 152Z" fill="#FFFFFF"/><path d="M142 114 155 94 177 103 199 88 221 103 245 96 258 115C284 128 294 151 291 185L301 204 285 218 288 240 269 244 255 264 236 260 215 282H183L163 261 144 265 130 244 112 241 115 221 101 205 111 188C104 151 116 128 142 114Z" fill="#FFC21A"/><g id="zubek-cards-eye-l" data-part="eye-l" data-pivot="160 170">
+<g id="zubek-cards-eye-l-open" data-state="open" visibility="visible"><ellipse cx="160" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-cards-eye-l-happy" data-state="happy" visibility="hidden"><path d="M150 173Q160 155 170 173" fill="none"/></g>
+</g><g id="zubek-cards-lid-l" data-part="lid-l" data-pivot="160 170" visibility="hidden">
+<path d="M150 170Q160 181 170 170" fill="none"/>
+</g><g id="zubek-cards-eye-r" data-part="eye-r" data-pivot="240 170">
+<g id="zubek-cards-eye-r-open" data-state="open" visibility="visible"><ellipse cx="240" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-cards-eye-r-happy" data-state="happy" visibility="hidden"><path d="M230 173Q240 155 250 173" fill="none"/></g>
+</g><g id="zubek-cards-lid-r" data-part="lid-r" data-pivot="240 170" visibility="hidden">
+<path d="M230 170Q240 181 250 170" fill="none"/>
+</g><path d="M158 204Q199 190 241 204C266 213 270 244 250 258 231 269 170 269 149 257 128 245 132 215 158 204Z" fill="#1E2132"/><ellipse cx="170" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><ellipse cx="230" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><g id="zubek-cards-mouth" data-part="mouth" data-pivot="200 246">
+<g id="zubek-cards-mouth-closed" data-state="closed" visibility="visible"><path d="M183 240Q200 253 217 240L215 246Q200 260 185 246Z" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-cards-mouth-open-s" data-state="open-s" visibility="hidden"><ellipse cx="200" cy="246" rx="10" ry="8" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-cards-mouth-open-l" data-state="open-l" visibility="hidden"><ellipse cx="200" cy="245" rx="17" ry="14" fill="#FFFFFF" stroke="none"/></g>
+</g>
+</g><g id="zubek-cards-accessory" data-part="accessory" data-pivot="203 308">
+<path d="M161 285Q200 303 242 283L246 303Q202 326 157 305Z" fill="#D91F3B"/><path d="M203 292 218 308 203 324 188 308Z" fill="#FFFFFF"/>
+</g><g id="zubek-cards-prop" data-part="prop" data-pivot="201 342">
+<path d="M137 306 204 289Q213 287 216 297L236 369 156 390 132 319Q129 308 137 306Z" fill="#FFFFFF"/><path d="M194 308 267 322Q278 324 276 336L262 398 180 382 187 318Q188 306 194 308Z" fill="#FFFFFF"/><path d="M164 326 180 307 196 322 180 341Z" fill="#D91F3B"/><ellipse cx="231" cy="345" rx="12" ry="12" fill="#2F5BEA"/><path d="M210 372 247 380" fill="none"/>
+</g><g id="zubek-cards-arm-l" data-part="arm-l" data-pivot="139 263">
+<path d="M144 264Q117 268 113 294L111 323Q116 346 138 342L169 330 166 308 142 312 151 281Z" fill="#FFC21A"/><path d="M142 312 166 308 169 330 138 342Q124 342 122 327Z" fill="#1E2132"/>
+</g><g id="zubek-cards-arm-r" data-part="arm-r" data-pivot="269 276">
+<path d="M264 264Q289 269 295 294L298 322Q293 344 270 341L239 329 243 307 269 311 256 281Z" fill="#FFC21A"/><path d="M269 311 243 307 239 329 270 341Q284 342 287 326Z" fill="#1E2132"/>
+</g>
+</g>
+</g>
+</svg>
+</template>
+<template id="template-trophy"><svg xmlns="http://www.w3.org/2000/svg" id="zubek-trophy" viewBox="0 0 400 480" role="img" aria-label="Żubek holds a star trophy." data-ground="448" data-default-eyes="open" data-default-mouth="closed" fill="none" stroke="#1E2132" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+<g id="zubek-trophy-shadow" data-part="shadow" data-pivot="200 454" visibility="visible">
+<ellipse cx="201" cy="454" rx="83" ry="5" fill="#1E2132" stroke="none" opacity="0.12"/>
+</g>
+<g id="zubek-trophy-character" data-rig="character" data-pivot="200 448">
+<g id="zubek-trophy-stance" data-rig="stance">
+<g id="zubek-trophy-leg-l" data-part="leg-l" data-pivot="160 359">
+<path d="M139 353 183 356 177 430H128Z" fill="#FFC21A"/><path d="M130 407H180L177 444H126Z" fill="#1E2132"/>
+</g><g id="zubek-trophy-leg-r" data-part="leg-r" data-pivot="248 357">
+<path d="M225 353 270 348 281 430H232Z" fill="#FFC21A"/><path d="M229 407H278L284 444H233Z" fill="#1E2132"/>
+</g><g id="zubek-trophy-body" data-part="body" data-pivot="200 330">
+<path d="M135 245C111 271 112 320 124 353 133 381 164 393 207 391 249 393 280 375 285 346 292 308 282 268 261 248Z" fill="#FFC21A"/>
+</g><g id="zubek-trophy-head" data-part="head" data-pivot="201 270">
+<path d="M139 135Q108 149 88 128L77 114Q111 101 142 114Z" fill="#FFC21A"/><path d="M260 135Q291 149 313 126L324 112Q287 100 258 115Z" fill="#FFC21A"/><path d="M139 126C105 127 94 101 105 70Q84 81 85 104C85 131 106 151 139 152Z" fill="#FFFFFF"/><path d="M260 126C294 126 306 101 295 70Q316 81 315 104C315 131 294 151 260 152Z" fill="#FFFFFF"/><path d="M142 114 155 94 177 103 199 88 221 103 245 96 258 115C284 128 294 151 291 185L301 204 285 218 288 240 269 244 255 264 236 260 215 282H183L163 261 144 265 130 244 112 241 115 221 101 205 111 188C104 151 116 128 142 114Z" fill="#FFC21A"/><g id="zubek-trophy-eye-l" data-part="eye-l" data-pivot="160 170">
+<g id="zubek-trophy-eye-l-open" data-state="open" visibility="visible"><ellipse cx="160" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-trophy-eye-l-happy" data-state="happy" visibility="hidden"><path d="M150 173Q160 155 170 173" fill="none"/></g>
+</g><g id="zubek-trophy-lid-l" data-part="lid-l" data-pivot="160 170" visibility="hidden">
+<path d="M150 170Q160 181 170 170" fill="none"/>
+</g><g id="zubek-trophy-eye-r" data-part="eye-r" data-pivot="240 170">
+<g id="zubek-trophy-eye-r-open" data-state="open" visibility="visible"><ellipse cx="240" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-trophy-eye-r-happy" data-state="happy" visibility="hidden"><path d="M230 173Q240 155 250 173" fill="none"/></g>
+</g><g id="zubek-trophy-lid-r" data-part="lid-r" data-pivot="240 170" visibility="hidden">
+<path d="M230 170Q240 181 250 170" fill="none"/>
+</g><path d="M158 204Q199 190 241 204C266 213 270 244 250 258 231 269 170 269 149 257 128 245 132 215 158 204Z" fill="#1E2132"/><ellipse cx="170" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><ellipse cx="230" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><g id="zubek-trophy-mouth" data-part="mouth" data-pivot="200 246">
+<g id="zubek-trophy-mouth-closed" data-state="closed" visibility="visible"><path d="M183 240Q200 253 217 240L215 246Q200 260 185 246Z" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-trophy-mouth-open-s" data-state="open-s" visibility="hidden"><ellipse cx="200" cy="246" rx="10" ry="8" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-trophy-mouth-open-l" data-state="open-l" visibility="hidden"><ellipse cx="200" cy="245" rx="17" ry="14" fill="#FFFFFF" stroke="none"/></g>
+</g>
+</g><g id="zubek-trophy-accessory" data-part="accessory" data-pivot="203 308">
+<path d="M161 285Q200 303 242 283L246 303Q202 326 157 305Z" fill="#D91F3B"/><path d="M203 292 218 308 203 324 188 308Z" fill="#FFFFFF"/>
+</g><g id="zubek-trophy-prop" data-part="prop" data-pivot="209 328">
+<path d="M169 296H145V313Q145 343 176 343 M248 296H272V313Q272 343 242 343" fill="#FFFFFF"/><path d="M169 284H248V320Q248 351 210 357 169 351 169 320Z" fill="#FFC21A"/><path d="M201 356H218V380H236V395H181V380H201Z" fill="#FFC21A"/><path d="M208 298 214 310 228 312 218 322 220 336 208 329 196 336 198 322 188 312 202 310Z" fill="#FFFFFF"/>
+</g><g id="zubek-trophy-arm-l" data-part="arm-l" data-pivot="139 263">
+<path d="M144 264Q117 268 113 294L111 323Q116 346 138 342L169 330 166 308 142 312 151 281Z" fill="#FFC21A"/><path d="M142 312 166 308 169 330 138 342Q124 342 122 327Z" fill="#1E2132"/>
+</g><g id="zubek-trophy-arm-r" data-part="arm-r" data-pivot="269 276">
+<path d="M264 264Q289 269 295 294L298 322Q293 344 270 341L239 329 243 307 269 311 256 281Z" fill="#FFC21A"/><path d="M269 311 243 307 239 329 270 341Q284 342 287 326Z" fill="#1E2132"/>
+</g>
+</g>
+</g>
+</svg>
+</template>
+<template id="template-travel"><svg xmlns="http://www.w3.org/2000/svg" id="zubek-travel" viewBox="0 0 400 480" role="img" aria-label="Żubek carries a small suitcase." data-ground="448" data-default-eyes="open" data-default-mouth="closed" fill="none" stroke="#1E2132" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+<g id="zubek-travel-shadow" data-part="shadow" data-pivot="200 454" visibility="visible">
+<ellipse cx="201" cy="454" rx="83" ry="5" fill="#1E2132" stroke="none" opacity="0.12"/>
+</g>
+<g id="zubek-travel-character" data-rig="character" data-pivot="200 448">
+<g id="zubek-travel-stance" data-rig="stance">
+<g id="zubek-travel-leg-l" data-part="leg-l" data-pivot="160 359">
+<path d="M139 353 183 356 177 430H128Z" fill="#FFC21A"/><path d="M130 407H180L177 444H126Z" fill="#1E2132"/>
+</g><g id="zubek-travel-leg-r" data-part="leg-r" data-pivot="248 357">
+<path d="M225 353 270 348 281 430H232Z" fill="#FFC21A"/><path d="M229 407H278L284 444H233Z" fill="#1E2132"/>
+</g><g id="zubek-travel-body" data-part="body" data-pivot="200 330">
+<path d="M135 245C111 271 112 320 124 353 133 381 164 393 207 391 249 393 280 375 285 346 292 308 282 268 261 248Z" fill="#FFC21A"/>
+</g><g id="zubek-travel-head" data-part="head" data-pivot="201 270">
+<path d="M139 135Q108 149 88 128L77 114Q111 101 142 114Z" fill="#FFC21A"/><path d="M260 135Q291 149 313 126L324 112Q287 100 258 115Z" fill="#FFC21A"/><path d="M139 126C105 127 94 101 105 70Q84 81 85 104C85 131 106 151 139 152Z" fill="#FFFFFF"/><path d="M260 126C294 126 306 101 295 70Q316 81 315 104C315 131 294 151 260 152Z" fill="#FFFFFF"/><path d="M142 114 155 94 177 103 199 88 221 103 245 96 258 115C284 128 294 151 291 185L301 204 285 218 288 240 269 244 255 264 236 260 215 282H183L163 261 144 265 130 244 112 241 115 221 101 205 111 188C104 151 116 128 142 114Z" fill="#FFC21A"/><g id="zubek-travel-eye-l" data-part="eye-l" data-pivot="160 170">
+<g id="zubek-travel-eye-l-open" data-state="open" visibility="visible"><ellipse cx="160" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-travel-eye-l-happy" data-state="happy" visibility="hidden"><path d="M150 173Q160 155 170 173" fill="none"/></g>
+</g><g id="zubek-travel-lid-l" data-part="lid-l" data-pivot="160 170" visibility="hidden">
+<path d="M150 170Q160 181 170 170" fill="none"/>
+</g><g id="zubek-travel-eye-r" data-part="eye-r" data-pivot="240 170">
+<g id="zubek-travel-eye-r-open" data-state="open" visibility="visible"><ellipse cx="240" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-travel-eye-r-happy" data-state="happy" visibility="hidden"><path d="M230 173Q240 155 250 173" fill="none"/></g>
+</g><g id="zubek-travel-lid-r" data-part="lid-r" data-pivot="240 170" visibility="hidden">
+<path d="M230 170Q240 181 250 170" fill="none"/>
+</g><path d="M158 204Q199 190 241 204C266 213 270 244 250 258 231 269 170 269 149 257 128 245 132 215 158 204Z" fill="#1E2132"/><ellipse cx="170" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><ellipse cx="230" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><g id="zubek-travel-mouth" data-part="mouth" data-pivot="200 246">
+<g id="zubek-travel-mouth-closed" data-state="closed" visibility="visible"><path d="M183 240Q200 253 217 240L215 246Q200 260 185 246Z" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-travel-mouth-open-s" data-state="open-s" visibility="hidden"><ellipse cx="200" cy="246" rx="10" ry="8" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-travel-mouth-open-l" data-state="open-l" visibility="hidden"><ellipse cx="200" cy="245" rx="17" ry="14" fill="#FFFFFF" stroke="none"/></g>
+</g>
+</g><g id="zubek-travel-accessory" data-part="accessory" data-pivot="203 308">
+<path d="M161 285Q200 303 242 283L246 303Q202 326 157 305Z" fill="#D91F3B"/><path d="M203 292 218 308 203 324 188 308Z" fill="#FFFFFF"/>
+</g><g id="zubek-travel-prop" data-part="prop" data-pivot="325 316">
+<path d="M306 335V316Q306 308 315 308H335Q344 308 344 316V335" fill="#FFFFFF"/><path d="M288 334H370Q379 334 379 344V412Q379 422 369 422H289Q279 422 279 412V344Q279 334 288 334Z" fill="#D91F3B"/><path d="M283 402H375V412Q375 418 368 418H289Q283 418 283 412Z" fill="#A3142B" stroke="none"/><path d="M297 337V419M359 337V419" fill="none"/><path d="M327 358 344 375 327 393 310 375Z" fill="#FFC21A"/>
+</g><g id="zubek-travel-arm-l" data-part="arm-l" data-pivot="139 263">
+<path d="M139 260Q101 271 99 317L105 353Q128 365 141 346L135 315 154 291Z" fill="#FFC21A"/><path d="M101 326 136 322 141 346Q128 365 105 353Z" fill="#1E2132"/>
+</g><g id="zubek-travel-arm-r" data-part="arm-r" data-pivot="269 276">
+<path d="M266 262Q293 265 302 292L314 317 337 320 341 339 320 351 297 339 280 308 258 290Z" fill="#FFC21A"/><path d="M314 317 337 320 341 339 320 351 305 342 305 323Z" fill="#1E2132"/>
+</g>
+</g>
+</g>
+</svg>
+</template>
+<script>
+// Embedded into rig-demo.html by build-zubek.py, so file:// needs no fetch.
+// This is a review tool, not production animation code or an audio lip-sync API.
+(() => {
+  'use strict';
+  const stage = document.querySelector('#stage');
+  const select = document.querySelector('#pose');
+  const status = document.querySelector('#status');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  let busy = false;
+  let pose = 'hello';
+  const puppet = () => stage.querySelector('svg');
+  const part = name => puppet().querySelector(`[data-part="${name}"]`);
+
+  function setEyes(state) {
+    for (const side of ['l', 'r']) {
+      for (const node of part(`eye-${side}`).querySelectorAll('[data-state]')) {
+        node.setAttribute('visibility', node.dataset.state === state ? 'visible' : 'hidden');
+      }
+      part(`lid-${side}`).setAttribute('visibility', state === 'closed' ? 'visible' : 'hidden');
+    }
+    puppet().dataset.eyes = state;
+  }
+
+  function setMouth(state) {
+    for (const node of part('mouth').querySelectorAll('[data-state]')) {
+      node.setAttribute('visibility', node.dataset.state === state ? 'visible' : 'hidden');
+    }
+    puppet().dataset.mouth = state;
+  }
+
+  function setPose(next) {
+    if (busy) return;
+    const template = document.getElementById(`template-${next}`);
+    if (!template) throw new Error(`Unknown pose: ${next}`);
+    pose = next;
+    select.value = next;
+    stage.replaceChildren(template.content.cloneNode(true));
+    setEyes(puppet().dataset.defaultEyes);
+    setMouth(puppet().dataset.defaultMouth);
+    document.querySelector('#pivots').textContent = [...puppet().querySelectorAll('[data-part]')]
+      .map(node => `${node.dataset.part.padEnd(10)} ${node.dataset.pivot}`).join('\n');
+    status.textContent = `${next}: ${puppet().dataset.eyes} eyes, closed mouth. Ready.`;
+  }
+
+  async function animate(node, frames, duration, easing = 'ease-in-out') {
+    node.style.transformBox = 'view-box';
+    const [x, y] = node.dataset.pivot.split(' ').map(Number);
+    node.style.transformOrigin = `${x}px ${y}px`;
+    const animation = node.animate(frames, { duration, easing, fill: 'none' });
+    try {
+      await animation.finished;
+    } finally {
+      animation.cancel();
+    }
+  }
+
+  // A neutral WAAPI clock: avoids timers, network and animation packages.
+  async function hold(duration) {
+    const clock = stage.animate([{ opacity: 1 }, { opacity: 1 }], { duration });
+    try {
+      await clock.finished;
+    } finally {
+      clock.cancel();
+    }
+  }
+
+  async function blink() {
+    const previous = puppet().dataset.eyes;
+    if (previous === 'closed') {
+      setEyes('open');
+      await hold(180);
+      setEyes('closed');
+      return;
+    }
+    if (!reduced.matches) {
+      await Promise.all(['l', 'r'].map(side => animate(part(`eye-${side}`), [
+        { transform: 'scaleY(1)' }, { transform: 'scaleY(0.12)' },
+      ], 75)));
+    }
+    setEyes('closed');
+    await hold(85);
+    setEyes(previous);
+    if (!reduced.matches) {
+      await Promise.all(['l', 'r'].map(side => animate(part(`eye-${side}`), [
+        { transform: 'scaleY(0.12)' }, { transform: 'scaleY(1)' },
+      ], 95)));
+    }
+  }
+
+  async function talk() {
+    for (const state of ['closed', 'open-s', 'open-l', 'open-s', 'closed', 'open-s', 'closed']) {
+      setMouth(state);
+      await hold(state === 'closed' ? 145 : 110);
+    }
+  }
+
+  const messages = {
+    blink: 'Blink complete; the previous eye expression was restored.',
+    talk: 'Talk preview complete: closed / open-s / open-l / closed.',
+    wave: 'Wave complete at the left shoulder pivot (139, 263).',
+    tilt: 'Head tilt complete at the neck pivot (201, 270).',
+    hop: 'Hop complete; the ground shadow stayed fixed.',
+    happy: 'Happy eyes enabled. Blink restores this expression; Reset restores the pose.',
+  };
+
+  async function run(action) {
+    if (busy) return;
+    if (action === 'reset') {
+      setPose(pose);
+      return;
+    }
+    if (reduced.matches && ['wave', 'tilt', 'hop'].includes(action)) {
+      status.textContent = 'Reduced motion is enabled. Transform motion stayed still; expression buttons remain available.';
+      return;
+    }
+    busy = true;
+    select.disabled = true;
+    const buttons = [...document.querySelectorAll('[data-action]')];
+    buttons.forEach(button => { button.disabled = true; });
+    status.textContent = `${action} preview…`;
+    try {
+      if (action === 'blink') await blink();
+      else if (action === 'talk') await talk();
+      else if (action === 'wave') await animate(part('arm-l'), [
+        { transform: 'rotate(0deg)' }, { transform: 'rotate(-18deg)', offset: 0.2 },
+        { transform: 'rotate(9deg)', offset: 0.4 }, { transform: 'rotate(-18deg)', offset: 0.6 },
+        { transform: 'rotate(6deg)', offset: 0.8 }, { transform: 'rotate(0deg)' },
+      ], 1100);
+      else if (action === 'tilt') await animate(part('head'), [
+        { transform: 'rotate(0deg)' }, { transform: 'rotate(-8deg)', offset: 0.35 },
+        { transform: 'rotate(6deg)', offset: 0.7 }, { transform: 'rotate(0deg)' },
+      ], 1000);
+      else if (action === 'hop') await animate(puppet().querySelector('[data-rig="character"]'), [
+        { transform: 'translateY(0px)' }, { transform: 'translateY(5px)', offset: 0.15 },
+        { transform: 'translateY(-25px)', offset: 0.5 }, { transform: 'translateY(0px)' },
+      ], 650, 'cubic-bezier(.3,0,.55,1)');
+      else if (action === 'happy') setEyes('happy');
+      else throw new Error(`Unknown action: ${action}`);
+      status.textContent = messages[action];
+    } catch (error) {
+      status.textContent = `Preview could not complete: ${error.message}`;
+      setEyes(puppet().dataset.defaultEyes);
+      setMouth('closed');
+      throw error;
+    } finally {
+      busy = false;
+      select.disabled = false;
+      buttons.forEach(button => { button.disabled = false; });
+    }
+  }
+
+  select.addEventListener('change', () => setPose(select.value));
+  document.querySelectorAll('[data-action]').forEach(button => {
+    button.addEventListener('click', () => {
+      run(button.dataset.action).catch(error => console.error(error));
+    });
+  });
+  document.querySelectorAll('[data-background]').forEach(button => {
+    button.addEventListener('click', () => {
+      stage.classList.remove('paper', 'canvas', 'crimson');
+      stage.classList.add(button.dataset.background);
+    });
+  });
+  setPose('hello');
+  // Small inspection surface for the browser verification script.
+  window.zubekRigDemo = Object.freeze({
+    run, setPose,
+    getState: () => ({ pose, busy, eyes: puppet().dataset.eyes, mouth: puppet().dataset.mouth }),
+  });
+})();
+
+</script></main></body></html>
