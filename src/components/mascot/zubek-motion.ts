@@ -12,6 +12,7 @@
 // (html.a11y-pause-animations). Loops pause while off screen.
 import { gsap } from 'gsap';
 import type { ZubekPose } from './zubek-svgs';
+import { ZUBEK_EVENT, type ZubekCue } from './zubek-bus';
 
 const rand = gsap.utils.random;
 const CONFETTI = ['#D91F3B', '#FFC21A', '#2F5BEA', '#15803D', '#D6338A'];
@@ -143,6 +144,28 @@ function confetti(root: HTMLElement, pieces = 16) {
   }
 }
 
+/** Easter egg (three quick taps): a full backflip with a big hop. */
+function backflip(r: Rig) {
+  const tl = gsap.timeline();
+  tl.to(r.character, { svgOrigin: '200 448', scaleY: 0.86, scaleX: 1.1, duration: 0.12, ease: 'power2.out' })
+    .to(r.character, { y: -90, scaleY: 1, scaleX: 1, duration: 0.3, ease: 'power2.out' })
+    .to(r.character, { svgOrigin: '200 300', rotation: -360, duration: 0.55, ease: 'power1.inOut' }, '<0.05')
+    .to(r.character, { y: 0, duration: 0.28, ease: 'power2.in' }, '-=0.25')
+    .set(r.character, { rotation: 0 })
+    .to(r.character, { svgOrigin: '200 448', scaleY: 0.88, scaleX: 1.1, duration: 0.1 })
+    .to(r.character, { scaleY: 1, scaleX: 1, duration: 0.6, ease: 'elastic.out(1, 0.35)' });
+  return tl;
+}
+
+/** Mouth flaps for as long as a word is playing. */
+function talkLoop(r: Rig) {
+  const states = ['open-s', 'open-l', 'open-s', 'closed'] as const;
+  const tl = gsap.timeline({ repeat: -1, onInterrupt: () => setMouth(r, 'closed') });
+  states.forEach((s, i) => tl.call(() => setMouth(r, s), [], i * 0.11));
+  tl.to({}, { duration: 0.44 }, 0);
+  return tl;
+}
+
 /** The idle action that fits each pose (README pose table). */
 function idleAction(r: Rig, pose: ZubekPose, base: Eyes) {
   const pick = Math.random();
@@ -182,6 +205,9 @@ export function animateZubek(root: HTMLElement, pose: ZubekPose): () => void {
   const loops: gsap.core.Animation[] = [];
   let idle: gsap.core.Tween | null = null;
   let blink: gsap.core.Tween | null = null;
+  let talking: gsap.core.Timeline | null = null;
+  let talkSafety: gsap.core.Tween | null = null;
+  let taps: number[] = [];
 
   const nextIdle = () => {
     idle = gsap.delayedCall(rand(4, 8), () => {
@@ -245,6 +271,7 @@ export function animateZubek(root: HTMLElement, pose: ZubekPose): () => void {
     running = false;
     idle?.kill(); idle = null;
     blink?.kill(); blink = null;
+    talking?.kill(); talking = null;
     loops.forEach((l) => l.kill());
     loops.length = 0;
     gsap.killTweensOf(r.svg.querySelectorAll('g'));
@@ -264,10 +291,59 @@ export function animateZubek(root: HTMLElement, pose: ZubekPose): () => void {
 
   const onTap = () => {
     if (!running) return;
+    const now = performance.now();
+    taps = [...taps.filter((ts) => now - ts < 1200), now];
+    if (taps.length >= 3) {
+      taps = [];
+      backflip(r);
+      happy(r, base, 1.4);
+      confetti(root, 14);
+      return;
+    }
     hop(r, 30);
     happy(r, base);
-    if (pose === 'hello' || pose === 'speak') talk(r);
+    if (pose === 'hello') talk(r);
     if (pose === 'celebrate') confetti(root, 10);
+  };
+
+  // Site-wide cues: a word is playing (lip-sync), a cheer, a kind "oops".
+  const onCue = (e: Event) => {
+    const cue = (e as CustomEvent<ZubekCue>).detail;
+    if (cue === 'talk-end') {
+      talking?.kill(); talking = null;
+      setMouth(r, 'closed');
+      return;
+    }
+    if (!running || !onScreen) return;
+    if (cue === 'talk-start') {
+      talking?.kill();
+      talkSafety?.kill();
+      talking = talkLoop(r);
+      // speechSynthesis can skip onend (tab switch, voice errors); never flap forever.
+      talkSafety = gsap.delayedCall(6, () => { talking?.kill(); talking = null; setMouth(r, 'closed'); });
+    } else if (cue === 'cheer') {
+      hop(r, 34);
+      happy(r, base, 1.4);
+      confetti(root, 14);
+    } else if (cue === 'oops') {
+      shrug(r);
+    }
+  };
+
+  // Eyes follow the pointer a little (mouse/trackpad only).
+  const eyes = [r.part('eye-l'), r.part('eye-r')].filter((e): e is SVGGElement => !!e);
+  const lookX = eyes.map((e) => gsap.quickTo(e, 'x', { duration: 0.45, ease: 'power3.out' }));
+  const lookY = eyes.map((e) => gsap.quickTo(e, 'y', { duration: 0.45, ease: 'power3.out' }));
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  const onPointer = (e: PointerEvent) => {
+    if (!running || !onScreen || base === 'closed') return;
+    const b = root.getBoundingClientRect();
+    const dx = e.clientX - (b.left + b.width / 2);
+    const dy = e.clientY - (b.top + b.height * 0.35);
+    const d = Math.max(Math.hypot(dx, dy), 1);
+    const reach = Math.min(d / 260, 1) * 5;
+    lookX.forEach((f) => f((dx / d) * reach));
+    lookY.forEach((f) => f((dy / d) * reach * 0.8));
   };
 
   const sync = () => (motionOff() ? stop() : start());
@@ -279,8 +355,12 @@ export function animateZubek(root: HTMLElement, pose: ZubekPose): () => void {
   mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
   mq.addEventListener('change', sync);
   root.addEventListener('click', onTap);
+  window.addEventListener(ZUBEK_EVENT, onCue);
+  if (finePointer) window.addEventListener('pointermove', onPointer, { passive: true });
 
   return () => {
+    window.removeEventListener(ZUBEK_EVENT, onCue);
+    window.removeEventListener('pointermove', onPointer);
     io.disconnect();
     mo.disconnect();
     mq.removeEventListener('change', sync);

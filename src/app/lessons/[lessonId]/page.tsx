@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import {
   ArrowLeft, ArrowRight, CheckCircle2, Clock, Brain, BookOpen, Landmark,
-  MessagesSquare, MessageCircle, RotateCcw, PartyPopper, Flag,
+  MessagesSquare, MessageCircle, RotateCcw,
 } from 'lucide-react';
 import { lessons } from '@/data/lessons';
 import { useProgress } from '@/hooks/useProgress';
@@ -18,6 +18,8 @@ import TableOfContents from '@/components/layout/TableOfContents';
 import StarRating from '@/components/shared/StarRating';
 import ShareBox from '@/components/shared/ShareBox';
 import CommentSection from '@/components/shared/CommentSection';
+import Zubek from '@/components/shared/Zubek';
+import LessonBuddy from '@/components/lessons/LessonBuddy';
 import type { ContentBlockType } from '@/lib/types';
 
 const blockStyle: Record<ContentBlockType, { icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; tone: string }> = {
@@ -83,6 +85,8 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
             </div>
           </header>
 
+          <LessonBuddy lesson={lesson} />
+
           <div className="space-y-6 md:space-y-8">
             {lesson.content.map((block, i) => {
               const { icon: Icon, tone: blockTone } = blockStyle[block.type];
@@ -127,9 +131,8 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
             }`}
           >
             <div className="flex items-center gap-3 flex-1 min-w-0">
-              <span className={`icon-badge ${completed ? 'bg-emerald text-white' : 'bg-paper text-crimson-ink'}`}>
-                {completed ? <PartyPopper className="w-5 h-5" strokeWidth={2.4} /> : <Flag className="w-5 h-5" strokeWidth={2.4} />}
-              </span>
+              {/* Thinks until the lesson is marked complete, then celebrates (remount = confetti entrance). */}
+              <Zubek key={completed ? 'done' : 'todo'} pose={completed ? 'celebrate' : 'think'} className="w-16 md:w-20 shrink-0" />
               <p className={`font-display text-lg font-semibold leading-snug ${completed ? 'text-emerald-ink' : 'text-ink'}`}>
                 {completed ? 'Nice work, this lesson is complete.' : 'Finished this lesson? Mark it complete to track your progress.'}
               </p>

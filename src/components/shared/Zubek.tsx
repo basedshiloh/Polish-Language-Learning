@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useMemo, useRef } from 'react';
 import { ZUBEK_SVG, type ZubekPose } from '@/components/mascot/zubek-svgs';
 
 // Żubek, the PolishPal study buddy (art + rig spec: design/mascot/README.md).
@@ -34,19 +34,37 @@ interface Props {
   decorative?: boolean;
 }
 
-export default function Zubek({ pose, className = '', decorative = true }: Props) {
+// memo + a stable __html object: if a parent re-render re-applied the markup,
+// React would swap in fresh SVG nodes and GSAP would keep animating the old,
+// detached ones (seen on the lesson buddy: Żubek froze after the first tap).
+function Zubek({ pose, className = '', decorative = true }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
+  const html = useMemo(() => ({ __html: ZUBEK_SVG[pose] }), [pose]);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     let cleanup: (() => void) | undefined;
     let cancelled = false;
+    let observer: MutationObserver | undefined;
     import('@/components/mascot/zubek-motion').then(({ animateZubek }) => {
-      if (!cancelled) cleanup = animateZubek(el, pose);
+      if (cancelled) return;
+      cleanup = animateZubek(el, pose);
+      // Safety net: if the SVG itself is ever replaced, re-attach to the new
+      // nodes. (Confetti pieces are also appended here, so compare the svg.)
+      let svg = el.querySelector(':scope > svg');
+      observer = new MutationObserver(() => {
+        const now = el.querySelector(':scope > svg');
+        if (now === svg) return;
+        svg = now;
+        cleanup?.();
+        cleanup = animateZubek(el, pose);
+      });
+      observer.observe(el, { childList: true });
     });
     return () => {
       cancelled = true;
+      observer?.disconnect();
       cleanup?.();
     };
   }, [pose]);
@@ -59,7 +77,9 @@ export default function Zubek({ pose, className = '', decorative = true }: Props
       aria-label={decorative ? undefined : ALT[pose]}
       aria-hidden={decorative || undefined}
       className={`zubek ${className}`}
-      dangerouslySetInnerHTML={{ __html: ZUBEK_SVG[pose] }}
+      dangerouslySetInnerHTML={html}
     />
   );
 }
+
+export default memo(Zubek);

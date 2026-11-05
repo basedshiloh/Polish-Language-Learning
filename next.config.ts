@@ -16,6 +16,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Share-card fonts are read from disk by the /og route at request time too.
+  outputFileTracingIncludes: { '/og/[kind]/[slug]': ['./src/assets/og/**'] },
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200],
