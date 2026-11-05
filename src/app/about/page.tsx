@@ -1,5 +1,6 @@
 import { Heart, BookOpen, ExternalLink, Users, AlertCircle, Globe } from 'lucide-react';
 import Wycinanka from '@/components/shared/Wycinanka';
+import Zubek from '@/components/shared/Zubek';
 
 const h2 = 'text-2xl md:text-[1.75rem] font-bold leading-tight';
 const link = 'font-bold text-cobalt-ink underline decoration-2 underline-offset-4 decoration-cobalt/30 hover:decoration-cobalt transition-colors';
@@ -19,7 +20,7 @@ export default function AboutPage() {
                 The story behind this project and why it exists.
               </p>
             </div>
-            <Wycinanka className="hidden md:block absolute -right-6 top-1/2 -translate-y-1/2 w-40 h-auto pp-float [--r:6deg]" />
+            <Zubek pose="hello" priority className="hidden md:block absolute -right-6 top-1/2 -translate-y-1/2 w-40 h-auto" />
           </div>
         </div>
       </div>

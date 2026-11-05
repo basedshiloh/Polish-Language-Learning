@@ -7,9 +7,9 @@ import { lessons } from '@/data/lessons';
 import { useProgress } from '@/hooks/useProgress';
 import LessonCard, { levelTone } from '@/components/lessons/LessonCard';
 import ProgressBar from '@/components/shared/ProgressBar';
-import Wycinanka from '@/components/shared/Wycinanka';
 import PageSidebar, { SidebarCard } from '@/components/layout/PageSidebar';
 import type { LessonLevel } from '@/lib/types';
+import Zubek from '@/components/shared/Zubek';
 
 type Filter = 'all' | LessonLevel;
 
@@ -77,7 +77,7 @@ export default function LessonsPage() {
             </div>
           </div>
 
-          <Wycinanka className="hidden md:block w-32 lg:w-40 shrink-0" />
+          <Zubek pose="teach" priority className="hidden md:block w-36 lg:w-44 h-auto shrink-0" />
         </div>
       </section>
 

@@ -5,8 +5,8 @@ import { Brain, ArrowRight, Trophy, Target, TrendingUp, Lightbulb } from 'lucide
 import { quizzes } from '@/data/quizzes';
 import { lessons } from '@/data/lessons';
 import { useProgress } from '@/hooks/useProgress';
-import Wycinanka from '@/components/shared/Wycinanka';
 import PageSidebar, { SidebarCard } from '@/components/layout/PageSidebar';
+import Zubek from '@/components/shared/Zubek';
 
 /** Cycled accent for the quiz number badge. */
 const NUMBER_TONES = [
@@ -44,9 +44,10 @@ export default function QuizzesPage() {
       {/* Header band */}
       <section className="bg-canvas border-b-2 border-line overflow-hidden">
         <div className="container-pp relative py-12 md:py-16">
-          <Wycinanka
-            withStem={false}
-            className="hidden md:block absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 w-44 lg:w-52 opacity-90 pp-float [--r:-8deg]"
+          <Zubek
+            pose="cards"
+            priority
+            className="hidden md:block absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 w-40 lg:w-48 h-auto"
           />
           <div className="max-w-2xl md:pr-56">
             <h1 className="text-4xl md:text-5xl font-semibold">Quizzes</h1>

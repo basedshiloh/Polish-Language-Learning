@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Suspense, useEffect, useState } from 'react';
 import { BookOpen, Table2, Brain, Newspaper, Search, ArrowRight } from 'lucide-react';
 import { useSearch, type SearchResult, type SearchEntry } from '@/hooks/useSearch';
+import Zubek from '@/components/shared/Zubek';
 
 const categoryMeta = {
   lesson:  { icon: BookOpen,  label: 'Lessons',    tone: 'bg-crimson-soft text-crimson-ink' },
@@ -141,9 +142,7 @@ function SearchResults() {
               </div>
             ) : (
               <div className="tile p-10 md:p-14 text-center">
-                <span className="icon-badge w-14 h-14 rounded-2xl bg-canvas text-muted mx-auto mb-4">
-                  <Search className="w-7 h-7" strokeWidth={2.4} />
-                </span>
+                <Zubek pose="confused" className="w-28 h-auto mx-auto mb-4" />
                 <p className="text-lg font-extrabold text-ink">No results for &ldquo;{query}&rdquo;</p>
                 <p className="text-base text-muted mt-1">Try different keywords or check the spelling.</p>
               </div>
