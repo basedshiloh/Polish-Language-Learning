@@ -4,6 +4,7 @@ import { ArrowRight, ExternalLink } from 'lucide-react';
 import CookieSettingsButton from '@/components/shared/CookieSettingsButton';
 import { blogCategoryStyles } from '@/data/blog';
 import type { BlogCategory } from '@/lib/types';
+import { AMAZON_DISCLOSURE } from '@/lib/affiliate';
 
 const LEARN_LINKS = [
   { label: 'Lessons', href: '/lessons' },
@@ -85,9 +86,12 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t-2 border-white/15 flex flex-col md:flex-row md:items-center justify-between gap-4 text-sm text-white/85">
-          <p className="font-semibold">
-            © 2026 PolishPal. Education is free and should be accessible to everyone.
-          </p>
+          <div>
+            <p className="font-semibold">
+              © 2026 PolishPal. Education is free and should be accessible to everyone.
+            </p>
+            <p className="mt-1 text-white/70">{AMAZON_DISCLOSURE}</p>
+          </div>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <a
               href="https://creativecommons.org/publicdomain/zero/1.0/deed.en"

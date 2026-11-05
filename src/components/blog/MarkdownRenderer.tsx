@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { BookOpen, Table2, ArrowRight } from 'lucide-react';
 import { slugify } from '@/lib/utils';
+import { isAmazonUrl, withAmazonTag } from '@/lib/affiliate';
 
 function InternalCard({ href, children }: { href: string; children: React.ReactNode }) {
   const isLesson = href.startsWith('/lessons/');
@@ -124,6 +125,19 @@ export default function MarkdownRenderer({ content }: { content: string }) {
         a: ({ href, title, children }) => {
           if (href?.startsWith('/lessons/') || href?.startsWith('/grammar/')) {
             return <InternalCard href={href}>{children}</InternalCard>;
+          }
+          if (isAmazonUrl(href)) {
+            // Affiliate link: tag it and mark it paid (Google: rel="sponsored").
+            return (
+              <a
+                href={withAmazonTag(href!)}
+                target="_blank"
+                rel="sponsored nofollow noopener noreferrer"
+                className="font-bold text-crimson-ink underline decoration-2 decoration-crimson/30 underline-offset-[5px] hover:decoration-crimson transition-colors"
+              >
+                {children}
+              </a>
+            );
           }
           const isExternal = href?.startsWith('http');
           // External links are dofollow by default.

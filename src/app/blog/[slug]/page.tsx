@@ -6,6 +6,7 @@ import { blogCategoryStyles } from '@/data/blog';
 import { getPostBySlug, getRelatedPosts, getHighlightedPosts } from '@/lib/posts';
 import { extractHeadings } from '@/lib/blog';
 import { getAdSlots } from '@/lib/ads';
+import { AMAZON_DISCLOSURE, hasAmazonLinks } from '@/lib/affiliate';
 import AuthorBox from '@/components/blog/AuthorBox';
 import SummaryBox from '@/components/blog/SummaryBox';
 import MarkdownRenderer from '@/components/blog/MarkdownRenderer';
@@ -103,6 +104,15 @@ export default async function BlogPostPage({ params }: Props) {
           <SummaryBox items={post.summary} />
 
           <AdSlot slot={ads['post-before-content']} />
+
+          {hasAmazonLinks(content) && (
+            <p className="mb-6 text-sm font-semibold text-muted leading-relaxed">
+              {AMAZON_DISCLOSURE} Amazon links in this article are affiliate links, at no extra cost to you.{' '}
+              <Link href="/disclosure" className="underline underline-offset-4 hover:text-ink transition-colors">
+                Disclosure
+              </Link>
+            </p>
+          )}
 
           <article>
             {intro ? (

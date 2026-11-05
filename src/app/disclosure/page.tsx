@@ -3,15 +3,16 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { pageMetadata } from '@/lib/seo';
 import JsonLd, { breadcrumbSchema } from '@/components/seo/JsonLd';
+import { AMAZON_DISCLOSURE } from '@/lib/affiliate';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Advertising & Affiliate Disclosure',
   description:
-    'How PolishPal is funded: consent-based Google AdSense ads and labelled banner slots on the blog. We currently use no affiliate links. Ads never shape lessons.',
+    'How PolishPal is funded: consent-based Google AdSense ads, labelled banner slots and Amazon affiliate links on the blog. Ads never shape our lessons.',
   path: '/disclosure',
 });
 
-const UPDATED = 'November 4, 2026';
+const UPDATED = 'November 5, 2026';
 
 const h2 = 'text-2xl md:text-[1.75rem] font-bold leading-tight mb-4';
 const link = 'font-bold text-cobalt-ink underline decoration-2 underline-offset-4 decoration-cobalt/30 hover:decoration-cobalt transition-colors';
@@ -69,10 +70,27 @@ export default function DisclosurePage() {
 
           <section>
             <h2 className={h2}>Affiliate links</h2>
-            <p>
-              We do not currently use affiliate links. When an article links to a book, app, course or shop, we earn nothing from it.
-              If we add affiliate links in the future, we will mark them in the article and update this page.
-            </p>
+            <p className="tile px-6 py-5 font-bold text-ink">{AMAZON_DISCLOSURE}</p>
+            <ul className={`${list} mt-6`}>
+              <li>
+                <strong className="text-ink">Amazon Associates.</strong> PolishPal is a participant in the Amazon Services LLC
+                Associates Program, an affiliate program that lets sites earn fees by linking to Amazon.com. When you buy something
+                after following one of our Amazon links, we may earn a small commission. The price you pay is the same.
+              </li>
+              <li>
+                <strong className="text-ink">How they are marked.</strong> Every article that contains Amazon links says so above the
+                article text. The links themselves carry{' '}
+                <code className="text-base">rel=&quot;sponsored&quot;</code>.
+              </li>
+              <li>
+                <strong className="text-ink">Why we link.</strong> We only link to books and learning materials we would mention
+                anyway, such as the novels, poetry and textbooks an article is about. Amazon does not choose or review what we write.
+              </li>
+              <li>
+                <strong className="text-ink">Everything else is unpaid.</strong> Links to other books, apps, courses or shops earn us
+                nothing.
+              </li>
+            </ul>
           </section>
 
           <section>
