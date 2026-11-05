@@ -36,11 +36,9 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="inline-flex items-center gap-3 mb-5">
-              <span className="w-11 h-11 rounded-[12px] bg-white p-1.5 shadow-[0_3px_0_rgba(0,0,0,0.18)]">
-                <Image src="/logo.svg" alt="" width={32} height={32} className="rounded-[8px]" />
-              </span>
-              <span className="font-display font-semibold text-2xl text-white">PolishPal</span>
+            <Link href="/" className="inline-flex items-center gap-2.5 mb-5" aria-label="PolishPal home">
+              <Image src="/logo-white.svg" alt="" width={36} height={36} className="shrink-0" />
+              <span className="font-display font-semibold text-[22px] tracking-tight text-white">PolishPal</span>
             </Link>
             <p className="text-[15px] text-white/85 leading-relaxed max-w-xs">
               Free Polish language course from A0 to A1, based on real university materials. No sign-up required.

@@ -264,7 +264,7 @@ export default function PostEditor({ initial, linkIndex, pillars }: Props) {
                   <Pin className="w-3.5 h-3.5 text-blue-500" /> Highlight this post
                 </span>
               </label>
-              <p className="text-xs text-gray-400 -mt-1">Highlighted posts appear in the "Editor&apos;s Picks" section on the blog page and below the TOC on every post.</p>
+              <p className="text-xs text-gray-400 -mt-1">Highlighted posts appear in the &quot;Editor&apos;s Picks&quot; section on the blog page and below the TOC on every post.</p>
 
               {!isPillar && (
                 <div>

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fredoka, Nunito } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
@@ -32,6 +32,10 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 -->`;
 
 const SITE_URL = "https://www.polishpal.pl";
+
+export const viewport: Viewport = {
+  themeColor: "#D91F3B",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -71,7 +75,7 @@ export const metadata: Metadata = {
     title: "PolishPal — Learn Polish Free | A0 to A1 Course",
     description:
       "Free interactive Polish language course with lessons, grammar reference tables, quizzes, and text-to-speech pronunciation. From absolute beginner to A1.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "PolishPal — Learn Polish A0 to A1" }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "PolishPal — Learn Polish free" }],
   },
   twitter: {
     card: "summary_large_image",

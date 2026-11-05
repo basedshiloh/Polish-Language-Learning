@@ -111,7 +111,7 @@ export default function Topbar() {
 
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 shrink-0 mr-3" aria-label="PolishPal home">
-              <Image src="/logo.svg" alt="" width={36} height={36} className="rounded-[10px]" priority />
+              <Image src="/logo.svg" alt="" width={36} height={36} className="shrink-0" priority />
               <span className="font-display font-semibold text-[22px] tracking-tight text-ink">
                 Polish<span className="text-crimson">Pal</span>
               </span>
@@ -328,9 +328,9 @@ export default function Topbar() {
         inert={!mobileOpen}
       >
         <div className="flex items-center justify-between px-5 h-[68px] border-b-2 border-line">
-          <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2">
-            <Image src="/logo.svg" alt="" width={32} height={32} className="rounded-[9px]" />
-            <span className="font-display font-semibold text-xl text-ink">Polish<span className="text-crimson">Pal</span></span>
+          <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2.5" aria-label="PolishPal home">
+            <Image src="/logo.svg" alt="" width={36} height={36} className="shrink-0" />
+            <span className="font-display font-semibold text-[22px] tracking-tight text-ink">Polish<span className="text-crimson">Pal</span></span>
           </Link>
           <button onClick={() => setMobileOpen(false)} className="w-10 h-10 flex items-center justify-center rounded-xl text-muted hover:bg-canvas transition-colors" aria-label="Close menu">
             <X className="w-5 h-5" strokeWidth={2.5} />
