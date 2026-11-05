@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="zubek-sleep" viewBox="0 0 400 480" role="img" aria-label="Żubek dozes with folded arms." data-ground="448" data-default-eyes="closed" data-default-mouth="closed" fill="none" stroke="#1E2132" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+<g id="zubek-sleep-shadow" data-part="shadow" data-pivot="200 454" visibility="visible">
+<ellipse cx="201" cy="454" rx="83" ry="5" fill="#1E2132" stroke="none" opacity="0.12"/>
+</g>
+<g id="zubek-sleep-character" data-rig="character" data-pivot="200 448">
+<g id="zubek-sleep-stance" data-rig="stance">
+<g id="zubek-sleep-leg-l" data-part="leg-l" data-pivot="160 359">
+<path d="M139 353 183 356 177 430H128Z" fill="#FFC21A"/><path d="M130 407H180L177 444H126Z" fill="#1E2132"/>
+</g><g id="zubek-sleep-leg-r" data-part="leg-r" data-pivot="248 357">
+<path d="M225 353 270 348 281 430H232Z" fill="#FFC21A"/><path d="M229 407H278L284 444H233Z" fill="#1E2132"/>
+</g><g id="zubek-sleep-body" data-part="body" data-pivot="200 330">
+<path d="M135 245C111 271 112 320 124 353 133 381 164 393 207 391 249 393 280 375 285 346 292 308 282 268 261 248Z" fill="#FFC21A"/>
+</g><g id="zubek-sleep-head" data-part="head" data-pivot="201 270">
+<path d="M139 135Q108 149 88 128L77 114Q111 101 142 114Z" fill="#FFC21A"/><path d="M260 135Q291 149 313 126L324 112Q287 100 258 115Z" fill="#FFC21A"/><path d="M139 126C105 127 94 101 105 70Q84 81 85 104C85 131 106 151 139 152Z" fill="#FFFFFF"/><path d="M260 126C294 126 306 101 295 70Q316 81 315 104C315 131 294 151 260 152Z" fill="#FFFFFF"/><path d="M142 114 155 94 177 103 199 88 221 103 245 96 258 115C284 128 294 151 291 185L301 204 285 218 288 240 269 244 255 264 236 260 215 282H183L163 261 144 265 130 244 112 241 115 221 101 205 111 188C104 151 116 128 142 114Z" fill="#FFC21A"/><g id="zubek-sleep-eye-l" data-part="eye-l" data-pivot="160 170">
+<g id="zubek-sleep-eye-l-open" data-state="open" visibility="hidden"><ellipse cx="160" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-sleep-eye-l-happy" data-state="happy" visibility="hidden"><path d="M150 173Q160 155 170 173" fill="none"/></g>
+</g><g id="zubek-sleep-lid-l" data-part="lid-l" data-pivot="160 170" visibility="visible">
+<path d="M150 170Q160 181 170 170" fill="none"/>
+</g><g id="zubek-sleep-eye-r" data-part="eye-r" data-pivot="240 170">
+<g id="zubek-sleep-eye-r-open" data-state="open" visibility="hidden"><ellipse cx="240" cy="170" rx="8" ry="11" fill="#1E2132" stroke="none"/></g><g id="zubek-sleep-eye-r-happy" data-state="happy" visibility="hidden"><path d="M230 173Q240 155 250 173" fill="none"/></g>
+</g><g id="zubek-sleep-lid-r" data-part="lid-r" data-pivot="240 170" visibility="visible">
+<path d="M230 170Q240 181 250 170" fill="none"/>
+</g><path d="M158 204Q199 190 241 204C266 213 270 244 250 258 231 269 170 269 149 257 128 245 132 215 158 204Z" fill="#1E2132"/><ellipse cx="170" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><ellipse cx="230" cy="224" rx="6" ry="4" fill="#FFFFFF" stroke="none"/><g id="zubek-sleep-mouth" data-part="mouth" data-pivot="200 246">
+<g id="zubek-sleep-mouth-closed" data-state="closed" visibility="visible"><path d="M183 240Q200 253 217 240L215 246Q200 260 185 246Z" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-sleep-mouth-open-s" data-state="open-s" visibility="hidden"><ellipse cx="200" cy="246" rx="10" ry="8" fill="#FFFFFF" stroke="none"/></g>
+<g id="zubek-sleep-mouth-open-l" data-state="open-l" visibility="hidden"><ellipse cx="200" cy="245" rx="17" ry="14" fill="#FFFFFF" stroke="none"/></g>
+</g>
+</g><g id="zubek-sleep-accessory" data-part="accessory" data-pivot="203 308">
+<path d="M161 285Q200 303 242 283L246 303Q202 326 157 305Z" fill="#D91F3B"/><path d="M203 292 218 308 203 324 188 308Z" fill="#FFFFFF"/>
+</g><g id="zubek-sleep-prop" data-part="prop" data-pivot="350 108">
+<path d="M360 74C328 74 316 109 335 130 348 144 368 139 378 125 351 127 340 98 360 74Z" fill="#2F5BEA"/><path d="M318 166 323 156 328 166 338 171 328 176 323 186 318 176 308 171Z" fill="#FFC21A"/>
+</g><g id="zubek-sleep-arm-l" data-part="arm-l" data-pivot="139 263">
+<path d="M142 264Q115 267 116 292 116 313 141 324L212 344 228 326 208 309 153 294 154 278Z" fill="#FFC21A"/><path d="M208 309 228 326 212 344 185 336 188 314Z" fill="#1E2132"/>
+</g><g id="zubek-sleep-arm-r" data-part="arm-r" data-pivot="269 276">
+<path d="M267 264Q290 270 288 295 285 315 261 326L192 344 175 327 195 309 254 294 252 279Z" fill="#FFC21A"/><path d="M195 309 175 327 192 344 220 337 216 315Z" fill="#1E2132"/>
+</g>
+</g>
+</g>
+</svg>

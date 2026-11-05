@@ -6,8 +6,8 @@ import { Star, BookOpen, Table2, GraduationCap } from 'lucide-react';
 import { grammarTopics } from '@/data/grammar';
 import GrammarCard, { categoryStyles } from '@/components/grammar/GrammarCard';
 import PageSidebar, { SidebarCard } from '@/components/layout/PageSidebar';
-import Wycinanka from '@/components/shared/Wycinanka';
 import type { GrammarCategory, GrammarTopic } from '@/lib/types';
+import Zubek from '@/components/shared/Zubek';
 
 type Filter = 'all' | GrammarCategory;
 
@@ -81,7 +81,7 @@ export default function GrammarPage() {
               </span>
             </div>
           </div>
-          <Wycinanka className="pp-float hidden h-44 w-auto shrink-0 md:block lg:h-52" />
+          <Zubek pose="read" priority className="hidden h-44 w-auto shrink-0 md:block lg:h-52" />
         </div>
       </section>
 

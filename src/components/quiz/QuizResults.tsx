@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Trophy, RotateCcw, ArrowLeft, Check, X } from 'lucide-react';
-import Wycinanka from '@/components/shared/Wycinanka';
+import Zubek from '@/components/shared/Zubek';
 
 interface QuizResultsProps {
   score: number;
@@ -29,9 +29,8 @@ export default function QuizResults({ score, correct, total, quizTitle, lessonId
 
   return (
     <div className="tile p-6 sm:p-10 text-center pp-pop">
-      <div className="relative w-36 h-36 sm:w-44 sm:h-44 mx-auto mb-2">
-        <Wycinanka withStem={false} className={`w-full h-full ${tier === 'great' ? 'pp-float' : ''}`} />
-      </div>
+      {/* Celebrate a passing score; a kind shrug (never a frown) below 60%. */}
+      <Zubek pose={tier === 'low' ? 'oops' : 'celebrate'} className="w-32 sm:w-40 h-auto mx-auto mb-2" />
 
       <h2 className="text-3xl md:text-4xl font-semibold mb-1">Quiz Complete!</h2>
       <p className="text-muted font-semibold mb-6">{quizTitle}</p>

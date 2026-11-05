@@ -6,8 +6,8 @@ import { useProgress } from '@/hooks/useProgress';
 import { lessons } from '@/data/lessons';
 import { quizzes } from '@/data/quizzes';
 import ProgressBar from '@/components/shared/ProgressBar';
-import Wycinanka from '@/components/shared/Wycinanka';
 import PageSidebar, { SidebarCard } from '@/components/layout/PageSidebar';
+import Zubek from '@/components/shared/Zubek';
 
 function scoreChip(score: number) {
   return score >= 80
@@ -17,13 +17,15 @@ function scoreChip(score: number) {
     : 'bg-crimson-soft text-crimson-ink';
 }
 
-function Header() {
+// Trophy only once the learner has real progress; a hello before that.
+function Header({ hasProgress = false }: { hasProgress?: boolean }) {
   return (
     <section className="bg-canvas border-b-2 border-line overflow-hidden">
       <div className="container-pp relative py-12 md:py-16">
-        <Wycinanka
-          withStem={false}
-          className="hidden md:block absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 w-40 lg:w-48 opacity-90 pp-float [--r:6deg]"
+        <Zubek
+          pose={hasProgress ? 'trophy' : 'hello'}
+          priority
+          className="hidden md:block absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 w-36 lg:w-44 h-auto"
         />
         <div className="max-w-2xl md:pr-52">
           <h1 className="text-4xl md:text-5xl font-semibold">Your Progress</h1>
@@ -68,7 +70,7 @@ export default function ProgressPage() {
 
   return (
     <>
-      <Header />
+      <Header hasProgress={completed > 0 || allAttempts.length > 0} />
 
       <div className="container-pp py-10 md:py-12">
         <div className="flex gap-8">
@@ -195,9 +197,7 @@ export default function ProgressPage() {
                   </ul>
                 ) : (
                   <div className="rounded-3xl border-2 border-dashed border-line-2 p-8 text-center">
-                    <span className="icon-badge bg-violet-soft text-violet-ink mx-auto mb-3">
-                      <Brain className="w-5 h-5" strokeWidth={2.4} />
-                    </span>
+                    <Zubek pose="sleep" className="w-24 h-auto mx-auto mb-3" />
                     <p className="text-sm font-semibold text-muted mb-5">No quiz attempts yet. Take a quiz to see your history!</p>
                     <Link href="/quizzes" className="btn btn-green btn-sm">Browse quizzes</Link>
                   </div>

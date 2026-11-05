@@ -1,0 +1,1097 @@
+{
+  "schemaVersion": 1,
+  "id": "zubek",
+  "name": "Żubek",
+  "pronunciation": "ZHOO-bek",
+  "character": "A patient, friendly bison calf",
+  "viewBox": "0 0 400 480",
+  "groundLine": 448,
+  "landingAnchor": [
+    200,
+    448
+  ],
+  "outlineWidth": 8,
+  "sideConvention": "l and r refer to the viewer's left and right",
+  "motionSelector": "[data-rig=\"character\"]",
+  "shadowOutsideMotion": true,
+  "eyeStates": [
+    "open",
+    "happy",
+    "closed"
+  ],
+  "mouthStates": [
+    "closed",
+    "open-s",
+    "open-l"
+  ],
+  "palette": [
+    "#1E2132",
+    "#FFFFFF",
+    "#D91F3B",
+    "#A3142B",
+    "#FFC21A",
+    "#2F5BEA",
+    "#15803D",
+    "#D6338A"
+  ],
+  "poses": {
+    "hello": {
+      "file": "/mascot/zubek-hello.svg",
+      "alt": "Żubek waves hello.",
+      "parts": [
+        "shadow",
+        "leg-l",
+        "leg-r",
+        "body",
+        "head",
+        "eye-l",
+        "lid-l",
+        "eye-r",
+        "lid-r",
+        "mouth",
+        "accessory",
+        "prop",
+        "arm-l",
+        "arm-r"
+      ],
+      "pivots": {
+        "shadow": [
+          200,
+          454
+        ],
+        "body": [
+          200,
+          330
+        ],
+        "head": [
+          201,
+          270
+        ],
+        "eye-l": [
+          160,
+          170
+        ],
+        "eye-r": [
+          240,
+          170
+        ],
+        "lid-l": [
+          160,
+          170
+        ],
+        "lid-r": [
+          240,
+          170
+        ],
+        "mouth": [
+          200,
+          246
+        ],
+        "arm-l": [
+          139,
+          263
+        ],
+        "arm-r": [
+          269,
+          276
+        ],
+        "leg-l": [
+          160,
+          359
+        ],
+        "leg-r": [
+          248,
+          357
+        ],
+        "accessory": [
+          203,
+          308
+        ],
+        "prop": [
+          200,
+          335
+        ]
+      },
+      "defaultEyes": "open",
+      "defaultMouth": "closed",
+      "stanceOffset": [
+        0,
+        0
+      ],
+      "suggestedPlacements": [
+        "home hero",
+        "about",
+        "first visit"
+      ]
+    },
+    "speak": {
+      "file": "/mascot/zubek-speak.svg",
+      "alt": "Żubek speaks with sound arcs.",
+      "parts": [
+        "shadow",
+        "leg-l",
+        "leg-r",
+        "body",
+        "head",
+        "eye-l",
+        "lid-l",
+        "eye-r",
+        "lid-r",
+        "mouth",
+        "accessory",
+        "prop",
+        "arm-l",
+        "arm-r"
+      ],
+      "pivots": {
+        "shadow": [
+          200,
+          454
+        ],
+        "body": [
+          200,
+          330
+        ],
+        "head": [
+          201,
+          270
+        ],
+        "eye-l": [
+          160,
+          170
+        ],
+        "eye-r": [
+          240,
+          170
+        ],
+        "lid-l": [
+          160,
+          170
+        ],
+        "lid-r": [
+          240,
+          170
+        ],
+        "mouth": [
+          200,
+          246
+        ],
+        "arm-l": [
+          139,
+          263
+        ],
+        "arm-r": [
+          269,
+          276
+        ],
+        "leg-l": [
+          160,
+          359
+        ],
+        "leg-r": [
+          248,
+          357
+        ],
+        "accessory": [
+          203,
+          308
+        ],
+        "prop": [
+          335,
+          182
+        ]
+      },
+      "defaultEyes": "open",
+      "defaultMouth": "closed",
+      "stanceOffset": [
+        0,
+        0
+      ],
+      "suggestedPlacements": [
+        "pronunciation",
+        "speak buttons"
+      ]
+    },
+    "teach": {
+      "file": "/mascot/zubek-teach.svg",
+      "alt": "Żubek points to a lesson board.",
+      "parts": [
+        "shadow",
+        "leg-l",
+        "leg-r",
+        "body",
+        "head",
+        "eye-l",
+        "lid-l",
+        "eye-r",
+        "lid-r",
+        "mouth",
+        "accessory",
+        "prop",
+        "arm-l",
+        "arm-r"
+      ],
+      "pivots": {
+        "shadow": [
+          200,
+          454
+        ],
+        "body": [
+          200,
+          330
+        ],
+        "head": [
+          201,
+          270
+        ],
+        "eye-l": [
+          160,
+          170
+        ],
+        "eye-r": [
+          240,
+          170
+        ],
+        "lid-l": [
+          160,
+          170
+        ],
+        "lid-r": [
+          240,
+          170
+        ],
+        "mouth": [
+          200,
+          246
+        ],
+        "arm-l": [
+          139,
+          263
+        ],
+        "arm-r": [
+          269,
+          276
+        ],
+        "leg-l": [
+          160,
+          359
+        ],
+        "leg-r": [
+          248,
+          357
+        ],
+        "accessory": [
+          203,
+          308
+        ],
+        "prop": [
+          316,
+          288
+        ]
+      },
+      "defaultEyes": "open",
+      "defaultMouth": "closed",
+      "stanceOffset": [
+        0,
+        0
+      ],
+      "suggestedPlacements": [
+        "lessons",
+        "grammar tables",
+        "tip cards"
+      ]
+    },
+    "read": {
+      "file": "/mascot/zubek-read.svg",
+      "alt": "Żubek holds an open book.",
+      "parts": [
+        "shadow",
+        "leg-l",
+        "leg-r",
+        "body",
+        "head",
+        "eye-l",
+        "lid-l",
+        "eye-r",
+        "lid-r",
+        "mouth",
+        "accessory",
+        "prop",
+        "arm-l",
+        "arm-r"
+      ],
+      "pivots": {
+        "shadow": [
+          200,
+          454
+        ],
+        "body": [
+          200,
+          330
+        ],
+        "head": [
+          201,
+          270
+        ],
+        "eye-l": [
+          160,
+          170
+        ],
+        "eye-r": [
+          240,
+          170
+        ],
+        "lid-l": [
+          160,
+          170
+        ],
+        "lid-r": [
+          240,
+          170
+        ],
+        "mouth": [
+          200,
+          246
+        ],
+        "arm-l": [
+          139,
+          263
+        ],
+        "arm-r": [
+          269,
+          276
+        ],
+        "leg-l": [
+          160,
+          359
+        ],
+        "leg-r": [
+          248,
+          357
+        ],
+        "accessory": [
+          203,
+          308
+        ],
+        "prop": [
+          200,
+          344
+        ]
+      },
+      "defaultEyes": "open",
+      "defaultMouth": "closed",
+      "stanceOffset": [
+        0,
+        0
+      ],
+      "suggestedPlacements": [
+        "blog",
+        "grammar reference"
+      ]
+    },
+    "think": {
+      "file": "/mascot/zubek-think.svg",
+      "alt": "Żubek rests a hoof by the chin.",
+      "parts": [
+        "shadow",
+        "leg-l",
+        "leg-r",
+        "body",
+        "head",
+        "eye-l",
+        "lid-l",
+        "eye-r",
+        "lid-r",
+        "mouth",
+        "accessory",
+        "prop",
+        "arm-l",
+        "arm-r"
+      ],
+      "pivots": {
+        "shadow": [
+          200,
+          454
+        ],
+        "body": [
+          200,
+          330
+        ],
+        "head": [
+          201,
+          270
+        ],
+        "eye-l": [
+          160,
+          170
+        ],
+        "eye-r": [
+          240,
+          170
+        ],
+        "lid-l": [
+          160,
+          170
+        ],
+        "lid-r": [
+          240,
+          170
+        ],
+        "mouth": [
+          200,
+          246
+        ],
+        "arm-l": [
+          139,
+          263
+        ],
+        "arm-r": [
+          269,
+          276
+        ],
+        "leg-l": [
+          160,
+          359
+        ],
+        "leg-r": [
+          248,
+          357
+        ],
+        "accessory": [
+          203,
+          308
+        ],
+        "prop": [
+          200,
+          335
+        ]
+      },
+      "defaultEyes": "open",
+      "defaultMouth": "closed",
+      "stanceOffset": [
+        0,
+        0
+      ],
+      "suggestedPlacements": [
+        "quiz question",
+        "did you know"
+      ]
+    },
+    "celebrate": {
+      "file": "/mascot/zubek-celebrate.svg",
+      "alt": "Żubek jumps with confetti.",
+      "parts": [
+        "shadow",
+        "leg-l",
+        "leg-r",
+        "body",
+        "head",
+        "eye-l",
+        "lid-l",
+        "eye-r",
+        "lid-r",
+        "mouth",
+        "accessory",
+        "prop",
+        "arm-l",
+        "arm-r"
+      ],
+      "pivots": {
+        "shadow": [
+          200,
+          454
+        ],
+        "body": [
+          200,
+          330
+        ],
+        "head": [
+          201,
+          270
+        ],
+        "eye-l": [
+          160,
+          170
+        ],
+        "eye-r": [
+          240,
+          170
+        ],
+        "lid-l": [
+          160,
+          170
+        ],
+        "lid-r": [
+          240,
+          170
+        ],
+        "mouth": [
+          200,
+          246
+        ],
+        "arm-l": [
+          139,
+          263
+        ],
+        "arm-r": [
+          269,
+          276
+        ],
+        "leg-l": [
+          160,
+          359
+        ],
+        "leg-r": [
+          248,
+          357
+        ],
+        "accessory": [
+          203,
+          308
+        ],
+        "prop": [
+          200,
+          180
+        ]
+      },
+      "defaultEyes": "happy",
+      "defaultMouth": "closed",
+      "stanceOffset": [
+        0,
+        0
+      ],
+      "suggestedPlacements": [
+        "correct answer",
+        "lesson complete"
+      ]
+    },
+    "oops": {
+      "file": "/mascot/zubek-oops.svg",
+      "alt": "Żubek gives an encouraging shrug.",
+      "parts": [
+        "shadow",
+        "leg-l",
+        "leg-r",
+        "body",
+        "head",
+        "eye-l",
+        "lid-l",
+        "eye-r",
+        "lid-r",
+        "mouth",
+        "accessory",
+        "prop",
+        "arm-l",
+        "arm-r"
+      ],
+      "pivots": {
+        "shadow": [
+          200,
+          454
+        ],
+        "body": [
+          200,
+          330
+        ],
+        "head": [
+          201,
+          270
+        ],
+        "eye-l": [
+          160,
+          170
+        ],
+        "eye-r": [
+          240,
+          170
+        ],
+        "lid-l": [
+          160,
+          170
+        ],
+        "lid-r": [
+          240,
+          170
+        ],
+        "mouth": [
+          200,
+          246
+        ],
+        "arm-l": [
+          139,
+          263
+        ],
+        "arm-r": [
+          269,
+          276
+        ],
+        "leg-l": [
+          160,
+          359
+        ],
+        "leg-r": [
+          248,
+          357
+        ],
+        "accessory": [
+          203,
+          308
+        ],
+        "prop": [
+          200,
+          335
+        ]
+      },
+      "defaultEyes": "open",
+      "defaultMouth": "closed",
+      "stanceOffset": [
+        0,
+        0
+      ],
+      "suggestedPlacements": [
+        "wrong answer",
+        "try again"
+      ]
+    },
+    "confused": {
+      "file": "/mascot/zubek-confused.svg",
+      "alt": "Żubek wonders beside a question mark.",
+      "parts": [
+        "shadow",
+        "leg-l",
+        "leg-r",
+        "body",
+        "head",
+        "eye-l",
+        "lid-l",
+        "eye-r",
+        "lid-r",
+        "mouth",
+        "accessory",
+        "prop",
+        "arm-l",
+        "arm-r"
+      ],
+      "pivots": {
+        "shadow": [
+          200,
+          454
+        ],
+        "body": [
+          200,
+          330
+        ],
+        "head": [
+          201,
+          270
+        ],
+        "eye-l": [
+          160,
+          170
+        ],
+        "eye-r": [
+          240,
+          170
+        ],
+        "lid-l": [
+          160,
+          170
+        ],
+        "lid-r": [
+          240,
+          170
+        ],
+        "mouth": [
+          200,
+          246
+        ],
+        "arm-l": [
+          139,
+          263
+        ],
+        "arm-r": [
+          269,
+          276
+        ],
+        "leg-l": [
+          160,
+          359
+        ],
+        "leg-r": [
+          248,
+          357
+        ],
+        "accessory": [
+          203,
+          308
+        ],
+        "prop": [
+          354,
+          102
+        ]
+      },
+      "defaultEyes": "open",
+      "defaultMouth": "closed",
+      "stanceOffset": [
+        0,
+        0
+      ],
+      "suggestedPlacements": [
+        "404",
+        "no search results"
+      ]
+    },
+    "sleep": {
+      "file": "/mascot/zubek-sleep.svg",
+      "alt": "Żubek dozes with folded arms.",
+      "parts": [
+        "shadow",
+        "leg-l",
+        "leg-r",
+        "body",
+        "head",
+        "eye-l",
+        "lid-l",
+        "eye-r",
+        "lid-r",
+        "mouth",
+        "accessory",
+        "prop",
+        "arm-l",
+        "arm-r"
+      ],
+      "pivots": {
+        "shadow": [
+          200,
+          454
+        ],
+        "body": [
+          200,
+          330
+        ],
+        "head": [
+          201,
+          270
+        ],
+        "eye-l": [
+          160,
+          170
+        ],
+        "eye-r": [
+          240,
+          170
+        ],
+        "lid-l": [
+          160,
+          170
+        ],
+        "lid-r": [
+          240,
+          170
+        ],
+        "mouth": [
+          200,
+          246
+        ],
+        "arm-l": [
+          139,
+          263
+        ],
+        "arm-r": [
+          269,
+          276
+        ],
+        "leg-l": [
+          160,
+          359
+        ],
+        "leg-r": [
+          248,
+          357
+        ],
+        "accessory": [
+          203,
+          308
+        ],
+        "prop": [
+          350,
+          108
+        ]
+      },
+      "defaultEyes": "closed",
+      "defaultMouth": "closed",
+      "stanceOffset": [
+        0,
+        0
+      ],
+      "suggestedPlacements": [
+        "empty state",
+        "no progress yet"
+      ]
+    },
+    "cards": {
+      "file": "/mascot/zubek-cards.svg",
+      "alt": "Żubek holds vocabulary cards.",
+      "parts": [
+        "shadow",
+        "leg-l",
+        "leg-r",
+        "body",
+        "head",
+        "eye-l",
+        "lid-l",
+        "eye-r",
+        "lid-r",
+        "mouth",
+        "accessory",
+        "prop",
+        "arm-l",
+        "arm-r"
+      ],
+      "pivots": {
+        "shadow": [
+          200,
+          454
+        ],
+        "body": [
+          200,
+          330
+        ],
+        "head": [
+          201,
+          270
+        ],
+        "eye-l": [
+          160,
+          170
+        ],
+        "eye-r": [
+          240,
+          170
+        ],
+        "lid-l": [
+          160,
+          170
+        ],
+        "lid-r": [
+          240,
+          170
+        ],
+        "mouth": [
+          200,
+          246
+        ],
+        "arm-l": [
+          139,
+          263
+        ],
+        "arm-r": [
+          269,
+          276
+        ],
+        "leg-l": [
+          160,
+          359
+        ],
+        "leg-r": [
+          248,
+          357
+        ],
+        "accessory": [
+          203,
+          308
+        ],
+        "prop": [
+          201,
+          342
+        ]
+      },
+      "defaultEyes": "open",
+      "defaultMouth": "closed",
+      "stanceOffset": [
+        0,
+        0
+      ],
+      "suggestedPlacements": [
+        "vocabulary",
+        "flashcards"
+      ]
+    },
+    "trophy": {
+      "file": "/mascot/zubek-trophy.svg",
+      "alt": "Żubek holds a star trophy.",
+      "parts": [
+        "shadow",
+        "leg-l",
+        "leg-r",
+        "body",
+        "head",
+        "eye-l",
+        "lid-l",
+        "eye-r",
+        "lid-r",
+        "mouth",
+        "accessory",
+        "prop",
+        "arm-l",
+        "arm-r"
+      ],
+      "pivots": {
+        "shadow": [
+          200,
+          454
+        ],
+        "body": [
+          200,
+          330
+        ],
+        "head": [
+          201,
+          270
+        ],
+        "eye-l": [
+          160,
+          170
+        ],
+        "eye-r": [
+          240,
+          170
+        ],
+        "lid-l": [
+          160,
+          170
+        ],
+        "lid-r": [
+          240,
+          170
+        ],
+        "mouth": [
+          200,
+          246
+        ],
+        "arm-l": [
+          139,
+          263
+        ],
+        "arm-r": [
+          269,
+          276
+        ],
+        "leg-l": [
+          160,
+          359
+        ],
+        "leg-r": [
+          248,
+          357
+        ],
+        "accessory": [
+          203,
+          308
+        ],
+        "prop": [
+          209,
+          328
+        ]
+      },
+      "defaultEyes": "open",
+      "defaultMouth": "closed",
+      "stanceOffset": [
+        0,
+        0
+      ],
+      "suggestedPlacements": [
+        "progress",
+        "streaks"
+      ]
+    },
+    "travel": {
+      "file": "/mascot/zubek-travel.svg",
+      "alt": "Żubek carries a small suitcase.",
+      "parts": [
+        "shadow",
+        "leg-l",
+        "leg-r",
+        "body",
+        "head",
+        "eye-l",
+        "lid-l",
+        "eye-r",
+        "lid-r",
+        "mouth",
+        "accessory",
+        "prop",
+        "arm-l",
+        "arm-r"
+      ],
+      "pivots": {
+        "shadow": [
+          200,
+          454
+        ],
+        "body": [
+          200,
+          330
+        ],
+        "head": [
+          201,
+          270
+        ],
+        "eye-l": [
+          160,
+          170
+        ],
+        "eye-r": [
+          240,
+          170
+        ],
+        "lid-l": [
+          160,
+          170
+        ],
+        "lid-r": [
+          240,
+          170
+        ],
+        "mouth": [
+          200,
+          246
+        ],
+        "arm-l": [
+          139,
+          263
+        ],
+        "arm-r": [
+          269,
+          276
+        ],
+        "leg-l": [
+          160,
+          359
+        ],
+        "leg-r": [
+          248,
+          357
+        ],
+        "accessory": [
+          203,
+          308
+        ],
+        "prop": [
+          325,
+          316
+        ]
+      },
+      "defaultEyes": "open",
+      "defaultMouth": "closed",
+      "stanceOffset": [
+        0,
+        0
+      ],
+      "suggestedPlacements": [
+        "travel phrases",
+        "culture posts"
+      ]
+    }
+  }
+}

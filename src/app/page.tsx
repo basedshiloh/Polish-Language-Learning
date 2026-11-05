@@ -9,6 +9,7 @@ import { grammarTopics } from '@/data/grammar';
 import JsonLd from '@/components/seo/JsonLd';
 import SpeakButton from '@/components/shared/SpeakButton';
 import Wycinanka from '@/components/shared/Wycinanka';
+import Zubek from '@/components/shared/Zubek';
 import { pageMetadata } from '@/lib/seo';
 
 export const revalidate = 3600;
@@ -129,7 +130,7 @@ export default async function HomePage() {
             <div className="relative flex justify-center lg:justify-end">
               <div className="relative w-full max-w-[400px] mt-10 lg:mt-0">
                 <Wycinanka className="absolute -top-[120px] -right-[110px] w-[300px] sm:w-[340px] rotate-[14deg] pointer-events-none" withStem={false} />
-                <Wycinanka className="absolute -bottom-[70px] -left-[90px] w-[170px] -rotate-[20deg] pointer-events-none hidden sm:block" withStem={false} />
+                <Zubek pose="hello" priority className="absolute -bottom-6 -left-[118px] w-[132px] h-auto z-10 pointer-events-none hidden sm:block" />
                 <span className="pp-float absolute -top-6 -left-3 sm:-left-8 z-10 chip text-sm bg-sun text-ink shadow-[0_3px_0_var(--color-sun-edge)] [--r:-6deg]">
                   Cześć!
                 </span>

@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Brain, Check, X, ListChecks, PenLine, Shuffle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, X, ListChecks, PenLine, Shuffle } from 'lucide-react';
 import type { Quiz, Question } from '@/lib/types';
 import { useProgress } from '@/hooks/useProgress';
 import ProgressBar from '@/components/shared/ProgressBar';
@@ -10,6 +10,7 @@ import MultipleChoice from '@/components/quiz/MultipleChoice';
 import FillInBlank from '@/components/quiz/FillInBlank';
 import Matching from '@/components/quiz/Matching';
 import QuizResults from '@/components/quiz/QuizResults';
+import Zubek from '@/components/shared/Zubek';
 
 interface AnswerRecord {
   questionId: string;
@@ -103,9 +104,7 @@ export default function QuizClient({ quiz }: { quiz: Quiz }) {
             </Link>
 
             <div className="tile p-7 sm:p-10 text-center pp-pop">
-              <span className="icon-badge w-16 h-16 rounded-2xl bg-emerald-soft text-emerald-ink mx-auto mb-6">
-                <Brain className="w-8 h-8" strokeWidth={2.4} />
-              </span>
+              <Zubek pose="think" priority className="w-28 sm:w-32 h-auto mx-auto mb-4" />
               <h1 className="text-3xl md:text-4xl font-semibold mb-3">{quiz.title}</h1>
               <p className="text-muted text-lg mb-6 max-w-md mx-auto">{quiz.description}</p>
 
