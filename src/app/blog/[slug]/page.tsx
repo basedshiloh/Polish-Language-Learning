@@ -16,6 +16,7 @@ import TableOfContents from '@/components/layout/TableOfContents';
 import CommentSection from '@/components/shared/CommentSection';
 import AdSlot from '@/components/shared/AdSlot';
 import Wycinanka from '@/components/shared/Wycinanka';
+import NewsletterSignup from '@/components/shared/NewsletterSignup';
 import { lessons } from '@/data/lessons';
 
 export const revalidate = 3600;
@@ -156,6 +157,8 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
             </div>
           </aside>
+
+          <NewsletterSignup source="blog" />
 
           <RelatedPosts posts={related} />
 

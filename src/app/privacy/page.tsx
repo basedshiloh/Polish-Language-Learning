@@ -6,7 +6,7 @@ import { ArrowLeft, Star, MessageSquare, Ban } from 'lucide-react';
 export const metadata: Metadata = pageMetadata({
   title: 'Privacy Policy',
   description:
-    'How PolishPal collects, stores, and uses your data. We keep it minimal — no tracking, no ads, no personal data collection.',
+    'How PolishPal handles your data: progress stays in your browser, comments are anonymous, and the optional newsletter stores only your email.',
   path: '/privacy',
 });
 
@@ -16,12 +16,12 @@ const list = 'tile px-6 py-5 pl-10 md:pl-11 list-disc marker:text-crimson space-
 const smallList = 'list-disc pl-5 marker:text-muted space-y-1.5 text-base';
 
 const notCollected = [
-  'No email addresses or accounts',
+  'No accounts (your email only if you join the newsletter)',
   'No IP addresses',
   'No analytics or tracking pixels',
   'No advertising identifiers',
   'No third-party cookies',
-  'No personal data of any kind beyond what you voluntarily submit in comments',
+  'No personal data beyond what you choose to give us in comments or the newsletter sign-up',
 ];
 
 export default function PrivacyPage() {
@@ -37,7 +37,7 @@ export default function PrivacyPage() {
 
             <h1 className="text-4xl md:text-5xl font-bold">Privacy Policy</h1>
             <div className="mt-5">
-              <span className="chip bg-paper border-2 border-line text-muted">Last updated: June 26, 2026</span>
+              <span className="chip bg-paper border-2 border-line text-muted">Last updated: November 5, 2026</span>
             </div>
           </div>
         </div>
@@ -118,6 +118,32 @@ export default function PrivacyPage() {
             </div>
           </section>
 
+          <section id="newsletter" className="scroll-mt-24">
+            <h2 className={h2}>Newsletter (optional)</h2>
+            <p className="mb-5">
+              If you sign up for the PolishPal newsletter, we store only what we need to send it to you:
+            </p>
+            <ul className={list}>
+              <li>Your <strong className="text-ink">email address</strong> and whether you are subscribed or unsubscribed.</li>
+              <li><strong className="text-ink">Where you signed up</strong> (for example the footer or a blog post), <strong className="text-ink">when you confirmed</strong>, and which version of the consent text you agreed to, as a record of your consent.</li>
+              <li>Delivery data that every email service keeps, such as whether an email was delivered or bounced. We do <strong className="text-ink">not</strong> track opens or clicks.</li>
+            </ul>
+            <p className="mt-5">
+              We use this data only to send you the newsletter you asked for. The legal basis is your consent (GDPR Art. 6(1)(a)).
+              Sign-up uses double opt-in: you are only added after you click the confirmation link we email you.
+            </p>
+            <p className="mt-4">
+              Emails are sent by <strong className="text-ink">Resend</strong> (Resend, Inc., USA), using its EU (Ireland) sending region.
+              Because Resend is a US company, some data may be processed in the United States under its data-protection terms. See 
+              <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className={link}>Resend&apos;s Privacy Policy</a>.
+            </p>
+            <p className="mt-4">
+              You can unsubscribe at any time with the link in every email. We then keep your address only as &quot;unsubscribed&quot;,
+              so we never email you again by mistake. To have it deleted completely, email 
+              <a href="mailto:support@polishpal.pl" className={link}>support@polishpal.pl</a>.
+            </p>
+          </section>
+
           <section>
             <h2 className={h2}>What we do NOT collect</h2>
             <ul className="rounded-3xl bg-canvas p-5 md:p-6 grid sm:grid-cols-2 gap-x-6 gap-y-3">
@@ -145,6 +171,7 @@ export default function PrivacyPage() {
             <ul className={list}>
               <li><strong className="text-ink">Vercel</strong> — hosts the website. Subject to <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className={link}>Vercel&apos;s Privacy Policy</a>.</li>
               <li><strong className="text-ink">Supabase</strong> — hosts the ratings and comments database. Subject to <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className={link}>Supabase&apos;s Privacy Policy</a>.</li>
+              <li><strong className="text-ink">Resend</strong> — sends the optional newsletter. Subject to <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className={link}>Resend&apos;s Privacy Policy</a>.</li>
               <li><strong className="text-ink">Pexels</strong> — blog featured images are sourced from Pexels with proper attribution.</li>
             </ul>
           </section>
@@ -152,8 +179,9 @@ export default function PrivacyPage() {
           <section>
             <h2 className={h2}>Your rights</h2>
             <p>
-              Since we don&apos;t collect personal data or require accounts, there is no profile to delete. If you&apos;ve posted a comment
-              and would like it removed, open an issue on our{' '}
+              PolishPal has no accounts, so there is no profile to delete. If you joined the newsletter, unsubscribe with the link in
+              any email, or email <a href="mailto:support@polishpal.pl" className={link}>support@polishpal.pl</a> to have your address
+              deleted. If you&apos;ve posted a comment and would like it removed, open an issue on our{' '}
               <a href="https://github.com/basedshiloh/Polish-Language-Learning" target="_blank" rel="noopener noreferrer" className={link}>GitHub repository</a>{' '}
               or contact us, and we&apos;ll remove it.
             </p>
