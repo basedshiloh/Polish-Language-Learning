@@ -9,7 +9,10 @@ export function revalidateBlog(slug?: string) {
   revalidatePath('/blog');
   revalidatePath('/blog/rss.xml');
   revalidatePath('/sitemap.xml');
-  if (slug) revalidatePath(`/blog/${slug}`);
+  if (slug) {
+    revalidatePath(`/blog/${slug}`);
+    revalidatePath(`/og/blog/${slug}.jpg`);
+  }
 }
 
 // Fire-and-forget callers can ignore the promise; the cron awaits it so the ping

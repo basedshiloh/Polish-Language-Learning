@@ -21,7 +21,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: post.metaDescription || post.excerpt,
     path: `/blog/${post.slug}`,
     type: 'article',
-    images: [{ url: post.featuredImage, width: 1200, height: 630, alt: post.featuredImageAlt }],
+    // Share card with the featured photo and Żubek (src/app/og); bumps when the post changes.
+    cardParts: [post.featuredImage, post.updatedDate, post.category],
     article: {
       publishedTime: post.date,
       modifiedTime: post.updatedDate || post.date,

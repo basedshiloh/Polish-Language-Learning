@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Check, X, ListChecks, PenLine, Shuffle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, X, ListChecks, PenLine, Shuffle } from 'lucide-react';
 import type { Quiz, Question } from '@/lib/types';
 import { useProgress } from '@/hooks/useProgress';
 import ProgressBar from '@/components/shared/ProgressBar';
@@ -220,15 +220,12 @@ export default function QuizClient({ quiz }: { quiz: Quiz }) {
               }`}
             >
               <div className="flex items-start gap-3 flex-1 min-w-0">
-                <span
-                  className={`flex items-center justify-center w-11 h-11 rounded-full shrink-0 text-white ${
-                    lastAnswer.correct ? 'bg-emerald' : 'bg-crimson'
-                  }`}
-                >
-                  {lastAnswer.correct
-                    ? <Check className="w-6 h-6" strokeWidth={3.2} aria-hidden="true" />
-                    : <X className="w-6 h-6" strokeWidth={3.2} aria-hidden="true" />}
-                </span>
+                {/* Keyed per question so Żubek re-enters (confetti on a right answer). */}
+                <Zubek
+                  key={`${currentQuestion.id}-${lastAnswer.correct}`}
+                  pose={lastAnswer.correct ? 'celebrate' : 'oops'}
+                  className="w-14 sm:w-16 -my-2 shrink-0"
+                />
                 <div className="min-w-0">
                   <p className="font-display text-xl font-semibold leading-tight">
                     {lastAnswer.correct

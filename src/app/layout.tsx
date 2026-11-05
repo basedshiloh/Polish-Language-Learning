@@ -75,14 +75,14 @@ export const metadata: Metadata = {
     title: "PolishPal — Learn Polish Free | A0 to A1 Course",
     description:
       "Free interactive Polish language course with lessons, grammar reference tables, quizzes, and text-to-speech pronunciation. From absolute beginner to A1.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "PolishPal — Learn Polish free" }],
+    images: [{ url: "/og/page/home.jpg", width: 1200, height: 630, alt: "PolishPal: learn Polish free, A0 to A1" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "PolishPal — Learn Polish Free | A0 to A1",
     description:
       "Free Polish language course: 16 lessons, grammar tables, quizzes, and pronunciation. Based on real university materials.",
-    images: ["/og-image.png"],
+    images: ["/og/page/home.jpg"],
   },
   alternates: {
     types: RSS_ALTERNATE,

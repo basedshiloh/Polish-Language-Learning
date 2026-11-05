@@ -2,21 +2,11 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { Volume2 } from 'lucide-react';
+import { findPolishVoice, speakPolish } from '@/lib/speech';
 
 interface SpeakButtonProps {
   text: string;
   size?: 'sm' | 'md';
-}
-
-let polishVoice: SpeechSynthesisVoice | null = null;
-let voiceLoaded = false;
-
-function findPolishVoice(): SpeechSynthesisVoice | null {
-  if (voiceLoaded) return polishVoice;
-  const voices = speechSynthesis.getVoices();
-  polishVoice = voices.find((v) => v.lang.startsWith('pl')) || null;
-  if (voices.length > 0) voiceLoaded = true;
-  return polishVoice;
 }
 
 export default function SpeakButton({ text, size = 'sm' }: SpeakButtonProps) {
@@ -34,28 +24,7 @@ export default function SpeakButton({ text, size = 'sm' }: SpeakButtonProps) {
 
   const speak = useCallback(() => {
     if (!supported || speaking) return;
-    speechSynthesis.cancel();
-
-    const cleaned = text
-      .replace(/\(.*?\)/g, '')
-      .replace(/\[.*?\]/g, '')
-      .replace(/[/→…]/g, '')
-      .trim();
-
-    if (!cleaned) return;
-
-    const utterance = new SpeechSynthesisUtterance(cleaned);
-    utterance.lang = 'pl-PL';
-    utterance.rate = 0.85;
-
-    const voice = findPolishVoice();
-    if (voice) utterance.voice = voice;
-
-    utterance.onstart = () => setSpeaking(true);
-    utterance.onend = () => setSpeaking(false);
-    utterance.onerror = () => setSpeaking(false);
-
-    speechSynthesis.speak(utterance);
+    speakPolish(text, { onStart: () => setSpeaking(true), onEnd: () => setSpeaking(false) });
   }, [text, supported, speaking]);
 
   if (!supported) return null;

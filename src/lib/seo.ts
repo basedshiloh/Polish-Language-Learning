@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { CARD_DESIGN, hashParts } from '@/lib/og/version';
 
 // One place that builds every public page's <title>, description, canonical,
 // Open Graph and Twitter tags.
@@ -69,6 +70,23 @@ function clip(text: string, max: number): string {
   return `${(space > 80 ? cut.slice(0, space) : cut).replace(/[\s,;:.]+$/, '')}…`;
 }
 
+/**
+ * The page's own share card (src/app/og/[kind]/[slug]/route.tsx), derived from
+ * its path. ?v= changes whenever the card's inputs change, so X, WhatsApp and
+ * Facebook refetch instead of showing a stale preview.
+ */
+export function ogCardFor(path: string, parts: (string | number | undefined)[] = []) {
+  const p = path.replace(SITE_URL, '') || '/';
+  const m = /^\/(lessons|grammar|quizzes|blog)\/([^/?#]+)$/.exec(p);
+  const kind = m ? ({ lessons: 'lesson', grammar: 'grammar', quizzes: 'quiz', blog: 'blog' } as const)[m[1] as 'lessons'] : 'page';
+  const slug = m ? m[2] : p === '/' ? 'home' : p.slice(1);
+  return {
+    url: `/og/${kind}/${slug}.jpg?v=${hashParts([CARD_DESIGN, path, ...parts])}`,
+    width: 1200,
+    height: 630,
+  };
+}
+
 interface PageMetaInput {
   /** Title without the brand; the brand is appended when it fits. */
   title: string;
@@ -79,6 +97,8 @@ interface PageMetaInput {
   images?: { url: string; width?: number; height?: number; alt?: string }[];
   robots?: Metadata['robots'];
   article?: { publishedTime?: string; modifiedTime?: string; authors?: string[]; tags?: string[] };
+  /** Extra inputs that change the share card (photo, updated date); bump its ?v=. */
+  cardParts?: (string | number | undefined)[];
 }
 
 export function pageMetadata({
@@ -89,9 +109,12 @@ export function pageMetadata({
   images,
   robots,
   article,
+  cardParts = [],
 }: PageMetaInput): Metadata {
   const full = brandedTitle(title);
-  const ogImages = images && images.length > 0 ? images : [DEFAULT_OG_IMAGE];
+  const ogImages = images && images.length > 0
+    ? images
+    : [{ ...ogCardFor(path, [title, description, ...cardParts]), alt: full }];
   return {
     // absolute: nested layouts with plain-string titles break the root
     // "%s | PolishPal" template, so every page states its final title.
