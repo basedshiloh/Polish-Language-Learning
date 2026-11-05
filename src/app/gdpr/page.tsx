@@ -27,7 +27,7 @@ export default function GdprPage() {
 
             <h1 className="text-4xl md:text-5xl font-bold">GDPR & Cookie Policy</h1>
             <div className="mt-5">
-              <span className="chip bg-paper border-2 border-line text-muted">Last updated: July 17, 2026</span>
+              <span className="chip bg-paper border-2 border-line text-muted">Last updated: November 5, 2026</span>
             </div>
           </div>
         </div>
@@ -52,6 +52,7 @@ export default function GdprPage() {
             <ul className={list}>
               <li><strong className="text-ink">Progress data</strong> — your lesson completion and quiz scores are stored locally in your browser (localStorage). We never transmit this to our servers.</li>
               <li><strong className="text-ink">Comments</strong> — if you post a comment, your display name is stored in our database (Supabase). No email or login is required.</li>
+              <li><strong className="text-ink">Newsletter</strong> — only if you sign up: your email address, where and when you agreed, and your subscription status, kept with Resend. Legal basis: your consent (Art. 6(1)(a)), confirmed by double opt-in. <Link href="/privacy#newsletter" className={link}>Details</Link>.</li>
               <li><strong className="text-ink">Page views</strong> — anonymised visit counts via Umami Analytics (see below).</li>
               <li><strong className="text-ink">Advertising data</strong> — if you consent, Google AdSense may set cookies to show personalised ads on blog pages.</li>
             </ul>
@@ -95,7 +96,7 @@ export default function GdprPage() {
               <li><strong className="text-ink">Right to erasure</strong> — request deletion of your data (e.g. comments).</li>
               <li><strong className="text-ink">Right to rectification</strong> — request correction of inaccurate data.</li>
               <li><strong className="text-ink">Right to object</strong> — object to processing based on legitimate interests.</li>
-              <li><strong className="text-ink">Right to withdraw consent</strong> — change your cookie preferences at any time below.</li>
+              <li><strong className="text-ink">Right to withdraw consent</strong> — change your cookie preferences at any time below, and leave the newsletter with the unsubscribe link in any email.</li>
             </ul>
             <p className="mt-5">To exercise any right, <Link href="/contact" className={link}>contact us</Link>. We will respond within 30 days.</p>
           </section>
@@ -104,6 +105,7 @@ export default function GdprPage() {
             <h2 className={h2}>Data retention</h2>
             <ul className={list}>
               <li>Comments are kept indefinitely unless you request deletion.</li>
+              <li>Newsletter addresses are kept while you are subscribed. After you unsubscribe we keep the address marked &quot;unsubscribed&quot; so we never email you again; ask us and we delete it completely.</li>
               <li>Umami page-view data is retained for 12 months and is fully anonymised.</li>
               <li>Cookie consent preferences are stored in your browser&apos;s localStorage and are not transmitted to us.</li>
             </ul>
@@ -114,6 +116,7 @@ export default function GdprPage() {
             <ul className={list}>
               <li><strong className="text-ink">Supabase</strong> — database and storage (EU region). <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className={link}>Privacy policy</a></li>
               <li><strong className="text-ink">Vercel</strong> — web hosting. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className={link}>Privacy policy</a></li>
+              <li><strong className="text-ink">Resend</strong> — newsletter emails (EU sending region; Resend, Inc. is based in the USA). <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className={link}>Privacy policy</a></li>
               <li><strong className="text-ink">Umami Cloud</strong> — analytics (if consented). <a href="https://umami.is/privacy" target="_blank" rel="noopener noreferrer" className={link}>Privacy policy</a></li>
               <li><strong className="text-ink">Google AdSense</strong> — advertising (if consented). <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className={link}>Privacy policy</a></li>
             </ul>
