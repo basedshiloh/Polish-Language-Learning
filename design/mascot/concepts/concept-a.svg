@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" role="img" aria-label="Bociek waving hello" fill="none" stroke="#1E2132" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+<g id="a-hello-leg-l" data-part="leg-l" data-pivot="179 365">
+<path d="M171 365H187V428H201Q209 428 209 444H159Q159 428 171 428Z" fill="#D91F3B"/>
+</g><g id="a-hello-leg-r" data-part="leg-r" data-pivot="235 366">
+<path d="M227 366H243L238 400 262 423H277Q285 423 285 434H251L219 405Z" fill="#D91F3B"/>
+</g><g id="a-hello-body" data-part="body">
+<path d="M180 257C125 261 117 307 128 347 137 383 173 396 212 392 263 388 284 351 267 309L244 271Z" fill="#FFFFFF"/>
+</g><g id="a-hello-wing-r" data-part="wing-r" data-pivot="245 292">
+<path d="M246 290C284 293 300 329 282 357L265 373C233 357 223 325 246 290Z" fill="#FFFFFF"/><path d="M272 330 289 335 284 354 266 371 249 357Z" fill="#1E2132"/>
+</g><g id="a-hello-wing-l" data-part="wing-l" data-pivot="151 277">
+<path d="M151 291C119 293 94 277 79 252L58 214Q52 201 63 196 72 193 79 207L88 222 77 189Q74 177 84 175 94 174 98 188L109 216 108 193Q109 183 118 184 129 185 128 202L133 233 163 268Q172 282 151 291Z" fill="#FFFFFF"/><path d="M58 214Q52 201 63 196 72 193 79 207L88 222 77 189Q74 177 84 175 94 174 98 188L109 216 108 193Q109 183 118 184 129 185 128 202L130 217 96 243 80 251Z" fill="#1E2132"/>
+</g><g id="a-hello-head" data-part="head" data-pivot="210 274">
+<path d="M179 111 175 93 197 107C230 96 261 117 265 151L264 194C262 220 238 232 229 252L230 281C210 298 181 286 177 268L185 224C156 214 145 191 148 165 150 140 159 122 179 111Z" fill="#FFFFFF"/><g id="a-hello-eye-l" data-part="eye-l">
+<ellipse cx="194" cy="166" rx="7" ry="10" fill="#1E2132" stroke="none"/>
+</g>
+<g id="a-hello-eye-r" data-part="eye-r">
+<ellipse cx="235" cy="166" rx="7" ry="10" fill="#1E2132" stroke="none"/>
+</g><g id="a-hello-beak-top" data-part="beak-top" data-pivot="260 203">
+<path d="M260 179 357 205 260 210Z" fill="#D91F3B"/>
+</g><g id="a-hello-beak-bottom" data-part="beak-bottom" data-pivot="260 210">
+<path d="M260 210 347 207 263 226Z" fill="#D91F3B"/>
+</g>
+</g><g id="a-hello-accessory" data-part="accessory">
+<path d="M178 252Q204 264 230 251L238 272Q207 287 174 274Z" fill="#D91F3B"/><path d="M211 276 238 267 257 299 238 296 231 309Z" fill="#D91F3B"/><path d="M190 259 199 261 195 278 185 276Z" fill="#FFC21A" stroke="none"/><path d="M218 260 226 257 232 274 223 278Z" fill="#FFC21A" stroke="none"/>
+</g>
+</svg>
