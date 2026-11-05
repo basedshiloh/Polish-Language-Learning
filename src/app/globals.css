@@ -131,6 +131,9 @@
 }
 
 @layer components {
+  /* Żubek mascot: inline SVG sized by a width class on the wrapper. */
+  .zubek { display: block; position: relative; aspect-ratio: 400 / 480; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .zubek > svg { display: block; width: 100%; height: auto; overflow: visible; }
   /* ── Buttons: tactile, pressed-in on click ─────────────────────────── */
   .btn {
     --edge: var(--color-line-2);

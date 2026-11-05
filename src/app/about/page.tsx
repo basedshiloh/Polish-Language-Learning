@@ -20,7 +20,7 @@ export default function AboutPage() {
                 The story behind this project and why it exists.
               </p>
             </div>
-            <Zubek pose="hello" priority className="hidden md:block absolute -right-6 top-1/2 -translate-y-1/2 w-40 h-auto" />
+            <Zubek pose="hello" className="hidden md:block absolute -right-6 top-1/2 -translate-y-1/2 w-40 h-auto" />
           </div>
         </div>
       </div>

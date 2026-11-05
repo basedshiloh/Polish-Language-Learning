@@ -81,7 +81,7 @@ export default function GrammarPage() {
               </span>
             </div>
           </div>
-          <Zubek pose="read" priority className="hidden h-44 w-auto shrink-0 md:block lg:h-52" />
+          <Zubek pose="read" className="hidden w-36 shrink-0 md:block lg:w-44" />
         </div>
       </section>
 

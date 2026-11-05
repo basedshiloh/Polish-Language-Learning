@@ -77,7 +77,7 @@ export default function LessonsPage() {
             </div>
           </div>
 
-          <Zubek pose="teach" priority className="hidden md:block w-36 lg:w-44 h-auto shrink-0" />
+          <Zubek pose="teach" className="hidden md:block w-36 lg:w-44 h-auto shrink-0" />
         </div>
       </section>
 

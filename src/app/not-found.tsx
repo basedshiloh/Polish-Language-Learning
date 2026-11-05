@@ -23,7 +23,7 @@ export default function NotFound() {
           <span className="sr-only">404</span>
           <span aria-hidden="true" className="inline-flex items-center justify-center gap-1 sm:gap-2 text-[7rem] sm:text-[9rem] md:text-[10rem] tracking-tight">
             <span className="text-crimson">4</span>
-            <Zubek pose="confused" priority className="w-[6.5rem] sm:w-[8.5rem] md:w-[9.5rem] h-auto" />
+            <Zubek pose="confused" className="w-[6.5rem] sm:w-[8.5rem] md:w-[9.5rem] h-auto" />
             <span className="text-crimson">4</span>
           </span>
         </p>

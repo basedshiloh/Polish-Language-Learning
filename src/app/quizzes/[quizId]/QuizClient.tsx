@@ -104,7 +104,7 @@ export default function QuizClient({ quiz }: { quiz: Quiz }) {
             </Link>
 
             <div className="tile p-7 sm:p-10 text-center pp-pop">
-              <Zubek pose="think" priority className="w-28 sm:w-32 h-auto mx-auto mb-4" />
+              <Zubek pose="think" className="w-28 sm:w-32 h-auto mx-auto mb-4" />
               <h1 className="text-3xl md:text-4xl font-semibold mb-3">{quiz.title}</h1>
               <p className="text-muted text-lg mb-6 max-w-md mx-auto">{quiz.description}</p>
 

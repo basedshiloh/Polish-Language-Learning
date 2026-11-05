@@ -46,7 +46,6 @@ export default function QuizzesPage() {
         <div className="container-pp relative py-12 md:py-16">
           <Zubek
             pose="cards"
-            priority
             className="hidden md:block absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 w-40 lg:w-48 h-auto"
           />
           <div className="max-w-2xl md:pr-56">
