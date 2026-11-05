@@ -23,6 +23,13 @@ export function organizationSchema() {
       width: 512,
       height: 512,
     },
+    email: 'support@polishpal.pl',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      email: 'support@polishpal.pl',
+      availableLanguage: ['English', 'Polish'],
+    },
     sameAs: ['https://www.polishpal.pl'],
   };
 }
