@@ -2,7 +2,6 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { ImageResponse } from 'next/og';
-import sharp from 'sharp';
 import { ZUBEK_SVG, type ZubekPose } from '@/components/mascot/zubek-svgs';
 import {
   STATIC_CARD_PARAMS, blogCard, grammarCard, lessonCard, pageCard, quizCard,
@@ -73,6 +72,16 @@ const LOGO = svgUri(
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#D91F3B"><path d="M256 88 308 162 376 120V216C376 282 328 320 256 320S136 282 136 216V120L204 162Z"/><path d="M232 304H280V360C310 326 348 326 376 330 370 388 324 424 256 424S142 388 136 330C164 326 202 326 232 360Z"/></svg>',
 );
 
+/** sharp, loaded lazily so a missing native binary degrades the card instead of a 500. */
+async function loadSharp() {
+  try {
+    return (await import('sharp')).default;
+  } catch (err) {
+    console.error('[og] sharp unavailable, serving PNG card', err);
+    return null;
+  }
+}
+
 /** Blog photo as a JPEG data URI: read from public/ at build, fetched from the site for newer posts. */
 async function photoUri(src: string): Promise<string | null> {
   try {
@@ -88,6 +97,8 @@ async function photoUri(src: string): Promise<string | null> {
       if (!res.ok) return null;
       buf = Buffer.from(await res.arrayBuffer());
     }
+    const sharp = await loadSharp();
+    if (!sharp) return null;
     const jpg = await sharp(buf).resize(760, 860, { fit: 'cover', position: 'attention' }).jpeg({ quality: 82 }).toBuffer();
     return `data:image/jpeg;base64,${jpg.toString('base64')}`;
   } catch {
@@ -217,10 +228,13 @@ export async function GET(_req: Request, { params }: { params: Promise<{ kind: s
     { width: W, height: H, fonts: await fonts() },
   );
 
-  const jpg = await sharp(Buffer.from(await png.arrayBuffer())).jpeg({ quality: 82, mozjpeg: true }).toBuffer();
-  return new Response(new Uint8Array(jpg), {
+  const pngBuf = Buffer.from(await png.arrayBuffer());
+  const sharp = await loadSharp();
+  // JPEG is ~5x smaller; if sharp is missing, a PNG card still beats a broken preview.
+  const body = sharp ? await sharp(pngBuf).jpeg({ quality: 82, mozjpeg: true }).toBuffer() : pngBuf;
+  return new Response(new Uint8Array(body), {
     headers: {
-      'Content-Type': 'image/jpeg',
+      'Content-Type': sharp ? 'image/jpeg' : 'image/png',
       'Cache-Control': 'public, max-age=86400, s-maxage=31536000, stale-while-revalidate=86400',
     },
   });
