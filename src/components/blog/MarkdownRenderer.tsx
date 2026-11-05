@@ -8,6 +8,13 @@ import rehypeRaw from 'rehype-raw';
 import { BookOpen, Table2, ArrowRight } from 'lucide-react';
 import { slugify } from '@/lib/utils';
 import { isAmazonUrl, withAmazonTag } from '@/lib/affiliate';
+import AmazonCard from '@/components/blog/AmazonCard';
+
+type HastNode = { type: string; value?: string; children?: HastNode[] };
+function hastText(node: HastNode): string {
+  if (node.type === 'text') return node.value ?? '';
+  return (node.children ?? []).map(hastText).join('');
+}
 
 function InternalCard({ href, children }: { href: string; children: React.ReactNode }) {
   const isLesson = href.startsWith('/lessons/');
@@ -71,6 +78,10 @@ export default function MarkdownRenderer({ content }: { content: string }) {
             const href = child[0].properties?.href as string;
             if (href?.startsWith('/lessons/') || href?.startsWith('/grammar/')) {
               return <>{children}</>;
+            }
+            // A paragraph that is only an Amazon link becomes a product card.
+            if (isAmazonUrl(href)) {
+              return <AmazonCard href={href} text={hastText(child[0])} />;
             }
           }
           // Images render as <figure>, which is invalid inside <p> (hydration error) — use a div.
