@@ -1,0 +1,24 @@
+{
+  "renderer": "Sharp SVG rasterizer; this is not a browser screenshot",
+  "sizeBackgroundChecks": 144,
+  "stateAndMotionBoundChecks": 132,
+  "nominalSizes": [
+    48,
+    96,
+    160,
+    320
+  ],
+  "backgrounds": [
+    "#FFFFFF",
+    "#F6F7FA",
+    "#D91F3B"
+  ],
+  "outlineWidth": 8,
+  "groundLine": 448,
+  "browserRuntimeVerified": false,
+  "pending": [
+    "WAAPI runtime and CSS pivot rendering",
+    "desktop/mobile HTML layout and screenshots",
+    "Safari integration and product accessibility controls"
+  ]
+}
