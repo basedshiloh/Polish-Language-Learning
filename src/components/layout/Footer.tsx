@@ -56,6 +56,8 @@ export default function Footer() {
               {LEARN_LINKS.map(({ label, href }) => (
                 <li key={href}><Link href={href} className={linkCls}>{label}</Link></li>
               ))}
+              {/* Reopens the "How to get started" tour (components/shared/Onboarding.tsx). */}
+              <li><a href="#tour" data-onb-open className={linkCls}>How to get started</a></li>
             </ul>
           </div>
 

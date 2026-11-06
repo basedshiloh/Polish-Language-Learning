@@ -131,6 +131,17 @@
 }
 
 @layer components {
+  /* "How to get started" tour (components/shared/Onboarding.tsx) */
+  .onb {
+    margin: auto; padding: 0; width: min(560px, calc(100vw - 24px)); max-height: calc(100dvh - 24px);
+    overflow-y: auto; border: 2px solid var(--color-line); border-bottom-width: 5px; border-radius: 28px;
+    background: var(--color-paper); color: var(--color-ink-2);
+    box-shadow: 0 30px 80px -30px rgba(30, 33, 50, 0.55);
+  }
+  .onb::backdrop { background: rgba(30, 33, 50, 0.55); backdrop-filter: blur(2px); }
+  .onb-kicker { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-crimson-ink); }
+  .onb-title { margin-top: 0.35rem; font-family: var(--font-display); font-size: 1.75rem; line-height: 1.15; font-weight: 600; color: var(--color-ink); outline: none; }
+  .onb-lede { margin: 0.6rem auto 0; max-width: 26rem; font-size: 1.0625rem; line-height: 1.55; }
   /* Żubek mascot: inline SVG sized by a width class on the wrapper. */
   .zubek { display: block; position: relative; aspect-ratio: 400 / 480; cursor: pointer; -webkit-tap-highlight-color: transparent; }
   .zubek > svg { display: block; width: 100%; height: auto; overflow: visible; }
@@ -414,3 +425,6 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* No page scroll behind the open tour. */
+html.onb-open { overflow: hidden; }

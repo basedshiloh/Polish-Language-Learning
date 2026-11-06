@@ -52,8 +52,8 @@ export default function CookiePolicyPage() {
               </span>
               <p className="text-emerald-ink font-semibold">
                 PolishPal does not use cookies for tracking, advertising, or analytics, and we don&apos;t set any third-party cookies.
-                The only cookie we use is a strictly-necessary login cookie for the site administrator — regular visitors never
-                receive it. Because we set no tracking or marketing cookies, there&apos;s nothing for visitors to consent to.
+                Visitors only get one small cookie that remembers you have seen the welcome tour, plus a login cookie the site
+                administrator uses. Neither tracks you.
               </p>
             </div>
           </section>
@@ -101,10 +101,11 @@ export default function CookiePolicyPage() {
           </section>
 
           <section>
-            <h2 className={h2}>The one cookie we do use</h2>
+            <h2 className={h2}>The cookies we do use</h2>
             <p className="mb-5">
-              PolishPal has a private content-management area used only by the site administrator. When the administrator logs in,
-              we set a single <strong className="text-ink">strictly-necessary</strong> cookie to keep them signed in:
+              We set two small first-party cookies. One remembers that you have seen the &ldquo;How to get started&rdquo; tour, so it
+              waits 3 days before showing again. The other is a <strong className="text-ink">strictly-necessary</strong> login cookie
+              for the site administrator&apos;s private content-management area:
             </p>
             <div className="overflow-x-auto rounded-2xl border-2 border-line">
               <table className="w-full text-[15px] border-collapse">
@@ -115,7 +116,14 @@ export default function CookiePolicyPage() {
                     <th className={th}>Who gets it</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y-2 divide-line">
+                  <tr>
+                    <td className={td}>
+                      <code className="font-mono text-sm font-bold text-ink bg-canvas rounded-lg px-2 py-1">pp_welcome_tour</code>
+                    </td>
+                    <td className={td}>Remembers that you closed the &ldquo;How to get started&rdquo; tour (it holds only the date). Expires after 3 days, then the tour may show once more.</td>
+                    <td className={td}><span className="chip bg-emerald-soft text-emerald-ink">Visitors who close the tour</span></td>
+                  </tr>
                   <tr>
                     <td className={td}>
                       <code className="font-mono text-sm font-bold text-ink bg-canvas rounded-lg px-2 py-1">cms_session</code>
@@ -127,7 +135,7 @@ export default function CookiePolicyPage() {
               </table>
             </div>
             <p className="mt-5 text-base text-muted">
-              This cookie is <strong className="text-ink-2">httpOnly</strong> (not readable by JavaScript), <strong className="text-ink-2">secure</strong> (HTTPS only), and
+              The tour cookie is read only by your browser, holds no personal data and is not used for tracking. The login cookie is <strong className="text-ink-2">httpOnly</strong> (not readable by JavaScript), <strong className="text-ink-2">secure</strong> (HTTPS only), and
               <strong className="text-ink-2"> SameSite=Lax</strong>. It contains no personal data and is never set for regular visitors browsing lessons,
               grammar, quizzes, or the blog. It expires after 30 days or when the admin logs out.
             </p>
