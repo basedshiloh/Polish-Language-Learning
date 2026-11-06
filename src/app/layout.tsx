@@ -5,6 +5,7 @@ import "./globals.css";
 import LayoutShell from "@/components/layout/LayoutShell";
 import JsonLd, { websiteSchema, courseSchema, organizationSchema } from "@/components/seo/JsonLd";
 import CookieConsent from "@/components/shared/CookieConsent";
+import Onboarding from "@/components/shared/Onboarding";
 import { RSS_ALTERNATE } from "@/lib/seo";
 
 const fredoka = Fredoka({
@@ -116,6 +117,7 @@ export default function RootLayout({
         <div hidden aria-hidden="true" dangerouslySetInnerHTML={{ __html: DIRECTION_CONTRACT }} />
         <LayoutShell>{children}</LayoutShell>
         <CookieConsent />
+        <Onboarding />
       </body>
     </html>
   );
