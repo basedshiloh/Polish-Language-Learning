@@ -9,6 +9,7 @@ import BlogCard from '@/components/blog/BlogCard';
 import BlogPagination from '@/components/blog/BlogPagination';
 import CultureSlider from '@/components/blog/CultureSlider';
 import AdSlot from '@/components/shared/AdSlot';
+import Zubek from '@/components/shared/Zubek';
 
 export const revalidate = 3600;
 
@@ -319,13 +320,16 @@ export default async function BlogPage({ searchParams }: Props) {
       <div className="w-full max-w-6xl min-w-0 px-4 sm:px-6 lg:px-8">
 
         {/* ── Masthead ── */}
-        <header className="mb-8 md:mb-10">
-          <h1 className="font-display text-[2.8rem] leading-none sm:text-6xl lg:text-7xl font-semibold tracking-[-0.02em] text-ink">
-            The PolishPal <span className="text-crimson">Blog</span>
-          </h1>
-          <p className="mt-4 text-lg md:text-xl text-muted max-w-2xl">
-            Polish culture, words and grammar, explained by people who love the language.
-          </p>
+        <header className="mb-8 md:mb-10 flex items-end justify-between gap-4">
+          <div className="min-w-0">
+            <h1 className="font-display text-[2.8rem] leading-none sm:text-6xl lg:text-7xl font-semibold tracking-[-0.02em] text-ink">
+              The PolishPal <span className="text-crimson">Blog</span>
+            </h1>
+            <p className="mt-4 text-lg md:text-xl text-muted max-w-2xl">
+              Polish culture, words and grammar, explained by people who love the language.
+            </p>
+          </div>
+          <Zubek pose="read" className="w-20 sm:w-24 md:w-32 shrink-0" />
         </header>
 
         <div className="mb-10">

@@ -62,7 +62,10 @@ export default function GrammarPage() {
       <section className="border-b-2 border-line bg-canvas">
         <div className="container-pp flex items-center gap-10 py-12 md:py-16">
           <div className="min-w-0 flex-1">
-            <h1 className="text-4xl font-bold md:text-5xl">Grammar Reference</h1>
+            <div className="flex items-end justify-between gap-3">
+              <h1 className="text-4xl font-bold md:text-5xl">Grammar Reference</h1>
+              <Zubek pose="read" className="w-[72px] shrink-0 -mb-1 md:hidden" />
+            </div>
             <p className="mt-3 max-w-2xl text-lg text-muted">
               In-depth explanations with tables for the tricky parts — gender, cases, conjugations, and more.
             </p>

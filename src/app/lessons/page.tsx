@@ -44,7 +44,10 @@ export default function LessonsPage() {
       <section className="bg-canvas border-b-2 border-line">
         <div className="container-pp py-12 md:py-16 flex items-center gap-10">
           <div className="flex-1 min-w-0">
-            <h1 className="text-4xl md:text-5xl font-bold">Lessons</h1>
+            <div className="flex items-end justify-between gap-3">
+              <h1 className="text-4xl md:text-5xl font-bold">Lessons</h1>
+              <Zubek pose="teach" className="w-[72px] shrink-0 -mb-1 md:hidden" />
+            </div>
             <p className="text-lg text-muted mt-3 max-w-xl">Learn Polish step by step, from greetings to telling time.</p>
 
             <div className="flex flex-wrap gap-2 mt-6">

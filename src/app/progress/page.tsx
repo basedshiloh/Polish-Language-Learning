@@ -27,7 +27,10 @@ function Header({ hasProgress = false }: { hasProgress?: boolean }) {
           className="hidden md:block absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 w-36 lg:w-44 h-auto"
         />
         <div className="max-w-2xl md:pr-52">
-          <h1 className="text-4xl md:text-5xl font-semibold">Your Progress</h1>
+          <div className="flex items-end justify-between gap-3">
+              <h1 className="text-4xl md:text-5xl font-semibold">Your Progress</h1>
+              <Zubek pose={hasProgress ? 'trophy' : 'hello'} className="w-[72px] shrink-0 -mb-1 md:hidden" />
+            </div>
           <p className="text-muted text-lg mt-3">Track your Polish learning journey.</p>
         </div>
       </div>

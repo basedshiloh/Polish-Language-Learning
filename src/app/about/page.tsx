@@ -13,9 +13,12 @@ export default function AboutPage() {
         <div className="container-pp py-12 md:py-20">
           <div className="max-w-3xl mx-auto relative">
             <div className="md:pr-44">
-              <h1 className="text-4xl md:text-5xl font-bold">
-                About PolishPal
-              </h1>
+              <div className="flex items-end justify-between gap-3">
+                <h1 className="text-4xl md:text-5xl font-bold">
+                  About PolishPal
+                </h1>
+                <Zubek pose="hello" className="w-[72px] shrink-0 -mb-1 md:hidden" />
+              </div>
               <p className="text-muted text-lg mt-4">
                 The story behind this project and why it exists.
               </p>

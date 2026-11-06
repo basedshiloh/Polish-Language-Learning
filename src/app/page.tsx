@@ -131,6 +131,7 @@ export default async function HomePage() {
               <div className="relative w-full max-w-[400px] mt-10 lg:mt-0">
                 <Wycinanka className="absolute -top-[120px] -right-[110px] w-[300px] sm:w-[340px] rotate-[14deg] pointer-events-none" withStem={false} />
                 <Zubek pose="hello" className="absolute -bottom-6 -left-[118px] w-[132px] h-auto z-10 hidden sm:block" />
+                <Zubek pose="hello" className="absolute -top-[86px] right-3 w-[76px] z-10 sm:hidden" />
                 <span className="pp-float absolute -top-6 -left-3 sm:-left-8 z-10 chip text-sm bg-sun text-ink shadow-[0_3px_0_var(--color-sun-edge)] [--r:-6deg]">
                   Cześć!
                 </span>
