@@ -13,6 +13,7 @@ import TableOfContents from '@/components/layout/TableOfContents';
 import StarRating from '@/components/shared/StarRating';
 import ShareBox from '@/components/shared/ShareBox';
 import CommentSection from '@/components/shared/CommentSection';
+import Zubek from '@/components/shared/Zubek';
 
 // Which lessons teach each grammar topic (checked against the lesson content).
 // znac-wiedziec-umiec has no dedicated lesson yet, so it shows no block.
@@ -42,9 +43,12 @@ function PracticeBlock({ topicId }: { topicId: string }) {
 
   return (
     <section aria-labelledby="practise-topic" className="no-print mt-12">
-      <h2 id="practise-topic" className="mb-4 text-2xl font-semibold leading-tight md:text-[1.7rem]">
-        Practise this topic
-      </h2>
+      <div className="mb-4 flex items-end gap-3">
+        <Zubek pose="teach" className="w-14 shrink-0 sm:w-16" />
+        <h2 id="practise-topic" className="text-2xl font-semibold leading-tight md:text-[1.7rem]">
+          Practise this topic
+        </h2>
+      </div>
       <ul className="space-y-3">
         {items.map(({ lesson, quiz }) => (
           <li key={lesson.id} className="tile p-5">

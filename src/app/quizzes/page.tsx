@@ -49,7 +49,10 @@ export default function QuizzesPage() {
             className="hidden md:block absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 w-40 lg:w-48 h-auto"
           />
           <div className="max-w-2xl md:pr-56">
-            <h1 className="text-4xl md:text-5xl font-semibold">Quizzes</h1>
+            <div className="flex items-end justify-between gap-3">
+              <h1 className="text-4xl md:text-5xl font-semibold">Quizzes</h1>
+              <Zubek pose="cards" className="w-[72px] shrink-0 -mb-1 md:hidden" />
+            </div>
             <p className="text-muted text-lg mt-3">Test your knowledge after each lesson.</p>
 
             <div className="flex flex-wrap gap-2 mt-6">

@@ -18,6 +18,7 @@ import AdSlot from '@/components/shared/AdSlot';
 import Wycinanka from '@/components/shared/Wycinanka';
 import NewsletterSignup from '@/components/shared/NewsletterSignup';
 import { lessons } from '@/data/lessons';
+import Zubek from '@/components/shared/Zubek';
 
 export const revalidate = 3600;
 
@@ -142,8 +143,9 @@ export default async function BlogPostPage({ params }: Props) {
           {/* ── Course funnel ── */}
           <aside className="no-print relative overflow-hidden mt-12 rounded-[28px] bg-crimson text-white px-6 py-8 md:px-9 md:py-10">
             <Wycinanka className="absolute -right-10 -bottom-16 w-48 md:w-56 opacity-95 pointer-events-none" />
+            <Zubek pose="hello" className="absolute right-4 top-5 w-16 sm:w-20 md:top-auto md:bottom-0 md:right-10 md:w-32 z-10" />
             <div className="relative max-w-md">
-              <p className="font-display text-2xl md:text-3xl font-semibold leading-tight text-white">
+              <p className="font-display text-2xl md:text-3xl font-semibold leading-tight text-white pr-16 sm:pr-20 md:pr-0">
                 Want to actually speak Polish?
               </p>
               <p className="mt-3 text-[16px] font-semibold text-white leading-relaxed">
