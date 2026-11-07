@@ -14,6 +14,7 @@ import StarRating from '@/components/shared/StarRating';
 import ShareBox from '@/components/shared/ShareBox';
 import CommentSection from '@/components/shared/CommentSection';
 import Zubek from '@/components/shared/Zubek';
+import SpeechSpeed from '@/components/shared/SpeechSpeed';
 
 // Which lessons teach each grammar topic (checked against the lesson content).
 // znac-wiedziec-umiec has no dedicated lesson yet, so it shows no block.
@@ -123,6 +124,7 @@ export default function GrammarTopicPage({ params }: { params: Promise<{ topicId
                 <span className={`chip ${cat.bg} ${cat.text}`}>{cat.label}</span>
                 <StarRating itemId={topic.id} itemType="grammar" />
               </div>
+              <SpeechSpeed className="mt-4" />
             </div>
           </div>
         </div>

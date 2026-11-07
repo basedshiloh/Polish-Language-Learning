@@ -2,6 +2,7 @@
 
 import { cueZubek } from '@/components/mascot/zubek-bus';
 import voiceManifest from '@/data/voice-manifest.json';
+import { currentSpeechRate } from '@/lib/speech-rate';
 
 // Polish pronunciation for the whole site (SpeakButton, LessonBuddy, the tour).
 // 1. Recorded audio first: every lesson/grammar/home line was pre-recorded with
@@ -86,7 +87,8 @@ function speakWithBrowser(cleaned: string, { onStart, onEnd }: SpeakOptions): bo
   }
   const utterance = new SpeechSynthesisUtterance(cleaned);
   utterance.lang = 'pl-PL';
-  utterance.rate = 0.85;
+  // The browser voice runs a little slow by default (0.85); the learner's speed scales it.
+  utterance.rate = Math.min(2, Math.max(0.3, 0.85 * currentSpeechRate()));
   const voice = findPolishVoice();
   if (voice) utterance.voice = voice;
 
@@ -114,6 +116,9 @@ export function speakPolish(text: string, opts: SpeakOptions = {}): boolean {
   if (!RECORDED.has(key) || typeof Audio === 'undefined') return speakWithBrowser(cleaned, opts);
 
   const audio = new Audio(`/audio/pl/${key}.mp3`);
+  // Learner's speed (Audio speed control); pitch stays natural.
+  audio.preservesPitch = true;
+  audio.playbackRate = currentSpeechRate();
   player = audio;
   let started = false;
   let finished = false;

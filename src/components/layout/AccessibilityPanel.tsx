@@ -19,6 +19,7 @@ import {
   Contrast,
 } from 'lucide-react';
 import { useAccessibility } from '@/hooks/useAccessibility';
+import SpeechSpeed from '@/components/shared/SpeechSpeed';
 
 function StepControl({
   label,
@@ -251,6 +252,14 @@ export default function AccessibilityPanel() {
                   active={settings.hideImages}
                   onChange={(v) => update({ hideImages: v })}
                 />
+              </div>
+            </div>
+
+            {/* Polish audio speed (shared with the lesson and grammar pages) */}
+            <div>
+              <h3 className="px-1 mb-2 leading-none"><span className="font-sans text-xs font-extrabold text-muted uppercase tracking-[0.1em]">Polish Audio</span></h3>
+              <div className="rounded-2xl bg-canvas px-3 py-3">
+                <SpeechSpeed />
               </div>
             </div>
 
