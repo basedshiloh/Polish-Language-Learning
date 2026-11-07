@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import CookieSettingsButton from '@/components/shared/CookieSettingsButton';
+import { FACEBOOK_URL, FacebookIcon } from '@/lib/social';
 import { blogCategoryStyles } from '@/data/blog';
 import type { BlogCategory } from '@/lib/types';
 import { AMAZON_DISCLOSURE } from '@/lib/affiliate';
@@ -110,6 +111,15 @@ export default function Footer() {
               All content CC0 1.0
             </a>
             <CookieSettingsButton />
+            <a
+              href={FACEBOOK_URL}
+              target="_blank"
+              rel="noopener noreferrer me"
+              className="inline-flex items-center gap-1.5 font-semibold hover:text-white transition-colors"
+            >
+              <FacebookIcon className="w-4 h-4" />
+              Follow us on Facebook
+            </a>
             <a
               href="https://github.com/basedshiloh/Polish-Language-Learning"
               target="_blank"

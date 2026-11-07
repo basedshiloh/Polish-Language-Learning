@@ -1,3 +1,4 @@
+import { SOCIAL_PROFILES } from '@/lib/social';
 interface JsonLdProps {
   data: Record<string, unknown>;
 }
@@ -30,7 +31,7 @@ export function organizationSchema() {
       email: 'support@polishpal.pl',
       availableLanguage: ['English', 'Polish'],
     },
-    sameAs: ['https://www.polishpal.pl'],
+    sameAs: ['https://www.polishpal.pl', ...SOCIAL_PROFILES],
   };
 }
 

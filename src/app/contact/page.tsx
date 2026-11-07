@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { ArrowLeft, ExternalLink, MessageSquare, Bug, Lightbulb, BookOpen, Megaphone, Mail } from 'lucide-react';
+import { FACEBOOK_URL, FacebookIcon } from '@/lib/social';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Contact Us: Report a Mistake or Suggest a Lesson',
@@ -20,6 +21,14 @@ const channels = [
     href: `mailto:${SUPPORT_EMAIL}`,
     label: SUPPORT_EMAIL,
     color: 'red',
+  },
+  {
+    icon: FacebookIcon,
+    title: 'Follow Us on Facebook',
+    description: 'Follow PolishPal for new lessons and blog articles, or send us a message there.',
+    href: FACEBOOK_URL,
+    label: 'facebook.com/learnpolishpal',
+    color: 'blue',
   },
   {
     icon: Bug,
