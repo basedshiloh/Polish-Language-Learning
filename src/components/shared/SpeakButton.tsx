@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { Volume2 } from 'lucide-react';
-import { findPolishVoice, speakPolish } from '@/lib/speech';
+import { canSpeak, findPolishVoice, hasRecording, speakPolish, speechSupported } from '@/lib/speech';
 
 interface SpeakButtonProps {
   text: string;
@@ -14,13 +14,15 @@ export default function SpeakButton({ text, size = 'sm' }: SpeakButtonProps) {
   const [supported, setSupported] = useState(true);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !window.speechSynthesis) {
+    // Recorded lines play in every browser; others need the browser's speech engine.
+    if (!canSpeak(text)) {
       setSupported(false);
       return;
     }
+    if (hasRecording(text) || !speechSupported()) return;
     findPolishVoice();
     speechSynthesis.addEventListener('voiceschanged', () => findPolishVoice());
-  }, []);
+  }, [text]);
 
   const speak = useCallback(() => {
     if (!supported || speaking) return;

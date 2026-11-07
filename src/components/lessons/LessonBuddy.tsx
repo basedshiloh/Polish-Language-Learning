@@ -3,7 +3,7 @@
 import { useMemo, useState, useSyncExternalStore } from 'react';
 import { Volume2, ArrowRight, Shuffle } from 'lucide-react';
 import Zubek from '@/components/shared/Zubek';
-import { speakPolish, speechSupported } from '@/lib/speech';
+import { hasRecording, speakPolish, speechSupported } from '@/lib/speech';
 import type { Lesson } from '@/lib/types';
 
 // "Practise with Żubek": tap Żubek (or the button) and he says the next word
@@ -37,7 +37,7 @@ export default function LessonBuddy({ lesson }: { lesson: Lesson }) {
   const words = useMemo(() => lessonWords(lesson), [lesson]);
   const [index, setIndex] = useState(-1);
   // Server renders the "can speak" copy; the client corrects it after hydration.
-  const canSpeak = useSyncExternalStore(noop, speechSupported, () => true);
+  const canSpeak = useSyncExternalStore(noop, () => speechSupported() || words.some((w) => hasRecording(w.polish)), () => true);
 
   if (words.length === 0) return null;
   const word = index >= 0 ? words[index] : undefined;

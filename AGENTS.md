@@ -21,3 +21,16 @@ not the legacy markdown files) and to get images to actually render, read
 rely on `/api/cms/upload` for post images** — its output has rendered as corrupt/broken in
 browsers. Convert images to WebP locally (Pillow), validate RIFF integrity, self-host them
 in `public/blog/` referenced as `/blog/<slug>-*.webp`, and `git push` to `main` to deploy.
+
+# Polish audio (ElevenLabs recordings)
+
+Every Polish line with a speaker button (lessons, grammar, home) plays a pre-recorded
+MP3 from `public/audio/pl/` (voice: Joanna, ElevenLabs `eleven_multilingual_v2`), listed
+in `src/data/voice-manifest.json`; `speakPolish()` in `src/lib/speech.ts` falls back to the
+browser voice for anything not recorded (lone sounds like ą/sz are skipped on purpose).
+After adding or changing `polish:` lines in `src/data/lessons.ts` / `src/data/grammar.ts`,
+record only the new lines and commit the MP3s + manifest:
+
+```bash
+ELEVENLABS_API_KEY=... python3 scripts/voice/generate.py --verify
+```
