@@ -21,6 +21,7 @@ import CommentSection from '@/components/shared/CommentSection';
 import Zubek from '@/components/shared/Zubek';
 import LessonBuddy from '@/components/lessons/LessonBuddy';
 import type { ContentBlockType } from '@/lib/types';
+import SpeechSpeed from '@/components/shared/SpeechSpeed';
 
 const blockStyle: Record<ContentBlockType, { icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; tone: string }> = {
   vocabulary: { icon: BookOpen, tone: 'bg-crimson-soft text-crimson-ink' },
@@ -83,6 +84,8 @@ export default function LessonPage({ params }: { params: Promise<{ lessonId: str
             <div className="mt-4">
               <StarRating itemId={lesson.id} itemType="lesson" />
             </div>
+            {/* One setting for every speaker button on the page (and site-wide). */}
+            <SpeechSpeed className="mt-4" />
           </header>
 
           <LessonBuddy lesson={lesson} />
