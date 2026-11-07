@@ -64,6 +64,11 @@ export default function EditorialPage() {
                 <strong className="text-ink">Native speaker review</strong> — A native Polish speaker reviews all content for naturalness,
                 accuracy, and cultural appropriateness.
               </li>
+              <li>
+                <strong className="text-ink">AI voice recordings</strong>: the audio you hear on the speaker buttons is an AI voice
+                (ElevenLabs, Polish voice &ldquo;Joanna&rdquo;), generated from our lesson text and checked automatically with Polish
+                speech-to-text. Single letters and sounds, such as ą or sz, use your browser&apos;s own voice instead.
+              </li>
             </ul>
           </section>
 

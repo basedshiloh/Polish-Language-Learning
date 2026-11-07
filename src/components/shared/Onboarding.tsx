@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { X, Volume2, ArrowRight, Check, BookOpen } from 'lucide-react';
 import Zubek, { type ZubekPose } from '@/components/shared/Zubek';
 import { cueZubek } from '@/components/mascot/zubek-bus';
-import { speakPolish, speechSupported } from '@/lib/speech';
+import { canSpeak as canSay, speakPolish } from '@/lib/speech';
 import { STORAGE_KEY } from '@/lib/constants';
 import { lessons } from '@/data/lessons';
 import { quizzes } from '@/data/quizzes';
@@ -71,7 +71,7 @@ export default function Onboarding() {
     setMounted(true);
     setStep(0);
     setAnswer(null);
-    setCanSpeak(speechSupported());
+    setCanSpeak(canSay(firstWord.polish));
   }, []);
 
   // Show the dialog once it is in the DOM, with a little GSAP pop.
